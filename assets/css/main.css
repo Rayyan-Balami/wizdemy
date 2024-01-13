@@ -1,0 +1,13 @@
+/* ----- Main starts here ----- */
+
+@media (width >= 1024px) {
+  main {
+    padding-left: 16rem /* 256px */;
+  }
+}
+
+main {
+  transition: var(--transition)
+}
+
+/* ----- Main ends here ----- */

@@ -1,0 +1,248 @@
+@import url("variables&global.css");
+@import url("sideNav.css");
+@import url("main.css");
+@import url("header.css");
+@import url("titleLabel.css");
+@import url("footer.css");
+
+
+.form-section{
+  padding: 1rem/* 16px */;
+  margin: 0 auto;
+  max-width: 60rem/* 960px */;
+}
+
+.form-section > div{
+  padding-bottom: 3rem/* 24px */;
+}
+
+.form-section > div:not(:first-child){
+  padding-top: 3rem/* 24px */;
+  border-top: var(--border);
+}
+@media (width >= 640px) {
+  .form-section{
+    padding: 1.5rem/* 24px */;
+  }
+}
+
+.form-section svg{
+  width: 1.5rem/* 24px */;
+  height: 1.5rem/* 24px */;
+}
+
+.form-section .form-heading{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem/* 8px */;
+  font-size: 1.25rem/* 20px */;
+  line-height: 1.75rem/* 28px */;
+  font-weight: 600;
+}
+
+.form-section .form-info{
+  margin-top: 0.25rem/* 8px */;
+  color: rgb(71 85 105);
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+}
+
+
+form {
+  margin-top: 2.5rem/* 40px */;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 1.5rem/* 24px */;
+  row-gap: 2rem/* 32px */;
+}
+@media (width >= 640px) {
+  form {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+form label{
+  display: block;
+  margin-bottom: 0.5rem/* 8px */;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  font-weight: 600;
+}
+
+form input,
+form textarea,
+form select {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.25rem/* 12px 20px */;
+  margin-top: 0.5rem/* 8px */;
+  background-color: var(--background-color);
+  border: 1px solid rgb(209 213 219);
+  border-radius: var(--border-radius);
+}
+
+form select {
+  appearance: none;
+}
+
+form input[type="radio"],
+form input[type="checkbox"] {
+  width: 1rem/* 16px */;
+  height: 1rem/* 16px */;
+  margin: 0;
+  margin-right: 0.5rem/* 8px */;
+  margin-bottom: 0.5rem/* 8px */;
+}
+
+form > .responding-to {
+  display: flex;
+}
+
+form > .responding-to > div {
+  background-color: rgb(17 24 39);
+  color: white;
+  padding: 0.75rem 1.25rem/* 12px 20px */;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+form > .responding-to > p {
+  background-color: rgb(37 99 235);
+  color: white;
+  padding: 0.75rem 1.25rem/* 12px 20px */;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+
+
+@media (width >= 640px) {
+  .title , .description, .file-thumbnail, .file-document, .responding-to, .bio, .enrolled-course, .school, .email, .privateAccount{
+    grid-column: 1 / -1;
+  }  
+  .document-type, .format, .education-level, .semester, .user-type{
+    grid-column: span 2 / span 2;
+  }
+  .subject, .class{
+    grid-column: span 4 / span 4;
+  }
+  .class, .author, .username, .name, .gender, .oldPassword, .newPassword, .confirmPassword{
+    grid-column: span 3 / span 3;
+  }
+}
+
+
+.description > p,
+.bio > p{
+  margin-top: 0.5rem/* 8px */;
+  color: rgb(71 85 105);
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+}
+
+.document-type, .format, .education-level, .semester, .user-type   {
+  position: relative;
+}
+
+.caret-up-down{
+  pointer-events: none;
+  position: absolute;
+  right: 1.25rem/* 20px */;
+  bottom: 25%;
+  transform: translateY(25%);
+  width: 1rem/* 16px */;
+  height: 1rem/* 16px */;
+}
+
+.file-thumbnail > label , .file-document > label{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem/* 16px */;
+  margin-top: 1rem/* 16px */;
+  padding: 1rem/* 16px */;
+  border : dashed 2px rgb(156 163 175);
+  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.file-thumbnail > label > svg , .file-document > label > svg{
+  width: 3rem/* 48px */;
+  height: 3rem/* 48px */;
+}
+
+.file-thumbnail > input , .file-document > input {
+  display: none;
+}
+
+.file-thumbnail > label > p , .file-document > label > p {
+  font-size: 0.75rem/* 12px */;
+  line-height: 1rem/* 16px */;
+  color: rgb(75 85 99);
+  font-weight: 400;
+}
+.file-document > p{
+  margin-top: 0.5rem/* 8px */;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  color: rgb(75 85 99);
+}
+
+.file-thumbnail > label:hover , .file-document > label:hover{
+  border : dashed 2px rgb(37 99 235);
+  color: rgb(37 99 235);
+}
+
+.file-thumbnail > label:hover > p , .file-document > label:hover > p{
+  color: rgb(37 99 235);
+}
+
+button {
+  grid-column-start: 1;
+  padding: 0.75rem 1.25rem/* 12px 20px */;
+  background-color: rgb(17 24 39);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+.gender > div > label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem/* 8px */;
+line-height: inherit;
+font-size: inherit;
+  font-weight: inherit;
+}
+.gender > div {
+  padding: 0.75rem 1.25rem/* 12px 20px */;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem/* 16px */;
+}
+
+.newPassword, .confirmPassword{
+  grid-column-start: 1;
+}
+
+.privateAccount{
+  display: flex;
+  gap: 0.5rem/* 8px */;
+}
+
+.privateAccount > label{
+  margin-top: -0.25rem/* 4px */;
+  line-height: inherit;
+  font-size: inherit;
+}
+
+.privateAccount > label > p{
+  color: rgb(71 85 105);
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  font-weight: normal;
+}

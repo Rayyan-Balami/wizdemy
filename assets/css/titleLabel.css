@@ -1,0 +1,46 @@
+/* ----- Private account header starts here ----- */
+
+.title-label {
+  padding: 3rem 1.5rem/* 48px 16px */;
+  margin: 0 auto;
+  max-width: 37.5rem/* 600px */;
+  text-align: center
+}
+
+.title-label > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem/* 16px */;
+  margin-top: 0.625rem/* 10px */;
+}
+
+.title-label > div >  svg {
+  width: 3rem/* 48px */;
+  height: 3rem/* 48px */;
+}
+
+.title-label > .title {
+  margin-top: 1rem/* 16px */;
+  font-size: 1.875rem/* 30px */;
+  line-height: 2.25rem/* 36px */;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+@media (width  >= 640px) {
+.title-label > .title {
+    font-size: 3rem/* 48px */;
+    line-height: 1;
+  }
+}
+
+.title-label > .message {
+  margin-top: 0.625rem/* 10px */;
+  color: rgb(71 85 105);
+}
+
+.title-label > a {
+  display: inline-block;
+  text-decoration: underline;
+}
