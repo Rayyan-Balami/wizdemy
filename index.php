@@ -1,5 +1,6 @@
-<?php
-include_once "./assets/components/Header.php";
-include_once "./assets/components/NavBar.php";
-include_once "./assets/components/Footer.php";
-?>
+<?php 
+    require_once './assets/php/functions.php';
+
+    if(isset($_GET['signup'])) {
+    showPage('signupForm', ['page_title' => 'Sign Up']);
+    } 
