@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define('SITE_NAME', ' - Wizdemy');
+define('SITE_NAME', 'Wizdemy');
 
 define('ROOT_DIR', dirname(__DIR__)."/../");
 

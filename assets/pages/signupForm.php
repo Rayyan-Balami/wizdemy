@@ -1,7 +1,7 @@
 <?php 
-req_once("assets/components/Header.php", ['page_title' => 'Signup']);
+req_once("assets/components/Header.php", ['page_title' => 'Signup - '.SITE_NAME]);
 ?>
-  <main>
+  <main class="form">
 
     <!-- random image -->
     <div class="image">
@@ -64,7 +64,7 @@ I agree to&nbsp;</label>
 
           <!-- login link -->
           <p class="signup-login-link ">
-            Already have an account ! 😘 <a href="loginForm.html">Log In</a>
+            Already have an account ! 😘 <a href="/?login">Log In</a>
           </p>
         </form>
         <!-- share message -->

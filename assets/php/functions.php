@@ -22,11 +22,11 @@ function req_once(string $path, array $data = []): void
 /**
  * @name showpage
  * @param string $page
- * @param array $data
  * @return void
  */
-function showPage(string $page, array $data = [] ): void{
-    req_once("assets/pages/$page.php", $data);
+function showPage(string $page ): void{
+    req_once("assets/pages/$page.php");
+
 }
 
 /**
@@ -143,14 +143,9 @@ function signup(array $data): array
 
     $name = mysqli_real_escape_string($db, $data['name']);
     $email = mysqli_real_escape_string($db, $data['email']);
-    do {
-        $username = strtolower(str_replace(' ', '', $name));
-        $username = substr($username, 0, 10);
-        $username .= rand(1000, 9999);
-        $query = "SELECT * FROM users WHERE username='$username'";
-        $result = mysqli_query($db, $query);
-    } while (mysqli_num_rows($result) > 0);
-
+    // username is first part of email
+    $username = explode('@', $email)[0];
+    $username = mysqli_real_escape_string($db, $username);
     $userquery = "INSERT INTO users (email,full_name,username) VALUES ('$email','$name','$username')";
     $result = mysqli_query($db, $userquery);
     if ($result) {
@@ -183,3 +178,81 @@ function signup(array $data): array
 }
 
 
+/**
+ * @name validate login form
+ * @param array $data
+ * @return array
+ */
+function validateLoginForm(array $data): array{
+    $data['email'] = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+    $data['password'] = filter_var($data['password'], FILTER_SANITIZE_STRING);
+
+    if (empty($data['email'])) {
+        return [
+            'msg' => "Email is required",
+            'status' => false,
+            'field' => 'email'
+        ];
+    } else if (empty($data['password'])) {
+        return [
+            'msg' => "Password is required",
+            'status' => false,
+            'field' => 'password'
+        ];
+    } else {
+        return [
+            'msg' => "Success",
+            'status' => true,
+            'field' => ''
+        ];
+    }
+}
+
+/**
+ * @name login user
+ * @param array $data
+ * @return array
+ */
+function login(array $data): array
+{
+    global $db;
+    //verify email or username
+    $email_username = mysqli_real_escape_string($db, $data['email']);
+    $query = "SELECT * FROM users WHERE email='$email_username' OR username='$email_username'";
+    $result = mysqli_query($db, $query);
+    if (mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+        $user_id = $user['id'];
+        $passwordquery = "SELECT * FROM user_passwords WHERE user_id='$user_id'";
+        $result = mysqli_query($db, $passwordquery);
+        if (mysqli_num_rows($result) > 0) {
+            $password = mysqli_fetch_assoc($result)['password'];
+            if (password_verify($data['password'], $password)) {
+                return [
+                    'user_id' => $user_id,
+                    'msg' => "Login success",
+                    'status' => true,
+                    'type' => 'success'
+                ];
+            } else {
+                return [
+                    'msg' => "Invalid password",
+                    'status' => false,
+                    'type' => 'error'
+                ];
+            }
+        } else {
+            return [
+                'msg' => "Something went wrong",
+                'status' => false,
+                'type' => 'error'
+            ];
+        }
+    } else {
+        return [
+            'msg' => "Invalid email or username",
+            'status' => false,
+            'type' => 'error'
+        ];
+    }
+}
