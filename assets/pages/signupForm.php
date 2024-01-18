@@ -1,10 +1,5 @@
 <?php 
-require_once("assets/components/Header.php");
-
-if($_SESSION['error']) {
-    
-}
-
+req_once("assets/components/Header.php", ['page_title' => 'Signup']);
 ?>
   <main>
 
@@ -32,12 +27,12 @@ if($_SESSION['error']) {
           <!-- full name -->
           <div class="fullname">
             <label for="name">Full Name</label>
-            <input type="text" placeholder="Hakuna Matata" required name="name" id="name" />
+            <input type="text" placeholder="Hakuna Matata" required name="name" id="name" value="<?php echo $_SESSION['old']['name'] ?? '' ?>"/>
           </div>
           <!-- email -->
           <div class="email">
             <label for="email">Email Address</label>
-            <input type="email" placeholder="WizDemy@gmail.com" required name="email" id="email" />
+            <input type="email" placeholder="WizDemy@gmail.com" required name="email" id="email" value="<?php echo $_SESSION['old']['email'] ?? '' ?>"/>
           </div>
           <!-- password -->
           <div class="password">
@@ -99,4 +94,4 @@ I agree to&nbsp;</label>
       </div>
     </section>
   </main>
-  <?php require_once("assets/components/footer.php") ?>
+  <?php require_once "assets/components/Footer.php"; ?>

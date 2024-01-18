@@ -6,7 +6,7 @@ class ToastNotification
     private $duration;
     private $type;
 
-    public function __construct($msg, $duration = 300, $type = 'info')
+    public function __construct($msg, $duration = 3000, $type = 'info')
     {
         $this->msg = $msg;
         $this->duration = $duration;

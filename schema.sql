@@ -1,20 +1,31 @@
--- Create the database if it doesn't exist
+-- Create the database if it doesn't exist in mariadb
 CREATE DATABASE IF NOT EXISTS wizdemy;
 
 -- Use the database
 USE wizdemy;
 
--- Create the users table
-CREATE TABLE users (
+-- Create the users table in mariadb
+
+-- CREATE TABLE users (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     username VARCHAR(255) NOT NULL,
+--     email VARCHAR(255) NOT NULL,
+--     full_name VARCHAR(255) NOT NULL,
+--     bio TEXT,
+--     education_level VARCHAR(255),
+
+--     terms_and_conditions_accepted BOOLEAN DEFAULT FALSE
+
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
+CREATE TABLE users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     bio TEXT,
     education_level VARCHAR(255),
-
-    terms_and_conditions_accepted BOOLEAN DEFAULT FALSE
-
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

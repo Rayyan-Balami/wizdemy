@@ -1,22 +1,32 @@
 <?php
-require_once "config.php";
-require_once "/assets/components/ToastNotification.php";
+// require config file
+require_once __DIR__ . '/config.php';
+req_once('assets/components/ToastNotification.php');
+
 
 $db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME) or die("failed to connect to database");
 
 
+/**
+ * @name req_once
+ * @param string $path
+ * @param array $data
+ * @return void
+ */
+function req_once(string $path, array $data = []): void
+{
+    require_once ROOT_DIR . $path;
+}
 
 
 /**
  * @name showpage
  * @param string $page
- * array string $data
- * @param string $data
+ * @param array $data
  * @return void
  */
-function showPage(string $page, array $data =['']) : void
-{
-    require_once "./assets/pages/$page.php";
+function showPage(string $page, array $data = [] ): void{
+    req_once("assets/pages/$page.php", $data);
 }
 
 /**
@@ -26,7 +36,7 @@ function showPage(string $page, array $data =['']) : void
  * @param int $duration
  * @return void
  */
-function showToast(string $msg, string $type = 'info', int $duration = 300) : void
+function showTostMessaage(string $msg, string $type = 'info', int $duration = 3000): void
 {
     $toast = new ToastNotification($msg, $duration, $type);
     $toast->show();
@@ -37,49 +47,139 @@ function showToast(string $msg, string $type = 'info', int $duration = 300) : vo
  * @param array $data
  * @return array
  */
-function validateSignupForm(array $data) : array
+function validateSignupForm(array $data): array
 {
-    $errors = [];
     $data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
     $data['email'] = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
     $data['password'] = filter_var($data['password'], FILTER_SANITIZE_STRING);
     $data['confirmPassword'] = filter_var($data['confirmPassword'], FILTER_SANITIZE_STRING);
-    $data['agree-terms-conditions'] = $data['agree-terms-conditions'] ?? '';
+    $data['agree-terms-condition'] = $data['agree-terms-condition'] ?? '';
 
     if (empty($data['name'])) {
-        $errors['msg'] = "Name is required";
-        $errors['status'] = false;
-        $errors['field'] = 'name';
-    }else if (empty($data['email'])) {
-        $errors['msg'] = "Email is required";
-        $errors['status'] = false;
-        $errors['field'] = 'email';
-    }else if (empty($data['password'])) {
-        $errors['msg'] = "Password is required";
-        $errors['status'] = false;
-        $errors['field'] = 'password';
-    }else if ($data['password']<8) {
-        $errors['msg'] = "Password must be 8 characters long";
-        $errors['status'] = false;
-        $errors['field'] = 'password';
-    }else if (empty($data['confirmPassword'])) {
-        $errors['msg'] = "Confirm Password is required";
-        $errors['status'] = false;
-        $errors['field'] = 'confirmPassword';
-    }else if ($data['password'] !== $data['confirmPassword']) {
-        $errors['msg'] = "Password and Confirm Password must be same";
-        $errors['status'] = false;
-        $errors['field'] = 'confirmPassword';
-    }else if (empty($data['agree-terms-conditions'])) {
-        $errors['msg'] = "Please agree to our terms and conditions";
-        $errors['status'] = false;
-        $errors['field'] = 'agree-terms-conditions';
-    }else {
-        $errors['msg'] = "Success";
-        $errors['status'] = true;
-        $errors['field'] = '';
+        return [
+            'msg' => "Name is required",
+            'status' => false,
+            'field' => 'name'
+        ];
+    } else if (empty($data['email'])) {
+        return [
+            'msg' => "Email is required",
+            'status' => false,
+            'field' => 'email'
+        ];
+    } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        return [
+            'msg' => "Invalid Email",
+            'status' => false,
+            'field' => 'email'
+        ];
+    } else if (checkEmailExists($data['email'])) {
+        return [
+            'msg' => "Email already exists",
+            'status' => false,
+            'field' => 'email'
+        ];
+    } else if (empty($data['password'])) {
+        return [
+            'msg' => "Password is required",
+            'status' => false,
+            'field' => 'password'
+        ];
+    } else if (strlen($data['password']) < 8) {
+        return [
+            'msg' => "Password must be atleast 8 characters",
+            'status' => false,
+            'field' => 'password'
+        ];
+    } else if (empty($data['confirmPassword'])) {
+        return [
+            'msg' => "Confirm Password is required",
+            'status' => false,
+            'field' => 'confirmPassword'
+        ];
+    } else if ($data['password'] !== $data['confirmPassword']) {
+        return [
+            'msg' => "Password and Confirm Password must be same",
+            'status' => false,
+            'field' => 'confirmPassword'
+        ];
+    } else if (empty($data['agree-terms-condition'])) {
+        return [
+            'msg' => "Please agree to terms and conditions",
+            'status' => false,
+            'field' => 'agree-terms-condition'
+        ];
+    } else {
+        return [
+            'msg' => "Success",
+            'status' => true,
+            'field' => ''
+        ];
     }
 
-    return $errors;
+}
+
+/**
+ * @name Check if email exists in the database
+ * @param string $email
+ * @return bool
+ */
+function checkEmailExists(string $email): bool
+{
+    global $db;
+    $query = "SELECT * FROM users WHERE email='$email'";
+    $result = mysqli_query($db, $query);
+    return mysqli_num_rows($result) > 0;
+}
+
+/**
+ * @name signup user
+ * @param array $data
+ * @return array
+ */
+function signup(array $data): array
+{
+    global $db;
+
+    $name = mysqli_real_escape_string($db, $data['name']);
+    $email = mysqli_real_escape_string($db, $data['email']);
+    do {
+        $username = strtolower(str_replace(' ', '', $name));
+        $username = substr($username, 0, 10);
+        $username .= rand(1000, 9999);
+        $query = "SELECT * FROM users WHERE username='$username'";
+        $result = mysqli_query($db, $query);
+    } while (mysqli_num_rows($result) > 0);
+
+    $userquery = "INSERT INTO users (email,full_name,username) VALUES ('$email','$name','$username')";
+    $result = mysqli_query($db, $userquery);
+    if ($result) {
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user_id = mysqli_insert_id($db);
+        $passwordquery = "INSERT INTO user_passwords (user_id,password) VALUES ('$user_id','$password')";
+        $result = mysqli_query($db, $passwordquery);
+        if (!$result) {
+            $userquery = "DELETE FROM users WHERE id='$user_id'";
+            mysqli_query($db, $userquery);
+            return [
+                'msg' => "Something went wrong",
+                'status' => false,
+                'type' => 'error'
+            ];
+        }
+        return [
+            'msg' => "Account created successfully",
+            'status' => true,
+            'type' => 'success'
+        ];
+    } else {
+        return [
+            'msg' => "Something went wrong",
+            'status' => false,
+            'type' => 'error'
+        ];
+    }
 
 }
+
+
