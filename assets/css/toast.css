@@ -10,6 +10,11 @@
     transition: opacity 0.5s;
 }
 
+.toast-primary {
+    background-color: #474747;
+    color: white;
+}
+
 .toast-info {
     background-color: #2196F3;
 }

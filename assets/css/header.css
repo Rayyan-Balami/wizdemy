@@ -98,9 +98,16 @@ header > .logo {
     display: none;
   }
 }
+.header-menu > .upload-button:hover,
+.header-menu > .newRequest-button:hover {
+  background-color: var(--hover-color);
+}
 
+.header-menu > .notification-button,
 .header-menu > .search-button,
 .header-menu > .hamburger-button {
+  background-color: transparent;
+  border: none;
   display: grid;
   place-items: center;
   cursor: pointer;

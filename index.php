@@ -10,6 +10,11 @@ require_once __DIR__ . '/assets/php/functions.php';
 if (isset($_GET['logout'])) {
     unset($_SESSION['Auth']);
     unset($_SESSION['user_id']);
+    $_SESSION['toastMessage'] = [
+        'msg' => 'Logout successfully',
+        'type' => 'primary',
+        'duration' => 5000
+    ];
     header('location:/');
 } else if (isset($_GET['dashboard']) ) {
     if (isset($_SESSION['Auth'])) {

@@ -877,6 +877,7 @@ req_once("assets/components/SideNav.php", ['current_page' => 'index']);
     </main>
 
 <?php
+req_once("assets/components/SearchOverlay.php");
 req_once("assets/components/SideInfo.php");
 req_once("assets/components/SideNav.php");
 req_once("assets/components/Footer.php");
