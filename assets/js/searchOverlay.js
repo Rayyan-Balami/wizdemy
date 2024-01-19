@@ -4,7 +4,6 @@ const searchModal = document.querySelector('#searchModal');
 const backBtn = document.querySelector('#back-button');
 
 function toggleSearchOverlay() {
-  console.log('toggleSearchOverlay');
 
   if (!searchModal.contains(event.target)) {
     searchOverlay.classList.toggle('open');

@@ -1,12 +1,12 @@
 <header>
-    <h1 class="logo"><a href="?">
-            <?php echo SITE_NAME; ?>
+    <h1 class="logo"><a href="/">
+        <?php echo SITE_NAME; ?>
         </a></h1>
 
     <!-- search button , hamburger button  -->
     <div class="header-menu">
         <!-- search button -->
-        <button id="search" onclick="toggleSearchOverlay()" class="search-button">
+        <button title="search button" id="search" onclick="toggleSearchOverlay()" class="search-button">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -33,7 +33,7 @@
             </svg>
         </button>
         <!-- uplaod button -->
-        <a href="upload.html" class="upload-button">
+        <a href="/upload" class="upload-button">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

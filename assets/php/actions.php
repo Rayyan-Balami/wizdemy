@@ -13,7 +13,7 @@ if (isset($_GET['signup'])) {
                 'type' => 'success',
                 'duration' => 5000
             ];
-            header('location:/?login');
+            header('location:/login');
         } else {
             $_SESSION['toastMessage'] = [
                 'msg' => $result['msg'],
@@ -21,7 +21,7 @@ if (isset($_GET['signup'])) {
                 'duration' => 5000
             ];
             $_SESSION['old'] = $_POST;
-            header('location:/?signup');
+            header('location:/signup');
         }
     } else {
         $_SESSION['toastMessage'] = [
@@ -30,7 +30,7 @@ if (isset($_GET['signup'])) {
             'duration' => 5000
         ];
         $_SESSION['old'] = $_POST;
-        header('location:/?signup');
+        header('location:/signup');
     }
 
 }
@@ -57,7 +57,7 @@ if (isset($_GET['login'])) {
                 'duration' => 5000
             ];
             $_SESSION['old'] = $_POST;
-            header('location:/?login');
+            header('location:/login');
         }
     } else {
         $_SESSION['toastMessage'] = [
@@ -66,6 +66,64 @@ if (isset($_GET['login'])) {
             'duration' => 5000
         ];
         $_SESSION['old'] = $_POST;
-        header('location:/?login');
+        header('location:/login');
+    }
+}
+
+// for logout process
+
+if (isset($_GET['logout'])) {
+    unset($_SESSION['Auth']);
+    unset($_SESSION['user_id']);
+    $_SESSION['toastMessage'] = [
+        'msg' => 'Logout successfully',
+        'type' => 'primary',
+        'duration' => 5000
+    ];
+    header('location:/');
+}
+
+// for upload process
+if (isset($_GET['uploadStudyMaterial'])) {
+    $data = [
+        'title' => $_POST['title'],
+        'description' => $_POST['description'],
+        'document-type' => $_POST['document-type'],
+        'format' => $_POST['format'],
+        'education-level' => $_POST['education-level'],
+        'semester' => $_POST['semester'],
+        'subject' => $_POST['subject'],
+        'class' => $_POST['class'],
+        'author' => $_POST['author'],
+        'file' => $_FILES,
+    ];
+    $response = validateStudyMaterialForm($data);
+    
+    if ($response['status']) {
+        $result = uploadStudyMaterial($data);
+        if ($result['status']) {
+            $_SESSION['toastMessage'] = [
+                'msg' => $result['msg'],
+                'type' => 'success',
+                'duration' => 5000
+            ];
+            header('location:/upload');
+        } else {
+            $_SESSION['toastMessage'] = [
+                'msg' => $result['msg'],
+                'type' => 'error',
+                'duration' => 5000
+            ];
+            $_SESSION['old'] = $_POST;
+            header('location:/upload');
+        }
+    } else {
+        $_SESSION['toastMessage'] = [
+            'msg' => $response['msg'],
+            'type' => 'error',
+            'duration' => 5000
+        ];
+        $_SESSION['old'] = $_POST;
+        header('location:/upload');
     }
 }

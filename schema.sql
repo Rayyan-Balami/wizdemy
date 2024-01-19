@@ -24,6 +24,7 @@ CREATE TABLE users(
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     full_name VARCHAR(255) NOT NULL,
+    private BOOLEAN DEFAULT FALSE,
     bio TEXT,
     education_level VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -40,21 +41,6 @@ CREATE TABLE user_passwords (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Create the study_materials table
-CREATE TABLE study_materials (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    file_path VARCHAR(255) NOT NULL,
-    user_id INT NOT NULL,
-    likes INT DEFAULT 0,
-    comments INT DEFAULT 0,
-    reports INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
 -- Create the study_material_requests table
 CREATE TABLE study_material_requests (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,6 +51,32 @@ CREATE TABLE study_material_requests (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+-- Create the study_materials table
+CREATE TABLE study_materials (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    respond_to INT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    document_type VARCHAR(255) NOT NULL,
+    format VARCHAR(255) NOT NULL,
+    education_level VARCHAR(255) NOT NULL,
+    semester VARCHAR(255),
+    subject VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    thumbnail_path VARCHAR(255) NOT NULL,
+    class VARCHAR(255) NOT NULL,
+    likes INT DEFAULT 0,
+    comments INT DEFAULT 0,
+    reports INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (respond_to) REFERENCES study_material_requests(id)
+);
+
+
 
 -- Create the likes table
 CREATE TABLE likes (
@@ -106,11 +118,16 @@ CREATE TABLE login_history (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Create the view_counts table
-CREATE TABLE view_counts (
+-- Create the views table
+CREATE TABLE views (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    
     study_material_id INT NOT NULL,
-    count INT DEFAULT 0,
+    ip_address VARCHAR(255) NOT NULL,
+    device VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (study_material_id) REFERENCES study_materials(id)
 );
 

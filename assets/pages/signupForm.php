@@ -1,5 +1,5 @@
 <?php 
-req_once("assets/components/Header.php", ['page_title' => 'Signup - '.SITE_NAME]);
+req_once("assets/components/Header.php", ['page_title' => 'Signup - '.SITE_NAME,'stylesheets' => ['authForm','toast'], 'scripts' => ['toast']]) 
 ?>
   <main class="form">
 
@@ -23,7 +23,7 @@ req_once("assets/components/Header.php", ['page_title' => 'Signup - '.SITE_NAME]
           Hello new friend ❤️ <br>
           Join WizDemy today and dive into a world of knowledge.
         </p>
-        <form method="post" action="assets/php/actions.php?signup">
+        <form method="post" action="assets/php/actions.php?signup" class="form">
           <!-- full name -->
           <div class="fullname">
             <label for="name">Full Name</label>
@@ -64,7 +64,7 @@ I agree to&nbsp;</label>
 
           <!-- login link -->
           <p class="signup-login-link ">
-            Already have an account ! 😘 <a href="/?login">Log In</a>
+            Already have an account ! 😘 <a href="/login">Log In</a>
           </p>
         </form>
         <!-- share message -->

@@ -1,4 +1,4 @@
-<?php req_once('assets/components/Header.php', ['page_title' => 'Login - '.SITE_NAME]) ?>
+<?php req_once('assets/components/Header.php', ['page_title' => 'Login - '.SITE_NAME, 'stylesheets' => ['authForm','toast'], 'scripts' => ['toast']]) ?>
 <main class="form">
 
     <!-- random image -->
@@ -59,7 +59,7 @@
 
                 <!-- signup link -->
                 <p class="signup-login-link">
-                    Dont have an account yet ? 🤯 <a href="/?signup">Sign up</a>
+                    Dont have an account yet ? 🤯 <a href="/signup">Sign up</a>
                 </p>
             </form>
             <!-- share message -->

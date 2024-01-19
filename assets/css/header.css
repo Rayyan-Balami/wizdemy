@@ -111,6 +111,7 @@ header > .logo {
   display: grid;
   place-items: center;
   cursor: pointer;
+  color: var(--primary-color);
   transition: var(--transition);
 }
 

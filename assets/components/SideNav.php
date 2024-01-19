@@ -10,7 +10,7 @@
             <h2 class="menu-section-category">MAIN MENU</h2>
             <ul>
                 <li>
-                    <a href="index.html" class="menu-links <?php if ($data['current_page'] == 'index') echo 'is-active' ?>">
+                    <a href="/" class="menu-links <?php if ($data['current_page'] == 'index') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="question.html" class="menu-links <?php if ($data['current_page'] == 'question') echo 'is-active' ?>">
+                    <a href="/questoins" class="menu-links <?php if ($data['current_page'] == 'question') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="labReport.html" class="menu-links <?php if ($data['current_page'] == 'labReport') echo 'is-active' ?>">
+                    <a href="/labreports" class="menu-links <?php if ($data['current_page'] == 'labReport') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -73,7 +73,7 @@
                 </li>
 
                 <li>
-                    <a href="request.html" class="menu-links <?php if ($data['current_page'] == 'request') echo 'is-active' ?>">
+                    <a href="/requests" class="menu-links <?php if ($data['current_page'] == 'request') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -91,12 +91,13 @@
             </ul>
         </div>
 
+        <?php if (isset($_SESSION['Auth'])&&$_SESSION['Auth']): ?>
         <!-- profile, copyright, subscription -->
         <div class="menu-section">
             <h2 class="menu-section-category">ACCOUNT MANAGEMENT</h2>
             <ul>
                 <li>
-                    <a href="profile.html" class="menu-links">
+                    <a href="/profile" class="menu-links <?php if ($data['current_page'] == 'profile') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -124,7 +125,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="likes.html" class="menu-links">
+                    <a href="/likes" class="menu-links <?php if ($data['current_page'] == 'likes') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -140,7 +141,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="saved" class="menu-links">
+                    <a href="/saved" class="menu-links <?php if ($data['current_page'] == 'saved') echo 'is-active' ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -155,7 +156,7 @@
                         </svg>Saved
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="copyright.html" class="menu-links">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -170,16 +171,17 @@
                             </g>
                         </svg>Copyright
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
-        <?php if (!(isset($_SESSION['Auth']) && $_SESSION['Auth'] == true)) { ?>
+        <?php endif; ?>
+        <?php if (!(isset($_SESSION['Auth']) && $_SESSION['Auth'] == true)) : ?>
             <!-- Sign up and Login button for public -->
             <div class="menu-section">
                 <h2 class="menu-section-category">ACCOUNT</h2>
                 <ul>
                     <li>
-                        <a href="/?signup" class="signup-button">
+                        <a href="/signup" class="signup-button">
                             Sign Up
                             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -194,7 +196,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/?login" class="login-button">
+                        <a href="/login" class="login-button">
                             Log In
                             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -216,7 +218,7 @@
                 </ul>
             </div>
 
-        <?php } else { ?>
+        <?php else : ?>
             <!-- settings, logout -->
             <div class="menu-section setting-logout-menu">
                 <ul>
@@ -298,7 +300,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="/?logout" class="menu-links">
+                        <a href="assets/php/actions.php?logout" class="menu-links">
                             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -317,7 +319,7 @@
                     </li>
                 </ul>
             </div>
-        <?php } ?>
+        <?php endif; ?>
 
     </nav>
 </div>

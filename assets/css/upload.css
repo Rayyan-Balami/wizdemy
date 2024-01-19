@@ -4,6 +4,8 @@
 @import url("header.css");
 @import url("titleLabel.css");
 @import url("footer.css");
+@import url('searchOverlay.css');
+@import url("toast.css");
 
 
 .form-section{
@@ -164,8 +166,13 @@ form > .responding-to > p {
   padding: 1rem/* 16px */;
   border : dashed 2px rgb(156 163 175);
   border-radius: var(--border-radius);
-  background-color: var(--background-color);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  aspect-ratio: 21/9;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   transition: var(--transition);
 }
 
@@ -194,6 +201,7 @@ form > .responding-to > p {
 .file-thumbnail > label:hover , .file-document > label:hover{
   border : dashed 2px rgb(37 99 235);
   color: rgb(37 99 235);
+  opacity: 0.9;
 }
 
 .file-thumbnail > label:hover > p , .file-document > label:hover > p{
