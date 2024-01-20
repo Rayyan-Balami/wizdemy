@@ -12,3 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, duration);
     });
 });
+
+function toast(message, duration = 3000, type = 'primary') {
+    var toast = document.createElement('div');
+    toast.classList.add('toast', 'toast-' + type);
+    toast.setAttribute('data-duration', duration);
+    toast.innerHTML = message;
+    document.body.appendChild(toast);
+}

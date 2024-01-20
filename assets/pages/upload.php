@@ -77,7 +77,7 @@ req_once('assets/components/SideNav.php',['current_page' => 'none']);
                     students can understand your materials.
                 </p>
                 <!-- form -->
-                <form action="assets/php/actions.php?uploadStudyMaterial" class="search-form" method="POST" enctype="multipart/form-data">
+                <form action="assets/php/actions.php?uploadStudyMaterial" class="search-form" id="uploadForm" method="POST" enctype="multipart/form-data">
 
                     <!-- responding to if comming from respond button -->
 
@@ -245,7 +245,7 @@ req_once('assets/components/SideNav.php',['current_page' => 'none']);
                             <p>PDF up to 10MB</p>
                         </label>
                         <input id="file-document" name="file-document" type="file" accept=".pdf" required
-                            class="hidden" />
+                            hidden />
                         <p>
                             Use copyright watermark, names, signatures etc in your PDF.
                             If someone is using your materials without giving you credits, report it. <br>
@@ -259,6 +259,7 @@ req_once('assets/components/SideNav.php',['current_page' => 'none']);
                         Upload / Respond
                     </button>
             </form>
+
             </div>
 
             <!-- footer -->

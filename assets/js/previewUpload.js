@@ -117,3 +117,4 @@ document.querySelector('.file-document label').addEventListener('click', functio
     }
 }
 );
+

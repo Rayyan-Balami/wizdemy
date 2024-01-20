@@ -20,4 +20,3 @@ function closeThreeDotMenu() {
     share.href = '';
 }
 
-
