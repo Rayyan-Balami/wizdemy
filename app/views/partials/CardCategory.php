@@ -10,7 +10,7 @@
             Questions
         </button>
         <!-- labreport -->
-        <button onclick="changeCategory('note')" class="labreport-category">
+        <button onclick="changeCategory('labreport')" class="labreport-category">
             Lab Reports
         </button>
     </div>

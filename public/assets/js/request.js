@@ -110,24 +110,22 @@ function changeCategory(category) {
   $.ajax({
     url: "/request",
     type: "POST",
-    data: { type: category },
-    success: function(response) {
-        if (response && response.data) {
-            console.log(response);
-            cardSection.empty();
-
-            response.data.forEach(request => {
-                cardSection.append(RequestCard(request.title, request.subject, request.description, request.education_level, request.class_faculty, request.semester, request.study_material_count, request.document_type, request.user_name, request.created_at, request.id));
-            });
-        } else {
-            console.error('Invalid response format:', response);
-            cardSection.html("Error: Invalid response format.");
-        }
+    data: {
+      category: category
     },
-    error: function(xhr, status, error) {
-        console.error('Error fetching data:', error);
-        cardSection.html("Error fetching data.");
+      success: function (respond) {
+      cardSection.empty();
+      if(!respond.data.length) {
+        
+      }
+      
+      respond.data.forEach((request) => {
+        cardSection.append(RequestCard(request.title, request.subject, request.description, request.education_level, request.class_faculty, request.semester, request.study_material_count, request.document_type, request.user_name, request.created_at, request.id));
+      });
+    },
+    error: function (error) {
+        console.log(error);
+      cardSection.html("Failed to load data");
     }
-});
-
+    });
 }

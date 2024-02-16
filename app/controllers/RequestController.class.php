@@ -9,13 +9,12 @@ class RequestController extends Controller
 
   public function index()
   {
-      $requests = $this->model->show();
-      View::render('request');
-      // Put request in JSON response
-      $this->buildJsonResponse($requests);
-      // Render the view after JSON response
+    $requests = $this->model->show();
+    View::render('request', [
+      'requests' => $requests
+    ]);
   }
-  
+
   public function create()
   {
     View::render('requestForm');
@@ -90,5 +89,12 @@ class RequestController extends Controller
       ]);
       $this->redirect('/request/create');
     }
+  }
+
+  public function category()
+  {    
+    $requests = $this->model->show();
+    // if(!empty($requests)){
+    $this->buildJsonResponse($requests);
   }
 }

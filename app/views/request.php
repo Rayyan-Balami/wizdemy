@@ -30,17 +30,17 @@ View::renderPartial('MenuHeader');
     'currentPage' => 'request'
   ]);
 
-  if (!empty($requests)):
+  // if (!empty($requests)):
 
   View::renderPartial('RequestCard', [
     'requests' => $requests
   ]);
 
-else:
+// else:
 
-  View::renderPartial('ZeroResult');
+//   View::renderPartial('ZeroResult');
 
-endif;
+// endif;
 
 View::renderPartial('Footer');
 

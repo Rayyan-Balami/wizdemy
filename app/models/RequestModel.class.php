@@ -11,14 +11,14 @@ class RequestModel extends Model
   public function show()
   {
     $allowedParams = [
-      'type' => ['note', 'labreport', 'question']
+      'category' => ['note', 'labreport', 'question']
     ];
 
     // Validate and filter the $_GET array to retain only allowed keys and values
   $validatedParams = array_intersect_key($_POST ?? [], $allowedParams);
 
-    // If 'type' parameter is not set or invalid, default to 'notes'
-    $type = $validatedParams['type'] ?? 'note';
+    // If 'category' parameter is not set or invalid, default to 'notes'
+    $category = $validatedParams['category'] ?? 'note';
 
 
     return $this->select([
@@ -28,7 +28,7 @@ class RequestModel extends Model
     ])
       ->leftJoin('users', 'user_id')
       ->leftJoin('study_materials', 'request_id')
-      ->where('study_material_requests.document_type', $type)
+      ->where('study_material_requests.document_type', $category)
       ->groupBy('study_material_requests.request_id')
       ->orderBy('study_material_requests.created_at', 'DESC')
       ->getAll();

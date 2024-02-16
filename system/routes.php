@@ -24,8 +24,9 @@ $router->get('/labreport', 'HomeController@labreport');
 
 //routes for request page
 $router->get('/request', 'RequestController@index');
+$router->post('/request', 'RequestController@category');
 $router->get('/request/create', 'RequestController@create')->only('auth');
-$router->post('/request', 'RequestController@store')->only('auth');
+$router->post('/request/store', 'RequestController@store')->only('auth');
 
 //routes for upload page
 $router->get('/upload', 'HomeController@create')->only('auth');
