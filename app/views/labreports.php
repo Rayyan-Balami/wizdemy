@@ -21,10 +21,15 @@ View::renderPartial('SideNav', [
 
 View::renderPartial('MenuHeader');
 
+?>
+
+<section>
+<?php
 View::renderPartial('StudyMaterialCard');
+?>
+</section>
 
-View::renderPartial('Footer');
-
+<?php
 View::renderPartial('ThreeDotMenu');
 
 View::renderPartial('SideInfo');

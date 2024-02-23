@@ -22,23 +22,25 @@ class RequestController extends Controller
 
   public function store()
   {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
+    //hadle html special characters for security purposes and store in variables
+    $title = htmlspecialchars($_POST['title']);
+    $description = htmlspecialchars($_POST['description']);
     $user_id = Session::get('user')['user_id'];
-    $document_type = $_POST['document-type'];
-    $education_level = $_POST['education-level'];
-    $semester = $_POST['semester'];
-    $subject = $_POST['subject'];
-    $class_faculty = $_POST['class-faculty'];
+    $document_type = htmlspecialchars($_POST['document-type']);
+    $education_level = htmlspecialchars($_POST['education-level']);
+    $semester = htmlspecialchars($_POST['semester']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $class_faculty = htmlspecialchars($_POST['class-faculty']);
+    
 
     //validate title
-    if (!Validate::string($title, 10, 250)) {
-      $this->errors['title'] = 'Title: 10-250 characters';
+    if (!Validate::string($title, 10, 150)) {
+      $this->errors['title'] = 'Title: 10-150 characters';
     }
 
     //validate description
-    if (!Validate::string($description, 10, 1000)) {
-      $this->errors['description'] = 'Description: 10-1000 characters';
+    if (!Validate::string($description, 10, 550)) {
+      $this->errors['description'] = 'Description: 10-550 characters';
     }
 
     //validate subject

@@ -16,13 +16,13 @@
 }
 
 .title-label > div >  svg {
-  width: 3rem/* 48px */;
-  height: 3rem/* 48px */;
+  width: 2.5rem/* 48px */;
+  height: 2.5rem/* 48px */;
 }
 
 .title-label > .title {
   margin-top: 1rem/* 16px */;
-  font-size: 1.875rem/* 30px */;
+  font-size: 1.5rem/* 30px */;
   line-height: 2.25rem/* 36px */;
   font-weight: 800;
   letter-spacing: -0.025em;
@@ -30,7 +30,7 @@
 
 @media (width  >= 640px) {
 .title-label > .title {
-    font-size: 3rem/* 48px */;
+    font-size: 2.25rem/* 40px */;
     line-height: 1;
   }
 }
@@ -38,6 +38,8 @@
 .title-label > .message {
   margin-top: 0.625rem/* 10px */;
   color: rgb(71 85 105);
+  font-size: 0.9rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
 }
 
 .title-label > a {

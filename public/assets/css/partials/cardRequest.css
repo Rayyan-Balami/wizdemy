@@ -110,6 +110,7 @@
   background-color: rgb(243 244 246);
   padding: 0.5rem 0.625rem/* 8px 10px */;
   border-radius: var(--border-radius);
+  text-transform: capitalize;
 }
 
 
@@ -120,6 +121,7 @@
   gap: 0.75rem/* 12px */;
   margin-top: auto;
   margin-bottom: 0.75rem/* 12px */;
+  text-transform: uppercase;
 }
 
 .request-card > .no-of-responses > p,
@@ -127,6 +129,7 @@
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
   font-weight: 600;
+  text-transform: capitalize;
 }
 
 .request-card > .no-of-responses > span,
@@ -154,7 +157,7 @@
   white-space: nowrap;
 }
 
-.button-wrapper > .respond-button{
+.button-wrapper > form > .respond-button{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,7 +170,7 @@
   cursor: pointer;
 }
 
-.respond-button:hover{
+.button-wrapper > form > .respond-button:hover{
   background-color: rgb(31 41 55);
   border-color: rgb(31 41 55);
   color: white;

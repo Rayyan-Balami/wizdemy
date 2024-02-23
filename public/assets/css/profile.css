@@ -4,7 +4,7 @@
 @import url("./partials/header.css");
 @import url("./partials/titleLabel.css");
 @import url("./partials/cardCategory.css");
-@import url("./partials/card.css");
+@import url("./partials/cardStudyMaterail.css");
 @import url("./partials/sideProfile.css");
 @import url("./partials/footer.css");
 @import url("./partials/threeDotMenu.css");
@@ -13,6 +13,7 @@
 @import url("./partials/notificationOverlay.css");
 @import url("./partials/toastNotification.css");
 @import url("./partials/toastNotification.css");
+
 
 
 

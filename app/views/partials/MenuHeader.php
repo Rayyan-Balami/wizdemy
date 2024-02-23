@@ -1,6 +1,6 @@
 <main>
   <header>
-    <h1 class="logo"><a href="index.html">WizDemy</a></h1>
+    <h1 class="logo"><a href="/">WizDemy</a></h1>
 
     <!-- search button , hamburger button  -->
     <div class="header-menu">
@@ -34,7 +34,7 @@
       <!-- upload and request link -->
       <div class="uplaod-request-link">
         <!-- upload link -->
-        <a href="/studymaterail/create" class="upload-link">
+        <a href="/upload" class="upload-link <?= $currentPage === 'uploadForm' ? 'active-header-menu' : '';?>">
           <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -50,7 +50,7 @@
           <span>Upload</span>
         </a>
         <!-- request link -->
-        <a href="/request/create" class="request-link">
+        <a href="/request/create" class="request-link <?= $currentPage === 'requestForm' ? 'active-header-menu' : '';?>">
           <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -78,5 +78,3 @@
       </button>
     </div>
   </header>
-
-  <section>

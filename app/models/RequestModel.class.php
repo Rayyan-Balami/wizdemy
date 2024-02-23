@@ -11,7 +11,7 @@ class RequestModel extends Model
   public function show()
   {
     $allowedParams = [
-      'category' => ['note', 'labreport', 'question']
+      'category' => ['note', 'lab report', 'question']
     ];
 
     // Validate and filter the $_GET array to retain only allowed keys and values
@@ -22,15 +22,16 @@ class RequestModel extends Model
 
 
     return $this->select([
-      'study_material_requests.*',
-      'users.username',
-      'COUNT(study_materials.request_id) as no_of_materials'
-    ])
-      ->leftJoin('users', 'user_id')
-      ->leftJoin('study_materials', 'request_id')
-      ->where('study_material_requests.document_type', $category)
-      ->groupBy('study_material_requests.request_id')
-      ->orderBy('study_material_requests.created_at', 'DESC')
+      'r.*',
+      'u.username',
+      'COUNT(DISTINCT m.material_id) as no_of_materials'
+    ], 'r')
+      ->leftJoin('users as u', 'u.user_id = r.user_id')
+      ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
+      ->where('r.document_type = :document_type')
+      ->bind(['document_type' => $category])
+      ->groupBy('r.request_id')
+      ->orderBy('r.created_at', 'DESC')
       ->getAll();
   }
 

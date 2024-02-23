@@ -30,66 +30,27 @@ class Model extends Database
     protected function getAll()
     {
         return $this->execute()->statement->fetchAll();
-
-    }
-
-    protected function getOrFail($status = 404)
-    {
-        $result = $this->get();
-        if (!$result) {
-            $this->abort($status);
-        }
-        return $result;
-    }
-
-    protected function getAllOrFail($status = 404)
-    {
-        $result = $this->getAll();
-        if (!$result) {
-            $this->abort($status);
-        }
-        return $result;
-    }
-
-    protected function abort($code = 404)
-    {
-        http_response_code($code);
-        require_once base_path("views/{$code}.view.php");
-        die();
     }
 
     // select all records
-    protected function select($columns = ['*'])
+    protected function select($columns = ['*'], $as = "")
     {
         $columns = implode(', ', $columns);
-        $this->query = "SELECT {$columns} FROM {$this->table}";
+        $this->query = "SELECT {$columns} FROM {$this->table} {$as}";
         return $this;
     }
 
     //where clause
-    protected function where($column, $value, $operator = '=')
+    protected function where($condition)
     {
-        $column_param = str_replace('.', '_', $column);
-        $this->query .= " WHERE {$column} {$operator} :{$column_param}";
-        $this->bindings[":{$column_param}"] = $value;
+        $this->query .= " WHERE {$condition}";
         return $this;
     }
 
-    // orWhere clause
-    protected function orWhere($column, $value, $operator = '=')
+    //bind values to the query
+    protected function bind($bindings = [])
     {
-        $column_param = str_replace('.', '_', $column);
-        $this->query .= " OR {$column} {$operator} :{$column_param}";
-        $this->bindings[":{$column_param}"] = $value;
-        return $this;
-    }
-
-    //andWhere clause
-    protected function andWhere($column, $value, $operator = '=')
-    {
-        $column_param = str_replace('.', '_', $column);
-        $this->query .= " AND {$column} {$operator} :{$column_param}";
-        $this->bindings[":{$column_param}"] = $value;
+        $this->bindings = $bindings;
         return $this;
     }
 
@@ -168,23 +129,33 @@ class Model extends Database
     }
 
     // inner join the records
-    protected function innerJoin($foreignTable, $commonKey)
+    protected function innerJoin($foreignTable, $shortName, $primaryKey, $commonKey)
     {
-        $this->query .= " INNER JOIN {$foreignTable} ON {$this->table}.{$commonKey} = {$foreignTable}.{$commonKey}";
+        $this->query .= " INNER JOIN {$foreignTable} {$shortName} ON {$this->table}.{$primaryKey} = {$shortName}.{$commonKey}";
         return $this;
     }
 
     // left join the records
-    protected function leftJoin($foreignTable, $commonKey)
+    //leftJoin('follow_relationships as f1', 'f1.following_id', 'u.id')
+    protected function leftJoin($toJoinTable, $JoinCondition)
     {
-        $this->query .= " LEFT JOIN {$foreignTable} ON {$this->table}.{$commonKey} = {$foreignTable}.{$commonKey}";
+        $this->query .= " LEFT JOIN {$toJoinTable} ON {$JoinCondition}";
         return $this;
     }
 
+
+
     // right join the records
-    protected function rightJoin($foreignTable, $commonKey)
+    protected function rightJoin($foreignTable, $shortName, $primaryKey, $commonKey)
     {
-        $this->query .= " RIGHT JOIN {$foreignTable} ON {$this->table}.{$commonKey} = {$foreignTable}.{$commonKey}";
+        $this->query .= " RIGHT JOIN {$foreignTable} {$shortName} ON {$this->table}.{$primaryKey} = {$shortName}.{$commonKey}";
+        return $this;
+    }
+
+    //raw join
+    protected function joinRaw($join)
+    {
+        $this->query .= " {$join}";
         return $this;
     }
 
@@ -192,6 +163,12 @@ class Model extends Database
     protected function offset($offset)
     {
         $this->query .= " OFFSET {$offset}"; // example query: SELECT * FROM users OFFSET 10 LIMIT 10 this will get the second page of the records
+        return $this;
+    }
+
+    public function paginate($page, $perPage)
+    {
+        $this->query .= " LIMIT {$perPage} OFFSET " . ($page - 1) * $perPage;
         return $this;
     }
 

@@ -9,10 +9,11 @@ class RegisterModel extends Model
 
   public function register($fullName, $email, $password){
 
-    //check if user exists
+    // Check if email already exists
     $user = $this->select(['user_id'])
-      ->where('email', $email)
-      ->get();
+    ->where('email = :email')
+    ->bind(['email' => $email])
+    ->get();
 
     if($user){
       return [

@@ -112,7 +112,7 @@
 
 .card > a > .title {
   padding: 0 0.25rem /* 12px */;
-  margin: 0.5rem 0 /* 6px 0 */;
+  margin: 0.5rem 0 0.75rem 0;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -123,8 +123,8 @@
 }
 
 .card > .username {
+  margin-top: auto;
   padding: 0 0.25rem /* 12px */;
-  margin-top: 0.25rem /* 6px */;
   font-size: 0.875rem /* 14px */;
   line-height: 1rem /* 20px */;
   font-weight: 500;
@@ -182,7 +182,6 @@
 .card > .intercation {
   width: fit-content;
   margin-left: auto;
-  margin-top: auto;
   margin-right: 0.25rem /* 12px */;
   display: flex;
   align-items: center;

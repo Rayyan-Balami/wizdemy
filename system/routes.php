@@ -24,15 +24,18 @@ $router->get('/labreport', 'HomeController@labreport');
 
 //routes for request page
 $router->get('/request', 'RequestController@index');
-$router->post('/request', 'RequestController@category');
+$router->post('/request/api', 'RequestController@category');
 $router->get('/request/create', 'RequestController@create')->only('auth');
 $router->post('/request/store', 'RequestController@store')->only('auth');
 
 //routes for upload page
-$router->get('/upload', 'HomeController@create')->only('auth');
+$router->get('/upload', 'UploadController@index')->only('auth');
+$router->post('/upload/store', 'UploadController@store')->only('auth');
+$router->post('/upload/respond', 'UploadController@index')->only('auth'); //coming from request page
 
 //routes for profile page
-$router->get('/profile', 'ProfileController@index')->only('auth');
+$router->get('/profile', 'ProfileController@index')->only('auth'); //for logged in user
+$router->get('/profile/user', 'ProfileController@show'); //for other users
 
 //routes for like page
 $router->post('/like', 'LikeController@store')->only('auth');

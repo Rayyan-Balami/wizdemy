@@ -82,6 +82,10 @@
   border-radius: var(--border-radius);
 }
 
+.form-section > form textarea{
+  resize: none;
+}
+
 .form-section > form select {
   appearance: none;
 }
@@ -95,44 +99,95 @@
   margin-bottom: 0.5rem /* 8px */;
 }
 
-.form-section > form > .responding-to {
+form > .request-details  svg{
+  width: 0.75rem/* 12px */;
+  height: 0.75rem/* 12px */;
+}
+
+form > .request-details > .request-title{
+  margin-top: 0.25rem;
+  font-size: 1rem/* 16px */;
+  line-height: 1.5rem/* 24px */;
+  font-weight: 500;
+}
+
+form > .request-details > .request-subject{
+  font-size: 1rem/* 16px */;
+  line-height: 1.5rem/* 24px */;
+  color: rgb(59 130 246);
+  text-transform: uppercase;
+}
+
+form > .request-details > .request-description{
+  margin-top: 0.5rem/* 8px */;
+  padding-left: 0.75rem/* 12px */;
+  border-left: 2px solid rgb(209 213 219);
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  color: rgb(55 65 81);
+}
+
+form > .request-details > .request-meta-datas{
+  margin-top: 1rem/* 16px */;
   display: flex;
+  align-items: center;
+  gap: 0.75rem/* 8px */;
+  flex-wrap: wrap;
+  font-size: 0.75rem/* 12px */;
+  line-height: 1rem/* 16px */;
 }
 
-.form-section > form > .responding-to > div {
-  background-color: rgb(17 24 39);
+form > .request-details > .request-meta-datas > .username{
+  display: flex;
+  align-items: center;
+  gap: 0.3rem/* 6px */;
+  border-radius: 9999px;
+  background-color: rgb(59 130 246);
+  padding:0.25rem 0.5rem;
   color: white;
-  padding: 0.75rem 1.25rem /* 12px 20px */;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
 }
 
-.form-section > form > .responding-to > p {
-  background-color: rgb(37 99 235);
+form > .request-details > .request-meta-datas > .document-type{
+  border-radius: 9999px;
+  background-color: rgb(240, 149, 38);
+  padding:0.25rem 0.5rem;
   color: white;
-  padding: 0.75rem 1.25rem /* 12px 20px */;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
 }
+
+
+form > .request-details > .request-meta-datas > .no-of-responses{
+  border-radius: 9999px;
+  background-color: rgb(222, 99, 236);
+  padding:0.25rem 0.5rem;
+  color: white;
+  border: none;
+}
+
+form > .request-details > .request-meta-datas > span{
+  border-radius: 9999px;
+  background-color: rgb(243 244 246);
+  border: var(--border);
+  padding:0.25rem 0.5rem;
+  text-transform: uppercase;
+}
+
 
 @media (width >= 640px) {
+  .request-details,
   .title,
   .description,
-  .file-thumbnail,
-  .file-document,
-  .responding-to,
   .bio,
   .enrolled-course,
-  .school,
   .email,
-  .privateAccount {
+  .privateAccount,
+  .file-upload-section {
     grid-column: 1 / -1;
   }
   .document-type,
   .format,
   .education-level,
   .semester,
-  .user-type {
+  .user-type{
     grid-column: span 2 / span 2;
   }
   .subject,
@@ -143,24 +198,35 @@
   .gender,
   .oldPassword,
   .newPassword,
-  .confirmPassword {
+  .confirmPassword,
+  .file-preview {
     grid-column: span 3 / span 3;
   }
 }
 
-.description > p,
-.bio > p {
+@media (width >= 1280px) {
+  .file-preview {
+    grid-column: span 2 / span 2;
+  }
+  .file-upload-section{
+    grid-column: span 4 / span 4;
+    grid-row: span 2 / span 2;
+  }
+}
+
+form > .description > p,
+form > .bio > p {
   margin-top: 0.5rem /* 8px */;
   color: rgb(71 85 105);
   font-size: 0.875rem /* 14px */;
   line-height: 1.25rem /* 20px */;
 }
 
-.document-type,
-.format,
-.education-level,
-.semester,
-.user-type {
+form > .document-type,
+form > .format,
+form > .education-level,
+form > .semester,
+form > .user-type {
   position: relative;
 }
 
@@ -174,56 +240,119 @@
   height: 1rem /* 16px */;
 }
 
-.file-thumbnail > label,
-.file-document > label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem /* 16px */;
-  margin-top: 1rem /* 16px */;
-  padding: 1rem /* 16px */;
-  border: dashed 2px rgb(156 163 175);
+form > .file-upload-section > input,
+form > .file-preview > input{
+  height: 0;
+  width: 0;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+form > .file-upload-section svg {
+  width: 3.5rem /* 32px */;
+  height: 3.5rem /* 32px */;
+}
+
+form > .file-upload-section > label{
+  display: grid;
+  place-items: center;
+  gap: 0.5rem/* 8px */;
   border-radius: var(--border-radius);
-  background-color: var(--background-color);
-  cursor: pointer;
+  border: var(--border);
+  border-style: dashed;
+  border-width: 2px;
+  padding: 2rem 1rem/* 16px */;
+  height: 100%;
   transition: var(--transition);
 }
 
-.file-thumbnail > label > svg,
-.file-document > label > svg {
-  width: 3rem /* 48px */;
-  height: 3rem /* 48px */;
+form > .file-upload-section > label > div{
+  font-weight: 600;
+  display: grid;
+  gap: 0.75rem/* 16px */;
+  text-align: center;
 }
 
-.file-thumbnail > input,
-.file-document > input {
+form > .file-upload-section > label > div > .browse-file{
+  border-radius: var(--border-radius);
+  border: var(--border);
+  padding: 0.5rem 1.75rem;
+  background-color: var(--background-gray);
+  transition: var(--transition);
+  width: fit-content;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+form > .file-upload-section > label > div > .browse-file:hover{
+  background-color: rgb(17 24 39);
+  color: white;
+}
+
+form > .file-preview{
+  aspect-ratio: 21/9;
+  border: var(--border);
+  border-width: 1.5px;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  position: relative;
+  background-color: var(--background-gray);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  display: grid;
+  place-content: center;
+  background: radial-gradient(circle at bottom left ,#e5e7eb 35%, transparent 36%), radial-gradient(circle at top right ,#e5e7eb 35%, transparent 36%), radial-gradient(circle at center ,#e5e7eb 15%, transparent 16%);
+  background-size: 2.5rem 2.5rem;
+}
+
+form > .file-preview img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border: none;
+}
+
+form > .file-preview > .file-icon{
   display: none;
 }
 
-.file-thumbnail > label > p,
-.file-document > label > p {
-  font-size: 0.75rem /* 12px */;
-  line-height: 1rem /* 16px */;
-  color: rgb(75 85 99);
-  font-weight: 400;
-}
-.file-document > p {
-  margin-top: 0.5rem /* 8px */;
-  font-size: 0.875rem /* 14px */;
-  line-height: 1.25rem /* 20px */;
-  color: rgb(75 85 99);
+
+form > .file-preview svg{
+  width: 3rem/* 32px */;
+  height: 3rem/* 32px */;
 }
 
-.file-thumbnail > label:hover,
-.file-document > label:hover {
-  border: dashed 2px rgb(37 99 235);
-  color: rgb(37 99 235);
+form > .file-preview > .file-info{
+  display: none;
 }
 
-.file-thumbnail > label:hover > p,
-.file-document > label:hover > p {
-  color: rgb(37 99 235);
+form > .file-preview > .file-header,
+form > .file-preview > .file-info{
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  background-color: rgb(255 255 255 / 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: absolute;
+  width: 100%;
+}
+form > .file-preview > .file-header{
+  top: 0;
+}
+form > .file-preview > .file-info{
+  bottom: 0;
+}
+
+form > .file-preview > .file-info > .file-remove-btn{
+  background-color: transparent;
+  color: rgb(239 68 68);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
 }
 
 form > button {

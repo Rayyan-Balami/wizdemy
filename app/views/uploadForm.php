@@ -1,6 +1,6 @@
 <?php
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Requests',
+  'pageTitle' => SITE_NAME . ' | ' . ($requestDetails ? 'Respond' : 'Upload'),
   'stylesheets' => [
     'settingForm'
   ],
@@ -8,16 +8,19 @@ View::renderPartial('Header', [
     'script',
     'searchOverlay',
     'notificationOverlay',
-    'toastTimer'
+    'toastTimer',
+    'upload',
+    'timeAgo'
   ]
 ]);
 
-View::renderPartial('SideNav', [
-  'currentPage' => 'request'
+$flashOld = Session::get('old');
+
+View::renderPartial('SideNav');
+
+View::renderPartial('MenuHeader', [
+  'currentPage' => 'uploadForm'
 ]);
-
-View::renderPartial('MenuHeader');
-
 ?>
 
 <!-- upload study materials title -->
@@ -71,12 +74,12 @@ View::renderPartial('MenuHeader');
   </div>
 
   <h2 class="title">
-    Upload Study Materials
+    <?= $requestDetails ? 'Respond' : 'Upload' ?> Study Materials
   </h2>
 
   <p class="message">
-    Fill the form below to upload your study materials. <br>
-    Help others , others will help you.
+    Ace your exams with the help of our community<br>Share your study materials
+    <?php var_dump($_SESSION); echo Session::exists('request_id') ? 'true' : 'false'; var_dump($_POST);?>
   </p>
 </div>
 
@@ -88,32 +91,76 @@ View::renderPartial('MenuHeader');
         d="M12.238 3.64a1.854 1.854 0 0 0-1.629-1.628l-.8.8a3.367 3.367 0 0 1 1.63 1.628zM4.74 7.88l3.87-3.868a1.854 1.854 0 0 1 1.628 1.629L6.369 9.51a1.5 1.5 0 0 1-.814.418l-1.48.247l.247-1.48a1.5 1.5 0 0 1 .418-.814ZM9.72.78l-2 2l-4.04 4.04a3 3 0 0 0-.838 1.628L2.48 10.62a1 1 0 0 0 1.151 1.15l2.17-.36a3 3 0 0 0 1.629-.839l4.04-4.04l2-2c.18-.18.28-.423.28-.677A3.353 3.353 0 0 0 10.397.5c-.254 0-.498.1-.678.28ZM2.75 13a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5z"
         clip-rule="evenodd" />
     </svg>
-    Study Materials
+    <?= $requestDetails ? 'Request Details' : 'Study Materials' ?>
   </h2>
   <p class="form-info">
-    Details must be Correct, Complete and Concise [CCC], so that other
-    students can understand your materials.
+    <?= $requestDetails ? 'Respond to the following request.' : 'Upload your study materials to help others.' ?>
+    [ CCC ] Correct, Complete, Concise Materials are always appreciated.
   </p>
   <!-- form -->
-  <form action="" class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+  <form action="/upload/store" id="uploadForm" method="post" enctype="multipart/form-data">
 
-    <!-- responding to if comming from respond button -->
-    <div class="responding-to">
-      <div>Responding to</div>
-      <p>Rayyan Balami</p>
-    </div>
+    <?php if (!empty($requestDetails)): ?>
+      <div class="request-details">
+      <input type="hidden" name="request_id" value="<?= $requestDetails['request_id'] ?>">
+        <p class="request-subject">
+          <?= $requestDetails['subject'] ?>
+        </p>
+        <h3 class="request-title">
+          <?= $requestDetails['title'] ?>
+        </h3>
+        <p class="request-description">
+          <?= $requestDetails['description'] ?>
+        </p>
+        <div class="request-meta-datas">
+          <a href="/profile" class="username">
+            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
+              viewBox="0 0 512 512">
+              <path
+                d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+              </path>
+            </svg>
+            <h3><?= $requestDetails['username'] ?></h3>
+            <span>·</span>
+            <p class="time-ago"
+              data-datetime="<?= $requestDetails['created_at'] ?>">
+          </p>
+          </a>
+          
+          <p class="no-of-responses">Responds :
+            <?= $requestDetails['no_of_materials'] ?>
+          </p>
+          <p class="document-type">Document Need :
+            <?php if($requestDetails['document_type'] === 'labreport'): ?>
+              Lab Report
+            <?php else: 
+            echo $requestDetails['document_type'];
+            endif; ?>
+          </p>
+          <span>#
+            <?= $requestDetails['class_faculty'] ?>
+          </span>
+          <span>#
+            <?= $requestDetails['education_level'] ?>
+          </span>
+          <?php if (!empty($requestDetails['semester'])): ?>
+            <span>#
+              <?= $requestDetails['semester'] ?> Sem
+            </span>
+          <?php endif; ?>
+        </div>
+      </div>
+    <?php endif; ?>
 
-    <!-- title (required)-->
-    <div class="title">
-      <label for="title">Title</label>
-      <input type="text" placeholder="functions in C programming language." required name="title" id="title" />
-    </div>
-
+      <!-- title (required)-->
+      <div class="title">
+        <label for="title">Title</label>
+        <input type="text" placeholder="functions in C programming language." required name="title" id="title" value="<?= $flashOld['title'] ?? '' ?>">
+      </div>
     <!-- description (required)-->
-    <div class="description col-span-full">
+    <div class="description">
       <label for="description">Description</label>
-      <textarea required id="description" name="description" rows="3">
-          </textarea>
+      <textarea required id="description" name="description" rows="3"><?= $flashOld['description'] ?? '' ?></textarea>
 
       <p class="mt-2 text-sm text-gray-600">
         Describe what you are covering in your study materials.
@@ -122,13 +169,25 @@ View::renderPartial('MenuHeader');
 
     <!-- document-type (required)-->
     <div class="document-type">
-      <label for="document-type">Document Type</label>
+      <label for="document-type">Dcoument Type</label>
       <select name="document-type" id="document-type" required>
-        <option value="" disabled selected>Select an option...</option>
-        <option value="note" name="document-type">Note</option>
-        <option value="question" name="document-type">Question</option>
-        <option value="lab report" name="document-type">Lab Report</option>
-      </select>
+        <option value="" disabled <?= isset($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
+        </option>
+    <?php
+    $documentTypes = [
+      'Note' => 'note',
+      'Question' => 'question',
+      'Lab Report' => 'labreport'
+    ];
+    foreach ($documentTypes as $label => $value) {
+      $selected = (isset($flashOld['document_type']) && $flashOld['document_type'] === $value) || (isset($requestDetails['document_type']) && $requestDetails['document_type'] === $value) ? 'selected' : '';
+      // Disable the option if $requestDetails has a document_type
+      $disableOption = isset($requestDetails['document_type']) && $requestDetails['document_type'] !== $value ? 'disabled' : '';
+      echo "<option value=\"$value\" $selected $disableOption>$label</option>";
+    }
+    ?>
+  </select>
+
       <svg class="caret-up-down" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -140,14 +199,25 @@ View::renderPartial('MenuHeader');
       </svg>
     </div>
 
+
+
     <!-- Format ? (required)-->
     <div class="format">
       <label for="format">Format ?</label>
       <select name="format" id="format" required>
-        <option value="" disabled selected>Select an option...</option>
-        <option value="handwritten" name="format">Handwritten</option>
-        <option value="typed" name="format">Typed</option>
-        <option value="photo" name="format">Photo</option>
+        <option value="" disabled <?= isset($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
+        </option>
+        <?php
+        $format = [
+          'Typed' => 'typed',
+          'Handwritten' => 'handwritten',
+          'Photo' => 'photo'
+        ];
+        foreach ($format as $label => $value) {
+          $selected = (isset($flashOld['format']) && $flashOld['format'] === $value) || (isset($requestDetails['format']) && $requestDetails['format'] === $value) ? 'selected' : '';
+          echo "<option value=\"$value\" $selected>$label</option>";
+        }
+        ?>
       </select>
       <svg class="caret-up-down" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -165,13 +235,23 @@ View::renderPartial('MenuHeader');
       <label for="education-level">Education
         Level</label>
       <select name="education-level" id="education-level" required>
-        <option value="" disabled selected>Select an option...</option>
-        <option value="School" name="education-level">School</option>
-        <option value="+2" name="education-level">+2</option>
-        <option value="Bachelor" name="education-level">Bachelor</option>
-        <option value="Master" name="education-level">Master</option>
-        <option value="PhD" name="education-level">PhD</option>
+        <option value="" disabled <?= isset($flashOld['education_level']) ? '' : 'selected' ?>>Select an
+          option...</option>
+        <?php
+        $educationLevels = [
+          'School' => 'school',
+          'Bachelor' => 'bachelor',
+          'Master' => 'master',
+          'PhD' => 'phd'
+        ];
+        foreach ($educationLevels as $label => $value) {
+          $selected = (isset($flashOld['education_level']) && $flashOld['education_level'] === $value) || (isset($requestDetails['education_level']) && $requestDetails
+          ['education_level'] === $value) ? 'selected' : '';
+          echo "<option value=\"$value\" $selected>$label</option>";
+        }
+        ?>
       </select>
+
       <svg class="caret-up-down" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -188,15 +268,15 @@ View::renderPartial('MenuHeader');
       <label for="semester">Semester (if
         applicable)</label>
       <select name="semester" id="semester">
-        <option value="" disabled selected>Select an option...</option>
-        <option value="first" name="semester">First</option>
-        <option value="second" name="semester">Second</option>
-        <option value="third" name="semester">Third</option>
-        <option value="fourth" name="semester">Fourth</option>
-        <option value="fifth" name="semester">Fifth</option>
-        <option value="sixth" name="semester">Sixth</option>
-        <option value="seventh" name="semester">Seventh</option>
-        <option value="eighth" name="semester">Eighth</option>
+        <option value="" <?= isset($flashOld['semester']) ? '' : 'selected' ?>>Select an option...
+        </option>
+        <?php
+        $semesters = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
+        foreach ($semesters as $semester) {
+          $selected = (isset($flashOld['semester']) && $flashOld['semester'] === $semester) || (isset($requestDetails['semester']) && $requestDetails['semester'] === $semester) ? 'selected' : '';
+          echo "<option value=\"$semester\" $selected>$semester</option>";
+        }
+        ?>
       </select>
       <svg class="caret-up-down" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -212,69 +292,105 @@ View::renderPartial('MenuHeader');
     <!-- subject (required)-->
     <div class="subject">
       <label for="subject">Subject</label>
-      <input type="text" placeholder="C Programming" required name="subject" id="subject" />
+      <input type="text" placeholder="C Programming" required name="subject" id="subject"
+        value="<?= isset($flashOld['subject']) ? $flashOld['subject'] : (isset($requestDetails['subject']) ? $requestDetails['subject'] : ''); ?>" />
     </div>
 
     <!-- class/faculty (required)-->
     <div class="class">
-      <label for="class">Class/ Faculty</label>
-      <input type="text" placeholder="Class 10, Management, Science, BCA, BCSIT, MCA etc" required name="class"
-        id="class" />
+      <label for="class-faculty">Class/ Faculty</label>
+      <input type="text" placeholder="Short Forms ie, BCA, CSIT, Management, Science etc" required
+       name="class-faculty" id="class-faculty" value="<?= isset($flashOld['class_faculty']) ? $flashOld['class_faculty'] : (isset($requestDetails['class_faculty']) ? $requestDetails['class_faculty'] : ''); ?>" />
+
     </div>
 
     <!-- author / source / credits (required)-->
     <div class="author">
-      <label for="subject">Author / Source / Credits
-        [ Be
-        Truthful ]</label>
-      <input type="text" placeholder="Rayyan Balami" required name="subject" id="subject" />
+      <label for="author">Author / Source / Credits [ Be Truthful ]</label>
+      <input type="text" placeholder="Rayyan Balami" required name="author" id="author" value="<?= $flashOld['author'] ?? ''; ?>" />
     </div>
 
-    <!-- upload thumbnail (required)-->
-    <div class="file-thumbnail">
-      <label for="file-thumbnail">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M18.512 10.077c0 .738-.625 1.337-1.396 1.337c-.77 0-1.395-.599-1.395-1.337c0-.739.625-1.338 1.395-1.338s1.396.599 1.396 1.338" />
-          <path fill="currentColor" fill-rule="evenodd"
-            d="M18.036 5.532c-1.06-.137-2.414-.137-4.123-.136h-3.826c-1.71 0-3.064 0-4.123.136c-1.09.14-1.974.437-2.67 1.104S2.29 8.149 2.142 9.195C2 10.21 2 11.508 2 13.147v.1c0 1.64 0 2.937.142 3.953c.147 1.046.456 1.892 1.152 2.559c.696.667 1.58.963 2.67 1.104c1.06.136 2.414.136 4.123.136h3.826c1.71 0 3.064 0 4.123-.136c1.09-.14 1.974-.437 2.67-1.104s1.005-1.514 1.152-2.559C22 16.184 22 14.886 22 13.248v-.1c0-1.64 0-2.937-.142-3.953c-.147-1.046-.456-1.892-1.152-2.559c-.696-.667-1.58-.963-2.67-1.104M6.15 6.858c-.936.12-1.475.346-1.87.724c-.393.377-.629.894-.755 1.791c-.1.72-.123 1.619-.128 2.795l.47-.395c1.125-.942 2.819-.888 3.875.124l3.99 3.825a1.2 1.2 0 0 0 1.491.124l.278-.187a3.606 3.606 0 0 1 4.34.25l2.407 2.077c.098-.264.173-.579.227-.964c.128-.916.13-2.124.13-3.824c0-1.7-.002-2.909-.13-3.825c-.126-.897-.362-1.414-.756-1.791c-.393-.378-.933-.604-1.869-.724c-.956-.124-2.216-.125-3.99-.125h-3.72c-1.774 0-3.034.001-3.99.125"
-            clip-rule="evenodd" />
-          <path fill="currentColor"
-            d="M17.087 2.61c-.86-.11-1.955-.11-3.32-.11h-3.09c-1.364 0-2.459 0-3.318.11c-.89.115-1.633.358-2.222.92a2.9 2.9 0 0 0-.724 1.12c.504-.23 1.074-.366 1.714-.45c1.085-.14 2.47-.14 4.22-.14h3.915c1.749 0 3.134 0 4.219.14c.559.073 1.064.186 1.52.366a2.875 2.875 0 0 0-.693-1.035c-.589-.563-1.331-.806-2.221-.92"
-            opacity=".5" />
-        </svg>
-        <span>Upload a Image or drag and drop [ 21:9 ratio ]</span>
-        <p>JPG, JPEG, PNG up to 10MB</p>
+    <!-- upload file (required)-->
+    <div class="file-upload-section">
+      <input type="file" name="tempFile" id="tempFile" accept="image/*, application/pdf" />
+      <label for="tempFile">
+        <div>
+          <span> Drop Thumnail & Study Material Here </span>
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M15.1289 5.43005L19.3489 6.19C19.7634 6.26246 20.1596 6.41602 20.5147 6.64178C20.8698 6.86755 21.1769 7.16113 21.4184 7.50574C21.6599 7.85035 21.8311 8.23918 21.9221 8.65002C22.0131 9.06087 22.0223 9.48566 21.9489 9.90002L20.2789 19.35C20.2076 19.7642 20.0552 20.1601 19.8305 20.5151C19.6057 20.8702 19.313 21.1773 18.9692 21.4189C18.6254 21.6605 18.2372 21.8318 17.827 21.923C17.4168 22.0141 16.9927 22.0233 16.5789 21.95L8.69891 20.5601C8.28397 20.4871 7.88751 20.333 7.53229 20.1064C7.17706 19.8799 6.87006 19.5855 6.62891 19.2401"
+                  stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M11.2802 2.05006C11.6933 1.97532 12.1173 1.98313 12.5274 2.07307C12.9376 2.16302 13.3258 2.33331 13.6698 2.57411C14.0138 2.8149 14.3067 3.12144 14.5316 3.47603C14.7565 3.83061 14.909 4.22621 14.9802 4.64003L16.6501 14.1C16.7249 14.5132 16.7171 14.9372 16.6271 15.3473C16.5372 15.7575 16.3669 16.1457 16.1261 16.4897C15.8853 16.8337 15.5788 17.1266 15.2242 17.3515C14.8696 17.5764 14.474 17.7289 14.0602 17.8001L6.18015 19.19C5.34473 19.3384 4.4846 19.1489 3.78888 18.6632C3.09316 18.1775 2.61883 17.4354 2.47015 16.6L2.16016 14.82"
+                  stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M2.17037 14.82C1.68722 11.9188 2.37523 8.94454 4.08331 6.55023C5.79139 4.15592 8.37988 2.53738 11.2804 2.05005V2.05005"
+                  stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M2.09068 14.36C1.58068 10.19 6.09067 12.78 8.18067 9.76001C10.2707 6.74001 7.18069 2.76005 11.2907 2.05005"
+                  stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+            </svg></span>
+          <span>Or</span>
+          <span class="browse-file"> Browse File </span>
+          <span class="file-upload-message"></span>
+        </div>
       </label>
-      <input id="file-thumbnail" name="file-thumbnail" type="file" accept=".jpg,.jpeg,.png" required class="hidden" />
     </div>
 
-    <!---upload pdf file (required) -->
-    <div class="file-document">
-      <label for="file-document">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-          <g fill="currentColor">
-            <path d="M208 88h-56V32Z" opacity=".2" />
-            <path
-              d="M224 152a8 8 0 0 1-8 8h-24v16h16a8 8 0 0 1 0 16h-16v16a8 8 0 0 1-16 0v-56a8 8 0 0 1 8-8h32a8 8 0 0 1 8 8M92 172a28 28 0 0 1-28 28h-8v8a8 8 0 0 1-16 0v-56a8 8 0 0 1 8-8h16a28 28 0 0 1 28 28m-16 0a12 12 0 0 0-12-12h-8v24h8a12 12 0 0 0 12-12m88 8a36 36 0 0 1-36 36h-16a8 8 0 0 1-8-8v-56a8 8 0 0 1 8-8h16a36 36 0 0 1 36 36m-16 0a20 20 0 0 0-20-20h-8v40h8a20 20 0 0 0 20-20M40 112V40a16 16 0 0 1 16-16h96a8 8 0 0 1 5.66 2.34l56 56A8 8 0 0 1 216 88v24a8 8 0 0 1-16 0V96h-48a8 8 0 0 1-8-8V40H56v72a8 8 0 0 1-16 0m120-32h28.69L160 51.31Z" />
+
+    <!-- thumbnail -->
+    <div class="file-preview" id="image-file-preview">
+      <img src="" alt="">
+      <input type="file" name="imageFile" id="imageFile" accept="image/jpeg, image/jpg, image/png, image/gif"
+        required />
+      <label class="file-header"><span class="file-name"></span><span>Thumbnail</span></label>
+      <div class="file-info">
+        <p class="file-size"></p>
+        <button type="button" class="file-remove-btn" onclick="removeFile('image')">remove</button>
+      </div>
+    </div>
+
+    <!-- file -->
+    <div class="file-preview" id="document-file-preview">
+      <input type="file" name="documentFile" id="documentFile" accept="application/pdf" hidden required />
+      <label class="file-header"><span class="file-name"></span><span>Study Material</span></label>
+      <span class="file-icon">
+        <svg height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.267 309.267" xml:space="preserve" fill="#000000">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <g>
+              <path style="fill:#E2574C;"
+                d="M38.658,0h164.23l87.049,86.711v203.227c0,10.679-8.659,19.329-19.329,19.329H38.658 c-10.67,0-19.329-8.65-19.329-19.329V19.329C19.329,8.65,27.989,0,38.658,0z">
+              </path>
+              <path style="fill:#B53629;"
+                d="M289.658,86.981h-67.372c-10.67,0-19.329-8.659-19.329-19.329V0.193L289.658,86.981z"></path>
+              <path style="fill:#FFFFFF;"
+                d="M217.434,146.544c3.238,0,4.823-2.822,4.823-5.557c0-2.832-1.653-5.567-4.823-5.567h-18.44 c-3.605,0-5.615,2.986-5.615,6.282v45.317c0,4.04,2.3,6.282,5.412,6.282c3.093,0,5.403-2.242,5.403-6.282v-12.438h11.153 c3.46,0,5.19-2.832,5.19-5.644c0-2.754-1.73-5.49-5.19-5.49h-11.153v-16.903C204.194,146.544,217.434,146.544,217.434,146.544z M155.107,135.42h-13.492c-3.663,0-6.263,2.513-6.263,6.243v45.395c0,4.629,3.74,6.079,6.417,6.079h14.159 c16.758,0,27.824-11.027,27.824-28.047C183.743,147.095,173.325,135.42,155.107,135.42z M155.755,181.946h-8.225v-35.334h7.413 c11.221,0,16.101,7.529,16.101,17.918C171.044,174.253,166.25,181.946,155.755,181.946z M106.33,135.42H92.964 c-3.779,0-5.886,2.493-5.886,6.282v45.317c0,4.04,2.416,6.282,5.663,6.282s5.663-2.242,5.663-6.282v-13.231h8.379 c10.341,0,18.875-7.326,18.875-19.107C125.659,143.152,117.425,135.42,106.33,135.42z M106.108,163.158h-7.703v-17.097h7.703 c4.755,0,7.78,3.711,7.78,8.553C113.878,159.447,110.863,163.158,106.108,163.158z">
+              </path>
+            </g>
           </g>
         </svg>
-        <span>Upload a file or drag and drop</span>
-
-        <p>PDF up to 10MB</p>
-      </label>
-      <input id="file-document" name="file-document" type="file" accept=".pdf" required class="hidden" />
-      <p>
-        Use copyright watermark, names, signatures etc in your PDF.
-        If someone is using your materials without giving you credits, report it. <br>
-      </p>
+      </span>
+      <div class="file-info">
+        <p class="file-size"></p>
+        <button type="button" class="file-remove-btn" onclick="removeFile('document')">remove</button>
+      </div>
     </div>
 
-
-
     <!-- save button -->
-    <button type="submit" name="submit">
-      Upload / Respond
+    <button type="submit" name="submit" id="submit">
+      <?php if (!empty($requestDetails)): ?>
+        Respond
+      <?php else: ?>
+        Upload
+      <?php endif; ?>
     </button>
   </form>
 </div>

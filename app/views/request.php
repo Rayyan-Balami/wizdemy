@@ -12,8 +12,9 @@ View::renderPartial('Header', [
     'searchOverlay',
     'notificationOverlay',
     'toastTimer',
+    'timeAgo',
     'jquery.min',
-    'request',
+    'request'
   ]
 ]);
 
@@ -24,25 +25,30 @@ View::renderPartial('SideNav', [
 
 View::renderPartial('MenuHeader');
 
+?>
 
+<section >
 
-  View::renderPartial('CardCategory',[
-    'currentPage' => 'request'
-  ]);
+  <?php
+  View::renderPartial('CardCategory');
 
-  // if (!empty($requests)):
+  if (!empty($requests)):
 
   View::renderPartial('RequestCard', [
     'requests' => $requests
   ]);
 
-// else:
+else:
 
-//   View::renderPartial('ZeroResult');
+  View::renderPartial('ZeroResult');
 
-// endif;
+endif;
 
-View::renderPartial('Footer');
+?>
+
+</section>
+
+<?php
 
 View::renderPartial('ThreeDotMenu');
 

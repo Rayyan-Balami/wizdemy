@@ -8,8 +8,8 @@ class LogModel extends Model
 
   public function login($username_email, $password){
     $user = $this->select(['user_id', 'username', 'email', 'password'])
-      ->where('username', $username_email)
-      ->orWhere('email', $username_email)
+      ->where('username = :username OR email = :email')
+      ->bind(['username' => $username_email, 'email' => $username_email])
       ->get();
 
     if ($user && password_verify($password, $user['password'])) {

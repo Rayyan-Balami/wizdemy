@@ -75,8 +75,13 @@ header > .logo {
 }
 
 .uplaod-request-link > .upload-link:hover,
-.uplaod-request-link > .request-link:hover {
+.uplaod-request-link > .request-link:hover{
   background-color: rgb(221, 224, 230);
+}
+
+.uplaod-request-link > .upload-link.active-header-menu,
+.uplaod-request-link > .request-link.active-header-menu{
+  background-color: rgb(227, 230, 236);
 }
 
 @media (width >= 640px) {

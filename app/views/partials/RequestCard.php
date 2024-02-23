@@ -5,27 +5,27 @@
         <div class="request-card">
             <!-- subject -->
             <p class="subject">
-                <?= htmlspecialchars($request['subject']) ?>
+                <?= $request['subject']?>
             </p>
             <!-- title  -->
             <h2 class="title">
-                <?= htmlspecialchars($request['title']) ?>
+                <?= $request['title']?>
             </h2>
             <!-- request- -->
             <p class="request-details">
-                <?= htmlspecialchars($request['description']) ?>
+                <?= $request['description']?>
             </p>
             <!-- education-level  -->
             <div class="education-level">
                 <span>#
-                    <?= htmlspecialchars($request['education_level']) ?>
+                    <?= $request['education_level']?>
                 </span>
                 <span>#
-                    <?= htmlspecialchars($request['class_faculty']) ?>
+                    <?= $request['class_faculty'] ?>
                 </span>
                 <?php if (!empty($request['semester'])): ?>
                     <span>#
-                        <?= htmlspecialchars($request['semester']) ?>
+                        <?= $request['semester'] . ' Sem' ?>
                     </span>
                 <?php endif; ?>
             </div>
@@ -33,19 +33,19 @@
             <div class="no-of-responses">
                 <p>Responses</p>
                 <span>
-                    <?= htmlspecialchars($request['no_of_materials']) ?>
+                    <?= $request['no_of_materials'] ?>
                 </span>
             </div>
-            <!-- document need ( notes, lab reports, question)  -->
+            <!-- document need ( notes, lab reports, question )  -->
             <div class="document-type-needed">
                 <p>Document Need</p>
                 <span>
-                    <?= htmlspecialchars($request['document_type']) ?>
+                    <?= $request['document_type'] ?>
                 </span>
             </div>
 
             <!-- username  -->
-            <a href="profile.html" class="username">
+            <a href="/profile/user?user_id=<?= $request['user_id'] ?>" class="username">
                 <!-- at icon @  -->
                 <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
                     viewBox="0 0 512 512">
@@ -55,14 +55,14 @@
                 </svg>
                 <!-- username  -->
                 <h3>
-                    <?= htmlspecialchars($request['username']) ?>
+                    <?= $request['username'] ?>
                 </h3>
             </a>
 
             <!-- time  -->
             <div class="time">
                 <p>
-                    <a href="" class="time-ago" data-time="<?= $request['created_at'] ?>"></a>
+                    <a href="/profile/user?user_id=<?= $request['user_id'] ?>" class="time-ago" data-datetime="<?= $request['created_at'] ?>"></a>
                 </p>
                 <!-- three dot icon -->
                 <button class="three-dot-icon" onclick="openThreeDotMenu('2')">
@@ -80,14 +80,17 @@
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
+                <form action="/upload/respond" method="post">
                 <!-- respond button  -->
-                <a href="/upload" class="respond-button">
+                <input type="hidden" name="request_id" value="<?= $request['request_id'] ?>">
+                <button type="submit" class="respond-button">
                     <span>Respond</span>
                     <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'
                         stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
                         <path d='M5 12h13M12 5l7 7-7 7' />
                     </svg>
-                </a>
+                </button>
+                </form>
             </div>
         </div>
         <!-- end of request card -->

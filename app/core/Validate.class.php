@@ -20,4 +20,35 @@ class Validate
         $value2 = trim($value2);
         return $value1 === $value2;
     }
-  }
+
+    public static function file($file,$type,$allowedType,$size=2000000)
+    {
+        if($file['error'] !== 0){
+            return [
+                'status' => false,
+                'message' => 'File upload error'
+            ];
+        }
+
+        if(!in_array($file['type'],$allowedType)){
+            return [
+                'status' => false,
+                'message' => 'Invalid file type'
+            ];
+        }
+
+        //check if the size is allowed
+        if($file['size'] > $size){
+            return [
+                'status' => false,
+                'message' => $type . "must be smaller than" . $size
+            ];
+        }
+
+        return [
+            'status' => true,
+            'message' => 'File is valid'
+        ];
+
+    }
+}

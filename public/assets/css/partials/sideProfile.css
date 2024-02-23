@@ -31,22 +31,30 @@
 
 .profile-card {
   border-radius: var(--border-radius)/* 12px */;
-  /* background-image: radial-gradient(164.75% 100% at 50% 0%,#334155 0%,#0F172A 48.73%); */
-  background: url(https://i.ibb.co/LPLv5MD/Payment-Card-01.jpg) center/cover;
+  background-image: radial-gradient(164.75% 100% at 50% 0%,#334155 0%,#0F172A 48.73%);
+  /* background: url(https://i.ibb.co/LPLv5MD/Payment-Card-01.jpg) center/cover; */
   color: white;
   padding: 1rem/* 16px */;
   display: grid;
   gap: 0.625rem/* 10px */;
 }
 
-.profile-card > .username-logo {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.5rem/* 8px */;
+.profile-card svg{
+  width: 1.25rem/* 24px */;
+  height: 1.25rem/* 24px */;
+  flex-shrink: 0;
 }
 
-.profile-card > .username-logo > .username{
-  grid-column: span 3 / span 3;
+.profile-card > .username-logo,
+.profile-card > .name-private{
+  display: flex;
+  align-items: center;
+  gap: 0.375rem/* 6px */;
+}
+
+.profile-card > .username-logo > .username,
+.profile-card > .name-private > .full-name{
+  flex-grow: 1;
 }
 
 .profile-card > .username-logo > .username > div{
@@ -55,39 +63,36 @@
   gap: 0.375rem/* 6px */;
 }
 
-.profile-card > .username-logo > .logo {
-  grid-column: span 1 / span 1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+.profile-card > .username-logo > .username > div >svg{
+  width: 0.9rem /* 14px */;
+  height: 0.9rem /* 14px */;
+  flex-shrink: 0;
 }
 
 .profile-card > .username-logo > .logo > img {
   width: 3rem/* 48px */;
   height: 3rem/* 48px */;
+  object-position: center;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .profile-card > .username-logo > .username > p,
-.profile-card > .full-name > p {
+.profile-card > .name-private > .full-name > p {
   font-weight: 300;
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
 }
 
-.profile-card > .username-logo > .username > div > svg{
-  flex-shrink: 0;
-}
-
 .profile-card > .username-logo > .username > div > div,
-.profile-card > .full-name > div {
+.profile-card > .name-private > .full-name > div {
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.profile-card > .full-name > div {
+.profile-card > .name-private > .full-name > div {
   letter-spacing: 0.1em;
 }
 
@@ -98,20 +103,17 @@
 
 }
 
-.profile-card > .infos > .class-course > p{
-  font-weight: 300;
-  font-size: 0.75rem/* 12px */;
-  line-height: 1rem/* 16px */;
-}
+.profile-card > .infos > .class-course > p,
 .profile-card > .infos > .user-type> p,
-.profile-card > .infos > .year > p {
+.profile-card > .infos > .year > p{
   font-weight: 300;
   font-size: 0.75rem/* 12px */;
   line-height: 1rem/* 16px */;
-  text-align: center;
 }
 
-.profile-card > .infos > .class-course > div{
+.profile-card > .infos > .class-course > div,
+.profile-card > .infos > .user-type > div,
+.profile-card > .infos > .year > div {
   font-weight: 500;
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
@@ -121,13 +123,11 @@
   text-transform: uppercase;
 }
 
+.profile-card > .infos > .user-type> p,
+.profile-card > .infos > .year > p,
 .profile-card > .infos > .user-type > div,
 .profile-card > .infos > .year > div {
-  font-weight: 500;
-  font-size: 0.875rem/* 14px */;
-  line-height: 1.25rem/* 20px */;
   text-align: center;
-  text-transform: uppercase;
 }
 
 
@@ -147,21 +147,23 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   place-content: center;
-  gap: 1.5rem/* 24px */;
-  padding: 1rem/* 16px */;
+  gap: 1rem/* 24px */;
+  padding: 1rem 0.5rem/* 8px */;
   border-radius: var(--border-radius)/* 12px */;
   background-color: var(--background-gray);
   border: 1px solid rgb(156 163 175);
 }
 
 .side-profile > .userstats-bio-wrapper > .userstats > div > p {
-  font-weight: 500;
+  display: block;
+  font-weight: 400;
   font-size: 1.5rem/* 24px */;
   line-height: 2rem/* 32px */;
   text-align: center;
 }
 
 .side-profile > .userstats-bio-wrapper > .userstats > div > div {
+  font-weight: 300;
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
   text-align: center;
@@ -173,7 +175,14 @@
   gap: 0.5rem/* 8px */;
 }
 
+.side-profile > .userstats-bio-wrapper > .user-buttons svg {
+  width: 1.5rem/* 24px */;
+  height: 1.5rem/* 24px */;
+  flex-shrink: 0;
+}
+
 .side-profile > .userstats-bio-wrapper > .user-buttons > .follow-button,
+.side-profile > .userstats-bio-wrapper > .user-buttons > .upload-button,
 .side-profile > .userstats-bio-wrapper > .user-buttons > .myrequest-button {
   display: flex;
   align-items: center;
@@ -186,7 +195,8 @@
   border-radius: var(--border-radius)/* 12px */;
 }
 
-.side-profile > .userstats-bio-wrapper > .user-buttons > .follow-button {
+.side-profile > .userstats-bio-wrapper > .user-buttons > .follow-button,
+.side-profile > .userstats-bio-wrapper > .user-buttons > .upload-button {
   background-color: rgb(17 24 39);
   color: white;
   border: 1.5px solid black;

@@ -14,11 +14,11 @@ View::renderPartial('Header', [
 
 $flashOld = Session::get('old');
 
-View::renderPartial('SideNav', [
-    'currentPage' => 'request'
-]);
+View::renderPartial('SideNav');
 
-View::renderPartial('MenuHeader');
+View::renderPartial('MenuHeader', [
+    'currentPage' => 'requestForm'
+  ]);
 
 ?>
 <!-- New Request title -->
@@ -62,7 +62,7 @@ View::renderPartial('MenuHeader');
     </h2>
     <p class="form-info">
         Details must be Correct, Complete and Concise [CCC], so that other students can understand your
-        request.
+        request. <?php var_dump($_SESSION['_flash']); echo Session::exists('request_id') ? 'true' : 'false'; var_dump($_POST);?>
     </p>
     <!-- form -->
     <form action="/request/store" method="post">
@@ -75,7 +75,7 @@ View::renderPartial('MenuHeader');
         </div>
 
         <!-- description (required)-->
-        <div class="description col-span-full">
+        <div class="description">
             <label for="description">Description</label>
             <textarea required id="description" name="description"
                 rows="3"><?= $flashOld['description'] ?? '' ?></textarea>
