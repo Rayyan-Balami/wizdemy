@@ -7,6 +7,7 @@
   column-gap: 1.5rem /* 24px */;
   row-gap: 2rem /* 32px */;
   transition: var(--transition);
+  height: max-content;
 }
 @media (width > 640px) {
   .card-section {

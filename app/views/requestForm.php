@@ -44,8 +44,8 @@ View::renderPartial('MenuHeader', [
     </h2>
 
     <p class="message">
-        Fill the form below to request for a new note, question or lab
-        report.
+        Helping each other is the best way to learn.<br>
+        Build a community of helping hands.
     </p>
 
 </div>
@@ -62,7 +62,7 @@ View::renderPartial('MenuHeader', [
     </h2>
     <p class="form-info">
         Details must be Correct, Complete and Concise [CCC], so that other students can understand your
-        request. <?php var_dump($_SESSION['_flash']); echo Session::exists('request_id') ? 'true' : 'false'; var_dump($_POST);?>
+        request.
     </p>
     <!-- form -->
     <form action="/request/store" method="post">

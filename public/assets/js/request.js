@@ -1,5 +1,6 @@
 function RequestCard(
   request_id,
+  user_id,
   title,
   subject,
   description,
@@ -41,7 +42,7 @@ function RequestCard(
       <p>Document Need</p><span>${document_type}</span>
   </div>
   <!-- username  -->
-  <a href="profile.html" class="username">
+  <a href="profile/user?user_id=${user_id}" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -55,7 +56,7 @@ function RequestCard(
 
   <!-- time  -->
   <div class="time">
-      <p><a href="" class="time-ago" data-datetime="${created_at}"></a>
+      <p><a href="profile/user?user_id=${user_id}" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu('/requests/details?request_id=${id}')">
@@ -171,10 +172,11 @@ function ZeroResult(auth) {
 }
 
 function changeCategory(category, auth) {
+  const cardCategory = $(".card-category-wrapper");
   const requestCardSection = $(".request-card-section");
   const ZeroResultSection = $(".zeroResult-container");
 
-  requestCardSection.empty();
+  requestCardSection.empty(); 
   ZeroResultSection.remove();
 
   ["note", "question", "labreport"].forEach((cat) => {
@@ -190,13 +192,14 @@ function changeCategory(category, auth) {
     type: "POST",
     data: { category },
     success: function (respond) {
-      if (!respond.data.length) {
-        requestCardSection.after(ZeroResult(auth));
+      if (respond.data.length <= 0) {
+        cardCategory.after(ZeroResult(auth));
         return;
       }
       respond.data.forEach((request) => {
         const requestCard = RequestCard(
           request.request_id,
+          request.user_id,
           request.title,
           request.subject,
           request.description,

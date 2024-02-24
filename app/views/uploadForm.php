@@ -79,7 +79,6 @@ View::renderPartial('MenuHeader', [
 
   <p class="message">
     Ace your exams with the help of our community<br>Share your study materials
-    <?php var_dump($_SESSION); echo Session::exists('request_id') ? 'true' : 'false'; var_dump($_POST);?>
   </p>
 </div>
 

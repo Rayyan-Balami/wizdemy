@@ -2,63 +2,133 @@
 
 class ProfileModel extends Model
 {
-  public function __construct()
+  public function __construct($table = 'user_profile_view')
   {
-    parent::__construct('users');
+    parent::__construct($table);
+    $this->fillable = ['follower_id', 'following_id'];
   }
 
 
   public function find($user_id)
   {
+    $current_user = null;
+    if (Session::exists('user')) {
+      $current_user = Session::get('user')['user_id'];
+    }
+
     return $this->select([
-      'u.user_id',
-      'u.private AS is_private',
-      'u.username',
-      'u.full_name',
-      'u.education_level',
-      'u.enrolled_course',
-      'u.bio',
-      'u.created_at',
-      'COUNT(DISTINCT f1.follower_id) as followers_count',
-      'COUNT(DISTINCT f2.following_id) as following_count',
-      'COUNT(DISTINCT r.request_id) as requests_count',
-      'COUNT(DISTINCT m.material_id) as materails_count',
+      'upv.*',
       'CASE
         WHEN fr.following_id IS NOT NULL THEN 1
         ELSE 0
-    END AS is_current_user_follower'
-    ], 'u')
-      ->leftJoin('follow_relation as fr', 'u.user_id = fr.following_id AND fr.follower_id = :follower_id')
-      ->leftJoin('follow_relation as f1', 'f1.following_id = u.user_id')
-      ->leftJoin('follow_relation as f2', 'f2.follower_id = u.user_id')
-      ->leftJoin('study_material_requests as r', 'r.user_id = u.user_id')
-      ->leftJoin('study_materials as m', 'm.user_id = u.user_id')
-      ->where('u.user_id = :user_id')
-      ->bind(['user_id' => $user_id, 'follower_id' => Session::get('user')['user_id']])
+        END AS is_current_user_follower'
+    ], 'upv')
+      ->leftJoin('follow_relation as fr', 'upv.user_id = fr.following_id AND fr.follower_id = :follower_id')
+      ->where('upv.user_id = :user_id')
+      ->bind(['user_id' => $user_id, 'follower_id' => $current_user])
       ->get();
   }
 
   public function showUploads($user_id, $document_type = 'note')
   {
+
     return (new StudyMaterailModel())->select([
-      'm.*',
-      'u1.username',
-      'u2.username as responded_by',
-      'COUNT(DISTINCT l.like_id) as likes_count',
-      'COUNT(DISTINCT c.comment_id) as comments_count',
-      'COUNT(DISTINCT v.view_id) as views_count'
-    ], 'm')
-      ->leftJoin('users as u1', 'u1.user_id = m.user_id')
-      ->leftJoin('study_material_requests as r', 'r.request_id = m.request_id')
-      ->leftJoin('users as u2', 'u2.user_id = r.user_id')
-      ->leftJoin('likes as l', 'l.material_id = m.material_id')
-      ->leftJoin('comments as c', 'c.material_id = m.material_id')
-      ->leftJoin('views as v', 'v.material_id = m.material_id')
-      ->where('m.user_id = :user_id AND m.document_type = :document_type')
+      'mv.*'
+    ], 'mv')
+      ->where('mv.user_id = :user_id AND mv.document_type = :document_type')
       ->bind(['user_id' => $user_id, 'document_type' => $document_type])
-      ->groupBy('m.material_id')
-      ->orderBy('m.created_at', 'DESC')
+      ->groupBy('mv.material_id')
       ->getAll();
-}
+  }
+
+
+  public function isFollowing($user_id)
+  {
+    $current_user = null;
+    if (Session::exists('user')) {
+      $current_user = Session::get('user')['user_id'];
+    }
+    return (new ProfileModel('follow_relation'))->select()
+      ->where('following_id = :following_id AND follower_id = :follower_id')
+      ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
+      ->get();
+  }
+
+  public function follow($user_id)
+  {
+    $current_user = null;
+    if (Session::exists('user')) {
+      $current_user = Session::get('user')['user_id'];
+    }
+
+    //check if the user is already following
+    $isFollowing = (new ProfileModel('follow_relation'))->select()
+      ->where('following_id = :following_id AND follower_id = :follower_id')
+      ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
+      ->get();
+
+    if ($isFollowing) {
+      return [
+        'status' => false,
+        'message' => 'You are already following this user'
+      ];
+    }
+
+    $result = (new ProfileModel('follow_relation'))->insert([
+      'following_id' => $user_id,
+      'follower_id' => $current_user
+    ])->execute();
+
+    if ($result) {
+      return [
+        'status' => true,
+        'message' => 'You are now following this user'
+      ];
+    }else{
+      return [
+        'success' => false,
+        'message' => 'Something went wrong'
+      ];
+    }
 }
 
+public function unfollow($user_id)
+{
+
+  $current_user = null;
+  if (Session::exists('user')) {
+    $current_user = Session::get('user')['user_id'];
+  }
+
+  //check if the user is already unfollowing
+  $isFollowing = (new self('follow_relation'))->select()
+    ->where('following_id = :following_id AND follower_id = :follower_id')
+    ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
+    ->get();
+
+  if (!$isFollowing) {
+    return [
+      'status' => false,
+      'message' => 'You are not following this user'
+    ];
+  }
+
+
+  $result = (new self('follow_relation'))->delete()
+    ->where('following_id = :following_id AND follower_id = :follower_id')
+    ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
+    ->execute();
+
+  if ($result) {
+    return [
+      'status' => true,
+      'message' => 'You have unfollowed this user'
+    ];
+  }else{
+    return [
+      'success' => false,
+      'message' => 'Something went wrong'
+    ];
+  }
+}
+}

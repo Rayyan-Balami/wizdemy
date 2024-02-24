@@ -5,10 +5,10 @@
     <div class="card ">
       <!-- image -->
       <a href="productPage.html" class="thumbnail">
-        <img src="<?= $material['thumbnail_path'] ?>" alt="thumbnail">
+        <img src="/<?= $material['thumbnail_path'] ?>" alt="thumbnail">
 
         <div>
-          <?php if($material['responded_by'] ?? false): ?>
+          <?php if($material['responded_to'] ?? false): ?>
           <!-- is responded post to request ?  -->
           <div class="request-responded-post">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,13 +79,13 @@
 
       <!-- subject  -->
       <a href="productPage.html">
-        <p class="subject"><?= $material['subject'] ?></p>
+        <p class="subject"><?= $material['subject'] ?> • <?= $material['class_faculty'] ?></p>
         <!-- title  -->
         <h2 class="title"><?= $material['title'] ?></h2>
       </a>
 
       <!-- username  -->
-      <a href="<?= $page==='profile' ? '#' : '/profile/user?user_id='.$material['user_id'] ?>" class="username">
+      <a href="<?= isset($page) && $page==='profile' ? '#' : '/profile/user?user_id='.$material['user_id'] ?>" class="username">
         <!-- at icon @  -->
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -99,7 +99,7 @@
 
       <!-- time  -->
       <div class="time">
-        <p><a href="<?= $page==='profile' ? '#' : '/profile/user?user_id='.$material['user_id'] ?>" class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
+        <p><a href="<?= isset($page) && $page==='profile' ? '#' : '/profile/user?user_id='.$material['user_id'] ?>" class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
         <button class="three-dot-icon" onclick="openThreeDotMenu('<?= $material['material_id'] ?>')">
 

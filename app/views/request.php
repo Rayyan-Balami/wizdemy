@@ -27,24 +27,18 @@ View::renderPartial('MenuHeader');
 
 ?>
 
-<section >
+<section>
 
   <?php
   View::renderPartial('CardCategory');
 
-  if (!empty($requests)):
-
-  View::renderPartial('RequestCard', [
-    'requests' => $requests
-  ]);
-
-else:
-
-  View::renderPartial('ZeroResult');
-
-endif;
-
-?>
+  if (!empty($requests)) :
+    View::renderPartial('RequestCard', ['requests' => $requests]);
+  else :
+    View::renderPartial('RequestCard', ['requests' => []]);
+    View::renderPartial('ZeroResult');
+  endif;
+  ?>
 
 </section>
 

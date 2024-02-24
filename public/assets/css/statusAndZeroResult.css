@@ -2,6 +2,7 @@
 @import url("./partials/toastNotification.css");
 .status-container,
 .zeroResult-container {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;

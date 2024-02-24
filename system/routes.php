@@ -36,6 +36,8 @@ $router->post('/upload/respond', 'UploadController@index')->only('auth'); //comi
 //routes for profile page
 $router->get('/profile', 'ProfileController@index')->only('auth'); //for logged in user
 $router->get('/profile/user', 'ProfileController@show'); //for other users
+$router->post('/follow', 'ProfileController@follow')->only('auth');
+$router->delete('/unfollow', 'ProfileController@unfollow')->only('auth');
 
 //routes for like page
 $router->post('/like', 'LikeController@store')->only('auth');

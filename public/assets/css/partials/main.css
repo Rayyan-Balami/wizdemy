@@ -8,6 +8,20 @@
 
 main,section {
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  min-height: 100dvh;
+}
+
+main section {
+  flex-grow: 1;
+}
+
+main > .card-profile-wrapper {
+  flex-grow: 1;
 }
 
 /* ----- Main ends here ----- */

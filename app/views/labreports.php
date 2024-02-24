@@ -3,7 +3,8 @@
 View::renderPartial('Header', [
   'pageTitle' => SITE_NAME . ' | Lab Reports',
   'stylesheets' => [
-    'styles'
+    'styles',
+    'statusAndZeroResult'
   ],
   'scripts' => [
     'script',
@@ -11,7 +12,8 @@ View::renderPartial('Header', [
     'sideInfo',
     'searchOverlay',
     'notificationOverlay',
-    'toastTimer'
+    'toastTimer',
+    'timeAgo',
   ]
 ]);
 
@@ -25,7 +27,13 @@ View::renderPartial('MenuHeader');
 
 <section>
 <?php
-View::renderPartial('StudyMaterialCard');
+ if (!empty($labreports)):
+  View::renderPartial('StudyMaterialCard', [
+    'materials' => $labreports
+  ]);
+else:
+  View::renderPartial('ZeroResult');
+endif;
 ?>
 </section>
 

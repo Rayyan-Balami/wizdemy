@@ -11,7 +11,26 @@
 .form-section {
   padding: 1rem /* 16px */;
   margin: 0 auto;
-  max-width: 60rem /* 960px */;
+  width: 100%;
+  transition: var(--transition);
+}
+
+@media (width >= 640px) {
+  .form-section {
+    padding: 1.5rem /* 24px */;
+  }
+}
+
+@media (width >= 768px) {
+  .form-section {
+    width: 90%;
+  }
+}
+
+@media (width >= 1024px) {
+  .form-section {
+    max-width: 70rem /* 1280px */;
+  }
 }
 
 .form-section > div {
@@ -22,11 +41,7 @@
   padding-top: 3rem /* 24px */;
   border-top: var(--border);
 }
-@media (width >= 640px) {
-  .form-section {
-    padding: 1.5rem /* 24px */;
-  }
-}
+
 
 .form-section svg {
   width: 1.5rem /* 24px */;
