@@ -14,7 +14,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'timeAgo',
     'jquery.min',
-    'request'
+    'category',
   ]
 ]);
 
@@ -30,13 +30,13 @@ View::renderPartial('MenuHeader');
 <section>
 
   <?php
-  View::renderPartial('CardCategory');
+  View::renderPartial('CardCategory',['page' => 'request']);
 
   if (!empty($requests)) :
     View::renderPartial('RequestCard', ['requests' => $requests]);
   else :
-    View::renderPartial('RequestCard', ['requests' => []]);
     View::renderPartial('ZeroResult');
+    View::renderPartial('RequestCard', ['requests' => []]);
   endif;
   ?>
 

@@ -14,7 +14,8 @@ View::renderPartial('Header', [
     'notificationOverlay',
     'toastTimer',
     'timeAgo',
-    'jquery.min'
+    'jquery.min',
+    'category'
   ]
 ]);
 
@@ -72,17 +73,12 @@ View::renderPartial('MenuHeader');
 
     <section>
       <?php
-      View::renderPartial('CardCategory');
+      View::renderPartial('CardCategory', ['page' => 'profile']);
       if (!empty($uploads)):
-        View::renderPartial('StudyMaterialCard', [
-          'materials' => $uploads,
-          'page' => 'profile'
-        ]);
+        View::renderPartial('StudyMaterialCard', ['materials' => $uploads, 'page' => 'profile']);
       else:
-        View::renderPartial('ZeroResult', [
-          'page' => 'profile',
-          'myProfile' => $myProfile
-        ]);
+        View::renderPartial('ZeroResult', ['page' => 'profile', 'myProfile' => $myProfile]);
+        View::renderPartial('StudyMaterialCard', ['materials' => [], 'page' => 'profile']);
       endif;
       ?>
     </section>

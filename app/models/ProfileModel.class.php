@@ -9,30 +9,19 @@ class ProfileModel extends Model
   }
 
 
-  public function find($user_id)
+  public function profileData($user_id)
   {
-    $current_user = null;
-    if (Session::exists('user')) {
-      $current_user = Session::get('user')['user_id'];
-    }
-
     return $this->select([
-      'upv.*',
-      'CASE
-        WHEN fr.following_id IS NOT NULL THEN 1
-        ELSE 0
-        END AS is_current_user_follower'
+      'upv.*'
     ], 'upv')
-      ->leftJoin('follow_relation as fr', 'upv.user_id = fr.following_id AND fr.follower_id = :follower_id')
       ->where('upv.user_id = :user_id')
-      ->bind(['user_id' => $user_id, 'follower_id' => $current_user])
+      ->bind(['user_id' => $user_id])
       ->get();
   }
 
   public function showUploads($user_id, $document_type = 'note')
   {
-
-    return (new StudyMaterailModel())->select([
+    return (new StudyMaterialModel())->select([
       'mv.*'
     ], 'mv')
       ->where('mv.user_id = :user_id AND mv.document_type = :document_type')
@@ -42,30 +31,18 @@ class ProfileModel extends Model
   }
 
 
-  public function isFollowing($user_id)
+  public function isFollowing($current_user, $user_id)
   {
-    $current_user = null;
-    if (Session::exists('user')) {
-      $current_user = Session::get('user')['user_id'];
-    }
     return (new ProfileModel('follow_relation'))->select()
       ->where('following_id = :following_id AND follower_id = :follower_id')
       ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
       ->get();
   }
 
-  public function follow($user_id)
+  public function follow($current_user,$user_id)
   {
-    $current_user = null;
-    if (Session::exists('user')) {
-      $current_user = Session::get('user')['user_id'];
-    }
-
     //check if the user is already following
-    $isFollowing = (new ProfileModel('follow_relation'))->select()
-      ->where('following_id = :following_id AND follower_id = :follower_id')
-      ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
-      ->get();
+    $isFollowing = $this->isFollowing($current_user, $user_id);
 
     if ($isFollowing) {
       return [
@@ -92,19 +69,10 @@ class ProfileModel extends Model
     }
 }
 
-public function unfollow($user_id)
+public function unfollow($current_user, $user_id)
 {
-
-  $current_user = null;
-  if (Session::exists('user')) {
-    $current_user = Session::get('user')['user_id'];
-  }
-
-  //check if the user is already unfollowing
-  $isFollowing = (new self('follow_relation'))->select()
-    ->where('following_id = :following_id AND follower_id = :follower_id')
-    ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
-    ->get();
+  //check if the user is already non-following
+  $isFollowing = $this->isFollowing($current_user, $user_id);
 
   if (!$isFollowing) {
     return [
@@ -113,8 +81,7 @@ public function unfollow($user_id)
     ];
   }
 
-
-  $result = (new self('follow_relation'))->delete()
+  $result = (new ProfileModel('follow_relation'))->delete()
     ->where('following_id = :following_id AND follower_id = :follower_id')
     ->bind(['following_id' => $user_id, 'follower_id' => $current_user])
     ->execute();
@@ -122,7 +89,7 @@ public function unfollow($user_id)
   if ($result) {
     return [
       'status' => true,
-      'message' => 'You have unfollowed this user'
+      'message' => 'You are no longer following this user'
     ];
   }else{
     return [

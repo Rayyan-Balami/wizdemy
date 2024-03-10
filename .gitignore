@@ -1,2 +1,2 @@
 # ignore uploads directory
-uploads/*
+public/assets/uploads/*

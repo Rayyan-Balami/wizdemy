@@ -74,7 +74,7 @@ $flashOld = Session::get('old');
 
         <!-- signup link -->
         <p class="signup-login-link">
-          Dont have an account yet ? 🤯 <a href="/register">Sign up</a>
+          Dont have an account yet ? 🤯 <a href="/signup">Sign up</a>
         </p>
       </form>
       <!-- share message -->

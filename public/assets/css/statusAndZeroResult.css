@@ -35,13 +35,13 @@
 }
 
 .error-container > .svg-icon {
-  padding: 0.5rem 0.75rem;
+  padding: 0.15rem 0.25rem;
   background-color: rgb(235 236 240);
 }
 
 .error-container > .svg-icon > svg {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
 }
 
 .error-container > .status-msg-top {

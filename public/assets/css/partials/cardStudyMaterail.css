@@ -81,7 +81,7 @@
 }
 
 .card > .thumbnail > div > .request-responded-post,
-.card > .thumbnail > div > .document-type {
+.card > .thumbnail > div > .document-format {
   padding: 0.375rem;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: var(--border-radius);

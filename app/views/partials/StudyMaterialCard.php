@@ -4,7 +4,7 @@
     <!-- material card-->
     <div class="card ">
       <!-- image -->
-      <a href="productPage.html" class="thumbnail">
+      <a href="/material/view?id=<?= $material['material_id'] ?>" class="thumbnail">
         <img src="/<?= $material['thumbnail_path'] ?>" alt="thumbnail">
 
         <div>
@@ -24,10 +24,10 @@
               </g>
             </svg>
           </div>
-          <!-- document type (handwritten, typed, photo) -->
+          <!-- document formay (handwritten, typed, photo) -->
           <?php endif; ?>
 
-          <div class="document-type">
+          <div class="document-format">
             <?php if($material['format'] === 'handwritten'): ?>
             <!-- handwritten svg  -->
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@
       </a>
 
       <!-- username  -->
-      <a href="<?= isset($page) && $page==='profile' ? '#' : '/profile/user?user_id='.$material['user_id'] ?>" class="username">
+      <a href="<?= isset($page) && $page==='profile' ? '#' : '/profile?id='.$material['user_id'] ?>" class="username">
         <!-- at icon @  -->
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -99,12 +99,12 @@
 
       <!-- time  -->
       <div class="time">
-        <p><a href="<?= isset($page) && $page==='profile' ? '#' : '/profile/user?user_id='.$material['user_id'] ?>" class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
+        <p><a href="<?= isset($page) && $page==='profile' ? '#' : '/profile?id='.$material['user_id'] ?>" class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu('<?= $material['material_id'] ?>')">
+        <button class="three-dot-icon" onclick="openThreeDotMenu('1')">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
-            <path fill="#000"
+            <path fill="currentColor"
               d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
           </svg>
         </button>

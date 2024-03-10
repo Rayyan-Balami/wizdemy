@@ -1,16 +1,13 @@
 <?php
 
 //routes for login page
-$router->get('/login', 'LogController@index')->only('guest');
-$router->post('/login', 'LogController@store')->only('guest');
-$router->delete('/login', 'LogController@destroy')->only('auth');
+$router->get('/login', 'AuthController@login')->only('guest');
+$router->post('/login', 'AuthController@loginProcess')->only('guest');
+$router->delete('/login', 'AuthController@logout')->only('auth');
 
-//routes for logout page
-$router->delete('/logout', 'LogController@destroy')->only('auth');
-
-//routes for register page
-$router->get('/register', 'RegisterController@index')->only('guest');
-$router->post('/register', 'RegisterController@store')->only('guest');
+//routes for signup page
+$router->get('/signup', 'AuthController@signup')->only('guest');
+$router->post('/signup', 'AuthController@sihnupProcess')->only('guest');
 
 //routes for notes page
 $router->get('/', 'HomeController@index');
@@ -22,9 +19,12 @@ $router->get('/question', 'HomeController@question');
 //routes for lab report page
 $router->get('/labreport', 'HomeController@labreport');
 
+//routes for view page
+$router->get('/material/view', 'HomeController@view');
+
 //routes for request page
 $router->get('/request', 'RequestController@index');
-$router->post('/request/api', 'RequestController@category');
+$router->post('/request/category/api', 'RequestController@category');
 $router->get('/request/create', 'RequestController@create')->only('auth');
 $router->post('/request/store', 'RequestController@store')->only('auth');
 
@@ -34,10 +34,10 @@ $router->post('/upload/store', 'UploadController@store')->only('auth');
 $router->post('/upload/respond', 'UploadController@index')->only('auth'); //coming from request page
 
 //routes for profile page
-$router->get('/profile', 'ProfileController@index')->only('auth'); //for logged in user
-$router->get('/profile/user', 'ProfileController@show'); //for other users
+$router->get('/profile', 'ProfileController@index')->only('auth');
 $router->post('/follow', 'ProfileController@follow')->only('auth');
 $router->delete('/unfollow', 'ProfileController@unfollow')->only('auth');
+$router->post('/profile/category/api', 'ProfileController@category');
 
 //routes for like page
 $router->post('/like', 'LikeController@store')->only('auth');

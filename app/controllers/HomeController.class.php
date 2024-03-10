@@ -2,7 +2,7 @@
 class HomeController extends Controller{
 
   public function __construct(){
-    parent::__construct('StudyMaterailModel');
+    parent::__construct('StudyMaterialModel');
   }
 
   //index (notes page)
@@ -23,4 +23,43 @@ class HomeController extends Controller{
     View::render('labreports', ['labreports' => $labreports]);
   }
 
+  //view page
+  public function view(){
+    $material_id = isset($_GET['id']) ? $_GET['id'] : null;
+
+    if (!$material_id) {
+      $this->redirect('/');
+      return;
+    }
+
+    $material = $this->model->view($_GET['id']);
+
+    if (!$material) {
+      View::render('viewMaterial', ['material' => null]);
+      return;
+    }
+
+    $current_user = Session::get('user')['user_id'] ?? null;
+    $isPrivate = $material['private'];
+    $isOwnMaterial = $current_user == $material['user_id'];
+    $isCurrentUserFollower = !$isOwnMaterial ? (new ProfileModel('follow_relation'))->isFollowing($current_user, $material['user_id']) : false;
+    //if its own material
+    if ($isOwnMaterial) {
+      View::render('viewMaterial', ['material' => $material, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
+      return;
+    }
+
+
+    //check if material is by private user and current user is not a follower
+    if ($isPrivate && !$isCurrentUserFollower) {
+      View::render('viewMaterial', ['material' => null, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
+      return;
+    }
+
+    View::render('viewMaterial', ['material' => $material, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
+
+  }
+
 }
+
+    

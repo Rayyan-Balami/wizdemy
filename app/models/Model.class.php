@@ -129,26 +129,26 @@ class Model extends Database
     }
 
     // inner join the records
-    protected function innerJoin($foreignTable, $shortName, $primaryKey, $commonKey)
+    protected function innerJoin($toJoinTable, $joinCondition)
     {
-        $this->query .= " INNER JOIN {$foreignTable} {$shortName} ON {$this->table}.{$primaryKey} = {$shortName}.{$commonKey}";
+        $this->query .= " INNER JOIN {$toJoinTable} ON {$joinCondition}";
         return $this;
     }
 
     // left join the records
     //leftJoin('follow_relationships as f1', 'f1.following_id', 'u.id')
-    protected function leftJoin($toJoinTable, $JoinCondition)
+    protected function leftJoin($toJoinTable, $joinCondition)
     {
-        $this->query .= " LEFT JOIN {$toJoinTable} ON {$JoinCondition}";
+        $this->query .= " LEFT JOIN {$toJoinTable} ON {$joinCondition}";
         return $this;
     }
 
 
 
     // right join the records
-    protected function rightJoin($foreignTable, $shortName, $primaryKey, $commonKey)
+    protected function rightJoin($toJoinTable, $joinCondition)
     {
-        $this->query .= " RIGHT JOIN {$foreignTable} {$shortName} ON {$this->table}.{$primaryKey} = {$shortName}.{$commonKey}";
+        $this->query .= " RIGHT JOIN {$toJoinTable} ON {$joinCondition}";
         return $this;
     }
 

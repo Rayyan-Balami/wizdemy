@@ -2,17 +2,12 @@
 <div class="card-category-wrapper">
     <div class="card-category">
         <!-- notes -->
-        <button onclick="changeCategory('note',<?= Session::exists('user')?>)" class="category is-active-category bg-gray-300" id="note-category">
-                        Notes
-                    </button>
+        
+        <button onclick="changeCategory('<?= $page ?>','note',<?= Session::exists('user')?>)" class="category is-active-category bg-gray-300" id="note-category">Notes</button>
         <!-- question -->
-        <button onclick="changeCategory('question',<?= Session::exists('user')?>)" class="category" id="question-category">
-            Questions
-        </button>
+        <button onclick="changeCategory('<?= $page ?>','question',<?= Session::exists('user')?>)" class="category" id="question-category">Questions</button>
         <!-- labreport -->
-        <button onclick="changeCategory('labreport',<?= Session::exists('user')?>)" class="category" id="labreport-category">
-            Lab Reports
-        </button>
+        <button onclick="changeCategory('<?= $page ?>','labreport',<?= Session::exists('user')?>)" class="category" id="labreport-category">Lab Reports</button>
     </div>
     <!-- search icon -->
     <button class="search-button">

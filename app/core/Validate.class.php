@@ -41,7 +41,7 @@ class Validate
         if($file['size'] > $size){
             return [
                 'status' => false,
-                'message' => $type . "must be smaller than" . $size
+                'message' => $type . "must be smaller than " . $size/1000000 . "MB"
             ];
         }
 

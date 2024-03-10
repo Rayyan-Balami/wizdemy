@@ -181,7 +181,7 @@
             <h2 class="menu-section-category">ACCOUNT</h2>
             <ul>
                 <li>
-                    <a href="/register" class="signup-button">
+                    <a href="/signup" class="signup-button">
                         Sign Up
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

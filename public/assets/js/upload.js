@@ -87,8 +87,6 @@ function handleFile(file) {
     tempInput.disabled = true;
     //disable drag and drop
     fileUploadSection.style.pointerEvents = "none";
-    console.log(imageInput.files);
-    console.log(documentInput.files);
     return;
   }
 }
@@ -128,7 +126,6 @@ function removeFile(type) {
     imagePreview.querySelector(".file-info").style.display = "none";
     updateFileMessage("Image removed. You can upload an image now");
     blueStyleFileSection();
-    console.log(imageInput.files);
   }
   if (type === "document") {
     documentInput.value = "";
@@ -138,7 +135,6 @@ function removeFile(type) {
     documentPreview.querySelector(".file-icon").style.display = "none";
     updateFileMessage("Document removed. You can upload a document now");
     blueStyleFileSection();
-    console.log(documentInput.files);
   }
 
   //check if both image and document are removed

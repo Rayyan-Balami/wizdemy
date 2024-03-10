@@ -4,10 +4,7 @@ class File
     public static function upload($file, $path)
     {
         // Extract file extension
-        $fileExtension = '';
-        if (isset($file['type']) && strpos($file['type'], '/') !== false) {
-            $fileExtension = explode('/', $file['type'])[1];
-        }
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
 
         // Generate a unique identifier
         $uniqueIdentifier = uniqid();

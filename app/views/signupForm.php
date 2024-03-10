@@ -36,7 +36,7 @@ $flashOld = Session::get('old');
         Hello new friend ❤️ <br>
         Join WizDemy today and dive into a world of knowledge.
       </p>
-      <form action="/register" method="post">
+      <form action="/signup" method="post">
         <!-- full name -->
         <div class="fullname">
           <label for="fullName">Full Name</label>

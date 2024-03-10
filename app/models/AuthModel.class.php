@@ -1,13 +1,33 @@
 <?php
 
-class RegisterModel extends Model
+class AuthModel extends Model
 {
   public function __construct(){
     parent::__construct('users');
     $this->fillable = ['full_name', 'username', 'email', 'password'];
   }
 
-  public function register($fullName, $email, $password){
+  public function login($username_email, $password){
+    $user = $this->select(['user_id', 'username', 'email', 'password'])
+      ->where('username = :username OR email = :email')
+      ->bind(['username' => $username_email, 'email' => $username_email])
+      ->get();
+
+    if ($user && password_verify($password, $user['password'])) {
+      return [
+        'status' => true,
+        'user' => $user,
+        'message' => $user['username'] . ' ' . SITE_NAME . ' welcomes you'
+      ];
+    } else {
+      return [
+        'status' => false,
+        'message' => 'Invalid username, email or password'
+      ];
+    }
+  }
+
+  public function signup($fullName, $email, $password){
 
     // Check if email already exists
     $user = $this->select(['user_id'])
@@ -42,4 +62,5 @@ class RegisterModel extends Model
       ];
     }
   }
+
 }

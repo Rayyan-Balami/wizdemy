@@ -45,7 +45,7 @@
             </div>
 
             <!-- username  -->
-            <a href="/profile/user?user_id=<?= $request['user_id'] ?>" class="username">
+            <a href="/profile?id=<?= $request['user_id'] ?>" class="username">
                 <!-- at icon @  -->
                 <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
                     viewBox="0 0 512 512">
@@ -62,7 +62,7 @@
             <!-- time  -->
             <div class="time">
                 <p>
-                    <a href="/profile/user?user_id=<?= $request['user_id'] ?>" class="time-ago" data-datetime="<?= $request['created_at'] ?>"></a>
+                    <a href="/profile?id=<?= $request['user_id'] ?>" class="time-ago" data-datetime="<?= $request['created_at'] ?>"></a>
                 </p>
                 <!-- three dot icon -->
                 <button class="three-dot-icon" onclick="openThreeDotMenu('2')">

@@ -9,86 +9,45 @@ class ProfileController extends Controller
 
   public function index()
   {
-    $myProfile = true;
+      $user_id = isset($_GET['id']) ? $_GET['id'] : (Session::get('user')['user_id'] ?? null);
 
-    $user = $this->model->find(Session::get('user')
-    ['user_id']);
-
-    // If user does not exist
-    if (!$user) {
-      View::render('profile', [
-        'myProfile' => $myProfile,
-        'isPrivate' => false,
-        'isCurrentUserFollower' => false,
-        'user' => null
-      ]);
-      return; // Early return
-    }
-
-    $isPrivate = $user['private'];
-    $isCurrentUserFollower = $user['is_current_user_follower'];
-
-    //load the user's posts
-    $uploads = $this->model->showUploads(Session::get('user')
-    ['user_id']);
-
-    View::render('profile', [
-      'myProfile' => $myProfile,
-      'isPrivate' => $isPrivate,
-      'isCurrentUserFollower' => $isCurrentUserFollower,
-      'user' => $user,
-      'uploads' => $uploads
-    ]);
-  }
-
-  public function show()
-  {
-      if (!isset($_GET['user_id']) || empty($_GET['user_id']) || $_GET['user_id'] < 1) {
-          $this->redirect('/profile');
-          return;
-      }
-
-      $current_user = null;
-      if (Session::exists('user')) {
-          $current_user = Session::get('user')['user_id'];
-      }
-  
-      if ($_GET['user_id'] == $current_user) {
+      if (!$user_id) {
           $this->redirect('/profile');
           return;
       }
   
-      $user = $this->model->find($_GET['user_id']);
-  
-      // If user does not exist, render the profile view with null user
+      $current_user = Session::get('user')['user_id'] ?? null;
+      $myProfile = $user_id == $current_user;
+      
+      $user = $this->model->profileData($user_id);
       if (!$user) {
-          View::render('profile', [
-              'myProfile' => false,
-              'isPrivate' => false,
-              'isCurrentUserFollower' => false,
-              'user' => null
-          ]);
-          return; // Early return
+        $this->renderProfileView($myProfile, null);
+        return;
       }
-  
-      $myProfile = false;
-      $isPrivate = $user['private'];
-      $isCurrentUserFollower = $user['is_current_user_follower'];
 
-      // If the user is private and the current user is not a follower [dont show the posts]
-      if ($isPrivate && !$isCurrentUserFollower) {
-          View::render('profile', [
-              'myProfile' => $myProfile,
-              'isPrivate' => $isPrivate,
-              'isCurrentUserFollower' => $isCurrentUserFollower,
-              'user' => $user
-          ]);
-          return; // Early return
+      $isPrivate = $user['private'];
+
+      $isCurrentUserFollower = !$myProfile ? $this->model->isFollowing($current_user, $user_id) : false;
+
+      //if its own pofile
+      if ($myProfile) {
+          $uploads = $this->model->showUploads($user_id);
+          $this->renderProfileView($myProfile, $user, $uploads, $isPrivate, $isCurrentUserFollower);
+          return;
       }
   
-      //load the user's posts
-      $uploads = $this->model->showUploads($_GET['user_id']);
-      // Render the profile view based on conditions
+      //if the profile is private and the current user is not a follower
+      if ($isPrivate && !$isCurrentUserFollower) {
+          $this->renderProfileView($myProfile, $user, null, $isPrivate, $isCurrentUserFollower);
+          return;
+      }
+  
+      $uploads = $this->model->showUploads($user_id);
+      $this->renderProfileView($myProfile, $user, $uploads, $isPrivate, $isCurrentUserFollower);
+  }
+  
+  private function renderProfileView($myProfile, $user, $uploads = null, $isPrivate = false, $isCurrentUserFollower = false)
+  {
       View::render('profile', [
           'myProfile' => $myProfile,
           'isPrivate' => $isPrivate,
@@ -96,34 +55,24 @@ class ProfileController extends Controller
           'user' => $user,
           'uploads' => $uploads
       ]);
-  }  
-
+  }
+   
 
   public function category()
-  {    
-    $requests = $this->model->show();
-    // if(!empty($requests)){
-    $this->buildJsonResponse($requests);
-  }
+  {
+      $current_user = Session::get('user')['user_id'] ?? null;
+      $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
+      $uploads = $this->model->showUploads($user_id, $_POST['category']);
+      
+      $this->buildJsonResponse($uploads);
+  }  
 
   public function follow()
   {
-    if (!isset($_POST['user_id']) || empty($_POST['user_id']) || $_POST['user_id'] < 1) {
-      $this->redirect('/profile');
-      return;
-    }
 
-    $current_user = null;
-    if (Session::exists('user')) {
-      $current_user = Session::get('user')['user_id'];
-    }
+    $current_user = Session::get('user')['user_id'] ?? null;
 
-    if ($_POST['user_id'] == $current_user) {
-      $this->redirect('/profile');
-      return;
-    }
-
-    $follow = $this->model->follow($_POST['user_id']);
+    $follow = $this->model->follow($current_user, $_POST['user_id']);
     if($follow['status']){
       Session::flash('success', [
         'message' => $follow['message']
@@ -134,6 +83,24 @@ class ProfileController extends Controller
       ]);
     }
     //redirect to the user's profile
-    $this->redirect('/profile/user?user_id=' . $_POST['user_id']);
+    $this->redirect('/profile?id=' . $_POST['user_id']);
+  }
+
+  public function unfollow()
+  {
+    $current_user = Session::get('user')['user_id'] ?? null;
+
+    $unfollow = $this->model->unfollow($current_user, $_POST['user_id']);
+    if($unfollow['status']){
+      Session::flash('success', [
+        'message' => $unfollow['message']
+      ]);
+    }else{
+      Session::flash('error', [
+        'message' => $unfollow['message']
+      ]);
+    }
+    //redirect to the user's profile
+    $this->redirect('/profile?id=' . $_POST['user_id']);
   }
 }
