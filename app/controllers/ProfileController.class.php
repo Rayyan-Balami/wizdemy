@@ -67,6 +67,15 @@ class ProfileController extends Controller
       $this->buildJsonResponse($uploads);
   }  
 
+  public function myRequests()
+  {
+      $current_user = Session::get('user')['user_id'] ?? null;
+      $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
+      $myRequests = $this->model->myRequests($user_id, $_POST['category']);
+
+      $this->buildJsonResponse($myRequests);
+  }
+
   public function follow()
   {
 

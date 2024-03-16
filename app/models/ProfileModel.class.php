@@ -27,6 +27,7 @@ class ProfileModel extends Model
       ->where('mv.user_id = :user_id AND mv.document_type = :document_type')
       ->bind(['user_id' => $user_id, 'document_type' => $document_type])
       ->groupBy('mv.material_id')
+      ->limit(10)
       ->getAll();
   }
 
@@ -98,4 +99,22 @@ public function unfollow($current_user, $user_id)
     ];
   }
 }
+
+public function myRequests($user_id, $document_type = 'note')
+{
+
+  return (new RequestModel())->select([
+    'r.*',
+    'u.username',
+    'COUNT(DISTINCT m.material_id) as no_of_materials'
+  ], 'r')
+    ->leftJoin('users as u', 'u.user_id = r.user_id')
+    ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
+    ->where('r.document_type = :document_type AND r.user_id = :user_id')
+    ->bind(['document_type' => $document_type, 'user_id' => $user_id])
+    ->groupBy('r.request_id')
+    ->orderBy('r.created_at', 'DESC')
+    ->getAll();
+}
+
 }

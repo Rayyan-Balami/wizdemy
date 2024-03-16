@@ -12,6 +12,8 @@
 @import url("./partials/searchOverlay.css");
 @import url("./partials/notificationOverlay.css");
 @import url("./partials/toastNotification.css");
+@import url("./partials/cardRequest.css");
+
 
 
 
@@ -35,17 +37,17 @@
 /* -----card Section (Main Content) starts here ----- */
 
 @media (width > 1280px) {
-  .card-section {
+  .card-section, .request-card-section {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (width > 1536px) {
-  .card-section {
+  .card-section, .request-card-section {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (width > 1920px) {
-  .card-section {
+  .card-section, .request-card-section {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }

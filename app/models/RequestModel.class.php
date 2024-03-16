@@ -10,15 +10,9 @@ class RequestModel extends Model
 
   public function show()
   {
-    $allowedParams = [
-      'category' => ['note', 'lab report', 'question']
-    ];
-
-    // Validate and filter the $_GET array to retain only allowed keys and values
-  $validatedParams = array_intersect_key($_POST ?? [], $allowedParams);
 
     // If 'category' parameter is not set or invalid, default to 'notes'
-    $category = $validatedParams['category'] ?? 'note';
+    $category = $_POST['category'] ?? 'note';
 
 
     return $this->select([

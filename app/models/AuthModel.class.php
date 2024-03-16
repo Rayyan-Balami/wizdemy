@@ -7,10 +7,10 @@ class AuthModel extends Model
     $this->fillable = ['full_name', 'username', 'email', 'password'];
   }
 
-  public function login($username_email, $password){
+  public function login($email_username, $password){
     $user = $this->select(['user_id', 'username', 'email', 'password'])
       ->where('username = :username OR email = :email')
-      ->bind(['username' => $username_email, 'email' => $username_email])
+      ->bind(['username' => $email_username, 'email' => $email_username])
       ->get();
 
     if ($user && password_verify($password, $user['password'])) {

@@ -64,7 +64,8 @@
   scrollbar-width: none;  /* Firefox */
 }
 
-.card-category-wrapper > .card-category > .category,
+.card-category-wrapper > .card-category > .category-label,
+.card-category-wrapper > .card-category > .requestCheck-label,
 .card-category-wrapper > .search-button {
   display: flex;
   align-items: center;
@@ -78,20 +79,23 @@
 }
 
 @media (width >= 640px) {
-  .card-category-wrapper > .card-category > .category
+  .card-category-wrapper > .card-category > .category-label,
+  .card-category-wrapper > .card-category > .requestCheck-label,
   .card-category-wrapper > .search-button {
     padding: 0.375rem 0.75rem/* 6px 12px */;
     gap: 0.5rem/* 12px */;
   }
-  
 }
 
-.card-category-wrapper > .card-category .is-active-category {
+.card-category-wrapper > .card-category > input[type="checkbox"]:checked + label,
+.card-category-wrapper > .card-category > input[type="radio"]:checked + label {
   background-color: rgb(17 24 39);
   color: white;
 }
 
-.card-category-wrapper > .card-category > .category:not(.is-active-category):hover,
+/* Apply hover effect to unchecked radio buttons and checkboxes */
+.card-category-wrapper > .card-category > input[type="checkbox"]:not(:checked) + label:hover,
+.card-category-wrapper > .card-category > input[type="radio"]:not(:checked) + label:hover,
 .card-category-wrapper > .search-button:hover {
   background-color: var(--hover-color) !important;
 }

@@ -21,7 +21,19 @@ class Validate
         return $value1 === $value2;
     }
 
-    public static function file($file,$type,$allowedType,$size=2000000)
+    public static function number($value,$min=1,$max=INF)
+    {
+        $value = trim($value);
+        return is_numeric($value) && $value >= $min && $value <= $max;
+    }
+
+    public static function phone($value)
+    {
+        $value = trim($value);
+        return preg_match('/^\d{10,15}$/',$value);
+    }
+
+    public static function file($file,$type,$allowedType,$size=(2 * 1024 * 1024)) //default size is 2MB
     {
         if($file['error'] !== 0){
             return [

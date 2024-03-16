@@ -1,13 +1,26 @@
 <!--card category note, question , labreport -->
 <div class="card-category-wrapper">
     <div class="card-category">
-        <!-- notes -->
-        
-        <button onclick="changeCategory('<?= $page ?>','note',<?= Session::exists('user')?>)" class="category is-active-category bg-gray-300" id="note-category">Notes</button>
-        <!-- question -->
-        <button onclick="changeCategory('<?= $page ?>','question',<?= Session::exists('user')?>)" class="category" id="question-category">Questions</button>
-        <!-- labreport -->
-        <button onclick="changeCategory('<?= $page ?>','labreport',<?= Session::exists('user')?>)" class="category" id="labreport-category">Lab Reports</button>
+        <!-- notes category  -->
+        <input type="radio" value="note" id="noteCategory" name="category" hidden checked
+            onchange="changeCategory('<?= $page ?>')">
+        <label for="noteCategory" class="category-label">Notes</label>
+
+        <!-- question category  -->
+        <input type="radio" value="question" id="questionCategory" name="category" hidden
+            onchange="changeCategory('<?= $page ?>')">
+        <label for="questionCategory" class="category-label">Questions</label>
+
+        <!-- labreport category  -->
+        <input type="radio" value="labreport" id="labreportCategory" name="category" hidden
+            onchange="changeCategory('<?= $page ?>')">
+        <label for="labreportCategory" class="category-label">Lab Reports</label>
+
+        <!-- my-reqestcheck checkbox  -->
+        <?php if ($page === 'profile'): ?>
+            <input type="checkbox" id="requestCheck" name="requestCheck" hidden>
+            <label for="requestCheck" class="requestCheck-label">Requests</label>
+        <?php endif; ?>
     </div>
     <!-- search icon -->
     <button class="search-button">

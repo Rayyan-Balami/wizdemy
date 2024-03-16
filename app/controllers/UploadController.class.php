@@ -70,7 +70,7 @@ class UploadController extends Controller
       $imageFile,
       'image',
       ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'],
-      2000000
+      2 * 1024 * 1024 //2MB
     );
     if (!$validImageFile['status']) {
       $this->errors['imageFile'] = $validImageFile['message'];
@@ -81,7 +81,7 @@ class UploadController extends Controller
       $documentFile,
       'document',
       ['application/pdf'],
-      5000000
+      5 * 1024 * 1024 //5MB
     );
     if (!$validDocumentFile['status']) {
       $this->errors['documentFile'] = $validDocumentFile['message'];

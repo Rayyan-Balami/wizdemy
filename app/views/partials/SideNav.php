@@ -125,7 +125,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="likes.html" class="menu-links <?= $currentPage === 'likes' ? 'is-active' : '';?>">
+                    <a href="/like" class="menu-links <?= $currentPage === 'likes' ? 'is-active' : '';?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -141,7 +141,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="saved" class="menu-links <?= $currentPage === 'saved' ? 'is-active' : '';?>">
+                    <a href="/bookmark" class="menu-links <?= $currentPage === 'saved' ? 'is-active' : '';?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -153,23 +153,7 @@
                                     d="M9 5.25C8.58579 5.25 8.25 5.58579 8.25 6C8.25 6.41421 8.58579 6.75 9 6.75H15C15.4142 6.75 15.75 6.41421 15.75 6C15.75 5.58579 15.4142 5.25 15 5.25H9Z"
                                     fill="currentColor"></path>
                             </g>
-                        </svg>Saved
-                    </a>
-                </li>
-                <li>
-                    <a href="copyright.html" class="menu-links">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path opacity="0.3"
-                                    d="M2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12Z"
-                                    fill="currentColor"></path>
-                                <path
-                                    d="M12.2857 8.75C10.2834 8.75 8.75 10.253 8.75 12C8.75 13.747 10.2834 15.25 12.2857 15.25C12.7974 15.25 13.281 15.1504 13.7168 14.9727C14.1003 14.8163 14.5381 15.0004 14.6945 15.384C14.8509 15.7675 14.6667 16.2052 14.2832 16.3616C13.669 16.6121 12.9931 16.75 12.2857 16.75C9.55414 16.75 7.25 14.6712 7.25 12C7.25 9.32875 9.55414 7.25 12.2857 7.25C12.9931 7.25 13.669 7.38791 14.2832 7.63836C14.6667 7.79477 14.8509 8.23249 14.6945 8.61604C14.5381 8.99958 14.1003 9.18372 13.7168 9.02731C13.281 8.84961 12.7974 8.75 12.2857 8.75Z"
-                                    fill="currentColor"></path>
-                            </g>
-                        </svg>Copyright
+                        </svg>Bookmarks
                     </a>
                 </li>
             </ul>
@@ -220,15 +204,15 @@
         <?php endif; ?>
         <?php if(Session::exists('user')) :?>
         <!-- settings, logout -->
-        <div class="menu-section setting-logout-menu">
+        <div class="menu-section">
             <ul>
-                <li class="setting-section <?= $currentPage === 'myInformation' || $currentPage === 'accountSecurity' ? 'is-active' : '';?>">
+                <li class="setting-section">
                     <!-- settings dropdown -->
                     <div id="setting-dropdown">
                         <h2 class="menu-section-category">SETTINGS OPTIONS</h2>
                         <ul>
                             <li>
-                                <a href="myInformation.html" class="menu-links <?= $currentPage === 'myInformation' ? 'is-active' : '';?>">
+                                <a href="/myInformation" class="menu-links <?= $currentPage === 'myInformation' ? 'is-active' : '';?>">
                                     <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
@@ -246,7 +230,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="accountSecurity.html" class="menu-links <?= $currentPage === 'accountSecurity' ? 'is-active' : '';?>">
+                                <a href="/accountSecurity" class="menu-links <?= $currentPage === 'accountSecurity' ? 'is-active' : '';?>">
                                     <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
@@ -272,7 +256,7 @@
                     </div>
 
                     <!-- settings menu  -->
-                    <div onclick="toggleSettingsDropdown()" class="setting-menu">
+                    <button onclick="toggleSettingsDropdown()" class="menu-btn setting-menu <?= $currentPage === 'myInformation' || $currentPage === 'accountSecurity' ? 'is-active' : '';?>">
                         <svg id="setting-icon" viewBox="0 0 24 24" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -297,7 +281,7 @@
                                     fill="#000000"></path>
                             </g>
                         </svg>
-                    </div>
+                    </button>
                 </li>
                 <li>
                 <form action="/logout" method="POST">

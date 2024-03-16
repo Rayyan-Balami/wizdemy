@@ -54,6 +54,13 @@ class Model extends Database
         return $this;
     }
 
+    //append values to the bindings
+    protected function appendBindings($bindings = [])
+    {
+        $this->bindings = array_merge($this->bindings, $bindings);
+        return $this;
+    }
+
     // insert a record
     protected function insert($data = [])
     {

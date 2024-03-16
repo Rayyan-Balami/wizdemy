@@ -25,6 +25,7 @@ class Session
         $_SESSION[$key] = $value;
     }
 
+
     public static function get($key)
   {
     if (isset($_SESSION['_flash'][$key])) {

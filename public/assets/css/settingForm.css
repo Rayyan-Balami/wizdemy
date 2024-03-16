@@ -3,7 +3,6 @@
 @import url("./partials/main.css");
 @import url("./partials/header.css");
 @import url("./partials/titleLabel.css");
-@import url("./partials/footer.css");
 @import url("./partials/searchOverlay.css");
 @import url("./partials/notificationOverlay.css");
 @import url("./partials/toastNotification.css");
@@ -64,7 +63,7 @@
   line-height: 1.25rem /* 20px */;
 }
 
-.form-section > form {
+.form-section form {
   margin-top: 2.5rem /* 40px */;
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -72,12 +71,12 @@
   row-gap: 2rem /* 32px */;
 }
 @media (width >= 640px) {
-  .form-section > form {
+  .form-section form {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
-.form-section > form label {
+.form-section form label {
   display: block;
   margin-bottom: 0.5rem /* 8px */;
   font-size: 0.875rem /* 14px */;
@@ -85,9 +84,9 @@
   font-weight: 600;
 }
 
-.form-section > form input,
-.form-section > form textarea,
-.form-section > form select {
+.form-section form input,
+.form-section form textarea,
+.form-section form select {
   display: block;
   width: 100%;
   padding: 0.75rem 1.25rem /* 12px 20px */;
@@ -97,16 +96,16 @@
   border-radius: var(--border-radius);
 }
 
-.form-section > form textarea{
+.form-section form textarea{
   resize: none;
 }
 
-.form-section > form select {
+.form-section form select {
   appearance: none;
 }
 
-.form-section > form input[type="radio"],
-.form-section > form input[type="checkbox"] {
+.form-section form input[type="radio"],
+.form-section form input[type="checkbox"] {
   width: 1rem /* 16px */;
   height: 1rem /* 16px */;
   margin: 0;
@@ -192,17 +191,18 @@ form > .request-details > .request-meta-datas > span{
   .title,
   .description,
   .bio,
-  .enrolled-course,
-  .email,
   .privateAccount,
-  .file-upload-section {
+  .file-upload-section,
+  .allow-email,
+  .allow-phone {
     grid-column: 1 / -1;
   }
   .document-type,
   .format,
   .education-level,
   .semester,
-  .user-type{
+  .user-type,
+  .phone-number{
     grid-column: span 2 / span 2;
   }
   .subject,
@@ -210,11 +210,14 @@ form > .request-details > .request-meta-datas > span{
   .author,
   .username,
   .name,
+  .email,
   .gender,
-  .oldPassword,
+  .currentPassword,
   .newPassword,
   .confirmPassword,
-  .file-preview {
+  .file-preview,
+  .enrolled-course,
+  .school {
     grid-column: span 3 / span 3;
   }
 }
@@ -400,18 +403,24 @@ form > button {
   grid-column-start: 1;
 }
 
-.privateAccount {
+.privateAccount,
+.allow-email,
+.allow-phone {
   display: flex;
   gap: 0.5rem /* 8px */;
 }
 
-.privateAccount > label {
+.privateAccount > label,
+.allow-email > label,
+  .allow-phone > label {
   margin-top: -0.25rem /* 4px */;
   line-height: inherit;
   font-size: inherit;
 }
 
-.privateAccount > label > p {
+.privateAccount > label > p,
+.allow-email > label > p,
+  .allow-phone > label > p {
   color: rgb(71 85 105);
   font-size: 0.875rem /* 14px */;
   line-height: 1.25rem /* 20px */;

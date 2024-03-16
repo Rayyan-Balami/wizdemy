@@ -54,6 +54,7 @@ function handleFile(file) {
   let fileList = new DataTransfer();
   //check if image is empty
   if(imageInput.files.length === 0 && fileValidation.type === "image") {
+    console.log(file);
     // ypeError: The HTMLInputElement.files attribute must be an instance of FileList
     fileList.items.add(file);
     imageInput.files = fileList.files;
@@ -61,7 +62,7 @@ function handleFile(file) {
     imagePreview.querySelector("img").src = URL.createObjectURL(file);
     imagePreview.querySelector(".file-name").textContent = file.name + " - ";
     imagePreview.querySelector(".file-info").style.display = "flex";
-    imagePreview.querySelector(".file-size").textContent = (file.size / (1024 * 1024)).toFixed(2) + "MB";
+    imagePreview.querySelector(".file-size").textContent = (file.size / (1024 * 1024)).toFixed(2) + "MB";//convert bytes to MB
     updateFileMessage("Image selected. You can upload a document now");
     blueStyleFileSection();
   }else if(documentInput.files.length === 0 && fileValidation.type === "document") {

@@ -39,7 +39,7 @@ class UploadModel extends Model
       'request_id' => $request_id,
       'title' => $title,
       'description' => $description,
-      'document_type' => $document_type,
+      'document_type' => $_POST['document_type'] ?? $document_type,
       'format' => $format,
       'education_level' => $education_level,
       'semester' => $semester,

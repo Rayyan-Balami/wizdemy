@@ -13,12 +13,12 @@ class AuthController extends Controller {
 
   //store (login process)
   public function loginProcess(){
-    $email = trim($_POST['email']);
+    $email_username = trim($_POST['email_username']);
     $password = trim($_POST['password']);
 
     //validate email
-    if (!Validate::email($email)){
-      $this->errors['email'] = 'Invalid email';
+    if (!Validate::string($email_username, 3, 50)){
+      $this->errors['email'] = 'Invalid email or username';
     }
 
     //validate password
@@ -30,13 +30,13 @@ class AuthController extends Controller {
     if ( ! empty($this->errors)){
       Session::flash('errors', $this->errors);
       Session::flash('old', [
-        'email' => $email
+        'email_username' => $email_username
       ]);
       $this->redirect('/login');
     }
 
     //check if user exists
-    $result = $this->model->login($email,$password);
+    $result = $this->model->login($email_username,$password);
 
     if($result['status']){
       Session::flash('success',['login' => $result['message']]);
@@ -50,7 +50,7 @@ class AuthController extends Controller {
 
     Session::flash('errors', ['login' => $result['message']]);
     Session::flash('old', [
-      'email' => $email
+      'email_username' => $email_username
     ]);
     $this->redirect('/login');
   }
@@ -67,13 +67,13 @@ class AuthController extends Controller {
     }
   
     public function signupProcess(){
-      $fullName = $_POST['fullName'];
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-      $confirmPassword = $_POST['confirmPassword'];
+      $fullName = htmlspecialchars(trim($_POST['fullName']));
+      $email = trim($_POST['email']);
+      $password = trim($_POST['password']);
+      $confirmPassword = trim($_POST['confirmPassword']);
   
       //validate full name
-      if (!Validate::string($fullName, 3, 25)){
+      if (!Validate::string($fullName, 3, 50)){
        $this->errors['fullName'] = 'Invalid full name';
       }
   
@@ -116,6 +116,11 @@ class AuthController extends Controller {
         'email' => $email
       ]);
       $this->redirect('/register');
+    }
+
+    public function authStatusAPI(){
+      $auth = Session::exists('user');
+      $this->buildJsonResponse(['auth' => $auth]);
     }
 
 }

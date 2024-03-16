@@ -396,9 +396,6 @@ View::renderPartial('MenuHeader', [
 
 <?php
 
-View::renderPartial('Footer');
-
-
 View::renderPartial('SearchOverlay');
 
 View::renderPartial('NotificationOverlay');

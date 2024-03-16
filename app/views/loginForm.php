@@ -39,8 +39,8 @@ $flashOld = Session::get('old');
       <form action="/login" method="post">
         <!-- email -->
         <div class="email">
-          <label for="email">Email Address</label>
-          <input type="email" placeholder="WizDemy@gmail.com" required name="email" id="email" value="<?= $flashOld['email'] ?? ''; ?>" />
+          <label for="$email_username">Email Address</label>
+          <input type="text" placeholder="WizDemy@gmail.com" required name="email_username" id="email_username" value="<?= $flashOld['email_username'] ?? ''; ?>" />
         </div>
         <!-- password -->
         <div class="password">

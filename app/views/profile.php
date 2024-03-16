@@ -15,6 +15,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'timeAgo',
     'jquery.min',
+    'authStatus',
     'category'
   ]
 ]);
@@ -78,7 +79,6 @@ View::renderPartial('MenuHeader');
         View::renderPartial('StudyMaterialCard', ['materials' => $uploads, 'page' => 'profile']);
       else:
         View::renderPartial('ZeroResult', ['page' => 'profile', 'myProfile' => $myProfile]);
-        View::renderPartial('StudyMaterialCard', ['materials' => [], 'page' => 'profile']);
       endif;
       ?>
     </section>
@@ -113,6 +113,7 @@ View::renderPartial('MenuHeader');
             <?= $user['full_name'] ?>
           </div>
         </div>
+        <?php if ($isPrivate): ?>
         <div class="private-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -130,25 +131,30 @@ View::renderPartial('MenuHeader');
             </g>
           </svg>
         </div>
+        <?php endif; ?>
       </div>
       <div class="infos">
         <div class="class-course">
           <p>EDU LEVEL</p>
           <div>
-            <?= $user['education_level'] ?? '- - - - - - -' ?>
+            <?= $user['education_level'] == '' ? '- - - - - - -' : $user['education_level']; ?>
           </div>
         </div>
         <div class="user-type">
           <p>U/T</p>
           <div>
-            <?= $user['enrolled_course'] ?? '-' ?>
+            <?= $user['user_type'] == '' ? '-' : $user['user_type'][0] ; ?>
           </div>
         </div>
 
         <div class="year">
           <p>J-YR</p>
           <div>
-            <?= $user['joined_year'] ?? '- - - -' ?>
+            <?php
+            $dateTime = new DateTime($user['created_at']);
+            $year = $dateTime->format('Y');
+            echo $year;
+            ?>
           </div>
         </div>
       </div>

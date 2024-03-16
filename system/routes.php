@@ -3,7 +3,10 @@
 //routes for login page
 $router->get('/login', 'AuthController@login')->only('guest');
 $router->post('/login', 'AuthController@loginProcess')->only('guest');
-$router->delete('/login', 'AuthController@logout')->only('auth');
+$router->delete('/logout', 'AuthController@logout')->only('auth');
+
+//auth status api to use in javascript
+$router->post('/api/authStatus', 'AuthController@authStatusAPI');
 
 //routes for signup page
 $router->get('/signup', 'AuthController@signup')->only('guest');
@@ -24,7 +27,7 @@ $router->get('/material/view', 'HomeController@view');
 
 //routes for request page
 $router->get('/request', 'RequestController@index');
-$router->post('/request/category/api', 'RequestController@category');
+$router->post('/api/request/category', 'RequestController@category');
 $router->get('/request/create', 'RequestController@create')->only('auth');
 $router->post('/request/store', 'RequestController@store')->only('auth');
 
@@ -37,13 +40,24 @@ $router->post('/upload/respond', 'UploadController@index')->only('auth'); //comi
 $router->get('/profile', 'ProfileController@index')->only('auth');
 $router->post('/follow', 'ProfileController@follow')->only('auth');
 $router->delete('/unfollow', 'ProfileController@unfollow')->only('auth');
-$router->post('/profile/category/api', 'ProfileController@category');
+$router->post('/api/profile/category', 'ProfileController@category');
+$router->post('/api/profile/myRequests', 'ProfileController@myRequests');
+
 
 //routes for like page
 $router->post('/like', 'LikeController@store')->only('auth');
 
 //routes for bookmark page
 $router->post('/bookmark', 'BookmarkController@store')->only('auth');
+
+//routes for settings page (myInformation, accountSecurity)
+$router->get('/myInformation', 'SettingsController@myInformation')->only('auth');
+$router->put('/myInformation/profile', 'SettingsController@profile')->only('auth');
+$router->put('/myInformation/personal', 'SettingsController@personal')->only('auth');
+
+$router->get('/accountSecurity', 'SettingsController@accountSecurity')->only('auth');
+$router->put('/accountSecurity/password', 'SettingsController@password')->only('auth');
+$router->put('/accountSecurity/preferences', 'SettingsController@preferences')->only('auth');
 
 
 

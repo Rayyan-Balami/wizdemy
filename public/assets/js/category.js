@@ -269,12 +269,14 @@ function MaterialCard(
 </div>`;
 }
 
-function ZeroResult(auth,page="default") {
+
+function ZeroResult(auth, page = "default") {
   let message = {
     default: "No Results Found",
-    profile: "Ouch! No uploads",
-    ghostProfile: "Looking for a ghost?",
-    search: "No results found for your search"
+    profile: "Ouch! No Uploads",
+    ghostProfile: "Looking for a Ghost?",
+    search: "No results found for your search",
+    myRequest: "No Requests Made"
   };
 
   // Extract user_id from the URL to see if its other user's profile
@@ -376,7 +378,7 @@ function ZeroResult(auth,page="default") {
   </g>
 </svg>`;
 
-ghostProfileSvg = ` <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  ghostProfileSvg = ` <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 <g id="SVGRepo_iconCarrier">
@@ -405,7 +407,7 @@ ghostProfileSvg = ` <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.
 </g>
 </svg>`;
 
-searchSvg = ` <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  searchSvg = ` <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 <g id="SVGRepo_iconCarrier">
@@ -448,7 +450,9 @@ searchSvg = ` <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/20
 </g>
 </svg>`;
 
-defaultSvg = `  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  myRequestSvg = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M148.427 132.9C215.702 45.876 338.403 185.999 252.181 243.354C185.181 287.927 106.521 218.453 137.977 158.003" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M222.555 180.284C222.635 180.459 222.804 180.575 223.03 180.679C223.319 180.859 223.58 181.055 223.867 181.236C224.143 181.41 224.478 181.554 224.798 181.696C225.365 181.947 225.956 182.168 226.594 182.346C227.036 182.469 227.491 182.565 227.964 182.634C228.504 182.714 229.073 182.734 229.626 182.735C230.116 182.735 230.604 182.686 231.087 182.645C231.575 182.605 232.056 182.538 232.532 182.462C233.496 182.307 234.451 182.068 235.314 181.761C236.139 181.468 236.858 181.078 237.428 180.611C237.695 180.392 237.903 180.164 238.077 179.913" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M178.811 179.913C179.019 180.207 179.291 180.474 179.538 180.744C179.851 181.085 180.206 181.396 180.571 181.694C181.971 182.833 183.751 183.641 185.641 183.982C187.757 184.362 189.926 184.055 191.887 183.324C192.287 183.176 192.668 183.011 193.047 182.823C193.504 182.594 193.927 182.294 194.333 182.007" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M155.001 292C155.001 292 154 302.314 153.001 321.549C152 340.814 151.001 369 151.001 369" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M255.501 366C255.501 330.878 252.001 289.584 252.001 289.584C281.756 290.185 295.875 289.477 307.371 263.405C315.537 244.886 307.371 187 307.371 187" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M156.001 286.725C156.001 286.725 136.453 289.223 114.229 279.169C92.0042 269.115 95.9404 208.058 114.228 181" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M117.343 174.496C124.359 114.592 120.235 61.656 200.803 61.656C272.556 61.656 298.585 108.904 298.585 178.551" stroke="#000000" stroke-opacity="0.9" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M288.933 148.523C288.933 148.523 294.295 163.923 294.295 181.769C294.295 199.615 292.032 208.331 291.491 215.014" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M122.988 147.281C122.988 147.281 117.402 168.505 117.402 184.675C117.402 200.846 116.781 200.676 119.574 222.069" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M94.6228 101.875C105.525 97.0946 109.362 113.263 98.6301 117.259C87.8001 121.292 85.8363 107.69 90.0816 104.528C90.798 103.994 91.5268 104.155 92.2185 103.467" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M128.586 93.8959C140.239 82.9861 150.02 106.169 136.313 109.578C126.2 112.093 122.354 102.864 130.132 95.1254" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M106.001 109C107.498 104.859 106.114 74.9739 107.514 72.5657C107.67 72.2987 117.501 67.7122 127.491 64.4303C134.165 62.2376 142.306 60.7738 142.528 61.0285C143.591 62.2466 142.528 91.4518 142.528 96.5965" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+
+  defaultSvg = `  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 <g id="SVGRepo_iconCarrier">
@@ -488,7 +492,17 @@ defaultSvg = `  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/
   <div class="error-container ">
 
     <div class="svg-icon">
-      ${page === "profile" ? profileSvg : page === "search" ? searchSvg : page === "ghostProfile" ? ghostProfileSvg : defaultSvg}
+      ${
+        page === "profile"
+          ? profileSvg
+          : page === "search"
+          ? searchSvg
+          : page === "ghostProfile"
+          ? ghostProfileSvg
+          : page === "myRequest"
+          ? myRequestSvg
+          : defaultSvg
+      }
     </div>
 
     <div class="status-msg-top">
@@ -501,21 +515,44 @@ defaultSvg = `  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/
 </div>`;
 }
 
-function changeCategory(page, category, auth) {
+$(document).ready(function () {
+  // Add event listener to the "requestCheck" checkbox
+  $("#requestCheck").on("change", function () {
+    if ($(this).is(":checked")) {
+      myRequests("profile", $("input[name='category']:checked").val(), auth);
+    } else {
+      changeCategory("profile", auth);
+    }
+  });
+});
+
+function changeCategory(page) {
+  let category = $("input[name='category']:checked").val(); // Get the currently selected category
   if (page === "request") {
     requestCategoryChange(page, category, auth);
   } else if (page === "profile") {
-    profileCategoryChange(page, category, auth);
+    if ($("#requestCheck").prop("checked")) {
+      myRequests(page, category, auth);
+    } else {
+      profileCategoryChange(page, category, auth);
+    }
   }
 }
 
 function requestCategoryChange(page, category, auth) {
-  console.log(page, category, auth);
   const cardCategory = $(".card-category-wrapper");
-  const requestCardSection = $(".request-card-section");
+  let requestCardSection = $(".request-card-section");
   const ZeroResultSection = $(".zeroResult-container");
 
-  requestCardSection.empty();
+  // Check if requestCardSection exists, if not, create it
+  if (requestCardSection.length === 0) {
+    requestCardSection = $("<div class='request-card-section'></div>");
+    // Append requestCardSection after cardCategory
+    cardCategory.after(requestCardSection);
+  } else {
+    // If requestCardSection exists, empty it
+    requestCardSection.empty();
+  }
   ZeroResultSection.remove();
 
   ["note", "question", "labreport"].forEach((cat) => {
@@ -527,7 +564,7 @@ function requestCategoryChange(page, category, auth) {
   });
 
   $.ajax({
-    url: `/${page}/category/api`,
+    url: `/api/${page}/category`,
     type: "POST",
     data: { category },
     success: function (respond) {
@@ -558,7 +595,6 @@ function requestCategoryChange(page, category, auth) {
       updateTimeAgo();
     },
     error: function (error) {
-      console.log(error);
       requestCardSection.html("Failed to load data");
     },
   });
@@ -566,10 +602,18 @@ function requestCategoryChange(page, category, auth) {
 
 function profileCategoryChange(page, category, auth) {
   const cardCategory = $(".card-category-wrapper");
-  const materialCardSection = $(".card-section");
+  let materialCardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
+  $(".request-card-section").remove();
 
-  materialCardSection.empty();
+  // Check if materialCardSection exists, if not, create it
+  if (materialCardSection.length === 0) {
+    materialCardSection = $("<div class='card-section'></div>");
+    // Append materialCardSection after cardCategory
+    cardCategory.after(materialCardSection);
+  } else {
+    materialCardSection.empty();
+  }
   ZeroResultSection.remove();
 
   ["note", "question", "labreport"].forEach((cat) => {
@@ -583,15 +627,13 @@ function profileCategoryChange(page, category, auth) {
   // Extract user_id from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const user_id = urlParams.get("id");
-  console.log(user_id);
   $.ajax({
-    url: `/${page}/category/api`,
+    url: `/api/${page}/category`,
     type: "POST",
     data: { category, user_id },
     success: function (respond) {
-      console.log(respond);
       if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult(auth,page));
+        cardCategory.after(ZeroResult(auth, page));
         return;
       }
       respond.data.forEach((m) => {
@@ -623,8 +665,72 @@ function profileCategoryChange(page, category, auth) {
       updateTimeAgo();
     },
     error: function (error) {
-      console.log(error);
       materialCardSection.html("Failed to load data");
+    },
+  });
+}
+
+function myRequests(page, category, auth) {
+  const cardCategory = $(".card-category-wrapper");
+  let requestCardSection = $(".request-card-section");
+  const ZeroResultSection = $(".zeroResult-container");
+  $(".card-section").remove();
+
+  // Check if requestCardSection exists, if not, create it
+  if (requestCardSection.length === 0) {
+    requestCardSection = $("<div class='request-card-section'></div>");
+    // Append requestCardSection after cardCategory
+    cardCategory.after(requestCardSection);
+  } else {
+    // If requestCardSection exists, empty it
+    requestCardSection.empty();
+  }
+  ZeroResultSection.remove();
+
+  ["note", "question", "labreport"].forEach((cat) => {
+    const element = $(`#${cat}-category`);
+    element.removeClass("is-active-category").attr("disabled", false);
+    if (cat === category) {
+      element.addClass("is-active-category").attr("disabled", true);
+    }
+  });
+
+  // Extract user_id from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const user_id = urlParams.get("id");
+  $.ajax({
+    url: `/api/${page}/myRequests`,
+    type: "POST",
+    data: { category, user_id },
+    success: function (respond) {
+      if (respond.data.length <= 0) {
+        cardCategory.after(ZeroResult(auth,'myRequest'));
+        return;
+      }
+      respond.data.forEach((request) => {
+        const requestCard = RequestCard(
+          request.request_id,
+          request.user_id,
+          request.title,
+          request.subject,
+          request.description,
+          request.education_level,
+          request.class_faculty,
+          request.semester,
+          request.no_of_materials,
+          request.document_type,
+          request.username,
+          request.created_at,
+          request.id
+        );
+        requestCardSection.append(requestCard);
+      });
+
+      // Call updateTimeAgo to update time ago text for newly added content
+      updateTimeAgo();
+    },
+    error: function (error) {
+      requestCardSection.html("Failed to load data");
     },
   });
 }

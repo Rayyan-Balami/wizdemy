@@ -111,7 +111,6 @@ nav > .menu-section:last-child{
   display: flex;
   align-items: center;
   gap: 1rem; /* 16px */
-  padding: 0.625rem 1rem; /* 10px 16px */
   border-radius: var(--border-radius); /* 8px */
   transition: var(--transition);
   white-space: nowrap;
@@ -119,9 +118,14 @@ nav > .menu-section:last-child{
 }
 
 .menu-links:hover,
-.setting-menu:hover,
 .menu-btn:hover  {
   background-color: var(--hover-color);
+}
+
+.menu-links.is-active,
+.menu-btn.is-active {
+  font-weight: 500;
+  background-color: rgb(243 244 246);
 }
 
 
@@ -163,23 +167,12 @@ nav > .menu-section:last-child{
   position: relative;
 }
 
-.setting-menu {
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* 16px */
-  padding: 0.625rem 1rem; /* 10px 16px */
-  cursor: pointer;
-  border-radius: var(--border-radius); /* 8px */
-  transition: var(--transition);
-  margin-top: 0.25rem; /* 4px */
-}
-
-.setting-menu > #caret-up-icon {
+.setting-section  > .setting-menu > #caret-up-icon {
   margin-left: auto;
 }
 
-.setting-menu > #setting-icon.rotate,
-.setting-menu > #caret-up-icon.rotate {
+.setting-section  > .setting-menu > #setting-icon.rotate,
+.setting-section  > .setting-menu > #caret-up-icon.rotate {
   transform: rotate(180deg);
   transition-duration: 300ms;
 }
@@ -214,7 +207,5 @@ nav > .menu-section:last-child{
     transform: translateY(0);
   }
 }
-
-
 
 /* ----- side navigatons ends here ----- */

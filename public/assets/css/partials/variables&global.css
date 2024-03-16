@@ -32,12 +32,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.is-active {
-  font-weight: 500;
-  background-color: rgb(243 244 246);
-}
-
-
 body.menu-open {
   overflow: hidden;
 }
