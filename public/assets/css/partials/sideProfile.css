@@ -69,12 +69,10 @@
   flex-shrink: 0;
 }
 
-.profile-card > .username-logo > .logo > img {
-  width: 3rem/* 48px */;
-  height: 3rem/* 48px */;
-  object-position: center;
-  object-fit: cover;
-  overflow: hidden;
+.profile-card > .username-logo > .logo > svg {
+  width: 2rem/* 40px */;
+  height: 2rem/* 40px */;
+  flex-shrink: 0;
 }
 
 .profile-card > .username-logo > .username > p,

@@ -125,6 +125,8 @@ View::renderPartial('MenuHeader', [
                 <?php
                 $educationLevels = [
                     'School' => 'school',
+                    '+2' => '+2',
+                    'Diploma' => 'diploma',
                     'Bachelor' => 'bachelor',
                     'Master' => 'master',
                     'PhD' => 'phd'

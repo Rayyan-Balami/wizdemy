@@ -99,23 +99,23 @@ class AuthController extends Controller {
           'fullName' => $fullName,
           'email' => $email
         ]);
-        $this->redirect('/register');
+        $this->redirect('/signup');
       }
   
       //store user
       $result = $this->model->signup($fullName,$email,$password);
   
       if($result['status']){
-        Session::flash('success',['register' => $result['message']]);
+        Session::flash('success',['signup' => $result['message']]);
         $this->redirect('/login');
       }
   
-      Session::flash('errors', ['register' => $result['message']]);
+      Session::flash('errors', ['signup' => $result['message']]);
       Session::flash('old', [
         'fullName' => $fullName,
         'email' => $email
       ]);
-      $this->redirect('/register');
+      $this->redirect('/signup');
     }
 
     public function authStatusAPI(){

@@ -188,7 +188,8 @@ $flashOld = Session::get('old');
                     <?php
                     $educationLevels = [
                         'School' => 'school',
-                        'High School' => 'high_school',
+                        '+2' => '+2',
+                        'Diploma' => 'diploma',
                         'Bachelor' => 'bachelor',
                         'Master' => 'master',
                         'PhD' => 'phd'

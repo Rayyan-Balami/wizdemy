@@ -99,9 +99,9 @@ View::renderPartial('MenuHeader', [
   <!-- form -->
   <form action="/upload/store" id="uploadForm" method="post" enctype="multipart/form-data">
 
-    <?php if (!empty($requestDetails)): ?>
+    <?php if (!empty ($requestDetails)): ?>
       <div class="request-details">
-      <input type="hidden" name="request_id" value="<?= $requestDetails['request_id'] ?>">
+        <input type="hidden" name="request_id" value="<?= $requestDetails['request_id'] ?>">
         <p class="request-subject">
           <?= $requestDetails['subject'] ?>
         </p>
@@ -119,21 +119,22 @@ View::renderPartial('MenuHeader', [
                 d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
               </path>
             </svg>
-            <h3><?= $requestDetails['username'] ?></h3>
+            <h3>
+              <?= $requestDetails['username'] ?>
+            </h3>
             <span>·</span>
-            <p class="time-ago"
-              data-datetime="<?= $requestDetails['created_at'] ?>">
-          </p>
+            <p class="time-ago" data-datetime="<?= $requestDetails['created_at'] ?>">
+            </p>
           </a>
-          
+
           <p class="no-of-responses">Responds :
             <?= $requestDetails['no_of_materials'] ?>
           </p>
           <p class="document-type">Document Need :
-            <?php if($requestDetails['document_type'] === 'labreport'): ?>
+            <?php if ($requestDetails['document_type'] === 'labreport'): ?>
               Lab Report
-            <?php else: 
-            echo $requestDetails['document_type'];
+            <?php else:
+              echo $requestDetails['document_type'];
             endif; ?>
           </p>
           <span>#
@@ -142,7 +143,7 @@ View::renderPartial('MenuHeader', [
           <span>#
             <?= $requestDetails['education_level'] ?>
           </span>
-          <?php if (!empty($requestDetails['semester'])): ?>
+          <?php if (!empty ($requestDetails['semester'])): ?>
             <span>#
               <?= $requestDetails['semester'] ?> Sem
             </span>
@@ -151,11 +152,12 @@ View::renderPartial('MenuHeader', [
       </div>
     <?php endif; ?>
 
-      <!-- title (required)-->
-      <div class="title">
-        <label for="title">Title</label>
-        <input type="text" placeholder="functions in C programming language." required name="title" id="title" value="<?= $flashOld['title'] ?? '' ?>">
-      </div>
+    <!-- title (required)-->
+    <div class="title">
+      <label for="title">Title</label>
+      <input type="text" placeholder="functions in C programming language." required name="title" id="title"
+        value="<?= $flashOld['title'] ?? '' ?>">
+    </div>
     <!-- description (required)-->
     <div class="description">
       <label for="description">Description</label>
@@ -170,22 +172,22 @@ View::renderPartial('MenuHeader', [
     <div class="document-type">
       <label for="document-type">Dcoument Type</label>
       <select name="document-type" id="document-type" required>
-        <option value="" disabled <?= isset($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
+        <option value="" disabled <?= isset ($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
         </option>
-    <?php
-    $documentTypes = [
-      'Note' => 'note',
-      'Question' => 'question',
-      'Lab Report' => 'labreport'
-    ];
-    foreach ($documentTypes as $label => $value) {
-      $selected = (isset($flashOld['document_type']) && $flashOld['document_type'] === $value) || (isset($requestDetails['document_type']) && $requestDetails['document_type'] === $value) ? 'selected' : '';
-      // Disable the option if $requestDetails has a document_type
-      $disableOption = isset($requestDetails['document_type']) && $requestDetails['document_type'] !== $value ? 'disabled' : '';
-      echo "<option value=\"$value\" $selected $disableOption>$label</option>";
-    }
-    ?>
-  </select>
+        <?php
+        $documentTypes = [
+          'Note' => 'note',
+          'Question' => 'question',
+          'Lab Report' => 'labreport'
+        ];
+        foreach ($documentTypes as $label => $value) {
+          $selected = (isset ($flashOld['document_type']) && $flashOld['document_type'] === $value) || (isset ($requestDetails['document_type']) && $requestDetails['document_type'] === $value) ? 'selected' : '';
+          // Disable the option if $requestDetails has a document_type
+          $disableOption = isset ($requestDetails['document_type']) && $requestDetails['document_type'] !== $value ? 'disabled' : '';
+          echo "<option value=\"$value\" $selected $disableOption>$label</option>";
+        }
+        ?>
+      </select>
 
       <svg class="caret-up-down" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -204,7 +206,7 @@ View::renderPartial('MenuHeader', [
     <div class="format">
       <label for="format">Format ?</label>
       <select name="format" id="format" required>
-        <option value="" disabled <?= isset($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
+        <option value="" disabled <?= isset ($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
         </option>
         <?php
         $format = [
@@ -213,7 +215,7 @@ View::renderPartial('MenuHeader', [
           'Photo' => 'photo'
         ];
         foreach ($format as $label => $value) {
-          $selected = (isset($flashOld['format']) && $flashOld['format'] === $value) || (isset($requestDetails['format']) && $requestDetails['format'] === $value) ? 'selected' : '';
+          $selected = (isset ($flashOld['format']) && $flashOld['format'] === $value) || (isset ($requestDetails['format']) && $requestDetails['format'] === $value) ? 'selected' : '';
           echo "<option value=\"$value\" $selected>$label</option>";
         }
         ?>
@@ -234,17 +236,19 @@ View::renderPartial('MenuHeader', [
       <label for="education-level">Education
         Level</label>
       <select name="education-level" id="education-level" required>
-        <option value="" disabled <?= isset($flashOld['education_level']) ? '' : 'selected' ?>>Select an
+        <option value="" disabled <?= isset ($flashOld['education_level']) ? '' : 'selected' ?>>Select an
           option...</option>
         <?php
         $educationLevels = [
           'School' => 'school',
+          '+2' => '+2',
+          'Diploma' => 'diploma',
           'Bachelor' => 'bachelor',
           'Master' => 'master',
           'PhD' => 'phd'
         ];
         foreach ($educationLevels as $label => $value) {
-          $selected = (isset($flashOld['education_level']) && $flashOld['education_level'] === $value) || (isset($requestDetails['education_level']) && $requestDetails
+          $selected = (isset ($flashOld['education_level']) && $flashOld['education_level'] === $value) || (isset ($requestDetails['education_level']) && $requestDetails
           ['education_level'] === $value) ? 'selected' : '';
           echo "<option value=\"$value\" $selected>$label</option>";
         }
@@ -267,12 +271,12 @@ View::renderPartial('MenuHeader', [
       <label for="semester">Semester (if
         applicable)</label>
       <select name="semester" id="semester">
-        <option value="" <?= isset($flashOld['semester']) ? '' : 'selected' ?>>Select an option...
+        <option value="" <?= isset ($flashOld['semester']) ? '' : 'selected' ?>>Select an option...
         </option>
         <?php
         $semesters = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
         foreach ($semesters as $semester) {
-          $selected = (isset($flashOld['semester']) && $flashOld['semester'] === $semester) || (isset($requestDetails['semester']) && $requestDetails['semester'] === $semester) ? 'selected' : '';
+          $selected = (isset ($flashOld['semester']) && $flashOld['semester'] === $semester) || (isset ($requestDetails['semester']) && $requestDetails['semester'] === $semester) ? 'selected' : '';
           echo "<option value=\"$semester\" $selected>$semester</option>";
         }
         ?>
@@ -292,21 +296,23 @@ View::renderPartial('MenuHeader', [
     <div class="subject">
       <label for="subject">Subject</label>
       <input type="text" placeholder="C Programming" required name="subject" id="subject"
-        value="<?= isset($flashOld['subject']) ? $flashOld['subject'] : (isset($requestDetails['subject']) ? $requestDetails['subject'] : ''); ?>" />
+        value="<?= isset ($flashOld['subject']) ? $flashOld['subject'] : (isset ($requestDetails['subject']) ? $requestDetails['subject'] : ''); ?>" />
     </div>
 
     <!-- class/faculty (required)-->
     <div class="class">
       <label for="class-faculty">Class/ Faculty</label>
-      <input type="text" placeholder="Short Forms ie, BCA, CSIT, Management, Science etc" required
-       name="class-faculty" id="class-faculty" value="<?= isset($flashOld['class_faculty']) ? $flashOld['class_faculty'] : (isset($requestDetails['class_faculty']) ? $requestDetails['class_faculty'] : ''); ?>" />
+      <input type="text" placeholder="Short Forms ie, BCA, CSIT, Management, Science etc" required name="class-faculty"
+        id="class-faculty"
+        value="<?= isset ($flashOld['class_faculty']) ? $flashOld['class_faculty'] : (isset ($requestDetails['class_faculty']) ? $requestDetails['class_faculty'] : ''); ?>" />
 
     </div>
 
     <!-- author / source / credits (required)-->
     <div class="author">
       <label for="author">Author / Source / Credits [ Be Truthful ]</label>
-      <input type="text" placeholder="Rayyan Balami" required name="author" id="author" value="<?= $flashOld['author'] ?? ''; ?>" />
+      <input type="text" placeholder="Rayyan Balami" required name="author" id="author"
+        value="<?= $flashOld['author'] ?? ''; ?>" />
     </div>
 
     <!-- upload file (required)-->
@@ -385,7 +391,7 @@ View::renderPartial('MenuHeader', [
 
     <!-- save button -->
     <button type="submit" name="submit" id="submit">
-      <?php if (!empty($requestDetails)): ?>
+      <?php if (!empty ($requestDetails)): ?>
         Respond
       <?php else: ?>
         Upload

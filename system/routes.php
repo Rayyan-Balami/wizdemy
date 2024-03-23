@@ -10,7 +10,7 @@ $router->post('/api/authStatus', 'AuthController@authStatusAPI');
 
 //routes for signup page
 $router->get('/signup', 'AuthController@signup')->only('guest');
-$router->post('/signup', 'AuthController@sihnupProcess')->only('guest');
+$router->post('/signup', 'AuthController@signupProcess')->only('guest');
 
 //routes for notes page
 $router->get('/', 'HomeController@index');

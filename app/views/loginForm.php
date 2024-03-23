@@ -40,23 +40,14 @@ $flashOld = Session::get('old');
         <!-- email -->
         <div class="email">
           <label for="$email_username">Email Address</label>
-          <input type="text" placeholder="WizDemy@gmail.com" required name="email_username" id="email_username" value="<?= $flashOld['email_username'] ?? ''; ?>" />
+          <input type="text" placeholder="WizDemy@gmail.com" required name="email_username" id="email_username"
+            value="<?= $flashOld['email_username'] ?? ''; ?>" />
         </div>
         <!-- password -->
         <div class="password">
           <label for="password">Password</label>
           <input type="password" placeholder="••••••••" required name="password" id="password" />
         </div>
-        <!-- remember me + forgot password -->
-        <div class="remember-me">
-          <div>
-            <input id="remember" type="checkbox">
-            <label for="remember">Remember me</label>
-          </div>
-          <a href="forgotPasswordForm.html">Forgot
-            password?</a>
-        </div>
-
         <!-- login button -->
 
         <button type="submit" value="submit" name="submit">
