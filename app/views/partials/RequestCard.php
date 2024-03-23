@@ -80,7 +80,7 @@
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
-                <form action="/upload/respond" method="post">
+                <form action="/material/respond" method="post">
                 <!-- respond button  -->
                 <input type="hidden" name="request_id" value="<?= $request['request_id'] ?>">
                 <button type="submit" class="respond-button">

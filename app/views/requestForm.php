@@ -65,7 +65,7 @@ View::renderPartial('MenuHeader', [
         request.
     </p>
     <!-- form -->
-    <form action="/request/store" method="post">
+    <form action="/material/store" method="post">
 
         <!-- title (required)-->
         <div class="title">

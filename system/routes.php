@@ -32,9 +32,14 @@ $router->get('/request/create', 'RequestController@create')->only('auth');
 $router->post('/request/store', 'RequestController@store')->only('auth');
 
 //routes for upload page
-$router->get('/upload', 'UploadController@index')->only('auth');
-$router->post('/upload/store', 'UploadController@store')->only('auth');
-$router->post('/upload/respond', 'UploadController@index')->only('auth'); //coming from request page
+$router->get('/material/create', 'UploadController@index')->only('auth');
+$router->post('/material/store', 'UploadController@store')->only('auth');
+$router->post('/material/respond', 'UploadController@index')->only('auth'); //coming from request page
+
+//routes for add project page
+$router->get('/project', 'ProjectController@index');
+$router->get('/project/create', 'ProjectController@create')->only('auth');
+$router->post('/project/store', 'ProjectController@store')->only('auth');
 
 //routes for profile page
 $router->get('/profile', 'ProfileController@index')->only('auth');
