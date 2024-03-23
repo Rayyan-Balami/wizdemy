@@ -97,7 +97,7 @@ View::renderPartial('MenuHeader', [
     [ CCC ] Correct, Complete, Concise Materials are always appreciated.
   </p>
   <!-- form -->
-  <form action="/upload/store" id="uploadForm" method="post" enctype="multipart/form-data">
+  <form action="/material/store" id="uploadForm" method="post" enctype="multipart/form-data">
 
     <?php if (!empty ($requestDetails)): ?>
       <div class="request-details">

@@ -14,12 +14,12 @@
 .project-card > .thumbnail {
   border: var(--border);
   border-color: rgb(209 213 219);
+  border-width: 1.5px;
 }
 
 .project-card:hover > .thumbnail{
   transition: var(--transition);
   transition-duration: 300ms;
-  border-width: 1.5px;
   border-color: rgb(156 163 175);
 }
 
