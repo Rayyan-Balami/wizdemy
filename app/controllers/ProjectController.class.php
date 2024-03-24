@@ -11,10 +11,6 @@ class ProjectController extends Controller
   public function index()
   {
       $projects = $this->model->show();
-
-      for($i = 0; $i < count($projects); $i++) {
-          $projects[$i]['repo_thumbnailUrl'] = $this->fetchRepoThumbnailLink($projects[$i]['repo_link']);
-      }
   
       // Render the view with the updated projects
       View::render('projects', ['projects' => $projects]);
@@ -52,14 +48,14 @@ class ProjectController extends Controller
     }
   }
 
-  private function fetchRepoThumbnailLink($repoLink)
-  {
-    $html = file_get_contents($repoLink);
+  // private function fetchRepoThumbnailLink($repoLink)
+  // {
+  //   $html = file_get_contents($repoLink);
 
-    // Extract the social thumbnail URL from the HTML
-    preg_match('/<meta property="og:image" content="(.*?)"/', $html, $matches);
-    $repo_thumbnailUrl = isset($matches[1]) ? $matches[1] : null;
+  //   // Extract the social thumbnail URL from the HTML
+  //   preg_match('/<meta property="og:image" content="(.*?)"/', $html, $matches);
+  //   $repo_thumbnailUrl = isset($matches[1]) ? $matches[1] : null;
 
-    return $repo_thumbnailUrl;
-  }
+  //   return $repo_thumbnailUrl;
+  // }
 }

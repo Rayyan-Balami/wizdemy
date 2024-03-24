@@ -73,7 +73,7 @@ function RequestCard(
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
-                <form action="/upload/respond" method="post">
+                <form action="/material/create/respond" method="post">
                 <!-- respond button  -->
                 <input type="hidden" name="request_id" value="${request_id}">
                 <button type="submit" class="respond-button">
@@ -270,7 +270,7 @@ function MaterialCard(
 }
 
 
-function ZeroResult(auth, page = "default") {
+function ZeroResult(page = "default") {
   let message = {
     default: "No Results Found",
     profile: "Ouch! No Uploads",
@@ -282,9 +282,8 @@ function ZeroResult(auth, page = "default") {
   // Extract user_id from the URL to see if its other user's profile
   const urlParams = new URLSearchParams(window.location.search);
   const user_id = urlParams.get("id");
-  $continueWith = "";
-  if (auth && !user_id) {
-    $continueWith = `<div class="continue-with">
+
+    continueWith = `<div class="continue-with">
         <h3 class="">
           Continue With
         </h3>
@@ -293,7 +292,7 @@ function ZeroResult(auth, page = "default") {
     
           <!-- upload form link -->
           <li>
-            <a href="/">
+            <a href="/material/create">
               <span>
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -320,7 +319,7 @@ function ZeroResult(auth, page = "default") {
           </li>
           <!-- request form link -->
           <li>
-            <a href="/question">
+            <a href="/request/create">
               <span>
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -345,7 +344,6 @@ function ZeroResult(auth, page = "default") {
           </li>
         </ul>
       </div>`;
-  }
 
   profileSvg = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -510,7 +508,7 @@ function ZeroResult(auth, page = "default") {
     </div>
   </div>
 
-  ${$continueWith}
+  ${continueWith}
 
 </div>`;
 }
@@ -519,9 +517,9 @@ $(document).ready(function () {
   // Add event listener to the "requestCheck" checkbox
   $("#requestCheck").on("change", function () {
     if ($(this).is(":checked")) {
-      myRequests("profile", $("input[name='category']:checked").val(), auth);
+      myRequests("profile", $("input[name='category']:checked").val());
     } else {
-      changeCategory("profile", auth);
+      changeCategory("profile");
     }
   });
 });
@@ -529,17 +527,17 @@ $(document).ready(function () {
 function changeCategory(page) {
   let category = $("input[name='category']:checked").val(); // Get the currently selected category
   if (page === "request") {
-    requestCategoryChange(page, category, auth);
+    requestCategoryChange(page, category);
   } else if (page === "profile") {
     if ($("#requestCheck").prop("checked")) {
-      myRequests(page, category, auth);
+      myRequests(page, category);
     } else {
-      profileCategoryChange(page, category, auth);
+      profileCategoryChange(page, category);
     }
   }
 }
 
-function requestCategoryChange(page, category, auth) {
+function requestCategoryChange(page, category) {
   const cardCategory = $(".card-category-wrapper");
   let requestCardSection = $(".request-card-section");
   const ZeroResultSection = $(".zeroResult-container");
@@ -569,7 +567,7 @@ function requestCategoryChange(page, category, auth) {
     data: { category },
     success: function (respond) {
       if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult(auth));
+        cardCategory.after(ZeroResult());
         return;
       }
       respond.data.forEach((request) => {
@@ -600,7 +598,7 @@ function requestCategoryChange(page, category, auth) {
   });
 }
 
-function profileCategoryChange(page, category, auth) {
+function profileCategoryChange(page, category) {
   const cardCategory = $(".card-category-wrapper");
   let materialCardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
@@ -633,7 +631,7 @@ function profileCategoryChange(page, category, auth) {
     data: { category, user_id },
     success: function (respond) {
       if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult(auth, page));
+        cardCategory.after(ZeroResult(page));
         return;
       }
       respond.data.forEach((m) => {
@@ -670,7 +668,7 @@ function profileCategoryChange(page, category, auth) {
   });
 }
 
-function myRequests(page, category, auth) {
+function myRequests(page, category) {
   const cardCategory = $(".card-category-wrapper");
   let requestCardSection = $(".request-card-section");
   const ZeroResultSection = $(".zeroResult-container");
@@ -704,7 +702,7 @@ function myRequests(page, category, auth) {
     data: { category, user_id },
     success: function (respond) {
       if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult(auth,'myRequest'));
+        cardCategory.after(ZeroResult('myRequest'));
         return;
       }
       respond.data.forEach((request) => {

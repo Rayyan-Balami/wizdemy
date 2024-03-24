@@ -102,12 +102,12 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/upload');
+      $this->redirect('/material/create');
     }
 
-    //upload files in the server
-    $imageUpload = File::upload($imageFile, 'assets/uploads/thumbnails');
-    $documentUpload = File::upload($documentFile, 'assets/uploads/documents');
+    //material/create files in the server
+    $imageUpload = File::upload($imageFile, 'assets/material/creates/thumbnails');
+    $documentUpload = File::upload($documentFile, 'assets/material/creates/documents');
     if(!$imageUpload['status'] || !$documentUpload['status']){
       Session::flash('post',['request_id' => $request_id]);
       Session::flash('error', [
@@ -124,7 +124,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/upload');
+      $this->redirect('/material/create');
     }
 
     //store request in the database
@@ -152,7 +152,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/upload');
+      $this->redirect('/material/create');
     }
   }
 }

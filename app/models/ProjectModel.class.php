@@ -23,7 +23,7 @@ class ProjectModel extends Model
   public function store($userId, $repoLink){
     return $this->insert([
       'user_id' => $userId,
-      'repo_link' => $repoLink
+      'repo_link' => $repoLink,
     ])->execute();
   }
 }

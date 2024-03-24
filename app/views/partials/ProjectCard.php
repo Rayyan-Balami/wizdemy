@@ -1,11 +1,13 @@
 <!-- project card  -->
 <div class="card-section">
-  <?php foreach ($projects as $project): ?>
+  <?php foreach ($projects as $project): 
+    $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
+    ?>
     <!--project card  -->
     <div class="card project-card">
       <!-- image -->
       <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
-        <img src="<?= $project['repo_thumbnailUrl'] ?>" alt="repo thumbnail">
+        <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail">
       </a>
       <!-- username  -->
       <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>" class="username bg-gray-300">

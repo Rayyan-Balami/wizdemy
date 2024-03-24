@@ -17,7 +17,6 @@
           </g>
         </svg>
       </button>
-      <?php if (Session::exists('user')): ?>
         <!-- notificaiton button -->
         <button id="notificaiton" onclick="toggleNotificationOverlay()" class="notification-button">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,8 +88,6 @@
             <span>projects</span>
           </a>
         </div>
-
-      <?php endif; ?>
 
       <!-- hamburger button for mobile -->
       <button id="hamburger" onclick="toggleSideNav()" class="hamburger-button">

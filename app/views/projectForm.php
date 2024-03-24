@@ -17,11 +17,11 @@ $flashOld = Session::get('old');
 View::renderPartial('SideNav');
 
 View::renderPartial('MenuHeader', [
-    'currentPage' => 'requestForm'
+    'currentPage' => 'projectForm'
   ]);
 
 ?>
-<!-- New Request title -->
+<!-- project title -->
 <div class="title-label">
 
     <div>

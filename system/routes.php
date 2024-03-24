@@ -13,20 +13,20 @@ $router->get('/signup', 'AuthController@signup')->only('guest');
 $router->post('/signup', 'AuthController@signupProcess')->only('guest');
 
 //routes for notes page
-$router->get('/', 'HomeController@index');
-$router->get('/notes', 'HomeController@index');
+$router->get('/', 'HomeController@index')->only('auth');
+$router->get('/notes', 'HomeController@index')->only('auth');
 
 //routes for question page
-$router->get('/question', 'HomeController@question');
+$router->get('/question', 'HomeController@question')->only('auth');
 
 //routes for lab report page
-$router->get('/labreport', 'HomeController@labreport');
+$router->get('/labreport', 'HomeController@labreport')->only('auth');
 
 //routes for view page
-$router->get('/material/view', 'HomeController@view');
+$router->get('/material/view', 'HomeController@view')->only('auth');
 
 //routes for request page
-$router->get('/request', 'RequestController@index');
+$router->get('/request', 'RequestController@index')->only('auth');
 $router->post('/api/request/category', 'RequestController@category');
 $router->get('/request/create', 'RequestController@create')->only('auth');
 $router->post('/request/store', 'RequestController@store')->only('auth');
@@ -37,7 +37,7 @@ $router->post('/material/store', 'UploadController@store')->only('auth');
 $router->post('/material/respond', 'UploadController@index')->only('auth'); //coming from request page
 
 //routes for add project page
-$router->get('/project', 'ProjectController@index');
+$router->get('/project', 'ProjectController@index')->only('auth');
 $router->get('/project/create', 'ProjectController@create')->only('auth');
 $router->post('/project/store', 'ProjectController@store')->only('auth');
 
