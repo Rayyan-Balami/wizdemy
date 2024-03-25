@@ -269,8 +269,9 @@ section > .background-thumbnail {
 .educationLevel > span,
 .educationLevel > p{
   padding: 0.25rem 0.5rem/* 4px 8px */;
-  border: 1.5px solid rgb(209 213 219);
-  border-radius: var(--border-radius);
+  border-radius: 9999px;
+  background-color: rgb(243 244 246);
+  border: var(--border);
   text-transform: uppercase;
 }
 

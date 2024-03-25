@@ -88,7 +88,7 @@ View::renderPartial('MenuHeader', [
 
         <!-- document-type (required)-->
         <div class="document-type">
-            <label for="document-type">Dcoument need </label>
+            <label for="document-type">Request For </label>
             <select name="document-type" id="document-type" required>
                 <option value="" disabled <?= isset($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
                 </option>
@@ -96,7 +96,8 @@ View::renderPartial('MenuHeader', [
                 $documentTypes = [
                     'Note' => 'note',
                     'Question' => 'question',
-                    'Lab Report' => 'labreport'
+                    'Lab Report' => 'labreport',
+                    'Github Project' => 'project'
                 ];
                 foreach ($documentTypes as $label => $value) {
                     $selected = isset($flashOld['document_type']) && $flashOld['document_type'] === $value ? 'selected' : '';

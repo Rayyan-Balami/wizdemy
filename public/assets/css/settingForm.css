@@ -123,13 +123,17 @@ form > .request-details > .request-title{
   font-size: 1rem/* 16px */;
   line-height: 1.5rem/* 24px */;
   font-weight: 500;
+  padding-left: 0.75rem/* 12px */;
+  border-left: 2px solid rgb(0, 0, 0);
 }
 
 form > .request-details > .request-subject{
-  font-size: 1rem/* 16px */;
+  font-size: 0.85rem/* 16px */;
   line-height: 1.5rem/* 24px */;
   color: rgb(59 130 246);
   text-transform: uppercase;
+  padding-left: 0.75rem/* 12px */;
+  border-left: 2px solid rgb(59 130 246);
 }
 
 form > .request-details > .request-description{
@@ -151,27 +155,14 @@ form > .request-details > .request-meta-datas{
   line-height: 1rem/* 16px */;
 }
 
-form > .request-details > .request-meta-datas > .username{
+form > .request-details > .request-meta-datas > .username,
+form > .request-details > .request-meta-datas > .document-type,
+form > .request-details > .request-meta-datas > .no-of-responses{
   display: flex;
   align-items: center;
   gap: 0.3rem/* 6px */;
   border-radius: 9999px;
-  background-color: rgb(59 130 246);
-  padding:0.25rem 0.5rem;
-  color: white;
-}
-
-form > .request-details > .request-meta-datas > .document-type{
-  border-radius: 9999px;
-  background-color: rgb(240, 149, 38);
-  padding:0.25rem 0.5rem;
-  color: white;
-}
-
-
-form > .request-details > .request-meta-datas > .no-of-responses{
-  border-radius: 9999px;
-  background-color: rgb(222, 99, 236);
+  background-color: rgb(31 41 55);
   padding:0.25rem 0.5rem;
   color: white;
   border: none;

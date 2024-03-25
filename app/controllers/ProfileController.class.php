@@ -112,4 +112,13 @@ class ProfileController extends Controller
     //redirect to the user's profile
     $this->redirect('/profile?id=' . $_POST['user_id']);
   }
+
+  public function myProjects()
+  {
+      $current_user = Session::get('user')['user_id'] ?? null;
+      $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
+      $projects = $this->model->myProjects($user_id);
+  
+      $this->buildJsonResponse($projects);
+  }  
 }

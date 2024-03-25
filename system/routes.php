@@ -47,6 +47,7 @@ $router->post('/follow', 'ProfileController@follow')->only('auth');
 $router->delete('/unfollow', 'ProfileController@unfollow')->only('auth');
 $router->post('/api/profile/category', 'ProfileController@category');
 $router->post('/api/profile/myRequests', 'ProfileController@myRequests');
+$router->post('/api/profile/myProjects', 'ProfileController@myProjects');
 
 
 //routes for like page

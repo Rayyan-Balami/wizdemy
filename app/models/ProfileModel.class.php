@@ -117,4 +117,15 @@ public function myRequests($user_id, $document_type = 'note')
     ->getAll();
 }
 
+public function myProjects($user_id)
+{
+  return (new ProjectModel())->select([
+    'p.*',
+    'u.username'
+  ], 'p')
+    ->leftJoin('users as u', 'u.user_id = p.user_id')
+    ->where('p.user_id = :user_id')
+    ->bind(['user_id' => $user_id])
+    ->getAll();
+}
 }

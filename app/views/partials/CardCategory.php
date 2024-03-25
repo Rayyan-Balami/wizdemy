@@ -21,6 +21,11 @@
             <input type="checkbox" id="requestCheck" name="requestCheck" hidden>
             <label for="requestCheck" class="requestCheck-label">Requests</label>
         <?php endif; ?>
+
+        <!-- my-project radio  -->
+        <input type="radio" value="projects" id="projectsRadio" name="category" hidden
+            onchange="myProjects('<?= $page ?>')">
+        <label for="projectsRadio" class="projectsRadio-label">Projects</label>
     </div>
     <!-- search icon -->
     <button class="search-button">
@@ -34,6 +39,6 @@
                 </path>
             </g>
         </svg>
-        Search
+        <span>Search</span>
     </button>
 </div>

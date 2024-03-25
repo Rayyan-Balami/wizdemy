@@ -10,20 +10,5 @@
 @import url("./partials/searchOverlay.css");
 @import url("./partials/notificationOverlay.css");
 @import url("./partials/toastNotification.css");
-
-.project-card > .thumbnail {
-  border: var(--border);
-  border-color: rgb(209 213 219);
-  border-width: 1.5px;
-}
-
-.project-card:hover > .thumbnail{
-  transition: var(--transition);
-  transition-duration: 300ms;
-  border-color: rgb(156 163 175);
-}
-
-.project-card > .username{
-  margin-top: 0.75rem /* 12px */;
-}
+@import url("./partials/cardProject.css");
 

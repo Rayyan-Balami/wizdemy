@@ -176,7 +176,7 @@ else: ?>
                 <?= $material['education_level'] ?>
             </span>
             <span>#
-                <?= $material['class_faculty'] ?>
+            <?= $material['education_level'] == 'school' || $material['education_level'] == '+2' ? $material['class_faculty'] . ' class' : $material['class_faculty'] ?>
             </span>
             <?php if (!empty($material['semester'])): ?>
                 <span>#

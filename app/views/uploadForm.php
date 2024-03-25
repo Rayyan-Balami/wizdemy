@@ -9,6 +9,7 @@ View::renderPartial('Header', [
     'searchOverlay',
     'notificationOverlay',
     'toastTimer',
+    'timeAgo',
     'upload',
     'authFormValidation',
   ]

@@ -1,4 +1,5 @@
 function RequestCard(
+  page,
   request_id,
   user_id,
   title,
@@ -42,7 +43,9 @@ function RequestCard(
       <p>Document Need</p><span>${document_type}</span>
   </div>
   <!-- username  -->
-  <a href="profile?id=${user_id}" class="username">
+  <a href="${
+    page == "profile" ? "#" : `/profile?id='.${user_id}'`
+  }" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -56,7 +59,9 @@ function RequestCard(
 
   <!-- time  -->
   <div class="time">
-      <p><a href="profile?id=${user_id}" class="time-ago" data-datetime="${created_at}"></a>
+      <p><a href="${
+        page == "profile" ? "#" : `/profile?id='.${user_id}'`
+      }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu('/requests/details?request_id=${request_id}')">
@@ -73,7 +78,7 @@ function RequestCard(
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
-                <form action="/material/create/respond" method="post">
+                <form action="/material/respond" method="post">
                 <!-- respond button  -->
                 <input type="hidden" name="request_id" value="${request_id}">
                 <button type="submit" class="respond-button">
@@ -269,6 +274,56 @@ function MaterialCard(
 </div>`;
 }
 
+function ProjectCard(
+  page,
+  project_id,
+  repo_link,
+  user_id,
+  username,
+  created_at,
+  updated_at
+) {
+  console.log(page, project_id, repo_link, user_id, username, created_at);
+  let repo_info = repo_link.replace("https://github.com/", "");
+  return ` <!--project card  -->
+  <div class="card project-card">
+    <!-- image -->
+    <a href="<?= ${repo_link} ?>" target="_blank" class="thumbnail">
+      <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
+    </a>
+    <!-- username  -->
+    <a href="${
+      page == "profile" ? "#" : `/profile?id='.${user_id}'`
+    }" class="username">
+      <!-- at icon @  -->
+      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
+        viewBox="0 0 512 512">
+        <path
+          d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+        </path>
+      </svg>
+      <!-- username  -->
+      <h3>
+        ${username}
+      </h3>
+    </a>
+    <!-- time  -->
+    <div class="time">
+      <p><a href="${
+        page == "profile" ? "#" : `/profile?id='.${user_id}'`
+      }" class="time-ago"
+          data-datetime="${created_at}"></a></p>
+      <!-- three dot icon -->
+      <button class="three-dot-icon" onclick="openThreeDotMenu('1')">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
+          <path fill="currentColor"
+            d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
+        </svg>
+      </button>
+    </div>
+  </div>`;
+}
 
 function ZeroResult(page = "default") {
   let message = {
@@ -276,14 +331,14 @@ function ZeroResult(page = "default") {
     profile: "Ouch! No Uploads",
     ghostProfile: "Looking for a Ghost?",
     search: "No results found for your search",
-    myRequest: "No Requests Made"
+    myRequest: "No Requests Made",
   };
 
   // Extract user_id from the URL to see if its other user's profile
   const urlParams = new URLSearchParams(window.location.search);
   const user_id = urlParams.get("id");
 
-    continueWith = `<div class="continue-with">
+  continueWith = `<div class="continue-with">
         <h3 class="">
           Continue With
         </h3>
@@ -553,14 +608,6 @@ function requestCategoryChange(page, category) {
   }
   ZeroResultSection.remove();
 
-  ["note", "question", "labreport"].forEach((cat) => {
-    const element = $(`#${cat}-category`);
-    element.removeClass("is-active-category").attr("disabled", false);
-    if (cat === category) {
-      element.addClass("is-active-category").attr("disabled", true);
-    }
-  });
-
   $.ajax({
     url: `/api/${page}/category`,
     type: "POST",
@@ -572,6 +619,7 @@ function requestCategoryChange(page, category) {
       }
       respond.data.forEach((request) => {
         const requestCard = RequestCard(
+          page,
           request.request_id,
           request.user_id,
           request.title,
@@ -702,11 +750,12 @@ function myRequests(page, category) {
     data: { category, user_id },
     success: function (respond) {
       if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult('myRequest'));
+        cardCategory.after(ZeroResult("myRequest"));
         return;
       }
       respond.data.forEach((request) => {
         const requestCard = RequestCard(
+          page,
           request.request_id,
           request.user_id,
           request.title,
@@ -729,6 +778,60 @@ function myRequests(page, category) {
     },
     error: function (error) {
       requestCardSection.html("Failed to load data");
+    },
+  });
+}
+
+function myProjects(page) {
+  const cardCategory = $(".card-category-wrapper");
+  let projectCardSection = $(".card-section");
+  const ZeroResultSection = $(".zeroResult-container");
+  $(".request-card-section").remove();
+
+  // Check if projectCardSection exists, if not, create it
+  if (projectCardSection.length === 0) {
+    projectCardSection = $("<div class='card-section'></div>");
+    // Append projectCardSection after cardCategory
+    cardCategory.after(projectCardSection);
+  } else {
+    // If projectCardSection exists, empty it
+    projectCardSection.empty();
+  }
+
+  ZeroResultSection.remove();
+
+  // Extract user_id from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const user_id = urlParams.get("id");
+
+  $.ajax({
+    url: `/api/${page}/myProjects`,
+    type: "POST",
+    data: { user_id },
+    success: function (respond) {
+      if (respond.data.length <= 0) {
+        cardCategory.after(ZeroResult());
+        return;
+      }
+      respond.data.forEach((project) => {
+        const projectCard = ProjectCard(
+          page,
+          project.project_id,
+          project.repo_link,
+          project.user_id,
+          project.username,
+          project.created_at,
+          project.updated_at
+        );
+        console.log(projectCard);
+        projectCardSection.append(projectCard);
+      });
+
+      // Call updateTimeAgo to update time ago text for newly added content
+      updateTimeAgo();
+    },
+    error: function (error) {
+      projectCardSection.html("Failed to load data");
     },
   });
 }
