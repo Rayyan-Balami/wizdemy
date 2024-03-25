@@ -11,7 +11,6 @@ View::renderPartial('Header', [
     'threeDotMenu',
     'sideInfo',
     'searchOverlay',
-    'notificationOverlay',
     'toastTimer',
     'timeAgo',
     'jquery.min',
@@ -298,8 +297,6 @@ View::renderPartial('ThreeDotMenu');
 View::renderPartial('SideInfo');
 
 View::renderPartial('SearchOverlay');
-
-View::renderPartial('NotificationOverlay');
 
 View::renderPartial('ToastNotification');
 

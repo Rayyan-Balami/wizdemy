@@ -89,6 +89,12 @@
   background-color: var(--hover-color) !important;
 }
 
+/* Apply hover effect to unchecked radio buttons and checkboxes */
+.card-category-wrapper > .card-category > input:disabled + label{
+  background-color: var(--background-gray);
+  opacity: 0.5;
+}
+
 @media (width <= 640px) {
 .card-category-wrapper > .search-button > span {
   display:none;

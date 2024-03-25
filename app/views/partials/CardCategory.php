@@ -20,12 +20,14 @@
         <?php if ($page === 'profile'): ?>
             <input type="checkbox" id="requestCheck" name="requestCheck" hidden>
             <label for="requestCheck" class="requestCheck-label">Requests</label>
-        <?php endif; ?>
+        
 
         <!-- my-project radio  -->
-        <input type="radio" value="projects" id="projectsRadio" name="category" hidden
+        <input type="radio" value="project" id="projectsCategory" name="category" hidden
             onchange="myProjects('<?= $page ?>')">
-        <label for="projectsRadio" class="projectsRadio-label">Projects</label>
+        <label for="projectsCategory" class="category-label">Projects</label>
+
+        <?php endif; ?>
     </div>
     <!-- search icon -->
     <button class="search-button">

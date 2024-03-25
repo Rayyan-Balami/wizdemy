@@ -8,7 +8,6 @@ View::renderPartial('Header', [
     'scripts' => [
         'script',
         'searchOverlay',
-        'notificationOverlay',
         'toastTimer',
         'authFormValidation',
     ]
@@ -242,8 +241,6 @@ $flashOld = Session::get('old');
 <?php
 
 View::renderPartial('SearchOverlay');
-
-View::renderPartial('NotificationOverlay');
 
 View::renderPartial('ToastNotification');
 

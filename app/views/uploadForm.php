@@ -6,8 +6,7 @@ View::renderPartial('Header', [
   ],
   'scripts' => [
     'script',
-    'searchOverlay',
-    'notificationOverlay',
+    'searchOverlay', 
     'toastTimer',
     'timeAgo',
     'upload',
@@ -404,8 +403,6 @@ View::renderPartial('MenuHeader', [
 <?php
 
 View::renderPartial('SearchOverlay');
-
-View::renderPartial('NotificationOverlay');
 
 View::renderPartial('ToastNotification');
 

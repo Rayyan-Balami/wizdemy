@@ -14,6 +14,7 @@ function RequestCard(
   created_at,
   updated_at
 ) {
+  console.log(user_id);
   let semesterHTML = "";
   if (semester) {
     semesterHTML = `<span title="Semester"># ${semester} Sem</span>`;
@@ -44,7 +45,7 @@ function RequestCard(
   </div>
   <!-- username  -->
   <a href="${
-    page == "profile" ? "#" : `/profile?id='.${user_id}'`
+    page == "profile" ? "#" : `/profile?id=${user_id}`
   }" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -60,7 +61,7 @@ function RequestCard(
   <!-- time  -->
   <div class="time">
       <p><a href="${
-        page == "profile" ? "#" : `/profile?id='.${user_id}'`
+        page == "profile" ? "#" : `/profile?id=${user_id}`
       }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
@@ -205,7 +206,7 @@ function MaterialCard(
 
   <!-- username  -->
   <a href="${
-    page == "profile" ? "#" : `/profile?id='.${user_id}'`
+    page == "profile" ? "#" : `/profile?id=${user_id}`
   }" class="username">
     <!-- at icon @  -->
     <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -332,6 +333,7 @@ function ZeroResult(page = "default") {
     ghostProfile: "Looking for a Ghost?",
     search: "No results found for your search",
     myRequest: "No Requests Made",
+    project: "No Repos Linked",
   };
 
   // Extract user_id from the URL to see if its other user's profile
@@ -505,6 +507,8 @@ function ZeroResult(page = "default") {
 
   myRequestSvg = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M148.427 132.9C215.702 45.876 338.403 185.999 252.181 243.354C185.181 287.927 106.521 218.453 137.977 158.003" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M222.555 180.284C222.635 180.459 222.804 180.575 223.03 180.679C223.319 180.859 223.58 181.055 223.867 181.236C224.143 181.41 224.478 181.554 224.798 181.696C225.365 181.947 225.956 182.168 226.594 182.346C227.036 182.469 227.491 182.565 227.964 182.634C228.504 182.714 229.073 182.734 229.626 182.735C230.116 182.735 230.604 182.686 231.087 182.645C231.575 182.605 232.056 182.538 232.532 182.462C233.496 182.307 234.451 182.068 235.314 181.761C236.139 181.468 236.858 181.078 237.428 180.611C237.695 180.392 237.903 180.164 238.077 179.913" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M178.811 179.913C179.019 180.207 179.291 180.474 179.538 180.744C179.851 181.085 180.206 181.396 180.571 181.694C181.971 182.833 183.751 183.641 185.641 183.982C187.757 184.362 189.926 184.055 191.887 183.324C192.287 183.176 192.668 183.011 193.047 182.823C193.504 182.594 193.927 182.294 194.333 182.007" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M155.001 292C155.001 292 154 302.314 153.001 321.549C152 340.814 151.001 369 151.001 369" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M255.501 366C255.501 330.878 252.001 289.584 252.001 289.584C281.756 290.185 295.875 289.477 307.371 263.405C315.537 244.886 307.371 187 307.371 187" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M156.001 286.725C156.001 286.725 136.453 289.223 114.229 279.169C92.0042 269.115 95.9404 208.058 114.228 181" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M117.343 174.496C124.359 114.592 120.235 61.656 200.803 61.656C272.556 61.656 298.585 108.904 298.585 178.551" stroke="#000000" stroke-opacity="0.9" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M288.933 148.523C288.933 148.523 294.295 163.923 294.295 181.769C294.295 199.615 292.032 208.331 291.491 215.014" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M122.988 147.281C122.988 147.281 117.402 168.505 117.402 184.675C117.402 200.846 116.781 200.676 119.574 222.069" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M94.6228 101.875C105.525 97.0946 109.362 113.263 98.6301 117.259C87.8001 121.292 85.8363 107.69 90.0816 104.528C90.798 103.994 91.5268 104.155 92.2185 103.467" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M128.586 93.8959C140.239 82.9861 150.02 106.169 136.313 109.578C126.2 112.093 122.354 102.864 130.132 95.1254" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M106.001 109C107.498 104.859 106.114 74.9739 107.514 72.5657C107.67 72.2987 117.501 67.7122 127.491 64.4303C134.165 62.2376 142.306 60.7738 142.528 61.0285C143.591 62.2466 142.528 91.4518 142.528 96.5965" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
 
+ projectSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 50 50"><path fill="currentColor" fill-rule="evenodd" d="M25 10c-8.3 0-15 6.7-15 15c0 6.6 4.3 12.2 10.3 14.2c.8.1 1-.3 1-.7v-2.6c-4.2.9-5.1-2-5.1-2c-.7-1.7-1.7-2.2-1.7-2.2c-1.4-.9.1-.9.1-.9c1.5.1 2.3 1.5 2.3 1.5c1.3 2.3 3.5 1.6 4.4 1.2c.1-1 .5-1.6 1-2c-3.3-.4-6.8-1.7-6.8-7.4c0-1.6.6-3 1.5-4c-.2-.4-.7-1.9.1-4c0 0 1.3-.4 4.1 1.5c1.2-.3 2.5-.5 3.8-.5c1.3 0 2.6.2 3.8.5c2.9-1.9 4.1-1.5 4.1-1.5c.8 2.1.3 3.6.1 4c1 1 1.5 2.4 1.5 4c0 5.8-3.5 7-6.8 7.4c.5.5 1 1.4 1 2.8v4.1c0 .4.3.9 1 .7c6-2 10.2-7.6 10.2-14.2C40 16.7 33.3 10 25 10" clip-rule="evenodd"/></svg>`;
+
   defaultSvg = `  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -554,6 +558,8 @@ function ZeroResult(page = "default") {
           ? ghostProfileSvg
           : page === "myRequest"
           ? myRequestSvg
+          : page === "project"
+          ? projectSvg
           : defaultSvg
       }
     </div>
@@ -572,14 +578,20 @@ $(document).ready(function () {
   // Add event listener to the "requestCheck" checkbox
   $("#requestCheck").on("change", function () {
     if ($(this).is(":checked")) {
+      //if the requestCheck is checked, then disable the projectRadio , expect from note, question, labreport
+      $("#projectsCategory").prop("disabled", true);
       myRequests("profile", $("input[name='category']:checked").val());
     } else {
+      //if the requestCheck is unchecked, then enable the projectRadio
+      $("#projectsCategory").prop("disabled", false);
       changeCategory("profile");
     }
   });
 });
 
 function changeCategory(page) {
+  //enable the requestCheck
+  $("#requestCheck").prop("disabled", false);
   let category = $("input[name='category']:checked").val(); // Get the currently selected category
   if (page === "request") {
     requestCategoryChange(page, category);
@@ -783,6 +795,11 @@ function myRequests(page, category) {
 }
 
 function myProjects(page) {
+
+
+  //disable the requestCheck  checkbox
+  $("#requestCheck").prop("disabled", true);
+
   const cardCategory = $(".card-category-wrapper");
   let projectCardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
@@ -810,7 +827,7 @@ function myProjects(page) {
     data: { user_id },
     success: function (respond) {
       if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult());
+        cardCategory.after(ZeroResult('project'));
         return;
       }
       respond.data.forEach((project) => {

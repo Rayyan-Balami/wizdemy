@@ -17,26 +17,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-items: center;
-}
-
-.error-container > .status-code,
-.error-container > .svg-icon {
-  border-radius: var(--border-radius);
-  font-weight: 700;
-  font-size: 4.5rem;
-  line-height: 1;
 }
 
 .error-container > .status-code {
-  padding: 0.5rem 1.5rem;
+  font-weight: 700;
+  font-size: 4rem;
+  padding: 0 1.5rem;
   background-color: rgb(241, 99, 99 , 0.3);
   color: rgb(241, 99, 99);
+  border-radius: var(--border-radius);
 }
 
 .error-container > .svg-icon {
-  padding: 0.15rem 0.25rem;
   background-color: rgb(235 236 240);
+  border-radius: var(--border-radius);
+  display: grid;
+  place-content: center;
 }
 
 .error-container > .svg-icon > svg {
@@ -49,6 +45,14 @@
   font-size: 2.25rem;
   line-height: 2.25rem;
   margin-top: 2.25rem;
+  text-align: center;
+}
+
+@media (width <= 768px) {
+  .error-container > .status-msg-top {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
 }
 
 .error-container > .status-msg-bottom {

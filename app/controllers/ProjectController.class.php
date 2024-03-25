@@ -35,6 +35,12 @@ class ProjectController extends Controller
       $this->redirect('/project/create');
     }
 
+    //validate github repo link is accessible
+    if(! Validate::accessibleUrl($repoLink)) {
+      Session::flash('errors', ['repo-link' => 'Github repository link is not accessible']);
+      $this->redirect('/project/create');
+    }
+
     //store project
     $userId = Session::get('user')['user_id'];
     $result = $this->model->store($userId, $repoLink);

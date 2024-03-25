@@ -108,7 +108,7 @@
                   </g>
                 </g>
               </g>
-            </svg>Projects
+            </svg>Projects Gallery
                     </a>
                 </li>
             </ul>
