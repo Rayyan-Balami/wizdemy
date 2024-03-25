@@ -19,6 +19,10 @@ class File
      */
     public static function upload(array $file, string $path) : array
     {
+        // Check if path exists or create it
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
         // Extract file extension
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
 
