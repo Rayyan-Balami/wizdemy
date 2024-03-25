@@ -15,3 +15,4 @@ function closeNotificationOverlay(){
   notificationOverlay.classList.remove('open');
   document.body.classList.remove('menu-open');
 }
+toggleNotificationOverlay();

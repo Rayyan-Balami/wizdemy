@@ -390,7 +390,7 @@ View::renderPartial('MenuHeader', [
     </div>
 
     <!-- save button -->
-    <button type="submit" name="submit" id="submit">
+    <button type="submit" name="submitBtn" id="submit">
       <?php if (!empty ($requestDetails)): ?>
         Respond
       <?php else: ?>

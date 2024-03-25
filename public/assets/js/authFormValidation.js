@@ -42,6 +42,32 @@ const validationRules = {
   },
 };
 
+const forms = document.querySelectorAll("form");
+
+forms.forEach((form) => {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const inputs = form.querySelectorAll("input");
+    const textareas = form.querySelectorAll("textarea");
+
+    inputs.forEach((input) => {
+      validateInput(input);
+    });
+
+    textareas.forEach((textarea) => {
+      validateInput(textarea);
+    });
+
+    if (form.querySelector(".form-error")) {
+      console.log("Form has errors");
+      return;
+    }
+
+    console.log("Form submitted successfully");
+    form.submit();
+  });
+});
+
 const inputs = document.querySelectorAll("input");
 const textareas = document.querySelectorAll("textarea");
 

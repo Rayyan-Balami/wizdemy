@@ -1,7 +1,23 @@
 <?php
+
+/**
+ * File class
+ * 
+ * This class contains methods for uploading files
+ * 
+ * methods: upload
+ */
 class File
 {
-    public static function upload($file, $path)
+    /**
+     * Upload a file
+     * 
+     * @param array $file The file to upload
+     * @param string $path The path to upload the file to
+     * 
+     * @return array An array containing the status of the upload and a message
+     */
+    public static function upload(array $file, string $path) : array
     {
         // Extract file extension
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);

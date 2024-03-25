@@ -374,7 +374,7 @@ else: ?>
                 Use of abusive words or phrases will lead to strict action against the user.
             </p>
             <!-- comment button -->
-            <button type="submit" name="submit">
+            <button type="submit" name="submitBtn">
                 Comment
             </button>
         </form>

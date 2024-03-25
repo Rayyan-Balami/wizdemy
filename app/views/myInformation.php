@@ -102,7 +102,7 @@ $flashOld = Session::get('old');
             </div>
 
             <!-- save button -->
-            <button type="submit" name="submit">
+            <button type="submit" name="submitBtn">
                 Save
             </button>
         </form>
@@ -230,7 +230,7 @@ $flashOld = Session::get('old');
             </div>
 
             <!-- save button -->
-            <button type="submit" name="submit" class="px-5 py-3 text-center text-white bg-gray-800 rounded-lg">
+            <button type="submit" name="submitBtn" class="px-5 py-3 text-center text-white bg-gray-800 rounded-lg">
                 Save
             </button>
         </form>

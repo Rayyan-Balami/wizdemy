@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Database class
+ * 
+ * This class contains methods for connecting to a database
+ * 
+ * methods: __construct, buildDsn
+ */
 class Database
 {
   protected $conn;
   protected $statement;
+  
 
   protected function __construct(){
     $dsn = $this->buildDsn();
@@ -12,7 +20,13 @@ class Database
     ]);
   }
 
-  protected function buildDsn(){
+  /**
+   * Build a DSN string
+   * 
+   * @return string The DSN string
+   */
+  protected function buildDsn() : string
+  {
     $db_details = [
       "host" => DB_HOST,
       "port" => DB_PORT,

@@ -105,7 +105,7 @@ $flashOld = Session::get('old');
                 </div>
 
                 <!-- save button -->
-                <button type="submit" name="submit">
+                <button type="submit" name="submitBtn">
                     Save
                 </button>
             </form>
@@ -171,7 +171,7 @@ $flashOld = Session::get('old');
                 </div>
 
                 <!-- save button -->
-                <button type="submit" name="submit">
+                <button type="submit" name="submitBtn">
                     Save
                 </button>
             </form>

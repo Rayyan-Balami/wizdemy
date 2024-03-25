@@ -191,7 +191,7 @@ View::renderPartial('MenuHeader', [
         </div>
 
         <!-- save button -->
-        <button type="submit" name="submit">
+        <button type="submit" name="submitBtn">
             Request
         </button>
     </form>

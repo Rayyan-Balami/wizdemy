@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Model class
+ * 
+ * This class contains methods for interacting with the database.
+ * 
+ * methods: get, getAll, select, where, bind, appendBindings, insert, update, delete, limit, orderBy, count, groupBy, innerJoin, leftJoin, rightJoin, joinRaw, offset, paginate
+ */
 class Model extends Database
 {
     protected $table; // The table name
@@ -13,6 +20,13 @@ class Model extends Database
         parent::__construct();
     }
 
+    /**
+     * Execute the query
+     * 
+     * equivalent to running the query in the database
+     * 
+     * @return $this
+     */
     protected function execute()
     {
         $this->statement = $this->conn->prepare($this->query);
@@ -20,49 +34,101 @@ class Model extends Database
         return $this;
     }
 
-    // get the first record
+    /**
+     * Get a single record
+     * 
+     * equivalent to : SELECT * FROM table WHERE condition
+     * 
+     * @return array
+     */
     protected function get()
     {
         return $this->execute()->statement->fetch();
     }
 
-    // get all records
+    /**
+     * Get all records
+     * 
+     * equivalent to : SELECT * FROM table
+     * 
+     * @return array
+     */
     protected function getAll()
     {
         return $this->execute()->statement->fetchAll();
     }
 
-    // select all records
-    protected function select($columns = ['*'], $as = "")
+    /**
+     * Select columns
+     * 
+     * equivalent to : SELECT $columns FROM table $as
+     * 
+     * @param array $columns The columns to select
+     * @param string $as The alias for the table
+     * 
+     * @return $this
+     */
+    protected function select(array $columns = ['*'], string $as = "")
     {
         $columns = implode(', ', $columns);
         $this->query = "SELECT {$columns} FROM {$this->table} {$as}";
         return $this;
     }
 
-    //where clause
-    protected function where($condition)
+    /**
+     * Add a where clause
+     * 
+     * equivalent to : SELECT * FROM table WHERE $condition
+     * 
+     * @param string $condition The condition to add
+     * 
+     * @return $this
+     */
+    protected function where(string $condition)
     {
         $this->query .= " WHERE {$condition}";
         return $this;
     }
 
-    //bind values to the query
-    protected function bind($bindings = [])
+    /**
+     * Bind values to the query
+     * 
+     * equivalent to : SELECT * FROM table WHERE $bindings['column'] = $bindings['value']
+     * 
+     * @param array $bindings The values to bind
+     * 
+     * @return $this
+     */
+    protected function bind(array $bindings = [])
     {
         $this->bindings = $bindings;
         return $this;
     }
 
-    //append values to the bindings
-    protected function appendBindings($bindings = [])
+    /**
+     * Append bindings to the query
+     * 
+     * equivalent to : SELECT * FROM table WHERE $bindings['column'] = $bindings['value'] AND $bindings['column2'] = $bindings['value2']
+     * 
+     * @param array $bindings The values to bind
+     * 
+     * @return $this
+     */
+    protected function appendBindings(array $bindings = [])
     {
         $this->bindings = array_merge($this->bindings, $bindings);
         return $this;
     }
 
-    // insert a record
-    protected function insert($data = [])
+    /**
+     * Insert a record
+     * 
+     * equivalent to : INSERT INTO table ($data['column']) VALUES ($data['value'])
+     * @param array $data The data to insert
+     * 
+     * @return $this
+     */
+    protected function insert(array $data = [])
     {
         //unset keys that are not fillable (security measure)
         if (!empty($this->fillable)) {
@@ -81,8 +147,16 @@ class Model extends Database
         return $this;
     }
 
-    // update a record
-    protected function update($data = [])
+    /**
+     * Update a record
+     * 
+     * equivalent to : UPDATE table SET $data['column'] = $data['value']
+     * 
+     * @param array $data The data to update
+     * 
+     * @return $this
+     */
+    protected function update(array $data = [])
     {
         //unset keys that are not fillable (security measure)
         if (!empty($this->fillable)) {
@@ -100,51 +174,105 @@ class Model extends Database
         return $this;
     }
 
-    // delete a record
+    /**
+     * Delete a record
+     * 
+     * @return $this
+     */
     protected function delete()
     {
         $this->query = "DELETE FROM {$this->table}";
         return $this;
     }
 
-    // limit the number of records
-    protected function limit($limit)
+    /**
+     * Limit the records
+     * 
+     * equivalent to : SELECT * FROM table LIMIT $limit
+     * 
+     * @param int $limit The number of records to limit
+     * 
+     * @return $this
+     */
+    protected function limit(int $limit)
     {
         $this->query .= " LIMIT {$limit}";
         return $this;
     }
 
-    // order the records
-    protected function orderBy($column, $direction = 'ASC')
+    /**
+     * Order the records
+     * 
+     * equivalent to : SELECT * FROM table ORDER BY $column $direction
+     * 
+     * @param string $column The column to order by
+     * @param string $direction The direction to order by
+     * 
+     * @return $this
+     */
+    protected function orderBy(string $column, string $direction = 'ASC')
     {
         $this->query .= " ORDER BY {$column} {$direction}";
         return $this;
     }
 
-    // get the count of records
-    protected function count($column = '*')
+    /**
+     * Count the records
+     * 
+     * equivalent to : SELECT COUNT(*) FROM table
+     * 
+     * @param string $column The column to count
+     * 
+     * @return $this
+     */
+    protected function count(string $column = '*')
     {
         $this->query = "SELECT COUNT({$column}) FROM {$this->table}";
         return $this;
     }
 
-    // group the records
-    protected function groupBy($column)
+    /**
+     * Group the records
+     * 
+     * equivalent to : SELECT * FROM table GROUP BY $column
+     * 
+     * @param string $column The column to group by
+     * 
+     * @return $this
+     */
+    protected function groupBy(string $column)
     {
         $this->query .= " GROUP BY {$column}";
         return $this;
     }
 
-    // inner join the records
-    protected function innerJoin($toJoinTable, $joinCondition)
+    /**
+     * Inner join the records
+     * 
+     * equivalent to : SELECT * FROM table INNER JOIN $toJoinTable ON $joinCondition
+     * 
+     * @param string $toJoinTable The table to join
+     * @param string $joinCondition The condition to join
+     * 
+     * @return $this
+     */
+    protected function innerJoin(string $toJoinTable, string $joinCondition)
     {
         $this->query .= " INNER JOIN {$toJoinTable} ON {$joinCondition}";
         return $this;
     }
 
-    // left join the records
-    //leftJoin('follow_relationships as f1', 'f1.following_id', 'u.id')
-    protected function leftJoin($toJoinTable, $joinCondition)
+    /**
+     * Left join the records
+     * 
+     * equivalent to : SELECT * FROM table LEFT JOIN $toJoinTable ON $joinCondition
+     * 
+     * @param string $toJoinTable The table to join
+     * @param string $joinCondition The condition to join
+     * 
+     * @return $this
+     */
+    protected function leftJoin(string $toJoinTable, string $joinCondition)
     {
         $this->query .= " LEFT JOIN {$toJoinTable} ON {$joinCondition}";
         return $this;
@@ -152,28 +280,63 @@ class Model extends Database
 
 
 
-    // right join the records
-    protected function rightJoin($toJoinTable, $joinCondition)
+    /**
+     * Right join the records
+     * 
+     * equivalent to : SELECT * FROM table RIGHT JOIN $toJoinTable ON $joinCondition
+     * 
+     * @param string $toJoinTable The table to join
+     * @param string $joinCondition The condition to join
+     * 
+     * @return $this
+     */
+    protected function rightJoin(string $toJoinTable, string $joinCondition)
     {
         $this->query .= " RIGHT JOIN {$toJoinTable} ON {$joinCondition}";
         return $this;
     }
 
-    //raw join
-    protected function joinRaw($join)
+    /**
+     * Join the records
+     * 
+     * equivalent to : SELECT * FROM table $join
+     * 
+     * @param string $join The join to add
+     * 
+     * @return $this
+     */
+    protected function joinRaw(string $join)
     {
         $this->query .= " {$join}";
         return $this;
     }
 
-    // offset the records
-    protected function offset($offset)
+    /**
+     * Offset the records
+     * 
+     * equivalent to : SELECT * FROM table OFFSET $offset
+     * 
+     * @param int $offset The number of records to offset
+     * 
+     * @return $this
+     */
+    protected function offset(int $offset)
     {
         $this->query .= " OFFSET {$offset}"; // example query: SELECT * FROM users OFFSET 10 LIMIT 10 this will get the second page of the records
         return $this;
     }
 
-    public function paginate($page, $perPage)
+    /**
+     * Paginate the records
+     * 
+     * equivalent to : SELECT * FROM table LIMIT $perPage OFFSET ($page - 1) * $perPage
+     * 
+     * @param int $page The page number
+     * @param int $perPage The number of records per page
+     * 
+     * @return $this
+     */
+    public function paginate(int $page, int $perPage)
     {
         $this->query .= " LIMIT {$perPage} OFFSET " . ($page - 1) * $perPage;
         return $this;

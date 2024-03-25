@@ -4,7 +4,7 @@
     $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
     ?>
     <!--project card  -->
-    <div class="card project-card">
+    <div class="card project-card" data-copy-link="<?= $project['repo_link'] ?>">
       <!-- image -->
       <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
         <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail">
@@ -28,7 +28,7 @@
         <p><a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>" class="time-ago"
             data-datetime="<?= $project['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu('1')">
+        <button class="three-dot-icon">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
             <path fill="currentColor"

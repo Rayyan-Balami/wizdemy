@@ -12,12 +12,11 @@ WIZDEMY is an academic resource sharing platform that allows students to share a
 
 - **Resource Request**: WIZDEMY allows users to request academic resources that are not available on the platform. Users can submit resource requests by entering the details of the resource they are looking for. Other users can respond to resource requests by sharing the requested resources.
 
+- **Project Showcase**: WIZDEMY allows users to showcase their academic projects on the platform. Users can upload their github repositories, websites, and other projects to the platform and share them with other users.
+
 - **User Profile**: WIZDEMY allows users to create profiles and customize their profiles with profile pictures and personal information. Users can view other users' profiles and connect with other users on the platform.
 
 - **Admin Panel**: WIZDEMY has an admin panel that allows administrators to manage users, resources, and resource requests on the platform. Administrators can view user accounts, delete user accounts, view resources, delete resources, view resource requests, and respond to resource requests.
-
-- **Project Showcase**: WIZDEMY allows users to showcase their academic projects on the platform. Users can upload their github repositories, websites, and other projects to the platform and share them with other users.
-
 
 ## Tech Stack
 
@@ -37,53 +36,54 @@ To contribute to WIZDEMY, follow these steps:
 1. Fork the repository
 2. Clone the repository to your local machine
 
-    ```bash
-    git clone https://github.com/Rayyan-Balami/wizdemy.git
-    ```
+   ```bash
+   git clone <your-fork-url>
+   ```
 
 3. Configure the project
 
-    ```bash
-    cd wizdemy
-    
-    # Create a new database
-    mysql -u root -p
-    CREATE DATABASE wizdemy;
-    exit;
+   ```bash
+   cd wizdemy
 
-    # Import the database schema
-    mysql -u root -p wizdemy < wizdemy.sql
+   # Create a new database
+   mysql -u root -p
+   CREATE DATABASE wizdemy;
+   exit;
 
-    # Update the database configuration
-    cd system && cp config.example.php config.php
-    ```
-    Update the database configuration in `system/config.php` with your database credentials.
+   # Import the database schema
+   mysql -u root -p wizdemy < wizdemy.sql
+
+   # Update the database configuration
+   cd system && cp config.example.php config.php
+   ```
+
+   Update the database configuration in `system/config.php` with your database credentials.
 
 4. Create a new branch for your changes
 
-    ```bash
-    git checkout -b branch-name
-    ```
+   ```bash
+   git checkout -b branch-name
+   ```
 
 5. Make your changes to the code
 
 6. Test your changes
 
-    ```bash
-    php -l index.php
-    ```
+   ```bash
+   php -l index.php
+   ```
 
 7. Commit your changes
 
-    ```bash
-    git commit -am 'Description of changes'
-    ```
+   ```bash
+   git commit -am 'Description of changes'
+   ```
 
 8. Push your changes to your fork
 
-    ```bash
-    git push origin branch-name
-    ```
+   ```bash
+   git push origin branch-name
+   ```
 
 9. Create a pull request
 
@@ -92,10 +92,13 @@ To contribute to WIZDEMY, follow these steps:
 11. Celebrate your contribution to WIZDEMY!
 
 
-## Contributing
-
-WIZDEMY is an open-source project that welcomes contributions from the community. If you would like to contribute to WIZDEMY, please fork the repository and submit a pull request with your changes. Your contributions will help make WIZDEMY a better platform for students to share academic resources and learn from each other.
 
 ## License
+WIZDEMY is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You can find more information about the license [here](https://creativecommons.org/licenses/by-nc/4.0/).
 
-WIZDEMY is released under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code as you see fit.
+In summary, you are free to:
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material
+- NonCommercial — You may not use the material for commercial purposes
+- The licensor cannot revoke these freedoms as long as you follow the license terms.
+

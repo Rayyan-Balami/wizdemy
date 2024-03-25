@@ -56,7 +56,7 @@ $flashOld = Session::get('old');
         </div>
         <!-- login button -->
 
-        <button type="submit" value="submit" name="submit">
+        <button type="submit" value="submit" name="submitBtn">
           Log In
         </button>
 
