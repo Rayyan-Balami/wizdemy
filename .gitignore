@@ -1,2 +1,6 @@
 # ignore uploads directory
 public/assets/material/creates/*
+
+# ignore system configuration files
+
+system/config.php
