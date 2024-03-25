@@ -10,7 +10,7 @@ View::renderPartial('Header', [
     'notificationOverlay',
     'toastTimer',
     'upload',
-    'timeAgo'
+    'authFormValidation',
   ]
 ]);
 
@@ -83,7 +83,7 @@ View::renderPartial('MenuHeader', [
 </div>
 
 <!-- form-section  -->
-<div class="form-section">
+<div class="form-section xl:font-sans">
   <h2 class="form-heading">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
       <path fill="currentColor" fill-rule="evenodd"
@@ -232,10 +232,10 @@ View::renderPartial('MenuHeader', [
     </div>
 
     <!-- Education Level (required)-->
-    <div class="education-level">
-      <label for="education-level">Education
+    <div class="educationLevel">
+      <label for="educationLevel">Education
         Level</label>
-      <select name="education-level" id="education-level" required>
+      <select name="educationLevel" id="educationLevel" required>
         <option value="" disabled <?= isset ($flashOld['education_level']) ? '' : 'selected' ?>>Select an
           option...</option>
         <?php
@@ -301,9 +301,9 @@ View::renderPartial('MenuHeader', [
 
     <!-- class/faculty (required)-->
     <div class="class">
-      <label for="class-faculty">Class/ Faculty</label>
-      <input type="text" placeholder="Short Forms ie, BCA, CSIT, Management, Science etc" required name="class-faculty"
-        id="class-faculty"
+      <label for="classFaculty">Class/ Faculty</label>
+      <input type="text" placeholder="Short Forms ie, BCA, CSIT, Management, Science etc" required name="classFaculty"
+        id="classFaculty"
         value="<?= isset ($flashOld['class_faculty']) ? $flashOld['class_faculty'] : (isset ($requestDetails['class_faculty']) ? $requestDetails['class_faculty'] : ''); ?>" />
 
     </div>

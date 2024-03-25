@@ -89,7 +89,7 @@
 .form-section form select {
   display: block;
   width: 100%;
-  padding: 0.75rem 1.25rem /* 12px 20px */;
+  padding: 0.5rem 1rem/* 12px 20px */;
   margin-top: 0.5rem /* 8px */;
   background-color: var(--background-color);
   border: 1px solid rgb(209 213 219);
@@ -199,10 +199,10 @@ form > .request-details > .request-meta-datas > span{
   }
   .document-type,
   .format,
-  .education-level,
+  .educationLevel,
   .semester,
   .user-type,
-  .phone-number{
+  .phoneNumber{
     grid-column: span 2 / span 2;
   }
   .subject,
@@ -216,7 +216,7 @@ form > .request-details > .request-meta-datas > span{
   .newPassword,
   .confirmPassword,
   .file-preview,
-  .enrolled-course,
+  .enrolledCourse,
   .school {
     grid-column: span 3 / span 3;
   }
@@ -242,7 +242,7 @@ form > .bio > p {
 
 form > .document-type,
 form > .format,
-form > .education-level,
+form > .educationLevel,
 form > .semester,
 form > .user-type {
   position: relative;
@@ -251,9 +251,8 @@ form > .user-type {
 .caret-up-down {
   pointer-events: none;
   position: absolute;
-  right: 1.25rem /* 20px */;
-  bottom: 25%;
-  transform: translateY(25%);
+  right: 1rem /* 20px */;
+  top: 2.25rem;
   width: 1rem /* 16px */;
   height: 1rem /* 16px */;
 }
@@ -375,7 +374,7 @@ form > .file-preview > .file-info > .file-remove-btn{
 
 form > button {
   grid-column-start: 1;
-  padding: 0.75rem 1.25rem /* 12px 20px */;
+  padding: 0.5rem 1rem/* 12px 20px */;
   background-color: rgb(17 24 39);
   color: white;
   border: none;

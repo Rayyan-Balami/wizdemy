@@ -256,7 +256,7 @@ section > .background-thumbnail {
   flex-shrink: 0;
 }
 
-.education-level {
+.educationLevel {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem/* 12px */;
@@ -266,16 +266,16 @@ section > .background-thumbnail {
   font-weight: 500;
 }
 
-.education-level > span,
-.education-level > p{
+.educationLevel > span,
+.educationLevel > p{
   padding: 0.25rem 0.5rem/* 4px 8px */;
   border: 1.5px solid rgb(209 213 219);
   border-radius: var(--border-radius);
   text-transform: uppercase;
 }
 
-.education-level > .document-type,
-.education-level > .format {
+.educationLevel > .document-type,
+.educationLevel > .format {
   text-transform: capitalize;
   background-color: rgb(31 41 55);
   color: white;

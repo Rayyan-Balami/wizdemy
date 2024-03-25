@@ -9,7 +9,8 @@ View::renderPartial('Header', [
         'script',
         'searchOverlay',
         'notificationOverlay',
-        'toastTimer'
+        'toastTimer',
+        'authFormValidation',
     ]
 ]);
 
@@ -94,7 +95,7 @@ $flashOld = Session::get('old');
                 <div class="newPassword sm:row-start-2">
                     <label for="newPassword">New
                         Password</label>
-                    <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
+                        <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
                 </div>
                 <!-- confirm password -->
                 <div class="confirmPassword sm:row-start-3">

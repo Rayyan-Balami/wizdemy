@@ -27,10 +27,10 @@ class UploadController extends Controller
     $user_id = Session::get('user')['user_id'];
     $document_type = htmlspecialchars($_POST['document-type']);
     $format = htmlspecialchars($_POST['format']);
-    $education_level = htmlspecialchars($_POST['education-level']);
+    $education_level = htmlspecialchars($_POST['educationLevel']);
     $semester = htmlspecialchars($_POST['semester']);
     $subject = htmlspecialchars($_POST['subject']);
-    $class_faculty = htmlspecialchars($_POST['class-faculty']);
+    $class_faculty = htmlspecialchars($_POST['classFaculty']);
     $author = htmlspecialchars($_POST['author']);
     $request_id = null;
     if(isset($_POST['request_id']) && !empty($_POST['request_id'])){

@@ -6,7 +6,8 @@ View::renderPartial('Header', [
     'authForm'
   ],
   'scripts' => [
-    'toastTimer'
+    'toastTimer',
+    'authFormValidation',
   ]
 ]);
 
@@ -15,38 +16,45 @@ $flashOld = Session::get('old');
 ?>
 
 <main>
-
-  <!-- random image -->
-  <div class="image">
-    <img
-      src="https://plus.unsplash.com/premium_photo-1682095643806-79da986ccf8d?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="" />
-  </div>
-
-  <!-- form -->
   <section class="form-section">
+    <div class="text-infos flex flex-col justify-center">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g fill="none" fill-rule="evenodd">
+            <path
+              d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+            <path fill="currentColor"
+              d="M5.708 13.35c.625-1.92 1.75-4.379 3.757-6.386c3.934-3.934 9.652-4.515 9.797-4.53a1.005 1.005 0 0 1 .944.454c.208.313 1.38 2.283-.191 4.663a2.63 2.63 0 0 1-.276.344a.996.996 0 0 1-.03.37c-.19.689-.434 1.412-.75 2.135c-.551 1.263-1.328 2.54-2.423 3.636c-2.05 2.05-4.742 2.991-6.844 3.43a19.357 19.357 0 0 1-2.883.378C6.778 18.09 6.5 20.57 6.5 21a1 1 0 1 1-2 0c0-.571.116-1.67.221-2.56c.205-1.732.446-3.427.987-5.09m12.637-6.9c.527-.8.52-1.48.415-1.92c-1.527.275-5.219 1.186-7.881 3.849c-1.704 1.703-2.7 3.84-3.269 5.59a17.75 17.75 0 0 0-.494 1.85a17.417 17.417 0 0 0 2.167-.31c1.92-.402 4.179-1.228 5.838-2.888c.85-.85 1.484-1.857 1.954-2.905c-.976.52-2.018.986-2.759 1.233a1 1 0 1 1-.632-1.898c.674-.225 1.758-.713 2.754-1.265c.494-.274.946-.553 1.301-.808c.384-.276.56-.46.606-.529Z" />
+          </g>
+        </svg>
+      </div>
+      <h3>We invest in the world’s potential</h3>
+      <p>Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and
+        drive economic growth.</p>
+      <a href="#">Read more about our app
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M1 5h12m0 0L9 1m4 4L9 9" />
+        </svg>
+      </a>
+    </div>
+
     <div>
-      <h1>
-        <a href="/">WizDemy</a>
-      </h1>
-      <h2>
-        Sign Up
-      </h2>
-      <p>
-        Hello new friend ❤️ <br>
-        Join WizDemy today and dive into a world of knowledge.
-      </p>
       <form action="/signup" method="post">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+          Signup to WizDemy
+        </h2>
         <!-- full name -->
         <div class="fullname">
           <label for="fullName">Full Name</label>
           <input type="text" placeholder="Hakuna Matata" required name="fullName" id="fullName"
-          value="<?= $flashOld['fullName'] ?? '' ?>" />
+            value="<?= $flashOld['fullName'] ?? '' ?>" />
         </div>
         <!-- email -->
         <div class="email">
           <label for="email">Email Address</label>
-          <input type="email" placeholder="WizDemy@gmail.com" required name="email" id="email" value="<?= $flashOld['email'] ?? '' ?>" />
+          <input type="email" placeholder="WizDemy@gmail.com" required name="email" id="email"
+            value="<?= $flashOld['email'] ?? '' ?>" />
         </div>
         <!-- password -->
         <div class="password">
@@ -58,29 +66,10 @@ $flashOld = Session::get('old');
           <label for="confirmPassword">Confirm Password</label>
           <input type="password" placeholder="••••••••" required name="confirmPassword" id="confirmPassword" />
         </div>
-        <!-- agree to terms -->
-        <div class="agree-terms-conditions ">
-          <div>
-            <input id="remember" type="checkbox" required />
-            <label for="remember">I agree to&nbsp;</label>
-          </div>
-          <a href="#">Terms & conditions</a>
-        </div>
 
         <!-- signup button -->
         <button type="submit" value="submit" name="submit">
-          Sign Up
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M16 6a4 4 0 1 1-8 0a4 4 0 0 1 8 0" />
-              <path fill="currentColor" fill-rule="evenodd"
-                d="M16.5 22c-1.65 0-2.475 0-2.987-.513C13 20.975 13 20.15 13 18.5c0-1.65 0-2.475.513-2.987C14.025 15 14.85 15 16.5 15c1.65 0 2.475 0 2.987.513C20 16.025 20 16.85 20 18.5c0 1.65 0 2.475-.513 2.987C18.975 22 18.15 22 16.5 22m1.968-4.254a.583.583 0 1 0-.825-.825l-1.92 1.92l-.366-.365a.583.583 0 1 0-.825.825l.778.778a.583.583 0 0 0 .825 0z"
-                clip-rule="evenodd" />
-              <path fill="currentColor"
-                d="M14.477 21.92c-.726.053-1.547.08-2.477.08c-8 0-8-2.015-8-4.5S7.582 13 12 13c2.88 0 5.406.856 6.814 2.141C18.298 15 17.574 15 16.5 15c-1.65 0-2.475 0-2.987.513C13 16.025 13 16.85 13 18.5c0 1.65 0 2.475.513 2.987c.237.238.542.365.964.434"
-                opacity=".6" />
-            </svg>
-          </div>
+          Create My Account
         </button>
 
         <!-- login link -->

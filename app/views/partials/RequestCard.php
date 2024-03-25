@@ -15,8 +15,8 @@
             <p class="request-details">
                 <?= $request['description']?>
             </p>
-            <!-- education-level  -->
-            <div class="education-level">
+            <!-- educationLevel  -->
+            <div class="educationLevel">
                 <span>#
                     <?= $request['education_level']?>
                 </span>

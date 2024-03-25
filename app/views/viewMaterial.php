@@ -159,8 +159,8 @@ else: ?>
             </div>
         </div>
 
-        <!--need, education-level  -->
-        <div class="education-level">
+        <!--need, educationLevel  -->
+        <div class="educationLevel">
             <p class="document-type">Document Need :
                 <?php if ($material['document_type'] === 'labreport'): ?>
                     Lab Report

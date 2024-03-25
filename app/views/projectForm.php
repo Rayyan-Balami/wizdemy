@@ -8,7 +8,8 @@ View::renderPartial('Header', [
         'script',
         'searchOverlay',
         'notificationOverlay',
-        'toastTimer'
+        'toastTimer',
+        'authFormValidation',
     ]
 ]);
 
@@ -68,7 +69,7 @@ View::renderPartial('MenuHeader', [
         <!-- title (required)-->
         <div class="title">
             <label for="repoLink">Repository Link</label>
-            <input type="url" id="repoLink" name="repo-link" required
+            <input type="url" id="url" name="repo-link" required
                 value="<?= $flashOld['repo_link'] ?? '' ?>" />
         </div>
 

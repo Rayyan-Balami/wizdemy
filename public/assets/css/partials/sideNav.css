@@ -128,40 +128,6 @@ nav > .menu-section:last-child{
   background-color: rgb(243 244 246);
 }
 
-
-/* Signup & Login Buttons */
-.signup-button,
-.login-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem; /* 16px */
-  padding: 0.625rem 1rem; /* 10px 16px */
-  border-radius: var(--border-radius); /* 8px */
-  transition: var(--transition);
-  white-space: nowrap;
-}
-
-.signup-button {
-  background-color: rgb(17 24 39);
-  text-align: center;
-  color: white;
-}
-
-.login-button {
-  border: 1px solid rgb(31 41 55);
-  text-align: center;
-  margin-top: 0.5rem; /* 8px */
-}
-
-.signup-button:hover {
-  background-color: black;
-}
-
-.login-button:hover {
-  background-color: var(--hover-color);
-}
-
 /* Setting Section */
 .setting-section {
   position: relative;

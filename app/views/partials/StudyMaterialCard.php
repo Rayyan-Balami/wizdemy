@@ -78,7 +78,7 @@
       </a>
 
       <!-- subject  -->
-      <a href="productPage.html">
+      <a href="/material/view?id=<?= $material['material_id'] ?>">
         <p class="subject">
           <?= $material['subject'] ?> •
           <?= $material['education_level'] ?> • 
@@ -122,7 +122,7 @@
       </div>
 
       <!-- intercation -->
-      <a href="productPage.html" class="intercation">
+      <a href="/material/view?id=<?= $material['material_id'] ?>" class="intercation">
         <!-- views  -->
         <div class="view">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -9,7 +9,8 @@ View::renderPartial('Header', [
         'script',
         'searchOverlay',
         'notificationOverlay',
-        'toastTimer'
+        'toastTimer',
+        'authFormValidation',
     ]
 ]);
 
@@ -129,8 +130,8 @@ $flashOld = Session::get('old');
 
             <!-- full name (required)-->
             <div class="name">
-                <label for="name">Full Name</label>
-                <input type="text" placeholder="Hakuna Matata" required name="name" id="name"
+                <label for="fullName">Full Name</label>
+                <input type="text" placeholder="Hakuna Matata" required name="fullName" id="fullName"
                     value="<?= isset ($flashOld['full_name']) ? $flashOld['full_name'] : $user['full_name'] ?>" />
             </div>
 
@@ -141,9 +142,9 @@ $flashOld = Session::get('old');
             </div>
 
             <!-- phone number -->
-            <div class="phone-number">
-                <label for="phone-number">Phone Number</label>
-                <input type="tel" placeholder="984XXXXX07" name="phone-number" id="phone-number"
+            <div class="phoneNumber">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" placeholder="984XXXXX07" name="phoneNumber" id="phoneNumber"
                     value="<?= isset ($flashOld['phone_number']) ? $flashOld['phone_number'] : $user['phone_number'] ?>" />
             </div>
 
@@ -179,10 +180,10 @@ $flashOld = Session::get('old');
             </div>
 
             <!-- Education Level (required)-->
-            <div class="education-level">
-                <label for="education-level">Education
+            <div class="educationLevel">
+                <label for="educationLevel">Education
                     Level</label>
-                <select name="education-level" id="education-level" required>
+                <select name="educationLevel" id="educationLevel" required>
                     <option value="" disabled <?= $user['education_level'] === null ? 'selected' : '' ?>>Select an
                         option...</option>
                     <?php
@@ -213,11 +214,11 @@ $flashOld = Session::get('old');
             </div>
 
             <!-- enrolled course (required)-->
-            <div class="enrolled-course">
-                <label for="enrolled-course">Enrolled
+            <div class="enrolledCourse">
+                <label for="enrolledCourse">Enrolled
                     Course</label>
-                <input type="text" placeholder="Bachelor in Computer Application" name="enrolled-course"
-                    id="enrolled-course" required
+                <input type="text" placeholder="BCA, CSIT, MCA in short form" name="enrolledCourse" id="enrolledCourse"
+                    required
                     value="<?= isset ($flashOld['enrolled_course']) ? $flashOld['enrolled_course'] : $user['enrolled_course'] ?>" />
             </div>
 

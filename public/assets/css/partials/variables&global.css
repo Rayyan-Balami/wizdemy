@@ -53,6 +53,14 @@ body.menu-open {
   color: var(--info-color);
 }
 
+.form-error {
+  color: var(--danger-color);
+  font-size: 0.75rem/* 12px */;
+  line-height: 1rem/* 16px */;
+  margin-top: 0.25rem/* 4px */;
+  padding: 0 0.5rem/* 4px */;
+}
+
 
 
 /* 

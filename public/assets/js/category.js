@@ -27,8 +27,8 @@ function RequestCard(
   <h2 class="title">${title}</h2>
   <!-- request- -->
   <p class="request-details">${description}</p>
-  <!-- education-level  -->
-  <div class="education-level">
+  <!-- educationLevel  -->
+  <div class="educationLevel">
           <span title="Education Level"># ${education_level}</span>
           <span title="Class/Faculty"># ${class_faculty}</span>
             ${semesterHTML}

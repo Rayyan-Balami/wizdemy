@@ -22,12 +22,12 @@ class SettingsController extends Controller {
 
     //validate username
     if (!Validate::string($userName, 3, 20)){
-      $this->errors['username'] = 'Username must be 3 to 18 characters long';
+      $this->errors['username'] = 'Username must be 3 to 20 characters long';
     }
 
     //validate bio
-    if (!Validate::string($bio, 0, 100)){
-      $this->errors['bio'] = 'Bio must be less than 255 characters long';
+    if (!Validate::string($bio, 0, 150)){
+      $this->errors['bio'] = 'Bio must be less than 150 characters long';
     }
 
     //check if there are any errors in the flash
@@ -58,10 +58,10 @@ class SettingsController extends Controller {
   public function personal(){
     $fullName = htmlspecialchars(trim($_POST['name']));
     $userType = htmlspecialchars(trim($_POST['user-type']));
-    $educationLevel = htmlspecialchars(trim($_POST['education-level']));
+    $educationLevel = htmlspecialchars(trim($_POST['educationLevel']));
     $enrolledCourse = htmlspecialchars(trim($_POST['enrolled-course']));
     $schoolName = htmlspecialchars(trim($_POST['school']));
-    $phoneNumber = htmlspecialchars(trim($_POST['phone-number']));
+    $phoneNumber = htmlspecialchars(trim($_POST['phoneNumber']));
 
     //validate full name
     if (!Validate::string($fullName, 3, 50)){

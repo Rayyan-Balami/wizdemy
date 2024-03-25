@@ -8,7 +8,8 @@ View::renderPartial('Header', [
         'script',
         'searchOverlay',
         'notificationOverlay',
-        'toastTimer'
+        'toastTimer',
+        'authFormValidation',
     ]
 ]);
 
@@ -116,10 +117,10 @@ View::renderPartial('MenuHeader', [
         </div>
 
         <!-- Education Level (required)-->
-        <div class="education-level">
-            <label for="education-level">Education
+        <div class="educationLevel">
+            <label for="educationLevel">Education
                 Level</label>
-            <select name="education-level" id="education-level" required>
+            <select name="educationLevel" id="educationLevel" required>
                 <option value="" disabled <?= isset($flashOld['education_level']) ? '' : 'selected' ?>>Select an
                     option...</option>
                 <?php
@@ -184,9 +185,9 @@ View::renderPartial('MenuHeader', [
 
         <!-- class/faculty (required)-->
         <div class="class">
-            <label for="class-faculty">Class/ Faculty</label>
-            <input type="class-faculty" placeholder="Short Forms ie, BCA , CSIT, Management, Science etc" required name="class-faculty"
-                id="class-faculty" value="<?= $flashOld['class_faculty'] ?? ''; ?>" />
+            <label for="classFaculty">Class/ Faculty</label>
+            <input type="classFaculty" placeholder="Short Forms ie, BCA , CSIT, Management, Science etc" required name="classFaculty"
+                id="classFaculty" value="<?= $flashOld['class_faculty'] ?? ''; ?>" />
         </div>
 
         <!-- save button -->

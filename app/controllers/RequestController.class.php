@@ -27,10 +27,10 @@ class RequestController extends Controller
     $description = htmlspecialchars($_POST['description']);
     $user_id = Session::get('user')['user_id'];
     $document_type = htmlspecialchars($_POST['document-type']);
-    $education_level = htmlspecialchars($_POST['education-level']);
+    $education_level = htmlspecialchars($_POST['educationLevel']);
     $semester = htmlspecialchars($_POST['semester']);
     $subject = htmlspecialchars($_POST['subject']);
-    $class_faculty = htmlspecialchars($_POST['class-faculty']);
+    $class_faculty = htmlspecialchars($_POST['classFaculty']);
     
 
     //validate title
