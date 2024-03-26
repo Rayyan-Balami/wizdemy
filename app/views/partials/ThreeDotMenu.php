@@ -1,6 +1,6 @@
 </main>
 <!-- three dot menu popup -->
-<div id="three-dot-menu" class="open" onclick="closeThreeDotMenu()">
+<div id="three-dot-menu" onclick="closeThreeDotMenu()">
   <ul>
     <input type="hidden" value="">
 

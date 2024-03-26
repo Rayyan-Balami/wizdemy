@@ -2,8 +2,9 @@
 
 class UploadModel extends Model
 {
-  public function __construct(){
-    parent::__construct('study_materials');
+  public function __construct(string $table = 'study_materials')
+  {
+    parent::__construct($table);
     $this->fillable = ['user_id', 'request_id', 'title', 'description', 'document_type', 'format', 'education_level', 'semester', 'subject', 'class_faculty', 'author', 'file_path','thumbnail_path'];
   }
 

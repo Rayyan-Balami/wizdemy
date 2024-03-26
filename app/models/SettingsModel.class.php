@@ -2,8 +2,9 @@
 
 class SettingsModel extends Model
 {
-  public function __construct(){
-    parent::__construct('users');
+  public function __construct(string $table = 'users')
+  {
+    parent::__construct($table);
     $this->fillable = ['full_name', 'username', 'password', 'private', 'bio', 'user_type', 'education_level', 'enrolled_course', 'school_name', 'phone_number', 'allow_email', 'allow_phone'];
   }
 

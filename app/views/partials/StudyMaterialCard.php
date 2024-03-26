@@ -2,7 +2,7 @@
 <div class="card-section">
   <?php foreach ($materials as $material): ?>
     <!-- material card-->
-    <div class="card ">
+    <div class="card " data-copy-link="<?= SITE_DOMAIN . '/material/view?id=' . $material['material_id'] ?>">
       <!-- image -->
       <a href="/material/view?id=<?= $material['material_id'] ?>" class="thumbnail">
         <img src="/<?= $material['thumbnail_path'] ?>" alt="thumbnail">

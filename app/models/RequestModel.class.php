@@ -2,9 +2,9 @@
 
 class RequestModel extends Model
 {
-  public function __construct()
+  public function __construct(string $table = 'study_material_requests')
   {
-    parent::__construct('study_material_requests');
+    parent::__construct($table);
     $this->fillable = ['title', 'description', 'user_id', 'education_level', 'semester', 'subject', 'class_faculty', 'document_type'];
   }
 

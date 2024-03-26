@@ -3,9 +3,9 @@
 class StudyMaterialModel extends Model
 {
 
-    public function __construct()
+    public function __construct(string $table = 'material_view')
     {
-        parent::__construct('material_view'); // view with all datas from study_materials, users, study_material_requests, likes, comments, views.
+        parent::__construct($table);// view with all datas from study_materials, users, study_material_requests, likes, comments, views.
 
         $this->fillable = ['title', 'description', 'file_path', 'user_id', 'respond_to', 'document_type', 'format', 'education_level', 'semester', 'subject', 'author', 'thumbnail_path', 'class_faculty'];
     }

@@ -12,7 +12,7 @@ class UploadController extends Controller
     //get request details if request_id is set
     $request_id = $_POST['request_id'] ?? Session::get('post')['request_id'] ?? null;
     $requestDetails = [];
-    if($request_id > 0 && !empty($request_id)){
+    if ($request_id > 0 && !empty ($request_id)) {
       $requestDetails = $this->model->getRequestDetails($request_id);
     }
     View::render('uploadForm', [
@@ -33,7 +33,7 @@ class UploadController extends Controller
     $class_faculty = htmlspecialchars($_POST['classFaculty']);
     $author = htmlspecialchars($_POST['author']);
     $request_id = null;
-    if(isset($_POST['request_id']) && !empty($_POST['request_id'])){
+    if (isset ($_POST['request_id']) && !empty ($_POST['request_id'])) {
       $request_id = filter_var($_POST['request_id'], FILTER_SANITIZE_NUMBER_INT);
     }
 
@@ -65,7 +65,7 @@ class UploadController extends Controller
       $this->errors['author'] = 'Author: 3-50 characters';
     }
 
-     //validate image file
+    //validate image file
     $validImageFile = Validate::file(
       $imageFile,
       'image',
@@ -88,8 +88,8 @@ class UploadController extends Controller
     }
 
     //check if there are any errors
-    if (!empty($this->errors)) {
-      Session::flash('post',['request_id' => $request_id]);
+    if (!empty ($this->errors)) {
+      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'title' => $title,
@@ -106,10 +106,10 @@ class UploadController extends Controller
     }
 
     //material/create files in the server
-    $imageUpload = File::upload($imageFile, 'assets/material/creates/thumbnails');
-    $documentUpload = File::upload($documentFile, 'assets/material/creates/documents');
-    if(!$imageUpload['status'] || !$documentUpload['status']){
-      Session::flash('post',['request_id' => $request_id]);
+    $imageUpload = File::upload($imageFile, 'assets/uploads/thumbnails');
+    $documentUpload = File::upload($documentFile, 'assets/uploads/documents');
+    if (!$imageUpload['status'] || !$documentUpload['status']) {
+      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('error', [
         'message' => 'Failed to upload file'
       ]);
@@ -128,7 +128,21 @@ class UploadController extends Controller
     }
 
     //store request in the database
-    $result = $this->model->store($user_id, $request_id, $title, $description, $document_type, $format, $education_level, $semester, $subject, $class_faculty, $author, $imageUpload['file_path'], $documentUpload['file_path']);
+    $result = $this->model->store(
+      $user_id,
+      $request_id,
+      $title,
+      $description,
+      $document_type,
+      $format,
+      $education_level,
+      $semester,
+      $subject,
+      $class_faculty,
+      $author,
+      $imageUpload['file_path'],
+      $documentUpload['file_path']
+    );
 
     if ($result['status']) {
       Session::flash('success', [
@@ -136,7 +150,7 @@ class UploadController extends Controller
       ]);
       $this->redirect('/');
     } else {
-      Session::flash('post',['request_id' => $request_id]);
+      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('error', [
         'message' => $result['message']
       ]);

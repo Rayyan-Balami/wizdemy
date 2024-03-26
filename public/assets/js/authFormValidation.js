@@ -8,7 +8,10 @@ const validationRules = {
   currentPassword: { min: 8, max: 16, message: "Current password must be 8-16 characters" },
   newPassword: { min: 8, max: 16, message: "New password must be 8-16 characters" },
   confirmPassword: { message: "Passwords do not match" },
-  fullName: { min: 3, max: 50, message: "Full name must be 3-50 characters" },
+  fullName: {
+    pattern: /^[a-zA-Z]{3,50} [a-zA-Z]{3,50}$/,
+    message: "Full name must be 3-50 characters and contain first name and last name"
+  },
   title: { min: 10, max: 150, message: "Title must be 10-150 characters" },
   description: {
     min: 10,
@@ -59,11 +62,9 @@ forms.forEach((form) => {
     });
 
     if (form.querySelector(".form-error")) {
-      console.log("Form has errors");
       return;
     }
 
-    console.log("Form submitted successfully");
     form.submit();
   });
 });
@@ -99,7 +100,7 @@ function validateInput(input) {
   } else {
     isValid = validate(value, rules);
   }
-  
+
   isValid ? showSuccess(input) : showError(input);
 }
 

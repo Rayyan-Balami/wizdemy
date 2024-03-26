@@ -18,7 +18,7 @@ class Controller
      * 
      * @param string $modelName The name of the model to use
      */
-    protected function __construct($modelName)
+    protected function __construct(string $modelName)
     {
         $this->model = new $modelName();
     }

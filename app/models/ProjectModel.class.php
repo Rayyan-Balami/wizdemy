@@ -2,8 +2,9 @@
 
 class ProjectModel extends Model
 {
-  public function __construct(){
-    parent::__construct('github_projects');
+  public function __construct(string $table = 'github_projects')
+  {
+    parent::__construct($table);
     $this->fillable = ['user_id', 'repo_link'];
   }
 

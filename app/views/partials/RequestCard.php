@@ -2,7 +2,7 @@
 <div class="request-card-section">
     <?php foreach ($requests as $request): ?>
         <!-- request card -->
-        <div class="request-card">
+        <div class="card request-card" data-copy-link="<?= SITE_DOMAIN.'/request?id='.$request['request_id'] ?>">
             <!-- subject -->
             <p class="subject">
                 <?= $request['subject']?>

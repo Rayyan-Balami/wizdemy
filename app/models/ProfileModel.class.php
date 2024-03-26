@@ -2,7 +2,7 @@
 
 class ProfileModel extends Model
 {
-  public function __construct($table = 'user_profile_view')
+  public function __construct(string $table = 'user_profile_view')
   {
     parent::__construct($table);
     $this->fillable = ['follower_id', 'following_id'];
