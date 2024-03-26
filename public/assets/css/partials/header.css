@@ -18,6 +18,15 @@ header > .logo {
   line-height: 2rem /* 32px */;
   font-weight: 600;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem /* 8px */;
+}
+
+header > .logo svg {
+  width: 2rem /* 32px */;
+  height: 2rem /* 32px */;
+  flex-shrink: 0;
 }
 
 @media (width >= 1024px) {

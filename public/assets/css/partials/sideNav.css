@@ -47,10 +47,21 @@
   line-height: 2.25rem; /* 36px */
   font-weight: 500;
   flex-shrink: 0;
+  background-color: var(--background-color);
+}
+
+#side-nav > .sticky-logo > a{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--background-color);
+  gap: 0.25rem; /* 8px */
+}
+
+
+#side-nav > .sticky-logo svg {
+  width: 1.9rem; /* 31.5px */
+  height: 1.9rem; /* 32px */
+  flex-shrink: 0;
 }
 
 @media (width < 640px) {

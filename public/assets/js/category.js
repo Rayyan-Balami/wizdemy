@@ -188,7 +188,7 @@ function MaterialCard(
 
   return `<div class="card ">
   <!-- image -->
-  <a href="productPage.html" class="thumbnail">
+  <a href="/material/view?id=${material_id}" class="thumbnail">
     <img src="/${thumbnail_path}" alt="thumbnail" />
 
     <div>
@@ -201,7 +201,7 @@ function MaterialCard(
   </a>
 
   <!-- subject  -->
-  <a href="productPage.html">
+  <a href="/material/view?id=${material_id}">
     <p class="subject">
     ${subject} • 
     ${education_level} • 
@@ -242,7 +242,7 @@ function MaterialCard(
   </div>
 
   <!-- intercation -->
-  <a href="productPage.html" class="intercation">
+  <a href="/material/view?id=${material_id}" class="intercation">
     <!-- views  -->
     <div class="view">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
