@@ -32,17 +32,29 @@ class ProjectController extends Controller
     $pattern = '/^(https:\/\/github.com\/)([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)$/';
     if (!preg_match($pattern, $repoLink)) {
       Session::flash('errors', ['repo-link' => 'Invalid Github repository link']);
+      Session::flash('old', ['repo-link' => $repoLink]);
+      $this->redirect('/project/create');
+    }
+
+    
+
+    $userId = Session::get('user')['user_id'];
+
+    //check if project is already added by user
+    $project = $this->model->isDuplicate($userId, $repoLink);
+    if ($project) {
+      Session::flash('errors', ['project' => Session::get('user')['username'] . ' this project already exists !!!']);
       $this->redirect('/project/create');
     }
 
     //validate github repo link is accessible
     if(! Validate::accessibleUrl($repoLink)) {
       Session::flash('errors', ['repo-link' => 'Github repository link is not accessible']);
+      Session::flash('old', ['repo-link' => $repoLink]);
       $this->redirect('/project/create');
     }
 
     //store project
-    $userId = Session::get('user')['user_id'];
     $result = $this->model->store($userId, $repoLink);
 
     if ($result) {

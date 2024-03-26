@@ -73,8 +73,8 @@ class AuthController extends Controller {
       $confirmPassword = trim($_POST['confirmPassword']);
   
       //validate full name
-      if (!Validate::string($fullName, 3, 50)){
-       $this->errors['fullName'] = 'Invalid full name';
+      if (!Validate::string($fullName, 7, 60)){
+       $this->errors['fullName'] = 'Full name must be first name and last name';
       }
   
       //validate email

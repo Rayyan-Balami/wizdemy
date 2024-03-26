@@ -20,8 +20,15 @@ class ProjectModel extends Model
     ->getAll();
   }
 
+  public function isDuplicate($userId, $repoLink){
+    return $this->select(['*'])
+    ->where('user_id = :user_id AND repo_link = :repo_link')
+    ->bind(['user_id' => $userId, 'repo_link' => $repoLink])
+    ->get();
+  }
 
   public function store($userId, $repoLink){
+
     return $this->insert([
       'user_id' => $userId,
       'repo_link' => $repoLink,

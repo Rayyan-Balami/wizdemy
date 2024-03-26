@@ -56,7 +56,7 @@ class SettingsController extends Controller {
   }
 
   public function personal(){
-    $fullName = htmlspecialchars(trim($_POST['name']));
+    $fullName = htmlspecialchars(trim($_POST['fullName']));
     $userType = htmlspecialchars(trim($_POST['user-type']));
     $educationLevel = htmlspecialchars(trim($_POST['educationLevel']));
     $enrolledCourse = htmlspecialchars(trim($_POST['enrolled-course']));
@@ -64,8 +64,8 @@ class SettingsController extends Controller {
     $phoneNumber = htmlspecialchars(trim($_POST['phoneNumber']));
 
     //validate full name
-    if (!Validate::string($fullName, 3, 50)){
-      $this->errors['full_name'] = 'Full name must be 3 to 50 characters long';
+    if (!Validate::string($fullName, 7, 60)){
+      $this->errors['full_name'] = 'Full name must be first name and last name';
     }
 
     $allowedUserTypes = ['student', 'teacher', 'institution'];
@@ -74,23 +74,25 @@ class SettingsController extends Controller {
       $this->errors['user_type'] = 'Invalid user type';
     }
 
+    $allowedEducationLevels = ['school', '+2', 'diploma', 'bachelor', 'master', 'phd'];
+
     //validate education level
-    if (!Validate::string($educationLevel, 3, 50)){
+    if (!in_array($educationLevel, $allowedEducationLevels)){
       $this->errors['education_level'] = 'Education level must be 3 to 50 characters long';
     }
 
     //validate enrolled course
-    if (!Validate::string($enrolledCourse, 3, 50)){
+    if (!Validate::string($enrolledCourse, 0, 50)){
       $this->errors['enrolled_course'] = 'Enrolled course must be 3 to 50 characters long';
     }
 
     //validate school name
-    if (!Validate::string($schoolName, 3, 50)){
+    if (!Validate::string($schoolName, 0, 50)){
       $this->errors['school_name'] = 'School name must be 3 to 50 characters long';
     }
 
     //validate phone number
-    if (!Validate::phone($phoneNumber)){
+    if (!Validate::phone($phoneNumber) && !empty($phoneNumber)){
       $this->errors['phone_number'] = 'Invalid phone number';
     }
 

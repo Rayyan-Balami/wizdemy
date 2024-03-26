@@ -9,8 +9,8 @@ const validationRules = {
   newPassword: { min: 8, max: 16, message: "New password must be 8-16 characters" },
   confirmPassword: { message: "Passwords do not match" },
   fullName: {
-    pattern: /^[a-zA-Z]{3,50} [a-zA-Z]{3,50}$/,
-    message: "Full name must be 3-50 characters and contain first name and last name"
+    pattern: /^[a-zA-Z]{3,15}(?: [a-zA-Z]{3,15}){1,3}$/,
+    message: "Full name must be first name and last name"
   },
   title: { min: 10, max: 150, message: "Title must be 10-150 characters" },
   description: {
@@ -18,7 +18,7 @@ const validationRules = {
     max: 550,
     message: "Description must be 10-550 characters",
   },
-  bio: { min: 0, max: 150, message: "Bio must be less than 150 characters" },
+  bio: { min: 0, max: 150, message: "Bio must be less than 150 characters • optional field" },
   subject: { min: 3, max: 50, message: "Subject must be 3-50 characters" },
   classFaculty: {
     min: 3,
@@ -31,15 +31,15 @@ const validationRules = {
     message: "Invalid URL format",
   },
   phoneNumber: {
-    pattern: /^\d{10}$/,
+    pattern: /^$|^\d{10}$/,
     message: "Invalid phone number format (10 digits)",
   },
   enrolledCourse: {
-    min: 3,
+    min: 0,
     max: 15,
-    message: "Enrolled course must be 3-15 characters",
+    message: "Enrolled course must less than 15 characters  • optional field",
   },
-  school: { min: 3, max: 50, message: "School name must be 3-50 characters" },
+  school: { min: 0, max: 50, message: "School name must less than 50 characters  • optional field" },
   email_username: {
     message: "Invalid email or username",
   },

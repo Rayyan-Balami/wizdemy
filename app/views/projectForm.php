@@ -69,7 +69,7 @@ View::renderPartial('MenuHeader', [
         <div class="title">
             <label for="repoLink">Repository Link</label>
             <input type="url" id="url" name="repo-link" required
-                value="<?= $flashOld['repo_link'] ?? '' ?>" />
+                value="<?= $flashOld['repo-link'] ?? '' ?>" />
         </div>
 
         <!-- save button -->

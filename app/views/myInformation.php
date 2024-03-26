@@ -93,7 +93,7 @@ $flashOld = Session::get('old');
             <!-- bio -->
             <div class="bio">
                 <label for="bio">Bio</label>
-                <textarea required id="bio" name="bio"
+                <textarea id="bio" name="bio"
                     rows="3"><?= isset ($flashOld['bio']) ? $flashOld['bio'] : $user['bio'] ?></textarea>
 
                 <p class="mt-2 text-sm text-gray-600">
@@ -137,12 +137,12 @@ $flashOld = Session::get('old');
             <!-- email (required)-->
             <div class="email">
                 <label for="email">Email Address</label>
-                <input type="email" required name="email" id="email" disabled placeholder="<?= $user['email'] ?>" />
+                <input type="email" required name="email" id="emailDisabled" disabled placeholder="<?= $user['email'] ?>" />
             </div>
 
-            <!-- phone number -->
+            <!-- phone number (optional)-->
             <div class="phoneNumber">
-                <label for="phoneNumber">Phone Number</label>
+                <label for="phoneNumber">Phone Number (Optional)</label>
                 <input type="tel" placeholder="984XXXXX07" name="phoneNumber" id="phoneNumber"
                     value="<?= isset ($flashOld['phone_number']) ? $flashOld['phone_number'] : $user['phone_number'] ?>" />
             </div>
@@ -212,19 +212,18 @@ $flashOld = Session::get('old');
                 </svg>
             </div>
 
-            <!-- enrolled course (required)-->
+            <!-- enrolled course (optional)-->
             <div class="enrolledCourse">
                 <label for="enrolledCourse">Enrolled
-                    Course</label>
+                    Course (Optional)</label>
                 <input type="text" placeholder="BCA, CSIT, MCA in short form" name="enrolledCourse" id="enrolledCourse"
-                    required
                     value="<?= isset ($flashOld['enrolled_course']) ? $flashOld['enrolled_course'] : $user['enrolled_course'] ?>" />
             </div>
 
             <!-- school-->
             <div class="school">
                 <label for="school">School/ College
-                    Name</label>
+                    Name (Optional)</label>
                 <input type="text" placeholder="Enter school/ College name" name="school" id="school"
                     value="<?= isset ($flashOld['school_name']) ? $flashOld['school_name'] : $user['school_name'] ?>" />
             </div>

@@ -1,3 +1,7 @@
+//website config
+const SITE_NAME = 'WizDemy';
+const SITE_DOMAIN = 'http://localhost:8000';
+
 function RequestCard(
   page,
   request_id,
@@ -14,7 +18,6 @@ function RequestCard(
   created_at,
   updated_at
 ) {
-  console.log(user_id);
   let semesterHTML = "";
   if (semester) {
     semesterHTML = `<span title="Semester"># ${semester} Sem</span>`;
@@ -65,7 +68,7 @@ function RequestCard(
       }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
-      <button class="three-dot-icon" onclick="openThreeDotMenu('/requests/details?request_id=${request_id}')">
+      <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/request?id=${request_id}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
               <path fill="#000"
                   d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
@@ -199,7 +202,12 @@ function MaterialCard(
 
   <!-- subject  -->
   <a href="productPage.html">
-    <p class="subject">${subject} • ${class_faculty}</p>
+    <p class="subject">
+    ${subject} • 
+    ${education_level} • 
+    ${class_faculty}
+    ${semester != "" ? " • " + semester + " sem" : ""}
+    </p>
     <!-- title  -->
     <h2 class="title">${title}</h2>
   </a>
@@ -225,8 +233,7 @@ function MaterialCard(
       page == "profile" ? "#" : `/profile?id='.${user_id}'`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
-    <button class="three-dot-icon" onclick="openThreeDotMenu('<?= $material['material_id'] ?>')">
-
+    <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/material/view?id=${material_id}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
         <path fill="#000"
           d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />

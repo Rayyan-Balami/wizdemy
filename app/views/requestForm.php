@@ -96,7 +96,6 @@ View::renderPartial('MenuHeader', [
                     'Note' => 'note',
                     'Question' => 'question',
                     'Lab Report' => 'labreport',
-                    'Github Project' => 'project'
                 ];
                 foreach ($documentTypes as $label => $value) {
                     $selected = isset($flashOld['document_type']) && $flashOld['document_type'] === $value ? 'selected' : '';
@@ -186,7 +185,7 @@ View::renderPartial('MenuHeader', [
         <!-- class/faculty (required)-->
         <div class="class">
             <label for="classFaculty">Class/ Faculty</label>
-            <input type="classFaculty" placeholder="Short Forms ie, BCA , CSIT, Management, Science etc" required name="classFaculty"
+            <input type="classFaculty" placeholder="Short Forms ie, 11 class, BCA, CSIT, Management, Science etc" required name="classFaculty"
                 id="classFaculty" value="<?= $flashOld['class_faculty'] ?? ''; ?>" />
         </div>
 

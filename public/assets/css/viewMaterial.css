@@ -112,6 +112,12 @@ section > .background-thumbnail {
   color: rgb(229 231 235);
 }
 
+.postDetails > .username > svg {
+  width: 0.875rem /* 14px */;
+  height: 0.875rem /* 14px */;
+  margin-top: 0.15rem;
+}
+
 .postDetails > .username:hover {
   color: white;
 }
