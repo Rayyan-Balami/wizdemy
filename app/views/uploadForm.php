@@ -302,7 +302,7 @@ View::renderPartial('MenuHeader', [
     <!-- class/faculty (required)-->
     <div class="class">
       <label for="classFaculty">Class/ Faculty</label>
-      <input type="text" placeholder="Short Forms ie, 11 class, BCA, CSIT, Management, Science etc" required name="classFaculty"
+      <input type="text" placeholder="Short ie 10 class, Management, Science, BCA, CSIT etc" required name="classFaculty"
         id="classFaculty"
         value="<?= isset ($flashOld['class_faculty']) ? $flashOld['class_faculty'] : (isset ($requestDetails['class_faculty']) ? $requestDetails['class_faculty'] : ''); ?>" />
 

@@ -185,7 +185,7 @@ View::renderPartial('MenuHeader', [
         <!-- class/faculty (required)-->
         <div class="class">
             <label for="classFaculty">Class/ Faculty</label>
-            <input type="classFaculty" placeholder="Short Forms ie, 11 class, BCA, CSIT, Management, Science etc" required name="classFaculty"
+            <input type="classFaculty" placeholder="Short ie 10 class, Management, Science, BCA, CSIT etc" required name="classFaculty"
                 id="classFaculty" value="<?= $flashOld['class_faculty'] ?? ''; ?>" />
         </div>
 
