@@ -13,7 +13,6 @@
   padding: 0 1rem 1rem;
   overflow-y: auto;
   border-right: var(--border);
-  background-color: var(--background-color);
 }
 
 #side-nav.open {
@@ -59,8 +58,8 @@
 
 
 #side-nav > .sticky-logo svg {
-  width: 1.9rem; /* 31.5px */
-  height: 1.9rem; /* 32px */
+  width: 2rem; /* 31.5px */
+  height: 2rem; /* 32px */
   flex-shrink: 0;
 }
 

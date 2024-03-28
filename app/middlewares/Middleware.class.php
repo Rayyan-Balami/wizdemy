@@ -3,7 +3,8 @@
 class Middleware{
   const MAP = [
     'auth' => 'AuthMiddleware',
-    'guest' => 'GuestMiddleware'
+    'guest' => 'GuestMiddleware',
+    'admin' => 'AdminMiddleware',
   ];
 
   public static function resolve($middleware){

@@ -129,7 +129,6 @@ function showError(input) {
   const message = validationRules[input.id].message;
 
   input.style.borderColor = "red";
-  input.style.color = "red";
 
   // Remove existing error message if any
   const existingErrorMessage = input.parentNode.querySelector('.form-error');
@@ -143,7 +142,6 @@ function showError(input) {
 
 function showSuccess(input) {
   input.style.borderColor = "initial";
-  input.style.color = "initial";
   // Remove existing error message if any
   const existingErrorMessage = input.parentNode.querySelector('.form-error');
   if (existingErrorMessage) {

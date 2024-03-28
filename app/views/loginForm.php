@@ -28,7 +28,7 @@ $flashOld = Session::get('old');
         </svg>
       </div>
       <h3>We invest in the world’s potential</h3>
-      <p>Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and
+      <p>Here at Wizdemy we focus on markets where technology, innovation, and capital can unlock long-term value and
         drive economic growth.</p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

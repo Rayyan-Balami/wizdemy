@@ -34,7 +34,7 @@
           </svg>
         </span>
         <div>
-          <h3>Save</h3>
+          <h3>Bookmark</h3>
         </div>
       </li>
     </button>

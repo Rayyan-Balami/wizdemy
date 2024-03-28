@@ -23,9 +23,16 @@ header > .logo {
   gap: 0.5rem /* 8px */;
 }
 
+header > .logo > a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem; /* 8px */
+}
+
 header > .logo svg {
-  width: 2rem /* 32px */;
-  height: 2rem /* 32px */;
+  width: 1.65rem /* 26.4px */;
+  height: 1.65rem /* 32px */;
   flex-shrink: 0;
 }
 
@@ -109,7 +116,7 @@ header > .logo svg {
   }
 }
 
-.header-menu > .notification-button,
+
 .header-menu > .search-button,
 .header-menu > .hamburger-button {
   background-color: transparent;

@@ -1,0 +1,20 @@
+@import url("./authForm.css");
+
+body{
+  background-color: rgb(17 24 39);
+  color: rgb(249 250 251);
+}
+
+
+.form-section > div > p{
+  color: rgb(209 213 219);
+}
+
+.form-section > div > form {
+  background-color: rgb(31 41 55);
+}
+
+.form-section input {
+  background-color: rgb(55 65 81);
+  border-color: rgb(75 85 99);
+}

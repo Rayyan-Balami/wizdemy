@@ -134,11 +134,6 @@ form input {
   border-radius: var(--border-radius);
 }
 
-form input[type="checkbox"] {
-  width: 1rem /* 16px */;
-  height: 1rem /* 16px */;
-  margin: 0;
-}
 
 form > button {
   padding: 0.5rem 1rem /* 12px 20px */;

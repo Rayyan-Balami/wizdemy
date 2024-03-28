@@ -65,5 +65,10 @@ $router->get('/accountSecurity', 'SettingsController@accountSecurity')->only('au
 $router->put('/accountSecurity/password', 'SettingsController@password')->only('auth');
 $router->put('/accountSecurity/preferences', 'SettingsController@preferences')->only('auth');
 
+//routes for admin dashboard
+$router->get('/admin/login', 'AdminController@loginPage')->only('guest');
+$router->post('/admin/login', 'AdminController@loginProcess')->only('guest');
+$router->delete('/admin/logout', 'AdminController@logout')->only('admin');
+$router->get('/admin/dashboard', 'AdminController@index')->only('admin');
 
 

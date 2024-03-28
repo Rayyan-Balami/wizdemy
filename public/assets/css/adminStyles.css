@@ -1,0 +1,62 @@
+@import url("./partials/variables&global.css");
+@import url("./partials/sideNav.css");
+@import url("./partials/main.css");
+@import url("./partials/header.css");
+@import url("./partials/cardCategory.css");
+@import url('./partials/AdminTable.css');
+
+body,
+#side-nav,
+#side-nav > .sticky-logo,
+header
+{
+  background-color: rgb(17 24 39);
+  color: rgb(249 250 251);
+}
+
+#side-nav,
+header {
+  border-color: rgb(31 41 55);
+}
+
+.menu-links:hover,
+.menu-btn:hover,
+.menu-links.is-active,
+.menu-btn.is-active,
+.header-menu > .h-links-wrapper , 
+.header-menu > .h-links-wrapper > .h-link,
+.error-container > .svg-icon {
+  background-color: rgb(31 41 55);
+}
+
+
+.header-menu > .h-links-wrapper > .h-link:hover{
+  background-color: inherit;
+}
+
+.toast-notification > li{
+  background-color: rgb(31 41 55);
+  border-color: rgb(75 85 99);
+}
+
+.continue-with > .menu-list > li > a > span {
+  background-color: rgb(55 65 81);
+}
+
+.continue-with > .menu-list > li > a:hover {
+  background-color: rgb(40 50 66);
+
+}
+
+.continue-with > h3 {
+  color: rgb(209 213 219);
+}
+
+.form-section > div > form {
+  background-color: rgb(31 41 55);
+}
+
+.form-section input {
+  background-color: rgb(55 65 81);
+  border-color: rgb(75 85 99);
+}

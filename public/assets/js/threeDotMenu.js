@@ -16,10 +16,6 @@ function copyLink() {
 }
 
 function closeThreeDotMenu() {
-  if (targetElement.matches('#particular-element')) {
-    // If the clicked element is the particular element, do nothing
-    return;
-  }
   threeDotMenu.classList.remove("open");
   document.body.classList.remove("menu-open");
 }
