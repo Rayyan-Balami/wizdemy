@@ -28,7 +28,7 @@
         <p><a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>" class="time-ago"
             data-datetime="<?= $project['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon">
+        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= $project['repo_link'] ?>">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
             <path fill="currentColor"

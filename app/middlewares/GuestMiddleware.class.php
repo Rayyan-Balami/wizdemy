@@ -6,5 +6,9 @@ class GuestMiddleware{
       header('Location: /');
       die();
     }
+    if(isset($_SESSION['admin'])){
+      header('Location: /admin/dashboard');
+      die();
+    }
   }
 }

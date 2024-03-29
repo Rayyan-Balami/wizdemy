@@ -44,11 +44,24 @@ table td {
 th:first-child, td:first-child {
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
+  
+  --webkit-border-top-left-radius: var(--border-radius);
+  --webkit-border-bottom-left-radius: var(--border-radius);
+  
+  --moz-border-top-left-radius: var(--border-radius);
+  --moz-border-bottom-left-radius: var(--border-radius);
 }
 
 th:last-child, td:last-child {
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
+
+  --webkit-border-top-right-radius: var(--border-radius);
+  --webkit-border-bottom-right-radius: var(--border-radius);
+
+  --moz-border-top-right-radius: var(--border-radius);
+  --moz-border-bottom-right-radius: var(--border-radius);
+  
 }
 
 table .user-cell > .user-info,

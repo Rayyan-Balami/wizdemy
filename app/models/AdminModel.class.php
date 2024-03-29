@@ -28,4 +28,12 @@ class AdminModel extends Model
       ];
     }
   }
+
+  public function getUsersForAdmin(){
+ return (new UserModel())->select()
+    ->getAll();
+
+  }
 }
+
+
