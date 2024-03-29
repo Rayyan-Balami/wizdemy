@@ -51,9 +51,8 @@ $flashOld = Session::get('old');
           </g>
         </svg>
       </div>
-      <h3>Admins, with great power comes great responsibility!</h3>
-      <p>Here at Wizdemy we focus on markets where technology, innovation, and capital can unlock long-term value and
-        drive economic growth.</p>
+      <h3>Admins: Leaders at WizDemy! </h3>
+      <p>With great power comes great responsibility!</p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
