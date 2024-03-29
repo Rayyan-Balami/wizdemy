@@ -1,4 +1,5 @@
 <?php 
+
 View::renderPartial('Header', [
   'pageTitle' => SITE_NAME . ' | Admin Dashboard',
   'stylesheets' => [
@@ -16,7 +17,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('AdminSideNav', [
-  'currentPage' => 'overview'
+  'currentPage' => 'projectManagement'
 ]);
 
 View::renderPartial('AdminMenuHeader');
@@ -25,7 +26,6 @@ View::renderPartial('AdminMenuHeader');
 
 <section>
 <?php
-$projects = [];
 if (!empty($projects)) {
   View::renderPartial('AdminProjectListTable', [
     'projects' => $projects
@@ -33,6 +33,7 @@ if (!empty($projects)) {
 } else {
   View::renderPartial('ZeroResult');
 }
+
 ?>
 </section>
 

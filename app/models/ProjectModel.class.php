@@ -13,6 +13,7 @@ class ProjectModel extends Model
     return $this->select([
       'u.user_id',
       'u.username',
+      'u.full_name',
       'p.*'
     ], 'p')
     ->leftJoin('users as u', 'u.user_id = p.user_id')

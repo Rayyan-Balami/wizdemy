@@ -28,7 +28,22 @@ class RequestModel extends Model
       ->orderBy('r.created_at', 'DESC')
       ->getAll();
   }
-
+  public function showAdmin(string $category='note')
+  {
+    return $this->select([
+      'r.*',
+      'u.full_name',
+      'u.username',
+      'COUNT(DISTINCT m.material_id) as no_of_materials'
+    ], 'r')
+      ->leftJoin('users as u', 'u.user_id = r.user_id')
+      ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
+      ->where('r.document_type = :document_type')
+      ->bind(['document_type' => $category])
+      ->groupBy('r.request_id')
+      ->orderBy('r.created_at', 'DESC')
+      ->getAll();
+  }
   public function create($user_id, $title, $description, $document_type, $education_level, $semester, $subject, $class_faculty)
   {
     $request = $this->insert([

@@ -74,5 +74,7 @@ $router->get('/admin/dashboard', 'AdminController@index')->only('admin');
 
 //routes for admin users management
 $router->get('/admin/manage/users', 'AdminController@manageUsers')->only('admin');
+$router->get('/admin/manage/projects', 'AdminController@manageProjects')->only('admin');
+$router->get('/admin/manage/requests', 'AdminController@manageRequests')->only('admin');
 
 

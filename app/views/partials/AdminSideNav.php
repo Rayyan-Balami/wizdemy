@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/request" class="menu-links <?= $currentPage === 'request' ? 'is-active' : ''; ?>">
+                    <a href="/admin/manage/requests" class="menu-links <?= $currentPage === 'requestManagement' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -88,7 +88,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/project" class="menu-links <?= $currentPage === 'project' ? 'is-active' : ''; ?>">
+                    <a href="/admin/manage/projects" class="menu-links <?= $currentPage === 'projectManagement' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

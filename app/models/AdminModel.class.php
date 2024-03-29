@@ -2,13 +2,15 @@
 
 class AdminModel extends Model
 {
-  public function __construct(string $table = 'admins'){
+  public function __construct(string $table = 'admins')
+  {
     parent::__construct($table);
     $this->fillable = ['username', 'email', 'password'];
   }
 
-  public function login($email_username, $password){
-   
+  public function login($email_username, $password)
+  {
+
     $admin = $this->select(['admin_id', 'username', 'email', 'password'])
       ->where('username = :username OR email = :email')
       ->bind(['username' => $email_username, 'email' => $email_username])
@@ -29,9 +31,20 @@ class AdminModel extends Model
     }
   }
 
-  public function getUsersForAdmin(){
- return (new UserModel())->select()
-    ->getAll();
+  public function getUsersForAdmin()
+  {
+    return (new UserModel())->select()
+      ->getAll();
+
+  }
+  public function getProjectsForAdmin()
+  {
+    return (new ProjectModel())->show();
+
+  }
+  public function getRequestsForAdmin()
+  {
+    return (new RequestModel())->showAdmin();
 
   }
 }

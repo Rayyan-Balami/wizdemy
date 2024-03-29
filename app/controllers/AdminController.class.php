@@ -16,7 +16,13 @@ class AdminController extends Controller
   {
     View::render('admin/adminLoginForm');
   }
-
+  public function manageProjects()
+  {
+    $projects = $this->model->getProjectsForAdmin();
+    View::render('admin/adminProjectManagement', [
+      'projects' => $projects
+    ]);
+  }
   public function manageUsers()
   {
     $users = $this->model->getUsersForAdmin();
@@ -24,6 +30,14 @@ class AdminController extends Controller
       'users' => $users
     ]);
   }
+  public function manageRequests()
+  {
+    $requests = $this->model->getRequestsForAdmin();
+    View::render('admin/adminRequestManagement', [
+      'requests' => $requests
+    ]);
+  }
+
 
   public function loginProcess()
   {

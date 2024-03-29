@@ -1,8 +1,10 @@
 <?php 
+
 View::renderPartial('Header', [
   'pageTitle' => SITE_NAME . ' | Admin Dashboard',
   'stylesheets' => [
     'adminStyles',
+
     'statusAndZeroResult'
   ],
   'scripts' => [
@@ -16,7 +18,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('AdminSideNav', [
-  'currentPage' => 'overview'
+  'currentPage' => 'requestManagement'
 ]);
 
 View::renderPartial('AdminMenuHeader');
@@ -25,10 +27,9 @@ View::renderPartial('AdminMenuHeader');
 
 <section>
 <?php
-$projects = [];
-if (!empty($projects)) {
-  View::renderPartial('AdminProjectListTable', [
-    'projects' => $projects
+if (!empty($requests)) {
+  View::renderPartial('AdminRequestListTable', [
+    'requests' => $requests
   ]);
 } else {
   View::renderPartial('ZeroResult');

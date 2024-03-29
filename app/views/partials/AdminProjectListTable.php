@@ -1,59 +1,20 @@
-<?php
 
-// array(19) {
-//   ["user_id"]=>
-//   int(1)
-//   ["private"]=>
-//   int(0)
-//   ["allow_email"]=>
-//   int(1)
-//   ["allow_phone"]=>
-//   int(0)
-//   ["username"]=>
-//   string(6) "satish"
-//   ["full_name"]=>
-//   string(16) "Satish Chaudhary"
-//   ["email"]=>
-//   string(16) "satish@gmail.com"
-//   ["phone_number"]=>
-//   NULL
-//   ["education_level"]=>
-//   NULL
-//   ["enrolled_course"]=>
-//   NULL
-//   ["bio"]=>
-//   string(29) "Hey there! I am using Wizdemy"
-//   ["created_at"]=>
-//   string(19) "2024-03-25 23:29:05"
-//   ["user_type"]=>
-//   NULL
-//   ["followers_count"]=>
-//   int(1)
-//   ["following_count"]=>
-//   int(0)
-//   ["requests_count"]=>
-//   int(1)
-//   ["materials_count"]=>
-//   int(0)
-//   ["project_count"]=>
-//   int(4)
-//   ["responded_requests_count"]=>
-//   int(0)
-// }
-?>
+
+
 <div class="table-section">
   <table>
     <thead>
       <tr>
         <th>User</th>
-        <th>Edu Details</th>
-        <th>Socail Datas</th>
-        <th>Post Stats</th>
+        <th>Image</th>
+        <th>Link</th>
+        <th>Post at</th>
+        <!-- <th>Post Stats</th> -->
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($users as $user): ?>
+      <?php foreach ($projects as $project): ?>
       <tr>
         <td class="user-cell">
           <div class="user-info">
@@ -64,66 +25,38 @@
                 </path>
               </svg>
               <h3 class="username text-base">
-                <?= $user['username'] ?>
+                <?= $project['username'] ?>
               </h3>
             </div>
             <p class="fullname text-sm">
-              <?= $user['full_name'] ?>
+              <?= $project['full_name'] ?>
             </p>
-            <a href="mailto:mail@rgmail.com" class="email text-xs">
-              <?= $user['email'] ?>
-            </a>
-            <a href="tel:+1234567890" class="phone-number">
-              <?= $user['phone_number'] ?? ""?>
-            </a>
           </div>
         </td>
         <td class="user-edu-cell">
           <div>
-            <span>Type:
-              <?= $user['user_type'] ?? " -" ?>
-            </span>
-            <p>Edu Level:
-              <?= $user['education_level'] ?? " -" ?>
-            </p>
-            <p>Course:
-              <?= $user['enrolled_course'] ?? " -" ?>
+            <?php 
+    $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
+    ?>
+            <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
+              <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail" style="width: auto; height: 100px;">
+            </a>
+          </div>
+        </td>
+        <td class="user-social-cell">
+          <div>
+            <p>
+              <a href="<?= $project['repo_link'] ?>" target="_blank" >
+                Open Repo
             </p>
           </div>
         </td>
         <td class="user-social-cell">
           <div>
-            <span>Joined at : 
-              <?= date('d/m/Y', strtotime($user['created_at'])) ?>
+            <span>
+              <!-- formated date -->
+              <a href="#" class="time-ago" data-datetime="<?= $project['created_at'] ?>"></a>
             </span>
-            <p>Followers :
-              <?= $user['followers_count'] ?> 
-               </p>
-            <p>Following : 
-              <?= $user['following_count'] ?>
-            </p>
-            <p>Private : 
-              <?= $user['private'] ? "Yes" : "No" ?>
-            </p>
-          </div>
-        </td>
-        <td class="user-social-cell">
-          <div>
-            <span>Total : 
-              <?= $user['requests_count'] + $user['materials_count'] + $user['project_count'] + $user['responded_requests_count'] ?>
-            </span>
-            <p>Materails : 
-              <?= $user['materials_count'] ?>
-            </p>
-            <p>Requests : 
-              <?= $user['requests_count'] ?>
-            </p>
-            <p>Projects : 
-              <?= $user['project_count'] ?>
-            </p>
-            <p>Respoded : 
-              <?= $user['responded_requests_count'] ?>
-            </p>
           </div>
         </td>
         <td class="actions-cell">
