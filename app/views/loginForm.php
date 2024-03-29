@@ -27,9 +27,8 @@ $flashOld = Session::get('old');
           </g>
         </svg>
       </div>
-      <h3>We invest in the world’s potential</h3>
-      <p>Here at Wizdemy we focus on markets where technology, innovation, and capital can unlock long-term value and
-        drive economic growth.</p>
+      <h3>Rock the Future: WizDemy</h3>
+      <p> the classroom is wherever you are, and the possibilities are limitless. Join the movement, join WizDemy !</p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

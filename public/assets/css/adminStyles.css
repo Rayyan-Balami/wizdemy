@@ -25,7 +25,8 @@ header {
 .menu-btn.is-active,
 .header-menu > .h-links-wrapper , 
 .header-menu > .h-links-wrapper > .h-link,
-.error-container > .svg-icon {
+.error-container > .svg-icon,
+.continue-with > .menu-list > li > a {
   background-color: rgb(31 41 55);
 }
 
@@ -39,7 +40,8 @@ header {
   border-color: rgb(75 85 99);
 }
 
-.continue-with > .menu-list > li > a > span {
+.continue-with > .menu-list > li > a > span,
+.toast-notification > li > span {
   background-color: rgb(55 65 81);
 }
 
