@@ -15,10 +15,29 @@ function classAutoLoader($className)
 
     // Iterate through each directory and try to load the class file
     foreach ($directories as $directory) {
-        $file = BASE_PATH . $directory . $className . '.class.php';
-        if (file_exists($file)) {
-            require_once $file;
+        // $file = BASE_PATH . $directory . $className . '.class.php';
+        $model = BASE_PATH . $directory . $className . '.model.php';
+        $controller = BASE_PATH . $directory . $className . '.controller.php';
+        $middleware = BASE_PATH . $directory . $className . '.middleware.php';
+        $core = BASE_PATH . $directory . $className . '.core.php';
+        // if (file_exists($file)) {
+        //     require_once $file;
+        //     return;
+        // }
+        if (file_exists($model)) {
+            require_once $model;
             return;
+        } elseif (file_exists($controller)) {
+            require_once $controller;
+            return;
+        } elseif (file_exists($middleware)) {
+            require_once $middleware;
+            return;
+        } elseif (file_exists($core)) {
+            require_once $core;
+            return;
+        } else {
+            continue;
         }
     }
 
