@@ -106,7 +106,7 @@ class Router
                 // Separate controller class and method
                 [$controller, $method] = explode('@', $route['controller']);
                 // Load the controller file
-                require_once base_path('app/controllers/'.$controller.'.controller.php');
+                require_once base_path('app/controllers/'.$controller.'.php');
                 // Create an instance of the controller and call the method
                 $controllerInstance = new $controller();
                 $controllerInstance->$method();
