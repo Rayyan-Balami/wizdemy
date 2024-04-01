@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addHoverEffect(suspendButtons, "rgb(237, 164, 17)"); // Red
   addHoverEffect(editButtons, "rgb(59 130 246)"); // Blue
-  addHoverEffect(deleteButtons, "rgb(239 68 68))"); // Red
+  addHoverEffect(deleteButtons, "rgb(239 68 68)"); // Red
 });
 
 function addHoverEffect(buttons, color) {
