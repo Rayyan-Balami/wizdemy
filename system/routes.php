@@ -25,7 +25,7 @@ $router->get('/question', 'HomeController@question')->only('auth');
 $router->get('/labreport', 'HomeController@labreport')->only('auth');
 
 //routes for view page
-$router->get('/material/view/{id}', 'HomeController@view')->only('auth');
+$router->get('/material/view/{material_id}', 'HomeController@view')->only('auth');
 
 //routes for request page
 $router->get('/request', 'RequestController@index')->only('auth');
@@ -45,11 +45,12 @@ $router->post('/project/store', 'ProjectController@store')->only('auth');
 
 //routes for profile page
 $router->get('/profile', 'ProfileController@index')->only('auth');
-$router->post('/follow', 'ProfileController@follow')->only('auth');
-$router->delete('/unfollow', 'ProfileController@unfollow')->only('auth');
-$router->post('/api/profile/category', 'ProfileController@category');
-$router->post('/api/profile/myRequests', 'ProfileController@myRequests');
-$router->post('/api/profile/myProjects', 'ProfileController@myProjects');
+$router->get('/profile/{user_id}', 'ProfileController@index')->only('auth');
+$router->post('/follow/{user_id}', 'FollowController@follow')->only('auth');
+$router->delete('/unfollow/{user_id}', 'FollowController@unfollow')->only('auth');
+$router->post('/api/profile/category', 'ProfileController@category')->only('apiAuth');
+$router->post('/api/profile/myRequests', 'ProfileController@myRequests')->only('apiAuth');
+$router->post('/api/profile/myProjects', 'ProfileController@myProjects')->only('apiAuth');
 
 
 //routes for like page

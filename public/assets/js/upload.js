@@ -54,7 +54,7 @@ function handleFile(file) {
   let fileList = new DataTransfer();
   //check if image is empty
   if(imageInput.files.length === 0 && fileValidation.type === "image") {
-    console.log(file);
+    // console.log(file);
     // ypeError: The HTMLInputElement.files attribute must be an instance of FileList
     fileList.items.add(file);
     imageInput.files = fileList.files;

@@ -7,17 +7,14 @@ class ProfileController extends Controller
     parent::__construct(new UserProfileViewModel());
   }
 
-  public function index()
+  public function index($user_id = null)
   {
-    $MaterialViewModel = new MaterialViewModel();
-    $FollowRelationModel = new FollowRelationModel();
-
-    $user_id = isset($_GET['id']) ? $_GET['id'] : (Session::get('user')['user_id'] ?? null);
-
     if (!$user_id) {
-      $this->redirect('/profile');
+      $this->redirect("/profile/" . Session::get('user')['user_id']);
       return;
     }
+    $MaterialViewModel = new MaterialViewModel();
+    $FollowRelationModel = new FollowRelationModel();
 
     $current_user = Session::get('user')['user_id'] ?? null;
     $myProfile = $user_id == $current_user;
@@ -66,7 +63,9 @@ class ProfileController extends Controller
   {
     $current_user = Session::get('user')['user_id'] ?? null;
     $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    $uploads = $this->model->showUploads($user_id, $_POST['category']);
+    // $uploads = $this->model->showUploads($user_id, $_POST['category']);
+    $MaterialViewModel = new MaterialViewModel();
+    $uploads = $MaterialViewModel->showUploadsByUserId($user_id, $_POST['category']);
 
     $this->buildJsonResponse($uploads);
   }
@@ -75,54 +74,20 @@ class ProfileController extends Controller
   {
     $current_user = Session::get('user')['user_id'] ?? null;
     $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    $myRequests = $this->model->myRequests($user_id, $_POST['category']);
+    // $myRequests = $this->model->myRequests($user_id, $_POST['category']);
+    $myRequests = (new StudyMaterialRequestModel())->myRequests($user_id, $_POST['category']);
 
     $this->buildJsonResponse($myRequests);
   }
 
-  public function follow()
-  {
-    $FollowRelationModel = new FollowRelationModel();
-    $current_user = Session::get('user')['user_id'] ?? null;
-
-    $follow = $FollowRelationModel->follow($current_user, $_POST['user_id']);
-    if ($follow['status']) {
-      Session::flash('success', [
-        'message' => $follow['message']
-      ]);
-    } else {
-      Session::flash('error', [
-        'message' => $follow['message']
-      ]);
-    }
-    //redirect to the user's profile
-    $this->redirect('/profile?id=' . $_POST['user_id']);
-  }
-
-  public function unfollow()
-  {
-    $current_user = Session::get('user')['user_id'] ?? null;
-
-    $unfollow = $this->model->unfollow($current_user, $_POST['user_id']);
-    if ($unfollow['status']) {
-      Session::flash('success', [
-        'message' => $unfollow['message']
-      ]);
-    } else {
-      Session::flash('error', [
-        'message' => $unfollow['message']
-      ]);
-    }
-    //redirect to the user's profile
-    $this->redirect('/profile?id=' . $_POST['user_id']);
-  }
+  
 
   public function myProjects()
   {
     $current_user = Session::get('user')['user_id'] ?? null;
     $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    $projects = $this->model->myProjects($user_id);
-
+    // $projects = $this->model->myProjects($user_id);
+    $projects = (new GithubProjectModel())->myProjects($user_id);
     $this->buildJsonResponse($projects);
   }
 }

@@ -82,7 +82,7 @@ class Controller
      */
     protected function buildJsonResponse($data, int $status = 200)
     {
-        $response = ['data' => $data]; // Wrap data in a 'data' property
+        $response = ['data' => $data, 'status' => $status];
         http_response_code($status);
         header('Content-Type: application/json');
         echo json_encode($response);

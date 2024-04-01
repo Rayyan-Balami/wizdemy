@@ -5,6 +5,7 @@ class Middleware{
     'auth' => 'AuthMiddleware',
     'guest' => 'GuestMiddleware',
     'admin' => 'AdminMiddleware',
+    'apiAuth' => 'ApiAuthMiddleware',
   ];
 
   public static function resolve($middleware){

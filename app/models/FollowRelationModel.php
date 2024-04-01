@@ -5,7 +5,7 @@ class FollowRelationModel extends Model
     public function __construct(string $table = 'follow_relation')
     {
         parent::__construct($table);
-        $this->fillable = ['follower_id', 'followed_id'];
+        $this->fillable = ['follower_id', 'following_id'];
     }
 
     public function isFollowing($current_user, $user_id)

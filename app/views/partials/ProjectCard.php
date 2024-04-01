@@ -10,7 +10,7 @@
         <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail">
       </a>
       <!-- username  -->
-      <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>" class="username">
+      <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $project['user_id'] ?>" class="username">
         <!-- at icon @  -->
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
