@@ -5,6 +5,11 @@
 @import url("./partials/cardCategory.css");
 @import url('./partials/AdminTable.css');
 
+form input {
+  background-color: rgb(31 41 55);
+  border-color: rgb(243 244 246);
+}
+
 body,
 #side-nav,
 #side-nav > .sticky-logo,
@@ -16,7 +21,7 @@ header
 
 #side-nav,
 header {
-  border-color: rgb(31 41 55);
+  border-color: rgb(41 51 65);
 }
 
 .menu-links:hover,
