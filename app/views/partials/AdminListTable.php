@@ -94,7 +94,7 @@
             <div class="text-base font-medium" title="Joined Date">
               <?= date('d M Y', strtotime($user['created_at'])) ?>
             </div>
-            <div class="multi-span"><span title="Followers: <?= $user['followers_count'] ?>">Flr:&nbsp;
+            <div class="multi-span"><span title="Followers: <?= $user['followers_count'] ?>">Fol:&nbsp;
                 <?= $user['followers_count'] ?>
               </span> <span title="Following: <?= $user['following_count'] ?>">Fol:&nbsp;
                 <?= $user['following_count'] ?>
@@ -102,9 +102,13 @@
           </td>
           <td class="actions-cell">
             <div>
-              <!-- suspend button  -->
-              <button class="suspend-btn" data-status="<?= $user['status'] == 'suspend' ? 'suspend' : '' ?>" onclick="updateUserStatus(<?= $user['user_id'] ?>, this)">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1M2.5 12a9.5 9.5 0 0 0 9.5 9.5a9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5A9.5 9.5 0 0 0 2.5 12m15.75.75H5.75a.75.75 0 0 1 0-1.5h12.5a.75.75 0 0 1 0 1.5"/></svg>
+              <!-- view button  -->
+              <button class="view-btn bg-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                  <path fill="currentColor"
+                    d="M30.94 15.66A16.69 16.69 0 0 0 16 5A16.69 16.69 0 0 0 1.06 15.66a1 1 0 0 0 0 .68A16.69 16.69 0 0 0 16 27a16.69 16.69 0 0 0 14.94-10.66a1 1 0 0 0 0-.68M16 25c-5.3 0-10.9-3.93-12.93-9C5.1 10.93 10.7 7 16 7s10.9 3.93 12.93 9C26.9 21.07 21.3 25 16 25" />
+                  <path fill="currentColor" d="M16 10a6 6 0 1 0 6 6a6 6 0 0 0-6-6m0 10a4 4 0 1 1 4-4a4 4 0 0 1-4 4" />
+                </svg>
               </button>
               <!-- edit button  -->
               <button class="edit-btn">

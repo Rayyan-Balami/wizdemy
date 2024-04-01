@@ -30,9 +30,6 @@ class AdminModel extends Model
       ];
     }
   }
-
-  
-
 }
 
 

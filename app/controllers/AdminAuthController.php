@@ -7,38 +7,11 @@ class AdminAuthController extends Controller
     parent::__construct(new AdminModel());
   }
 
-  public function index()
-  {
-    View::render('admin/adminDashboard');
-  }
-
   public function loginPage()
   {
     View::render('admin/adminLoginForm');
   }
-  public function manageProjects()
-  {
-    $projects = $this->model->getProjectsForAdmin();
-    View::render('admin/adminProjectManagement', [
-      'projects' => $projects
-    ]);
-  }
-  public function manageUsers()
-  {
-    $users = $this->model->getUsersForAdmin();
-    View::render('admin/adminUserManagement', [
-      'users' => $users
-    ]);
-  }
-  public function manageRequests()
-  {
-    $requests = $this->model->getRequestsForAdmin();
-    View::render('admin/adminRequestManagement', [
-      'requests' => $requests
-    ]);
-  }
-
-
+  
   public function loginProcess()
   {
     $email_username = trim($_POST['email_username']);

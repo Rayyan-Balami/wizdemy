@@ -15,7 +15,7 @@ class Router
     {
         // /test/{id}
         $uri = preg_replace('/{([a-zA-Z0-9-_]+)}/', '(?P<\1>[a-zA-Z0-9-_]+)', $uri);
-        dd(htmlspecialchars($uri));
+        // dd(htmlspecialchars($uri));
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controllerPath,
@@ -104,7 +104,7 @@ class Router
     {
         foreach ($this->routes as $route) {
             if (preg_match("#^{$route['uri']}$#", $uri, $matches) && $route['method'] === strtoupper($method)) {
-                dd($matches);
+                // dd($matches);
                 //apply middleware if present 
                 Middleware::resolve($route['middleware']);
                 // Separate controller class and method

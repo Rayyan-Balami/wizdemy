@@ -18,7 +18,8 @@ class UserModel extends Model
             'school_name',
             'phone_number',
             'allow_email',
-            'allow_phone'
+            'allow_phone',
+            'status'
         ];
 
     }
@@ -197,10 +198,52 @@ class UserModel extends Model
             ];
         }
     }
-    public function getUsersForAdmin()
-    {
-        return $this->select()
-            ->getAll();
 
+
+    public function getUserStatus($user_id)
+    {
+        return $this->select(['status'])
+            ->where('user_id = :user_id')
+            ->bind(['user_id' => $user_id])
+            ->get();
+    }
+    public function updateUserStatus($user_id, $status)
+    {
+        $result = $this->update([
+            'status' => $status
+        ])
+            ->where('user_id = :user_id')
+            ->appendBindings(['user_id' => $user_id])
+            ->execute();
+        if ($result) {
+            return [
+                'status' => true,
+                'message' => 'User status changed successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'User status change failed'
+            ];
+        }
+    }
+    public function deleteUserById($user_id)
+    {
+        $result = $this->delete()
+            ->where('user_id = :user_id')
+            ->appendBindings(['user_id' => $user_id])
+            ->execute();
+
+        if ($result) {
+            return [
+                'status' => true,
+                'message' => 'User deleted successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'User delete failed'
+            ];
+        }
     }
 }

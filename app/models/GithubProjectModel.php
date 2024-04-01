@@ -53,6 +53,23 @@ class GithubProjectModel extends Model
     public function getProjectsForAdmin()
     {
         return $this->show();
-
+    }
+    public function deleteProject($project_id)
+    {
+        $result = $this->delete()
+            ->where('project_id = :project_id')
+            ->bind(['project_id' => $project_id])
+            ->execute();
+        if($result){
+            return [
+                'status' => true,
+                'message' => 'Project deleted successfully'
+            ];
+        }else{
+            return [
+                'status' => false,
+                'message' => 'Project deletion failed'
+            ];
+        }
     }
 }

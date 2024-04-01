@@ -136,7 +136,7 @@ table a:hover {
 
 table .multi-span > span:not(:last-child){
   padding-right: 0.5rem/* 8px */;
-  margin-right: 0.25rem/* 8px */;
+  margin-right: 0.5rem/* 8px */;
   border-right: 1.5px solid rgb(75, 85, 99);
 }
 
@@ -165,18 +165,14 @@ table .actions-cell > div > button,
   background-color: rgb(75 85 99);
 }
 
-.view-btn:hover{
-  background-color: rgb(107 114 128);
+.suspend-btn:hover,
+.suspend-btn[data-status=suspend]{
+  background-color: rgb(237, 164, 17);
 }
 
 .edit-btn:hover{
   background-color: rgb(59 130 246);
 }
-
-.edit-btn:hover table tbody tr:hover {
-    border-left-color: rgb(59 130 246);
-    border-right-color: rgb(59 130 246);
-  }
 
 .delete-btn:hover{
   background-color: rgb(239 68 68);

@@ -29,8 +29,7 @@ class FollowController extends Controller
                 400
             );
         }
-        $FollowRelationModel = new FollowRelationModel();
-        $follow = $FollowRelationModel->follow($current_user, $user_id);
+        $follow = $this->model->follow($current_user, $user_id);
         if ($follow['status']) {
             $this->buildJsonResponse(
                 [
@@ -63,8 +62,7 @@ class FollowController extends Controller
                 401
             );
         }
-        $FollowRelationModel = new FollowRelationModel();
-        $isFollowing = $FollowRelationModel->isFollowing($current_user, $user_id);
+        $isFollowing = $this->model->isFollowing($current_user, $user_id);
         if (!$isFollowing) {
             $this->buildJsonResponse(
                 [
@@ -74,7 +72,7 @@ class FollowController extends Controller
                 400
             );
         }
-        $unfollow = $FollowRelationModel->unfollow($current_user, $user_id);
+        $unfollow = $this->model->unfollow($current_user, $user_id);
         if ($unfollow['status']) {
             $this->buildJsonResponse(
                 [

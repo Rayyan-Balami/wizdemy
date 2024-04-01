@@ -11,6 +11,7 @@ class ApiAuthMiddleware
                 'status' => 'error',
                 'message' => 'Unauthorized'
             ]);
+            http_response_code(401);
             die();
         }
     }

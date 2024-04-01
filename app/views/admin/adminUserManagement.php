@@ -8,12 +8,14 @@ View::renderPartial('Header', [
   ],
   'scripts' => [
     'script',
+    'jquery.min',
     'threeDotMenu',
     'sideInfo',
     'searchOverlay',
     'toastTimer',
     'timeAgo',
     'adminTable',
+    'updateStatus',
   ]
 ]);
 

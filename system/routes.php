@@ -68,16 +68,27 @@ $router->get('/accountSecurity', 'SettingsController@accountSecurity')->only('au
 $router->put('/accountSecurity/password', 'SettingsController@password')->only('auth');
 $router->put('/accountSecurity/preferences', 'SettingsController@preferences')->only('auth');
 
-//routes for admin dashboard
+
+//routes for admin auth page
 $router->get('/admin/login', 'AdminAuthController@loginPage')->only('guest');
 $router->post('/admin/login', 'AdminAuthController@loginProcess')->only('guest');
 $router->delete('/admin/logout', 'AdminAuthController@logout')->only('admin');
-$router->get('/admin/dashboard', 'AdminAuthController@index')->only('admin');
+//routes for admin dashboard
+$router->get('/admin/dashboard', 'AdminDashboardController@index')->only('admin');
 
 
 //routes for admin users management
-$router->get('/admin/manage/users', 'AdminAuthController@manageUsers')->only('admin');
-$router->get('/admin/manage/projects', 'AdminAuthController@manageProjects')->only('admin');
-$router->get('/admin/manage/requests', 'AdminAuthController@manageRequests')->only('admin');
+$router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
+$router->post('/api/admin/manage/users/updateStatus', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
+
+
+//routes for admin materials management
+$router->get('/admin/manage/projects', 'AdminManageProjectController@index')->only('admin');
+
+//routes for admin requests management
+$router->get('/admin/manage/requests', 'AdminManageRequestController@index')->only('admin');
+
+//routes for admin materials management
+$router->get('/admin/manage/requests', 'AdminManageMaterialController@index')->only('admin');
 
 
