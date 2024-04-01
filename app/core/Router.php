@@ -13,6 +13,8 @@ class Router
 
     protected function add($uri, $controllerPath, $method)
     {
+        $uri = preg_replace('/{([a-zA-Z0-9-]+)}/', '(?P<$1>[^/]+)', $uri);
+        // dd(htmlspecialchars($uri));
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controllerPath,
@@ -100,25 +102,47 @@ class Router
     public function run($uri, $method)
     {
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+            if (preg_match("#^{$route['uri']}$#", $uri, $matches) && $route['method'] === strtoupper($method)) {
                 //apply middleware if present 
                 Middleware::resolve($route['middleware']);
                 // Separate controller class and method
                 [$controller, $method] = explode('@', $route['controller']);
                 // Load the controller file
-                require_once base_path('app/controllers/'.$controller.'.php');
+                require_once base_path('app/controllers/' . $controller . '.php');
                 // Create an instance of the controller and call the method
                 $controllerInstance = new $controller();
-                $controllerInstance->$method();
+                // remove first element from matches array
+                array_shift($matches);
+                // remove numeric keys from matches array
+                $matches = array_filter($matches, function ($key) {
+                    return is_string($key);
+                }, ARRAY_FILTER_USE_KEY);
+                // select those keys that are strings and pass them as arguments to the method
+                $controllerInstance->$method(...array_values($matches));
                 return;
             }
         }
+        // foreach ($this->routes as $route) {
+        //     if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+        //         //apply middleware if present 
+        //         Middleware::resolve($route['middleware']);
+        //         // Separate controller class and method
+        //         [$controller, $method] = explode('@', $route['controller']);
+        //         // Load the controller file
+        //         require_once base_path('app/controllers/'.$controller.'.php');
+        //         // Create an instance of the controller and call the method
+        //         $controllerInstance = new $controller();
+        //         $controllerInstance->$method();
+        //         return;
+        //     }
+        // }
         $this->abort(); // this will be called if no route is found
     }
 
-    public function abort( $status = '404') {
+    public function abort($status = '404')
+    {
         http_response_code($status);
         require_once base_path('app/views/status.php');
         die();
-      }
+    }
 }

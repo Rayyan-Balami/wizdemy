@@ -1,4 +1,6 @@
 <?php
+// validate p2 as phone number
+$router->get('/test/{p1}/{p2}', 'TestController@test');
 
 //routes for login page
 $router->get('/login', 'AuthController@login')->only('guest');
@@ -23,7 +25,7 @@ $router->get('/question', 'HomeController@question')->only('auth');
 $router->get('/labreport', 'HomeController@labreport')->only('auth');
 
 //routes for view page
-$router->get('/material/view', 'HomeController@view')->only('auth');
+$router->get('/material/view/{id}', 'HomeController@view')->only('auth');
 
 //routes for request page
 $router->get('/request', 'RequestController@index')->only('auth');
@@ -66,15 +68,15 @@ $router->put('/accountSecurity/password', 'SettingsController@password')->only('
 $router->put('/accountSecurity/preferences', 'SettingsController@preferences')->only('auth');
 
 //routes for admin dashboard
-$router->get('/admin/login', 'AdminController@loginPage')->only('guest');
-$router->post('/admin/login', 'AdminController@loginProcess')->only('guest');
-$router->delete('/admin/logout', 'AdminController@logout')->only('admin');
-$router->get('/admin/dashboard', 'AdminController@index')->only('admin');
+$router->get('/admin/login', 'AdminAuthController@loginPage')->only('guest');
+$router->post('/admin/login', 'AdminAuthController@loginProcess')->only('guest');
+$router->delete('/admin/logout', 'AdminAuthController@logout')->only('admin');
+$router->get('/admin/dashboard', 'AdminAuthController@index')->only('admin');
 
 
 //routes for admin users management
-$router->get('/admin/manage/users', 'AdminController@manageUsers')->only('admin');
-$router->get('/admin/manage/projects', 'AdminController@manageProjects')->only('admin');
-$router->get('/admin/manage/requests', 'AdminController@manageRequests')->only('admin');
+$router->get('/admin/manage/users', 'AdminAuthController@manageUsers')->only('admin');
+$router->get('/admin/manage/projects', 'AdminAuthController@manageProjects')->only('admin');
+$router->get('/admin/manage/requests', 'AdminAuthController@manageRequests')->only('admin');
 
 

@@ -20,6 +20,11 @@ class Model extends Database
         parent::__construct();
     }
 
+    protected function prepare(){
+        $this->statement = $this->conn->prepare($this->query);
+        return $this;
+    }
+
     /**
      * Execute the query
      * 
@@ -29,8 +34,12 @@ class Model extends Database
      */
     protected function execute()
     {
-        $this->statement = $this->conn->prepare($this->query);
-        $this->statement->execute($this->bindings);
+        try {
+            $this->statement = $this->conn->prepare($this->query);
+            $this->statement->execute($this->bindings);
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
         return $this;
     }
 

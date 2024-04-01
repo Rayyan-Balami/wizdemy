@@ -1,10 +1,10 @@
 <?php
 
-class AdminController extends Controller
+class AdminAuthController extends Controller
 {
   public function __construct()
   {
-    parent::__construct('AdminModel');
+    parent::__construct(new AdminModel());
   }
 
   public function index()

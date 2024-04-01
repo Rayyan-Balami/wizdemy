@@ -4,7 +4,7 @@
     <!-- material card-->
     <div class="card ">
       <!-- image -->
-      <a href="/material/view?id=<?= $material['material_id'] ?>" class="thumbnail">
+      <a href="/material/view/<?= $material['material_id'] ?>" class="thumbnail">
         <img src="/<?= $material['thumbnail_path'] ?>" alt="thumbnail">
 
         <div>
@@ -78,7 +78,7 @@
       </a>
 
       <!-- subject  -->
-      <a href="/material/view?id=<?= $material['material_id'] ?>">
+      <a href="/material/view/<?= $material['material_id'] ?>">
         <p class="subject">
           <?= $material['subject'] ?> •
           <?= $material['education_level'] ?> • 
@@ -93,7 +93,7 @@
       </a>
 
       <!-- username  -->
-      <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $material['user_id'] ?>" class="username">
+      <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>" class="username">
         <!-- at icon @  -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -109,10 +109,10 @@
 
       <!-- time  -->
       <div class="time">
-        <p><a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $material['user_id'] ?>" class="time-ago"
+        <p><a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>" class="time-ago"
             data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN . '/material/view?id=' . $material['material_id'] ?>">
+        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
             <path fill="currentColor"
@@ -122,7 +122,7 @@
       </div>
 
       <!-- intercation -->
-      <a href="/material/view?id=<?= $material['material_id'] ?>" class="intercation">
+      <a href="/material/view/<?= $material['material_id'] ?>" class="intercation">
         <!-- views  -->
         <div class="view">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

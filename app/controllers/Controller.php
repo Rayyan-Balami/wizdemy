@@ -9,6 +9,11 @@
  */
 class Controller
 {
+    /**
+     * The model instance to use in the controller
+     * 
+     * @var object
+     */
     protected $model;
 
     protected $errors = [];
@@ -16,11 +21,11 @@ class Controller
     /**
      * Controller constructor
      * 
-     * @param string $modelName The name of the model to use
+     * @param object $modelInstance The model instance to use in the controller
      */
-    protected function __construct(string $modelName)
+    protected function __construct($modelInstance)
     {
-        $this->model = new $modelName();
+        $this->model = $modelInstance;
     }
 
     /**

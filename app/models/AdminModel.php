@@ -31,22 +31,8 @@ class AdminModel extends Model
     }
   }
 
-  public function getUsersForAdmin()
-  {
-    return (new UserModel())->select()
-      ->getAll();
+  
 
-  }
-  public function getProjectsForAdmin()
-  {
-    return (new ProjectModel())->show();
-
-  }
-  public function getRequestsForAdmin()
-  {
-    return (new RequestModel())->showAdmin();
-
-  }
 }
 
 

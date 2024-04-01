@@ -4,7 +4,7 @@ class RequestController extends Controller
 {
   public function __construct()
   {
-    parent::__construct('RequestModel');
+    parent::__construct(new StudyMaterialRequestModel());
   }
 
   public function index()

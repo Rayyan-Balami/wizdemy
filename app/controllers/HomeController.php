@@ -1,38 +1,43 @@
 <?php
-class HomeController extends Controller{
+class HomeController extends Controller
+{
 
-  public function __construct(){
-    parent::__construct('StudyMaterialModel');
+  public function __construct()
+  {
+    parent::__construct(new MaterialViewModel());
   }
 
   //index (notes page)
-  public function index(){
+  public function index()
+  {
     $notes = $this->model->show();
     View::render('notes', ['notes' => $notes]);
   }
 
   //question page
-  public function question(){
+  public function question()
+  {
     $questions = $this->model->show('question');
     View::render('questions', ['questions' => $questions]);
   }
 
   //lab report page
-  public function labreport(){
+  public function labreport()
+  {
     $labreports = $this->model->show('labreport');
     View::render('labreports', ['labreports' => $labreports]);
   }
 
   //view page
-  public function view(){
-    $material_id = isset($_GET['id']) ? $_GET['id'] : null;
+  public function view($material_id = null)
+  {
 
     if (!$material_id) {
       $this->redirect('/');
       return;
     }
 
-    $material = $this->model->view($_GET['id']);
+    $material = $this->model->view($material_id);
 
     if (!$material) {
       View::render('viewMaterial', ['material' => null]);
@@ -42,7 +47,7 @@ class HomeController extends Controller{
     $current_user = Session::get('user')['user_id'] ?? null;
     $isPrivate = $material['private'];
     $isOwnMaterial = $current_user == $material['user_id'];
-    $isCurrentUserFollower = !$isOwnMaterial ? (new ProfileModel('follow_relation'))->isFollowing($current_user, $material['user_id']) : false;
+    $isCurrentUserFollower = !$isOwnMaterial ? (new FollowRelationModel)->isFollowing($current_user, $material['user_id']) : false;
     //if its own material
     if ($isOwnMaterial) {
       View::render('viewMaterial', ['material' => $material, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
@@ -62,4 +67,3 @@ class HomeController extends Controller{
 
 }
 
-    

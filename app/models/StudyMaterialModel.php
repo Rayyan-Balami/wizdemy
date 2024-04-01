@@ -3,11 +3,24 @@
 class StudyMaterialModel extends Model
 {
 
-    public function __construct(string $table = 'material_view')
+    public function __construct(string $table = 'study_materials')
     {
-        parent::__construct($table);// view with all datas from study_materials, users, study_material_requests, likes, comments, views.
-
-        $this->fillable = ['title', 'description', 'file_path', 'user_id', 'respond_to', 'document_type', 'format', 'education_level', 'semester', 'subject', 'author', 'thumbnail_path', 'class_faculty'];
+        parent::__construct($table);
+        $this->fillable = [
+            'user_id',
+            'request_id',
+            'title',
+            'description',
+            'document_type',
+            'format',
+            'education_level',
+            'semester',
+            'subject',
+            'class_faculty',
+            'author',
+            'file_path',
+            'thumbnail_path'
+        ];
     }
 
 
@@ -29,15 +42,36 @@ class StudyMaterialModel extends Model
             ->limit(10)
             ->getAll();
     }
+    
 
-    public function view($material_id)
+    public function store($user_id, $request_id, $title, $description, $document_type, $format, $education_level, $semester, $subject, $class_faculty, $author, $thumbnail_path, $file_path)
     {
+        $upload = $this->insert([
+            'user_id' => $user_id,
+            'request_id' => $request_id,
+            'title' => $title,
+            'description' => $description,
+            'document_type' => $_POST['document_type'] ?? $document_type,
+            'format' => $format,
+            'education_level' => $education_level,
+            'semester' => $semester,
+            'subject' => $subject,
+            'class_faculty' => $class_faculty,
+            'author' => $author,
+            'file_path' => $file_path,
+            'thumbnail_path' => $thumbnail_path
+        ])->execute();
 
-        return $this->select([
-            'mv.*'
-        ], 'mv')
-            ->where('mv.material_id = :material_id')
-            ->bind(['material_id' => $material_id])
-            ->get();
+        if ($upload) {
+            return [
+                'status' => true,
+                'message' => 'Upload successful. Tell your friends about it!'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Upload failed. Please try again later'
+            ];
+        }
     }
 }

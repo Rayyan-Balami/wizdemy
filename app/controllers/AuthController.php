@@ -1,33 +1,37 @@
 <?php
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
-  public function __construct(){
-    parent::__construct('AuthModel');
+  public function __construct()
+  {
+    parent::__construct(new UserModel());
   }
 
   //index (login form)
-  public function login(){
+  public function login()
+  {
     View::render('loginForm');
   }
 
   //store (login process)
-  public function loginProcess(){
+  public function loginProcess()
+  {
     $email_username = trim($_POST['email_username']);
     $password = trim($_POST['password']);
 
     //validate email
-    if (!Validate::string($email_username, 3, 50)){
+    if (!Validate::string($email_username, 3, 50)) {
       $this->errors['email'] = 'Invalid email or username';
     }
 
     //validate password
-    if (!Validate::string($password, 8, 16)){
+    if (!Validate::string($password, 8, 16)) {
       $this->errors['password'] = 'Password must be 8 to 16 characters long';
     }
 
     //check if there are any errors in the flash
-    if ( ! empty($this->errors)){
+    if (!empty($this->errors)) {
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'email_username' => $email_username
@@ -36,14 +40,14 @@ class AuthController extends Controller {
     }
 
     //check if user exists
-    $result = $this->model->login($email_username,$password);
+    $result = $this->model->login($email_username, $password);
 
-    if($result['status']){
-      Session::flash('success',['login' => $result['message']]);
+    if ($result['status']) {
+      Session::flash('success', ['login' => $result['message']]);
       Session::set('user', [
         'user_id' => $result['user']['user_id'],
         'username' => $result['user']['username'],
-        'email'=> $result['user']['email']
+        'email' => $result['user']['email']
       ]);
       $this->redirect('/');
     }
@@ -56,61 +60,47 @@ class AuthController extends Controller {
   }
 
   //destroy (logout)
-  public function logout(){
-    Session::flash('success',['logout' => $_SESSION['user']['username'].', Love always comes back!']);
+  public function logout()
+  {
+    Session::flash('success', ['logout' => $_SESSION['user']['username'] . ', Love always comes back!']);
     Session::remove('user');
     $this->redirect('/login');
   }
+  public function signup()
+  {
+    View::render('signupForm');
+  }
 
-    public function signup(){
-      View::render('signupForm');
+  public function signupProcess()
+  {
+    $fullName = htmlspecialchars(trim($_POST['fullName']));
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $confirmPassword = trim($_POST['confirmPassword']);
+
+    //validate full name
+    if (!Validate::string($fullName, 7, 60)) {
+      $this->errors['fullName'] = 'Full name must be first name and last name';
     }
-  
-    public function signupProcess(){
-      $fullName = htmlspecialchars(trim($_POST['fullName']));
-      $email = trim($_POST['email']);
-      $password = trim($_POST['password']);
-      $confirmPassword = trim($_POST['confirmPassword']);
-  
-      //validate full name
-      if (!Validate::string($fullName, 7, 60)){
-       $this->errors['fullName'] = 'Full name must be first name and last name';
-      }
-  
-      //validate email
-      if (!Validate::email($email)){
-        $this->errors['email'] = 'Invalid email';
-      }
-  
-      //validate password == confirm password
-      if (!Validate::equal($password, $confirmPassword)){
-        $this->errors['confirmPassword'] = 'Passwords do not match';
-      }
-  
-      //validate password
-      if (!Validate::string($password, 8, 16) || !Validate::string($confirmPassword, 8, 16)){
-        $this->errors['password'] = 'Password must be 8 to 16 characters long';
-      }
-  
-      //check if there are any errors in the flash
-      if ( ! empty($this->errors)){
-        Session::flash('errors', $this->errors);
-        Session::flash('old', [
-          'fullName' => $fullName,
-          'email' => $email
-        ]);
-        $this->redirect('/signup');
-      }
-  
-      //store user
-      $result = $this->model->signup($fullName,$email,$password);
-  
-      if($result['status']){
-        Session::flash('success',['signup' => $result['message']]);
-        $this->redirect('/login');
-      }
-  
-      Session::flash('errors', ['signup' => $result['message']]);
+
+    //validate email
+    if (!Validate::email($email)) {
+      $this->errors['email'] = 'Invalid email';
+    }
+
+    //validate password == confirm password
+    if (!Validate::equal($password, $confirmPassword)) {
+      $this->errors['confirmPassword'] = 'Passwords do not match';
+    }
+
+    //validate password
+    if (!Validate::string($password, 8, 16) || !Validate::string($confirmPassword, 8, 16)) {
+      $this->errors['password'] = 'Password must be 8 to 16 characters long';
+    }
+
+    //check if there are any errors in the flash
+    if (!empty($this->errors)) {
+      Session::flash('errors', $this->errors);
       Session::flash('old', [
         'fullName' => $fullName,
         'email' => $email
@@ -118,9 +108,26 @@ class AuthController extends Controller {
       $this->redirect('/signup');
     }
 
-    public function authStatusAPI(){
-      $auth = Session::exists('user');
-      $this->buildJsonResponse(['auth' => $auth]);
+    //store user
+    $result = $this->model->signup($fullName, $email, $password);
+
+    if ($result['status']) {
+      Session::flash('success', ['signup' => $result['message']]);
+      $this->redirect('/login');
     }
+
+    Session::flash('errors', ['signup' => $result['message']]);
+    Session::flash('old', [
+      'fullName' => $fullName,
+      'email' => $email
+    ]);
+    $this->redirect('/signup');
+  }
+
+  public function authStatusAPI()
+  {
+    $auth = Session::exists('user');
+    $this->buildJsonResponse(['auth' => $auth]);
+  }
 
 }

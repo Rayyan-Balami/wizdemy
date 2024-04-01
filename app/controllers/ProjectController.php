@@ -4,17 +4,17 @@ class ProjectController extends Controller
 
   public function __construct()
   {
-    parent::__construct('ProjectModel');
+    parent::__construct(new GithubProjectModel());
   }
 
   //project page
   public function index()
   {
-      $projects = $this->model->show();
-  
-      // Render the view with the updated projects
-      View::render('projects', ['projects' => $projects]);
-  }  
+    $projects = $this->model->show();
+
+    // Render the view with the updated projects
+    View::render('projects', ['projects' => $projects]);
+  }
 
   //project create page
   public function create()
@@ -27,16 +27,16 @@ class ProjectController extends Controller
   {
     //verify github repo link
     $repoLink = $_POST['repo-link'];
-
+    
     //match github repo link
-    $pattern = '/^(https:\/\/github.com\/)([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)$/';
+    $pattern = '/^(https:\/\/github.com\/)([a-zA-Z0-9-._]+)\/([a-zA-Z0-9-._]+)$/';
     if (!preg_match($pattern, $repoLink)) {
       Session::flash('errors', ['repo-link' => 'Invalid Github repository link']);
       Session::flash('old', ['repo-link' => $repoLink]);
       $this->redirect('/project/create');
     }
 
-    
+
 
     $userId = Session::get('user')['user_id'];
 
@@ -48,7 +48,7 @@ class ProjectController extends Controller
     }
 
     //validate github repo link is accessible
-    if(! Validate::accessibleUrl($repoLink)) {
+    if (!Validate::accessibleUrl($repoLink)) {
       Session::flash('errors', ['repo-link' => 'Github repository link is not accessible']);
       Session::flash('old', ['repo-link' => $repoLink]);
       $this->redirect('/project/create');
