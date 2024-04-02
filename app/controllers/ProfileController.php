@@ -63,9 +63,7 @@ class ProfileController extends Controller
   {
     $current_user = Session::get('user')['user_id'] ?? null;
     $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    // $uploads = $this->model->showUploads($user_id, $_POST['category']);
-    $MaterialViewModel = new MaterialViewModel();
-    $uploads = $MaterialViewModel->showUploadsByUserId($user_id, $_POST['category']);
+    $uploads = (new MaterialViewModel())->showUploadsByUserId($user_id, $_POST['category']);
 
     $this->buildJsonResponse($uploads);
   }
