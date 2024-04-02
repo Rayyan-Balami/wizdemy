@@ -10,13 +10,10 @@ View::renderPartial('Header', [
     'script',
     'jquery.min',
     'toastTimer',
-<<<<<<< HEAD
     'adminTable',
     'confirmModal',
-=======
     'timeAgo',
     'adminTable', 
->>>>>>> 8c8a61b (Fix formatting and add new testPut method)
     'updateStatus',
   ]
 ]);
@@ -43,8 +40,6 @@ View::renderPartial('AdminMenuHeader');
   } else {
     View::renderPartial('ZeroResult');
   }
-  // dd hello world
-  dd
 
   ?> 
   </pre>
