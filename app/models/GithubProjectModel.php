@@ -18,8 +18,11 @@ class GithubProjectModel extends Model
             'u.full_name',
             'p.*'
         ], 'p')
-            ->leftJoin('users as u', 'u.user_id = p.user_id')
+        ->leftJoin('users as u', 'u.user_id = p.user_id')
+        ->where('p.status <> :status')
+        ->bind(['status' => 'suspend'])
             ->orderBy('p.created_at', 'DESC')
+            ->limit(10)
             ->getAll();
     }
 

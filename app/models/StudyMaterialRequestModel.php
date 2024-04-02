@@ -31,8 +31,8 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.document_type = :document_type')
-            ->bind(['document_type' => $category])
+            ->where('r.document_type = :document_type AND r.status <> :status')
+            ->bind(['document_type' => $category, 'status' => 'suspend'])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
             ->getAll();

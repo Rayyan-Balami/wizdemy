@@ -39,6 +39,7 @@ class StudyMaterialModel extends Model
             ->leftJoin('follow_relation as fr', 'fr.following_id = mv.user_id')
             ->where('mv.document_type = :document_type AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))')
             ->bind(['document_type' => $document_type, 'current_user' => $current_user])
+            ->orderBy('mv.created_at', 'DESC')
             ->limit(10)
             ->getAll();
     }

@@ -11,7 +11,7 @@ class AdminModel extends Model
   public function login($email_username, $password)
   {
 
-    $admin = $this->select(['admin_id', 'username', 'email', 'password'])
+    $admin = $this->select(['admin_id', 'username', 'email', 'password', 'status'])
       ->where('username = :username OR email = :email')
       ->bind(['username' => $email_username, 'email' => $email_username])
       ->get();
