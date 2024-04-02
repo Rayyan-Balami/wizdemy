@@ -93,7 +93,7 @@
       </a>
 
       <!-- username  -->
-      <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>" class="username">
+      <a href="<?= isset ($page) && $page === 'profile' ? '' : '/profile/' . $material['user_id'] ?>" class="username">
         <!-- at icon @  -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -109,7 +109,7 @@
 
       <!-- time  -->
       <div class="time">
-        <p><a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>" class="time-ago"
+        <p><a href="<?= isset ($page) && $page === 'profile' ? '' : '/profile/' . $material['user_id'] ?>" class="time-ago"
             data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
         <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
