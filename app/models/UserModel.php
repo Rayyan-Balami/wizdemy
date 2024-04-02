@@ -26,7 +26,7 @@ class UserModel extends Model
 
     public function login($email_username, $password)
     {
-        $user = $this->select(['user_id', 'username', 'email', 'password'])
+        $user = $this->select(['user_id', 'username', 'email', 'password','status'])
             ->where('username = :username OR email = :email')
             ->bind(['username' => $email_username, 'email' => $email_username])
             ->get();

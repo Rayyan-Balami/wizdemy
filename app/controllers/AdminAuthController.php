@@ -40,11 +40,15 @@ class AdminAuthController extends Controller
     $result = $this->model->login($email_username, $password);
 
     if ($result['status']) {
+      if ($result['admin']['status'] == 'suspend') {
+        Session::flash('errors', ['account' => 'Your account has been suspended']);
+        $this->redirect('/admin/login');
+      }
       Session::flash('success', ['login' => $result['message']]);
       Session::set('admin', [
         'admin_id' => $result['admin']['admin_id'],
         'username' => $result['admin']['username'],
-        'email' => $result['admin']['email']
+        'email' => $result['admin']['email'],
       ]);
       $this->redirect('/admin/dashboard');
     }
