@@ -52,6 +52,7 @@ $statusCodes = [
 
   <!-- Continue With -->
   <div class="continue-with flex flex-col mt-48">
+    <?php if(Session::exists('user')) : ?>
     <h3 class="text-gray-400 font-bold uppercase">
       Continue With
     </h3>
@@ -173,6 +174,8 @@ $statusCodes = [
         </a>
       </li>
     </ul>
+
+<?php endif; ?>
 
       <a href="<?= $_SERVER['HTTP_REFERER'] ?? '/' ?>
       " class="go-back">

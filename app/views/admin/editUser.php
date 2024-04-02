@@ -68,50 +68,56 @@ $flashOld = Session::get('old');
 
 <!-- profile content -->
 <div class="form-section">
-    <!-- profile content -->
+    <!-- change password content -->
     <div>
-        <h2 class="form-heading">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                <g fill="currentColor">
-                    <path d="M8 9.05a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5" />
-                    <path
-                        d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm10.798 11c-.453-1.27-1.76-3-4.798-3c-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1z" />
-                </g>
-            </svg>Profile
-        </h2>
-        <p class="form-info">
-            This information will be displayed publicly so be careful what
-            you share.
-        </p>
-        <!-- form for user name and about -->
-        <form action="/myInformation/profile" method="post">
-            <!-- PUT method -->
-            <input type="hidden" name="_method" value="PUT">
+            <h2 class="form-heading">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z"
+                            stroke="#000000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </g>
+                </svg>Change Password
+            </h2>
+            <p class="form-info">
+                Ensure your account is using a long, random password to stay secure.
+            </p>
+            <!-- form for user name and about -->
+            <form action="/accountSecurity/password" method="post">
 
-            <!-- username -->
-            <div class="username">
-                <label for="username">User Name</label>
-                <input type="text" placeholder="rynb_hir000" required name="username" id="username"
-                    value="<?= isset ($flashOld['username']) ? $flashOld['username'] : $user['username'] ?>" />
-            </div>
+                <!-- PUT method  -->
+                <input type="hidden" name="_method" value="PUT">
 
-            <!-- bio -->
-            <div class="bio">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio"
-                    rows="3"><?= isset ($flashOld['bio']) ? $flashOld['bio'] : $user['bio'] ?></textarea>
+                <!-- current password -->
+                <div class="currentPassword">
+                    <label for="currentPassword">Current
+                        Password</label>
+                    <input type="password" placeholder="••••••••" required name="currentPassword"
+                        id="currentPassword" />
+                </div>
+                <!-- new password -->
+                <div class="newPassword sm:row-start-2">
+                    <label for="newPassword">New
+                        Password</label>
+                        <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
+                </div>
+                <!-- confirm password -->
+                <div class="confirmPassword sm:row-start-3">
+                    <label for="confirmPassword">Confirm
+                        Password</label>
+                    <input type="password" placeholder="••••••••" required name="confirmPassword"
+                        id="confirmPassword" />
+                </div>
 
-                <p class="mt-2 text-sm text-gray-600">
-                    Write a few sentences about yourself.
-                </p>
-            </div>
-
-            <!-- save button -->
-            <button type="submit" name="submitBtn">
-                Save
-            </button>
-        </form>
-    </div>
+                <!-- save button -->
+                <button type="submit" name="submitBtn">
+                    Save
+                </button>
+            </form>
+        </div>
 
     <!-- personal information content -->
     <div>
