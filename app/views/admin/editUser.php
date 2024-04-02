@@ -58,66 +58,17 @@ $flashOld = Session::get('old');
     </div>
 
     <h2 class="title">
-        My Information
+        Edit User Details
     </h2>
 
     <p class="message">
-        Give it a personal touch.
+        Admins be careful while editing user details.
     </p>
 </div>
 
 <!-- profile content -->
 <div class="form-section">
-    <!-- change password content -->
-    <div>
-            <h2 class="form-heading">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z"
-                            stroke="#000000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                    </g>
-                </svg>Change Password
-            </h2>
-            <p class="form-info">
-                Ensure your account is using a long, random password to stay secure.
-            </p>
-            <!-- form for user name and about -->
-            <form action="/accountSecurity/password" method="post">
 
-                <!-- PUT method  -->
-                <input type="hidden" name="_method" value="PUT">
-
-                <!-- current password -->
-                <div class="currentPassword">
-                    <label for="currentPassword">Current
-                        Password</label>
-                    <input type="password" placeholder="••••••••" required name="currentPassword"
-                        id="currentPassword" />
-                </div>
-                <!-- new password -->
-                <div class="newPassword sm:row-start-2">
-                    <label for="newPassword">New
-                        Password</label>
-                        <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
-                </div>
-                <!-- confirm password -->
-                <div class="confirmPassword sm:row-start-3">
-                    <label for="confirmPassword">Confirm
-                        Password</label>
-                    <input type="password" placeholder="••••••••" required name="confirmPassword"
-                        id="confirmPassword" />
-                </div>
-
-                <!-- save button -->
-                <button type="submit" name="submitBtn">
-                    Save
-                </button>
-            </form>
-        </div>
 
     <!-- personal information content -->
     <div>
@@ -130,7 +81,7 @@ $flashOld = Session::get('old');
             </svg>Personal Information
         </h2>
         <p class="form-info">
-            We reserve the right to feature select details on the public profile card.
+            Admins be careful while editing user details.
         </p>
         <!-- form for full name, gender, student/teacher, school name, email -->
         <form action="/myInformation/personal" method="post">
@@ -245,13 +196,48 @@ $flashOld = Session::get('old');
             </button>
         </form>
     </div>
+
+    <!-- change password content -->
+    <div>
+            <h2 class="form-heading">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </g>
+                </svg>Change Password
+            </h2>
+            <p class="form-info">
+                Admins be careful while changing user password.
+            </p>
+            <!-- form for user name and about -->
+            <form action="/accountSecurity/password" method="post">
+
+                <!-- PUT method  -->
+                <input type="hidden" name="_method" value="PUT">
+
+                <!-- new password -->
+                <div class="newPassword sm:row-start-2">
+                    <label for="newPassword">New
+                        Password</label>
+                        <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
+                </div>
+
+                <!-- save button -->
+                <button type="submit" name="submitBtn">
+                    Save
+                </button>
+            </form>
+        </div>
+
 </div>
 </main>
 
 <?php
-
-View::renderPartial('SearchOverlay');
-
 View::renderPartial('ToastNotification');
 
 View::renderPartial('EndOfHTMLDocument');

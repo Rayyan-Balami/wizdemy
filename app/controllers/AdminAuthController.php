@@ -9,7 +9,7 @@ class AdminAuthController extends Controller
 
   public function loginPage()
   {
-    View::render('admin/adminLoginForm');
+    View::render('admin/loginForm');
   }
   
   public function loginProcess()

@@ -5,6 +5,9 @@
 @import url("./partials/cardCategory.css");
 @import url('./partials/AdminTable.css');
 @import url('./partials/confirmModel.css');
+@import url("./partials/titleLabel.css");
+@import url('./partials/forms.css');
+
 
 #confirm-modal > ul,
 #confirm-modal > ul > .confirm-header> li > span  {
@@ -16,9 +19,26 @@ background-color: rgb(31, 41, 55, 0.9);
   background-color: rgb(17 24 39);
 }
 
-form input {
+
+.title-label > .message,
+.form-section .form-info {
+  color: rgb(209 213 219);
+}
+
+form input,
+form select,
+form textarea{
   background-color: rgb(31 41 55);
-  border-color: rgb(243 244 246);
+  border-color: rgb(51 61 75);
+}
+
+form button{
+  background-color: rgb(51 61 75);
+  transition: var(--transition);
+}
+
+form button:hover{
+  background-color: rgb(41 51 65);
 }
 
 body,
@@ -31,7 +51,8 @@ header
 }
 
 #side-nav,
-header {
+header,
+.form-section > div:not(:first-child)  {
   border-color: rgb(41 51 65);
 }
 
@@ -68,13 +89,4 @@ header {
 
 .continue-with > h3 {
   color: rgb(209 213 219);
-}
-
-.form-section > div > form {
-  background-color: rgb(31 41 55);
-}
-
-.form-section input {
-  background-color: rgb(55 65 81);
-  border-color: rgb(75 85 99);
 }

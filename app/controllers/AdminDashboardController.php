@@ -1,6 +1,6 @@
 <?php
 
-class dashboardController extends Controller
+class AdminDashboardController extends Controller
 {
   public function __construct()
   {

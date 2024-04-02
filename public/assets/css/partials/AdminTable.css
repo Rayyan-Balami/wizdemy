@@ -146,8 +146,9 @@ table .actions-cell > div {
   gap: 0.5rem/* 8px */;
 }
 
-table .actions-cell > div > button,
-.table-menus > .prev-next-wrapper > button{
+table .actions-cell button,
+.table-menus > .prev-next-wrapper button{
+  margin: 0;
   background-color: inherit;
   color: inherit;
   border: none ;

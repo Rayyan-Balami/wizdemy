@@ -75,7 +75,7 @@ $router->get('/admin/login', 'AdminAuthController@loginPage')->only('guest');
 $router->post('/admin/login', 'AdminAuthController@loginProcess')->only('guest');
 $router->delete('/admin/logout', 'AdminAuthController@logout')->only('admin');
 //routes for admin dashboard
-$router->get('/admin/dashboard', 'dashboardController@index')->only('admin');
+$router->get('/admin/dashboard', 'AdminDashboardController@index')->only('admin');
 
 
 //routes for admin users management
