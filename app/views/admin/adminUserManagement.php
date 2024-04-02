@@ -9,12 +9,9 @@ View::renderPartial('Header', [
   'scripts' => [
     'script',
     'jquery.min',
-    'threeDotMenu',
-    'sideInfo',
-    'searchOverlay',
     'toastTimer',
-    'timeAgo',
     'adminTable',
+    'confirmModal',
     'updateStatus',
   ]
 ]);
@@ -45,6 +42,10 @@ View::renderPartial('AdminMenuHeader');
   </pre>
 </section>
 
+</main>
+
 <?php
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');

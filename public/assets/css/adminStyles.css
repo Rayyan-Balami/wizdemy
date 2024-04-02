@@ -4,6 +4,17 @@
 @import url("./partials/header.css");
 @import url("./partials/cardCategory.css");
 @import url('./partials/AdminTable.css');
+@import url('./partials/confirmModel.css');
+
+#confirm-modal > ul,
+#confirm-modal > ul > .confirm-header> li > span  {
+background-color: rgb(31, 41, 55, 0.9);
+} 
+
+#confirm-modal > ul > .confirm-header> li,
+#confirm-modal > ul > .button-wrapper > button {
+  background-color: rgb(17 24 39);
+}
 
 form input {
   background-color: rgb(31 41 55);

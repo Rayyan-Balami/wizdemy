@@ -1,0 +1,157 @@
+
+/* three dot menu starts here  */
+
+#confirm-modal{
+  display: none;
+}
+#confirm-modal.open{
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  height: 100dvh;
+  width: 100vw;
+  padding: 1rem/* 16px */;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s  cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#confirm-modal > ul {
+  width: 28rem;
+  padding: 1rem/* 16px */;
+  display: grid;
+  gap: 0.75rem/* 16px */;
+  border-radius: 2.5rem/* 40px */;
+  background-color: rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#confirm-modal > ul > .confirm-header> li{
+  display: flex;
+  align-items: center;
+  gap: 0.875rem/* 14px */;
+  padding: 0.875rem/* 14px */;
+  border-radius: 2.5rem/* 40px */;
+  background-color: rgb(243 244 246);
+  cursor: pointer;
+  text-transform: capitalize;
+
+}
+
+#confirm-modal > ul > .confirm-header> li > span {
+  display: grid;
+  place-content: center;
+  width: 4rem/* 40px */;
+  height: 4rem/* 40px */;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: white;
+}
+
+#confirm-modal > ul > .confirm-header> li > span > svg {
+  width: 3rem/* 24px */;
+  height: 3rem/* 24px */;
+  flex-shrink: 0;
+}
+
+#confirm-modal > ul > .confirm-header> li > div {
+  flex-grow: 1;
+  text-align: left;
+  margin-right: 0.875rem/* 14px */;
+}
+
+#confirm-modal > ul > .confirm-header> li > div > h3 {
+  font-weight: 500;
+}
+
+
+#confirm-modal > ul > .confirm-header> li > svg {
+  width: 1.5rem/* 24px */;
+  height: 1.5rem/* 24px */;
+  flex-shrink: 0;
+}
+
+@media (width < 640px) {
+  #confirm-modal > ul{
+    align-self: flex-end;
+    width: 100%;
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+
+
+#confirm-modal > ul > .button-wrapper {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem/* 16px */;
+}
+
+#confirm-modal > ul > .button-wrapper > button {
+  border: none;
+  background: none;
+  text-align: center;
+  padding: 0.875rem/* 14px */;
+  border-radius: 9999px;
+  cursor: pointer;
+  background-color: rgb(243 244 246);
+  text-transform: capitalize;
+  transition: var(--transition);
+}
+
+#confirm-modal[data-modal-type = "suspend"] ul > .confirm-header> li > span {
+  color: rgb(237 164 17);
+}
+
+#confirm-modal[data-modal-type = "suspend"] > ul > .button-wrapper > #confirm-button {
+  background-color: rgb(237 164 17);
+}
+
+#confirm-modal[data-modal-type = "suspend"] > ul > .button-wrapper > #confirm-button:hover {
+  background-color: rgb(237 164 17 / 0.9);
+}
+
+#confirm-modal[data-modal-type = "delete"] ul > .confirm-header> li > span {
+  color: rgb(239 68 68);
+}
+
+#confirm-modal[data-modal-type = "delete"] > ul > .button-wrapper > #confirm-button {
+  background-color: rgb(239 68 68);
+}
+
+#confirm-modal[data-modal-type = "delete"] > ul > .button-wrapper > #confirm-button:hover {
+  background-color: rgb(239 68 68 / 0.9);
+}
+
+#confirm-modal[data-modal-type = "active"] ul > .confirm-header> li > span {
+  color: rgb(0 200 83);
+}
+
+#confirm-modal[data-modal-type = "active"] > ul > .button-wrapper > #confirm-button {
+  background-color: rgb(0 200 83);
+}
+
+#confirm-modal[data-modal-type = "active"] > ul > .button-wrapper > #confirm-button:hover {
+  background-color: rgb(0 200 83 / 0.9);
+}

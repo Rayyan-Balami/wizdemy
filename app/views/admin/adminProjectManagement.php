@@ -37,6 +37,10 @@ if (!empty($projects)) {
 ?>
 </section>
 
+</main>
+
 <?php
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');

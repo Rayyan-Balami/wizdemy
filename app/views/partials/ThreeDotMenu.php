@@ -2,8 +2,6 @@
 <!-- three dot menu popup -->
 <div id="three-dot-menu" onclick="closeThreeDotMenu()">
   <ul>
-    <input type="hidden" value="">
-
     <!-- copy link -->
     <button id="copy-link" data-copy-link="" onclick="copyLink()">
       <li>

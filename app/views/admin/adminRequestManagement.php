@@ -36,6 +36,10 @@ if (!empty($requests)) {
 ?>
 </section>
 
+</main>
+
 <?php
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');
