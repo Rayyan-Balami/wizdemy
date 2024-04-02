@@ -1,6 +1,7 @@
 <?php
 // validate p2 as phone number
 $router->get('/test/{p1}/{p2}', 'TestController@test');
+$router->put('/test/{p1}/{p2}', 'TestController@testPut');
 
 //routes for login page
 $router->get('/login', 'AuthController@login')->only('guest');

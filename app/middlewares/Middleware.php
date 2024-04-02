@@ -20,4 +20,5 @@ class Middleware{
 
     $middleware::handle();
   }
+   
 }

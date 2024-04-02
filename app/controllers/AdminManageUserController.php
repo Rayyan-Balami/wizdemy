@@ -38,7 +38,7 @@ class AdminManageUserController extends Controller
       $this->buildJsonResponse($result['message'], 400);
     }
   }
-
+ 
   public function deleteUser($user_id)
   {
     $result = $this->model->deleteUser($user_id);
@@ -49,5 +49,6 @@ class AdminManageUserController extends Controller
       Session::flash('errors', ['delete' => $result['message']]);
       $this->redirect('/admin/manage/user');
     }
-  }
+  } 
+
 }
