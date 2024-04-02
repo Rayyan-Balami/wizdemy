@@ -81,6 +81,7 @@ $router->get('/admin/dashboard', 'dashboardController@index')->only('admin');
 //routes for admin users management
 $router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
 $router->post('/api/admin/update/users/status', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
+$router->delete('/api/admin/delete/user/{user_id}', 'AdminManageUserController@delete')->only('apiAdmin');
 $router->post('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
 
 

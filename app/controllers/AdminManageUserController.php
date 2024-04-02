@@ -33,21 +33,24 @@ class AdminManageUserController extends Controller
 
     $result = $this->model->updateUserStatus($user_id, $status);
     if ($result['status']) {
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update_status_to_' . $status);
       $this->buildJsonResponse($result['message'], 200);
     } else {
       $this->buildJsonResponse($result['message'], 400);
     }
   }
  
-  public function deleteUser($user_id)
+  public function delete($user_id)
   {
-    $result = $this->model->deleteUser($user_id);
+    if (!isset($user_id)) {
+      $this->buildJsonResponse('Invalid request', 400);
+    }
+    $result = $this->model->deleteUserById($user_id);
     if ($result['status']) {
-      Session::flash('success', ['delete' => $result['message']]);
-      $this->redirect('/admin/manage/user');
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'delete');
+      $this->buildJsonResponse($result['message'], 200);
     } else {
-      Session::flash('errors', ['delete' => $result['message']]);
-      $this->redirect('/admin/manage/user');
+      $this->buildJsonResponse($result['message'], 400);
     }
   } 
 

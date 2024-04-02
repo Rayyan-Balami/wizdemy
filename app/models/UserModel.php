@@ -12,6 +12,7 @@ class UserModel extends Model
             'password',
             'private',
             'bio',
+            'email',
             'user_type',
             'education_level',
             'enrolled_course',
