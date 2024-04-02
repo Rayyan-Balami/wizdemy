@@ -45,7 +45,7 @@
             </div>
 
             <!-- username  -->
-            <a href="/profile?id=<?= $request['user_id'] ?>" class="username">
+            <a href="/profile/<?= $request['user_id'] ?>" class="username">
                 <!-- at icon @  -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0"
                     viewBox="0 0 512 512">
@@ -62,7 +62,7 @@
             <!-- time  -->
             <div class="time">
                 <p>
-                    <a href="/profile?id=<?= $request['user_id'] ?>" class="time-ago" data-datetime="<?= $request['created_at'] ?>"></a>
+                    <a href="/profile/<?= $request['user_id'] ?>" class="time-ago" data-datetime="<?= $request['created_at'] ?>"></a>
                 </p>
                 <!-- three dot icon -->
                 <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN.'/request?id='.$request['request_id'] ?>">
@@ -80,9 +80,8 @@
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
-                <form action="/material/respond" method="post">
+                <form action="/material/respond/<?=$request['request_id']?>" method="post">
                 <!-- respond button  -->
-                <input type="hidden" name="request_id" value="<?= $request['request_id'] ?>">
                 <button type="submit" class="respond-button">
                     <span>Respond</span>
                     <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'

@@ -7,15 +7,10 @@ class UploadController extends Controller
     parent::__construct(new StudyMaterialModel());
   }
 
-  public function index()
+  public function index($request_id = null)
   {
-    //get request details if request_id is set
-    $request_id = $_POST['request_id'] ?? Session::get('post')['request_id'] ?? null;
-    $requestDetails = [];
-    if ($request_id > 0 && !empty ($request_id)) {
-      // $requestDetails = $this->model->getRequestDetails($request_id);
-      $requestDetails = (new StudyMaterialRequestModel())->getRequestDetailById($request_id);
-    }
+    $request_id != null ? $requestDetails = (new StudyMaterialRequestModel())->getRequestDetailById($request_id): $requestDetails = null;
+
     View::render('uploadForm', [
       'requestDetails' => $requestDetails
     ]);

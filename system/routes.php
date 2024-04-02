@@ -36,7 +36,7 @@ $router->post('/request/store', 'RequestController@store')->only('auth');
 //routes for upload page
 $router->get('/material/create', 'UploadController@index')->only('auth');
 $router->post('/material/store', 'UploadController@store')->only('auth');
-$router->post('/material/respond', 'UploadController@index')->only('auth'); //coming from request page
+$router->post('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
 
 //routes for add project page
 $router->get('/project', 'ProjectController@index')->only('auth');

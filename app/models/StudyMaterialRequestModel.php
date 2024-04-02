@@ -94,7 +94,7 @@ class StudyMaterialRequestModel extends Model
     }
     public function getRequestDetailById($request_id)
     {
-        return (new RequestModel())->select([
+        return $this->select([
             'r.*',
             'u.username',
             'COUNT(DISTINCT m.material_id) as no_of_materials'
