@@ -21,7 +21,7 @@ async function updateUserStatus(userId, element) {
   };
   $.ajax({
     type: "POST",
-    url: "/api/admin/manage/users/updateStatus",
+    url: "/api/admin/update/users/status",
     data: data,
     success: function (response) {
       console.log(response);

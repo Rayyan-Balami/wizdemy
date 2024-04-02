@@ -1,6 +1,6 @@
 <?php
 
-class AdminDashboardController extends Controller
+class dashboardController extends Controller
 {
   public function __construct()
   {
@@ -9,7 +9,7 @@ class AdminDashboardController extends Controller
 
   public function index()
   {
-    View::render('admin/adminDashboard');
+    View::render('admin/dashboard');
   }
 
 }

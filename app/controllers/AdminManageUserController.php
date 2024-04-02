@@ -10,7 +10,7 @@ class AdminManageUserController extends Controller
   public function index()
   {
     $users = (new UserProfileViewModel())->getAllUsers();
-    View::render('admin/adminUserManagement', [
+    View::render('admin/userManagement', [
       'users' => $users
     ]);
   }
@@ -50,5 +50,13 @@ class AdminManageUserController extends Controller
       $this->redirect('/admin/manage/user');
     }
   } 
+
+  public function edit($user_id)
+  {
+    $user = $this->model->userDetails($user_id);
+    View::render('admin/editUser', [
+      'user' => $user
+    ]);
+  }
 
 }

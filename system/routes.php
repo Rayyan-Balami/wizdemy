@@ -75,19 +75,20 @@ $router->get('/admin/login', 'AdminAuthController@loginPage')->only('guest');
 $router->post('/admin/login', 'AdminAuthController@loginProcess')->only('guest');
 $router->delete('/admin/logout', 'AdminAuthController@logout')->only('admin');
 //routes for admin dashboard
-$router->get('/admin/dashboard', 'AdminDashboardController@index')->only('admin');
+$router->get('/admin/dashboard', 'dashboardController@index')->only('admin');
 
 
 //routes for admin users management
 $router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
-$router->post('/api/admin/manage/users/updateStatus', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
+$router->post('/api/admin/update/users/status', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
+$router->post('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
 
 
-//routes for admin materials management
+//routes for admin project management
 $router->get('/admin/manage/projects', 'AdminManageProjectController@index')->only('admin');
 
 //routes for admin requests management
-$router->get('/admin/manage/requests', 'AdminManageRequestController@index')->only('admin');
+$router->get('/admin/manage/material', 'AdminManageRequestController@index')->only('admin');
 
 //routes for admin materials management
 $router->get('/admin/manage/requests', 'AdminManageMaterialController@index')->only('admin');

@@ -10,7 +10,7 @@ class AdminManageProjectController extends Controller
   public function index()
   {
     $projects = $this->model->getProjectsForAdmin();
-    View::render('admin/adminProjectManagement', [
+    View::render('admin/projectManagement', [
       'projects' => $projects
     ]);
   }

@@ -9,6 +9,6 @@ class AdminManageAdminController extends Controller
 
   public function index()
   {
-    View::render('admin/adminDashboard');
+    View::render('admin/dashboard');
   }
 }

@@ -10,7 +10,7 @@ class AdminManageReportController extends Controller
   public function index()
   {
     $users = $this->model->getUsersForAdmin();
-    View::render('admin/adminUserManagement', [
+    View::render('admin/userManagement', [
       'users' => $users
     ]);
   }
