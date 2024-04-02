@@ -14,7 +14,7 @@ View::renderPartial('Header', [
     'confirmModal',
     'timeAgo',
     'adminTable', 
-    'updateStatus',
+    'adminUser'
   ]
 ]);
 
