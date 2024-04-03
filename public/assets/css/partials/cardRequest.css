@@ -157,7 +157,15 @@
   white-space: nowrap;
 }
 
-.button-wrapper > .respond-button{
+.request-card > .button-wrapper svg {
+  width: 1.25rem/* 20px */;
+  height: 1.25rem/* 20px */;
+  flex-shrink: 0;
+}
+
+.button-wrapper > .suspended-request,
+.button-wrapper > form > .respond-button{
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,7 +179,14 @@
   cursor: pointer;
 }
 
-.button-wrapper > .respond-button:hover{
+.button-wrapper > .suspended-request{
+  background-color: rgb(237, 164, 17);
+  color: white;
+  border-color: rgb(237, 164, 17);
+  font-weight: 500;
+}
+
+.button-wrapper > form > .respond-button:hover{
   background-color: rgb(31 41 55);
   border-color: rgb(31 41 55);
   color: white;

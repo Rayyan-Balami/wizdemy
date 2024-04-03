@@ -8,6 +8,19 @@
       <!-- image -->
       <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
         <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail">
+
+        <?php if ($project['status'] === 'suspend'): ?>
+        <div>
+            <div class="suspended-svg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-width="1.7">
+                  <path stroke-linecap="round" d="M16 12H8" />
+                  <circle cx="12" cy="12" r="10" />
+                </g>
+              </svg> Suspended
+            </div>
+          </div>
+          <?php endif; ?>
       </a>
       <!-- username  -->
       <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $project['user_id'] ?>" class="username">

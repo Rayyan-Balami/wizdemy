@@ -16,7 +16,7 @@ $flashOld = Session::get('old');
 ?>
 <main>
   <section class="form-section">
-    <div class="text-infos flex flex-col justify-center">
+  <div class="text-infos">
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="none" fill-rule="evenodd">
@@ -39,8 +39,8 @@ $flashOld = Session::get('old');
 
     <div>
     <form action="/login" method="post">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-      Login to WizDemy
+    <h2>
+      Log In
         </h2>
         <!-- email -->
         <div class="email">
@@ -146,6 +146,7 @@ $flashOld = Session::get('old');
         </div>
       </div>
     </div>
+
   </section>
 </main>
 

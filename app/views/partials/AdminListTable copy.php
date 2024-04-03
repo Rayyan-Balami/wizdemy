@@ -94,7 +94,7 @@
             <div class="text-base font-medium" title="Joined Date">
               <?= date('d M Y', strtotime($user['created_at'])) ?>
             </div>
-            <div class="multi-span"><span title="Followers: <?= $user['followers_count'] ?>">Fol:&nbsp;
+            <div class="multi-span"><span title="Followers: <?= $user['followers_count'] ?>">Flr:&nbsp;
                 <?= $user['followers_count'] ?>
               </span> <span title="Following: <?= $user['following_count'] ?>">Fol:&nbsp;
                 <?= $user['following_count'] ?>
@@ -102,16 +102,14 @@
           </td>
           <td class="actions-cell">
             <div>
-              <!-- view button  -->
-              <button class="view-btn bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                  <path fill="currentColor"
-                    d="M30.94 15.66A16.69 16.69 0 0 0 16 5A16.69 16.69 0 0 0 1.06 15.66a1 1 0 0 0 0 .68A16.69 16.69 0 0 0 16 27a16.69 16.69 0 0 0 14.94-10.66a1 1 0 0 0 0-.68M16 25c-5.3 0-10.9-3.93-12.93-9C5.1 10.93 10.7 7 16 7s10.9 3.93 12.93 9C26.9 21.07 21.3 25 16 25" />
-                  <path fill="currentColor" d="M16 10a6 6 0 1 0 6 6a6 6 0 0 0-6-6m0 10a4 4 0 1 1 4-4a4 4 0 0 1-4 4" />
-                </svg>
+              <!-- suspend button  -->
+              <button class="suspend-btn" data-status="<?= $user['status'] == 'suspend' ? 'suspend' : '' ?>"
+                onclick="updateUserStatus(<?= $user['user_id'] ?>, this)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M16 12H8"/><circle cx="12" cy="12" r="10"/></g></svg>
               </button>
               <!-- edit button  -->
-              <button class="edit-btn">
+              <form action="/admin/edit/user/<?= $user['user_id'] ?>"method="post">
+              <button type="submit" class="edit-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                     <path
@@ -121,8 +119,9 @@
                   </g>
                 </svg>
               </button>
+              </form>
               <!-- delete button  -->
-              <button class="delete-btn">
+              <button class="delete-btn" onclick="deleteUser(<?= $user['user_id'] ?>,this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" fill-rule="evenodd"
                     d="M10.31 2.25h3.38c.217 0 .406 0 .584.028a2.25 2.25 0 0 1 1.64 1.183c.084.16.143.339.212.544l.111.335a1.25 1.25 0 0 0 1.263.91h3a.75.75 0 0 1 0 1.5h-17a.75.75 0 0 1 0-1.5h3.09a1.25 1.25 0 0 0 1.173-.91l.112-.335c.068-.205.127-.384.21-.544a2.25 2.25 0 0 1 1.641-1.183c.178-.028.367-.028.583-.028m-1.302 3a2.757 2.757 0 0 0 .175-.428l.1-.3c.091-.273.112-.328.133-.368a.75.75 0 0 1 .547-.395a3.2 3.2 0 0 1 .392-.009h3.29c.288 0 .348.002.392.01a.75.75 0 0 1 .547.394c.021.04.042.095.133.369l.1.3l.039.112c.039.11.085.214.136.315z"

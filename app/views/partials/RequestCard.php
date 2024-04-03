@@ -80,16 +80,23 @@
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
+                <?php 
+                if($request['status'] === 'suspend'): ?>
+                <div class="suspended-request">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M16 12H8"/><circle cx="12" cy="12" r="10"/></g></svg> Suspended
+                </div>
+                <?php else: ?>
                 <form action="/material/respond/<?=$request['request_id']?>" method="post">
                 <!-- respond button  -->
                 <button type="submit" class="respond-button">
                     <span>Respond</span>
-                    <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'
+                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'
                         stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
                         <path d='M5 12h13M12 5l7 7-7 7' />
                     </svg>
                 </button>
                 </form>
+                <?php endif; ?>
             </div>
         </div>
         <!-- end of request card -->

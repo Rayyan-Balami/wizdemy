@@ -8,7 +8,6 @@
 @import url("./partials/titleLabel.css");
 @import url('./partials/forms.css');
 
-
 #confirm-modal > ul,
 #confirm-modal > ul > .confirm-header> li > span  {
 background-color: rgb(31, 41, 55, 0.9);
@@ -30,6 +29,17 @@ form select,
 form textarea{
   background-color: rgb(31 41 55);
   border-color: rgb(51 61 75);
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus{
+  outline-color: rgb(41 51 65);
+}
+
+form input[type="radio"],
+form input[type="checkbox"] {
+  accent-color: rgb(41 51 65);
 }
 
 form button{

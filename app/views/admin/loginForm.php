@@ -17,10 +17,11 @@ $flashOld = Session::get('old');
 ?>
 <main>
   <section class="form-section">
+
     <div>
     <form action="/admin/login" method="post">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-      Admin Login to WizDemy
+    <h2>
+      Admin Login
         </h2>
         <!-- email -->
         <div class="email">
@@ -38,9 +39,12 @@ $flashOld = Session::get('old');
         <button type="submit" value="submit" name="submitBtn">
           Log In
         </button>
+
       </form>
+
     </div>
-    <div class="text-infos flex flex-col justify-center">
+
+    <div class="text-infos">
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="none" fill-rule="evenodd">
@@ -51,8 +55,8 @@ $flashOld = Session::get('old');
           </g>
         </svg>
       </div>
-      <h3>Admins: Leaders at WizDemy! </h3>
-      <p>With great power comes great responsibility!</p>
+      <h3>Rock the Future: WizDemy</h3>
+      <p> the classroom is wherever you are, and the possibilities are limitless. Join the movement, join WizDemy !</p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,6 +64,7 @@ $flashOld = Session::get('old');
         </svg>
       </a>
     </div>
+
   </section>
 </main>
 

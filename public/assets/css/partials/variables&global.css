@@ -83,6 +83,12 @@ form select {
   border-radius: var(--border-radius);
 }
 
+form input:focus,
+form textarea:focus,
+form select:focus{
+  outline-color: var(--primary-color);
+}
+
 form textarea{
   resize: none;
 }
@@ -98,8 +104,9 @@ form input[type="checkbox"] {
   margin: 0;
   margin-right: 0.5rem /* 8px */;
   margin-bottom: 0.5rem /* 8px */;
+  accent-color: var(--primary-color);
+  cursor: pointer;
 }
-
 
 form > button {
   padding: 0.5rem 1rem /* 12px 20px */;

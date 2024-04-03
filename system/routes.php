@@ -85,7 +85,8 @@ $router->get('/admin/dashboard', 'AdminDashboardController@index')->only('admin'
 $router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
 $router->post('/api/admin/update/users/status', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/user/{user_id}', 'AdminManageUserController@delete')->only('apiAdmin');
-$router->get('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
+$router->get('/admin/edit/user', 'AdminManageUserController@edit')->only('admin');
+$router->post('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
 $router->put('/admin/update/user/profile/{user_id}', 'AdminManageUserController@updateUserProfile')->only('admin');
 $router->put('/admin/update/user/info/{user_id}', 'AdminManageUserController@updateUserInfo')->only('admin');
 $router->put('/admin/update/user/password/{user_id}', 'AdminManageUserController@updatePassword')->only('admin');

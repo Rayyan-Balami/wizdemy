@@ -16,9 +16,34 @@ function RequestCard(
   document_type,
   username,
   created_at,
-  updated_at
+  status
 ) {
   let semesterHTML = "";
+  let suspendRespondHTML = "";
+
+  if(status == "suspend") {
+    suspendRespondHTML = `<div class="suspended-request">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.7">
+          <path stroke-linecap="round" d="M16 12H8" />
+          <circle cx="12" cy="12" r="10" />
+        </g>
+      </svg> Suspended
+    </div>`;
+  }else{
+    suspendRespondHTML = `<form action="/material/respond/${request_id}" method="post">
+    <!-- respond button  -->
+    <button type="submit" class="respond-button">
+        <span>Respond</span>
+        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'
+            stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+            <path d='M5 12h13M12 5l7 7-7 7' />
+        </svg>
+    </button>
+    </form>`;
+  }
+
+
   if (semester) {
     semesterHTML = `<span title="Semester"># ${semester} Sem</span>`;
   }
@@ -80,16 +105,7 @@ function RequestCard(
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
-                <form action="/material/respond/${request_id}" method="post">
-                <!-- respond button  -->
-                <button type="submit" class="respond-button">
-                    <span>Respond</span>
-                    <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'
-                        stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-                        <path d='M5 12h13M12 5l7 7-7 7' />
-                    </svg>
-                </button>
-                </form>
+                ${suspendRespondHTML}
             </div>
 </div>`;
 }
@@ -113,9 +129,23 @@ function MaterialCard(
   user_id,
   updated_at,
   username,
-  views_count
+  views_count,
+  status
 ) {
   let respondedTo = "";
+  let suspendHTML = "";
+  let formatHTML = "";
+
+  if(status == "suspend") {
+    suspendHTML = `<div class="suspended-svg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.7">
+          <path stroke-linecap="round" d="M16 12H8" />
+          <circle cx="12" cy="12" r="10" />
+        </g>
+      </svg> Suspended
+    </div>`;
+  }
   if (responded_to) {
     respondedTo = ` <!-- is responded post to request ?  -->
     <div class="request-responded-post">
@@ -133,7 +163,6 @@ function MaterialCard(
       </svg>
     </div>`;
   }
-  let formatHTML = "";
   handwriten = `<!-- handwritten svg  -->
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -189,6 +218,9 @@ function MaterialCard(
     <img src="/${thumbnail_path}" alt="thumbnail" />
 
     <div>
+    <!-- status -->
+      ${suspendHTML}
+      <!-- responded to -->
       ${respondedTo}
       <!-- document format (handwritten, typed, photo) -->
       <div class="document-format">
@@ -284,8 +316,24 @@ function ProjectCard(
   user_id,
   username,
   created_at,
-  updated_at
+  updated_at,
+  status
 ) {
+  let suspendHTML = "";
+
+  if(status == "suspend") {
+    suspendHTML = `
+    <div>
+    <div class="suspended-svg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.7">
+          <path stroke-linecap="round" d="M16 12H8" />
+          <circle cx="12" cy="12" r="10" />
+        </g>
+      </svg> Suspended
+    </div>
+    </div>`;
+  }
   // console.log(page, project_id, repo_link, user_id, username, created_at);
   let repo_info = repo_link.replace("https://github.com/", "");
   return ` <!--project card  -->
@@ -293,6 +341,7 @@ function ProjectCard(
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
       <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
+      ${suspendHTML}
     </a>
     <!-- username  -->
     <a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
@@ -643,7 +692,7 @@ function requestCategoryChange(page, category) {
           request.document_type,
           request.username,
           request.created_at,
-          request.id
+          request.status
         );
         requestCardSection.append(requestCard);
       });
@@ -708,7 +757,8 @@ function myMaterials(page, category) {
           m.user_id,
           m.updated_at,
           m.username,
-          m.views_count
+          m.views_count,
+          m.status
         );
         materialCardSection.append(materialCard);
       });
@@ -768,7 +818,7 @@ function myRequests(page, category) {
           request.document_type,
           request.username,
           request.created_at,
-          request.id
+          request.status
         );
         requestCardSection.append(requestCard);
       });
@@ -828,7 +878,8 @@ function myProjects(page) {
           project.user_id,
           project.username,
           project.created_at,
-          project.updated_at
+          project.updated_at,
+          project.status
         );
         // console.log(projectCard);
         projectCardSection.append(projectCard);

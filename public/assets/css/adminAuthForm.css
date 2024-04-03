@@ -6,7 +6,7 @@ body{
 }
 
 
-.form-section > div > p{
+.form-section > .text-infos > p{
   color: rgb(209 213 219);
 }
 

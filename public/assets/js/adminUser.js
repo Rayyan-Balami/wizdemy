@@ -6,7 +6,7 @@ async function updateUserStatus(userId, element) {
   // Open the confirmation modal and wait for user action
   const confirmed = await openConfirmModal(
     status,
-    `Do you want to "${status}" this user?`
+    `Approve "${status}" for this User ?`
   );
 
   // If user cancels the action, do nothing
@@ -40,7 +40,7 @@ async function deleteUser(userId, element) {
   // Open the confirmation modal and wait for user action
   const confirmed = await openConfirmModal(
     status,
-    `Do you want to "${status}" this user?`
+    `Approve "${status}" for this User ?`
   );
 
   // If user cancels the action, do nothing

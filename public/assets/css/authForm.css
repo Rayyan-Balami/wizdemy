@@ -1,6 +1,5 @@
 @import url("./partials/variables&global.css");
 @import url("./partials/toastNotification.css");
-@import url("./partials/toastNotification.css");
 
 main {
   display: flex;
@@ -10,9 +9,11 @@ main {
 
 .form-section {
   padding: 2rem 1rem;
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100dvh;
+  width: 100vw;
 }
 
 .form-section > .text-infos {
@@ -23,6 +24,7 @@ main {
   .form-section {
     max-width: 1280px;
     margin: 0 auto;
+    display: grid;
     place-content: center;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem /* 64px */;
@@ -51,6 +53,7 @@ main {
   margin-bottom: 2rem /* 16px */;
   font-size: 1.125rem /* 18px */;
   line-height: 1.75rem /* 28px */;
+  color: rgb(31 41 55);
 }
 
 .form-section > .text-infos > a {
@@ -76,36 +79,18 @@ main {
   flex-shrink: 0;
 }
 
-.form-section > div > h1 {
-  font-size: 1.875rem /* 30px */;
-  line-height: 2.25rem /* 36px */;
-  font-weight: 500;
-  margin-bottom: 1rem /* 16px */;
-}
-
-.form-section > div > h2 {
-  font-size: 1.5rem /* 24px */;
-  line-height: 2rem /* 32px */;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-}
-
-.form-section > div > p {
-  color: rgb(31 41 55);
-}
-
 .form-section > div > form {
   display: grid;
   gap: 0.75rem;
-  width: 32rem;
   padding: 1.5rem;
   border-radius: var(--border-radius);
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
 
-@media (width >= 1280px) {
+@media (width >= 640px) {
   .form-section > div > form {
+    width: 32rem;
     margin: 0 auto;
   }
 }

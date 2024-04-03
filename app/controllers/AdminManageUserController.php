@@ -54,9 +54,18 @@ class AdminManageUserController extends Controller
     }
   }
 
-  public function edit($user_id)
+  public function edit($user_id = null)
   {
+
+    $user_id = $user_id ?? Session::get('post')['user_id'] ?? null;
+
     $user = $this->model->userDetails($user_id);
+    if (!$user) {
+      Session::flash('error', ['message' => 'Invalid user']);
+      $this->redirect('/admin/manage/users');
+      return;
+    }
+
     View::render('admin/editUser', [
       'user' => $user
     ]);
@@ -79,12 +88,13 @@ class AdminManageUserController extends Controller
 
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
+      Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'username' => $userName,
         'bio' => $bio
       ]);
-      $this->redirect('/admin/edit/user/' . $user_id . '#profile');
+      $this->redirect('/admin/edit/user#profile');
     }
 
     $result = $this->model->updateUserDetails($user_id, ['username' => $userName, 'bio' => $bio]);
@@ -101,7 +111,8 @@ class AdminManageUserController extends Controller
       
     }
 
-    $this->redirect('/admin/edit/user/' . $user_id . '#profile');
+    Session::flash('post', ['user_id' => $user_id]);
+    $this->redirect('/admin/edit/user#profile');
   }
 
   public function updateUserInfo($user_id)
@@ -154,6 +165,7 @@ class AdminManageUserController extends Controller
 
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
+      Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'user_id' => $user_id, // add user_id to old data to redirect to the same user
@@ -165,7 +177,7 @@ class AdminManageUserController extends Controller
         'school_name' => $schoolName,
         'phone_number' => $phoneNumber
       ]);
-      $this->redirect('/admin/edit/user/' . $user_id . '#personalInformation');
+      $this->redirect('/admin/edit/user#personalInformation');
     }
 
     $result = $this->model->updateUserDetails($user_id, ['full_name' => $fullName, 'email' => $email, 'user_type' => $userType, 'education_level' => $educationLevel, 'enrolled_course' => $enrolledCourse, 'school_name' => $schoolName, 'phone_number' => $phoneNumber]);
@@ -177,8 +189,8 @@ class AdminManageUserController extends Controller
       Session::flash('errors', ['update' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
     }
 
-    $this->redirect('/admin/edit/user/' . $user_id . '#personalInformation');
-
+    Session::flash('post', ['user_id' => $user_id]);
+    $this->redirect('/admin/edit/user#personalInformation');
   }
 
   public function updatePassword($user_id)
@@ -198,8 +210,9 @@ class AdminManageUserController extends Controller
 
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
+      Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
-      $this->redirect('/admin/edit/user/' . $user_id . '#password');   
+      $this->redirect('/admin/edit/use#password');   
     }
 
     $result = $this->model->adminUpdatePassword($user_id, $newPassword);
@@ -210,7 +223,7 @@ class AdminManageUserController extends Controller
       Session::flash('errors', ['password' => $result['message']]);
     }
 
-    $this->redirect('/admin/edit/user/' . $user_id . '#password');
-
+    Session::flash('post', ['user_id' => $user_id]);
+    $this->redirect('/admin/edit/use#password');
   }
 }
