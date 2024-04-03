@@ -8,6 +8,7 @@ View::renderPartial('Header', [
         'script',
         'searchOverlay',
         'toastTimer',
+        'confirmModal',
         'authFormValidation',
     ]
 ]);
@@ -196,11 +197,14 @@ View::renderPartial('MenuHeader', [
     </form>
 </div>
 
+</main>
 <?php
 
 View::renderPartial('SearchOverlay');
 
 View::renderPartial('ToastNotification');
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');
 

@@ -45,7 +45,7 @@ const validationRules = {
   },
 };
 
-const forms = document.querySelectorAll("form");
+const forms = document.querySelectorAll("form:not(#logoutForm)");
 
 forms.forEach((form) => {
   form.addEventListener("submit", (e) => {

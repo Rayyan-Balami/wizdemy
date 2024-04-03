@@ -13,7 +13,7 @@ View::renderPartial('Header', [
     'adminTable',
     'confirmModal',
     'adminTable', 
-    'adminUser'
+    'adminUser',
   ]
 ]);
 
@@ -43,7 +43,7 @@ View::renderPartial('AdminMenuHeader');
   ?> 
   </pre>
 </section>
-
+</main>
 <?php
 
 View::renderPartial('ToastNotification');

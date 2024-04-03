@@ -10,6 +10,7 @@ View::renderPartial('Header', [
         'searchOverlay',
         'toastTimer',
         'authFormValidation',
+        'confirmModal',
     ]
 ]);
 
@@ -242,6 +243,8 @@ $flashOld = Session::get('old');
 View::renderPartial('SearchOverlay');
 
 View::renderPartial('ToastNotification');
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');
 

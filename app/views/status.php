@@ -3,7 +3,7 @@
 View::renderPartial('Header', [
   'pageTitle' => SITE_NAME . ' | ' . http_response_code(),
   'stylesheets' => [
-    'statusAndZeroResult'
+    'statusAndZeroResult',
   ]
 ]);
 

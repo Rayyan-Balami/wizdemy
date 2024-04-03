@@ -275,7 +275,7 @@
                     </button>
                 </li>
                 <li>
-                    <form action="/logout" method="POST">
+                    <form action="/logout" method="POST" id="logoutForm">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="menu-btn">
                             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

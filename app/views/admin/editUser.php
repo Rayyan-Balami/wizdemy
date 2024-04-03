@@ -10,6 +10,7 @@ View::renderPartial('Header', [
         'script',
         'toastTimer',
         'authFormValidation',
+        'confirmModal',
     ]
 ]);
 
@@ -288,6 +289,8 @@ $flashOld = Session::get('old');
 
 <?php
 View::renderPartial('ToastNotification');
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');
 

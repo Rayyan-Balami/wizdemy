@@ -11,7 +11,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'jquery.min',
     'confirmModal',
-    'adminAdmin'
+    'adminAdmin',
   ]
 ]);
 
@@ -36,6 +36,7 @@ if (!empty($admins)) {
 ?>
 </section>
 
+</main>
 
 <?php
 

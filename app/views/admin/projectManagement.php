@@ -8,7 +8,8 @@ View::renderPartial('Header', [
   ],
   'scripts' => [
     'script',
-    'toastTimer'
+    'toastTimer',
+    'confirmModal',
   ]
 ]);
 
@@ -33,7 +34,7 @@ if (!empty($projects)) {
 ?>
 </section>
 
-
+</main>
 <?php
 
 View::renderPartial('ToastNotification');

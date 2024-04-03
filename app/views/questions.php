@@ -12,7 +12,8 @@ View::renderPartial('Header', [
     'sideInfo',
     'searchOverlay',
     'toastTimer',
-    'timeAgo'
+    'timeAgo',
+    'confirmModal',
   ]
 ]);
 
@@ -35,7 +36,7 @@ else:
 endif;
 ?>
 </section>
-
+</main>
 <?php
 View::renderPartial('ThreeDotMenu');
 
@@ -44,5 +45,7 @@ View::renderPartial('SideInfo');
 View::renderPartial('SearchOverlay');
 
 View::renderPartial('ToastNotification');
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');

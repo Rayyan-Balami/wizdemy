@@ -30,4 +30,21 @@ function toggleSettingsDropdown() {
 }
 
 
+//add event listener in logout form to show confirm modal (id = logoutForm )
+
+document.getElementById("logoutForm").addEventListener("submit", async (event) => {
+  //prevent default form submission
+  event.preventDefault();
+
+  const confirmed = await openConfirmModal(
+    'logout',
+    `Do you want to logout ?`
+  );
+
+  // If user cancels the action, do nothing
+  if (confirmed) {
+    //remove prevent default
+    document.getElementById("logoutForm").submit();
+  }
+});
 

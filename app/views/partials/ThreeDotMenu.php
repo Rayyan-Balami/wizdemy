@@ -1,4 +1,3 @@
-</main>
 <!-- three dot menu popup -->
 <div id="three-dot-menu" onclick="closeThreeDotMenu()">
   <ul>

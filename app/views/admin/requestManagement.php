@@ -9,6 +9,7 @@ View::renderPartial('Header', [
   'scripts' => [
     'script',
     'toastTimer',
+    'confirmModal',
   ]
 ]);
 
@@ -31,7 +32,7 @@ if (!empty($requests)) {
 }
 ?>
 </section>
-
+</main>
 
 <?php
 

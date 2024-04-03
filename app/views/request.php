@@ -15,6 +15,7 @@ View::renderPartial('Header', [
     'jquery.min',
     'authStatus',
     'category',
+    'confirmModal',
   ]
 ]);
 
@@ -40,6 +41,7 @@ View::renderPartial('MenuHeader');
   ?>
 
 </section>
+</main>
 
 <?php
 
@@ -50,5 +52,7 @@ View::renderPartial('SideInfo');
 View::renderPartial('SearchOverlay');
 
 View::renderPartial('ToastNotification');
+
+View::renderPartial('ConfirmModal');
 
 View::renderPartial('EndOfHTMLDocument');
