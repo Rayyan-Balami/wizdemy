@@ -12,7 +12,6 @@ View::renderPartial('Header', [
     'toastTimer',
     'adminTable',
     'confirmModal',
-    'timeAgo',
     'adminTable', 
     'adminUser'
   ]
@@ -45,9 +44,9 @@ View::renderPartial('AdminMenuHeader');
   </pre>
 </section>
 
-</main>
-
 <?php
+
+View::renderPartial('ToastNotification');
 
 View::renderPartial('ConfirmModal');
 

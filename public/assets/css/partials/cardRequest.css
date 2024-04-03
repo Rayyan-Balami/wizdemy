@@ -157,7 +157,7 @@
   white-space: nowrap;
 }
 
-.button-wrapper > form > .respond-button{
+.button-wrapper > .respond-button{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,7 +171,7 @@
   cursor: pointer;
 }
 
-.button-wrapper > form > .respond-button:hover{
+.button-wrapper > .respond-button:hover{
   background-color: rgb(31 41 55);
   border-color: rgb(31 41 55);
   color: white;

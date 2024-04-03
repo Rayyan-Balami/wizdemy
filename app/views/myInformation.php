@@ -147,10 +147,10 @@ $flashOld = Session::get('old');
                     value="<?= isset ($flashOld['phone_number']) ? $flashOld['phone_number'] : $user['phone_number'] ?>" />
             </div>
 
-            <!-- user-type , student or teacher (required)-->
-            <div class="user-type">
-                <label for="user-type">I am a ?</label>
-                <select name="user-type" id="user-type" required>
+            <!-- userType , student or teacher (required)-->
+            <div class="userType">
+                <label for="userType">I am a ?</label>
+                <select name="userType" id="userType" required>
                     <option value="" disabled <?= $user['user_type'] === null ? 'selected' : '' ?>>Select an option...
                     </option>
                     <?php

@@ -146,7 +146,7 @@ form > .request-details > .request-meta-datas > span{
   .format,
   .educationLevel,
   .semester,
-  .user-type,
+  .userType,
   .phoneNumber{
     grid-column: span 2 / span 2;
   }
@@ -189,7 +189,7 @@ form > .document-type,
 form > .format,
 form > .educationLevel,
 form > .semester,
-form > .user-type {
+form > .userType {
   position: relative;
 }
 

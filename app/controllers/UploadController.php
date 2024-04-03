@@ -98,10 +98,10 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/create');
+      $this->redirect('/material'. ($request_id != null ? '/respond/'.$request_id : '/create'));
     }
 
-    //material/create files in the server
+    //upload files in the server
     $imageUpload = File::upload($imageFile, 'assets/uploads/thumbnails');
     $documentUpload = File::upload($documentFile, 'assets/uploads/documents');
     if (!$imageUpload['status'] || !$documentUpload['status']) {
@@ -120,10 +120,10 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/create');
+      $this->redirect('/material'. ($request_id != null ? '/respond/'.$request_id : '/create'));
     }
 
-    //store request in the database
+    //store material in the database
     $result = $this->model->store(
       $user_id,
       $request_id,
@@ -162,7 +162,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/create');
+      $this->redirect('/material'. ($request_id != null ? '/respond/'.$request_id : '/create'));
     }
   }
 }

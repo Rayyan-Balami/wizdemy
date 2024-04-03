@@ -48,10 +48,12 @@ class SettingsController extends Controller
     $result = $this->model->updateUserDetails(Session::get('user')['user_id'], ['username' => $userName, 'bio' => $bio]);
 
     if ($result['status']) {
-      Session::flash('success', ['profile' => $result['message']]);
+      //update session username
+      Session::set('user', array_merge(Session::get('user'), ['username' => $userName]));
+      Session::flash('success', ['profile' => Session::get('user')['username'] . ' ' . $result['message']]);
       $this->redirect('/myInformation');
     } else {
-      Session::flash('errors', ['profile' => $result['message']]);
+      Session::flash('errors', ['profile' => Session::get('user')['username'] . ' ' . $result['message']]);
       Session::flash('old', [
         'username' => $userName,
         'bio' => $bio
@@ -63,9 +65,9 @@ class SettingsController extends Controller
   public function personal()
   {
     $fullName = htmlspecialchars(trim($_POST['fullName']));
-    $userType = htmlspecialchars(trim($_POST['user-type']));
+    $userType = htmlspecialchars(trim($_POST['userType']));
     $educationLevel = htmlspecialchars(trim($_POST['educationLevel']));
-    $enrolledCourse = htmlspecialchars(trim($_POST['enrolled-course']));
+    $enrolledCourse = htmlspecialchars(trim($_POST['enrolledCourse']));
     $schoolName = htmlspecialchars(trim($_POST['school']));
     $phoneNumber = htmlspecialchars(trim($_POST['phoneNumber']));
 

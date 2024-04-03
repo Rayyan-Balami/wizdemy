@@ -147,8 +147,8 @@ table .actions-cell > div {
 }
 
 table .actions-cell button,
+table .actions-cell a,
 .table-menus > .prev-next-wrapper button{
-  margin: 0;
   background-color: inherit;
   color: inherit;
   border: none ;

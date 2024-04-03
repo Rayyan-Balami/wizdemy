@@ -8,13 +8,7 @@ View::renderPartial('Header', [
   ],
   'scripts' => [
     'script',
-    'jquery.min',
-    'toastTimer',
-    'adminTable',
-    'confirmModal',
-    'timeAgo',
-    'adminTable', 
-    'updateStatus',
+    'toastTimer'
   ]
 ]);
 
@@ -64,15 +58,60 @@ $flashOld = Session::get('old');
     <p class="message">
         Admins be careful while editing user details.
     </p>
+    <span id="profile"></span>
 </div>
 
 <!-- profile content -->
 <div class="form-section">
 
+<!-- profile content -->
+<div>
+        <h2 class="form-heading" >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <g fill="currentColor">
+                    <path d="M8 9.05a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5" />
+                    <path
+                        d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm10.798 11c-.453-1.27-1.76-3-4.798-3c-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1z" />
+                </g>
+            </svg>Profile
+        </h2>
+        <p class="form-info">
+            Admins be careful while editing user's profile.
+        </p>
+        <!-- form for user name and about -->
+        <form action="/admin/update/user/profile/<?= $user['user_id']?>" method="post">
+            <!-- PUT method -->
+            <input type="hidden" name="_method" value="PUT">
+
+            <!-- username -->
+            <div class="username">
+                <label for="username">User Name</label>
+                <input type="text" placeholder="rynb_hir000" required name="username" id="username"
+                    value="<?= isset ($flashOld['username']) ? $flashOld['username'] : $user['username'] ?>" />
+            </div>
+
+            <!-- bio -->
+            <div class="bio">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio"
+                    rows="3"><?= isset ($flashOld['bio']) ? $flashOld['bio'] : $user['bio'] ?></textarea>
+
+                <p class="mt-2 text-sm text-gray-600">
+                    Write a few sentences about yourself.
+                </p>
+            </div>
+
+            <!-- save button -->
+            <button type="submit" name="submitBtn">
+                Save
+            </button>
+        </form>
+        <span id="personalInformation"></span>
+    </div>
 
     <!-- personal information content -->
     <div>
-        <h2 class="form-heading">
+        <h2 class="form-heading" >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12.5 2.5h-11a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1" />
@@ -84,7 +123,7 @@ $flashOld = Session::get('old');
             Admins be careful while editing user details.
         </p>
         <!-- form for full name, gender, student/teacher, school name, email -->
-        <form action="/myInformation/personal" method="post">
+        <form action="/admin/update/user/info/<?= $user['user_id']?>" method="post">
 
             <!-- PUT method -->
             <input type="hidden" name="_method" value="PUT">
@@ -99,7 +138,8 @@ $flashOld = Session::get('old');
             <!-- email (required)-->
             <div class="email">
                 <label for="email">Email Address</label>
-                <input type="email" required name="email" id="emailDisabled" disabled placeholder="<?= $user['email'] ?>" />
+                <input type="email" required name="email" id="emailDisabled" 
+                value="<?= isset ($flashOld['email']) ? $flashOld['email'] : $user['email'] ?>" required />
             </div>
 
             <!-- phone number (optional)-->
@@ -109,10 +149,10 @@ $flashOld = Session::get('old');
                     value="<?= isset ($flashOld['phone_number']) ? $flashOld['phone_number'] : $user['phone_number'] ?>" />
             </div>
 
-            <!-- user-type , student or teacher (required)-->
-            <div class="user-type">
-                <label for="user-type">I am a ?</label>
-                <select name="user-type" id="user-type" required>
+            <!-- userType , student or teacher (required)-->
+            <div class="userType">
+                <label for="userType">I am a ?</label>
+                <select name="userType" id="userType" required>
                     <option value="" disabled <?= $user['user_type'] === null ? 'selected' : '' ?>>Select an option...
                     </option>
                     <?php
@@ -135,7 +175,7 @@ $flashOld = Session::get('old');
                     <g id="SVGRepo_iconCarrier">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M12.7071 4.29289C12.3166 3.90237 11.6834 3.90237 11.2929 4.29289L7.29289 8.29289C6.90237 8.68342 6.90237 9.31658 7.29289 9.70711C7.68342 10.0976 8.31658 10.0976 8.70711 9.70711L12 6.41421L15.2929 9.70711C15.6834 10.0976 16.3166 10.0976 16.7071 9.70711C17.0976 9.31658 17.0976 8.68342 16.7071 8.29289L12.7071 4.29289ZM7.29289 15.7071L11.2929 19.7071C11.6834 20.0976 12.3166 20.0976 12.7071 19.7071L16.7071 15.7071C17.0976 15.3166 17.0976 14.6834 16.7071 14.2929C16.3166 13.9024 15.6834 13.9024 15.2929 14.2929L12 17.5858L8.70711 14.2929C8.31658 13.9024 7.68342 13.9024 7.29289 14.2929C6.90237 14.6834 6.90237 15.3166 7.29289 15.7071Z"
-                            fill="#000000"></path>
+                            fill="currentColor"></path>
                     </g>
                 </svg>
             </div>
@@ -169,7 +209,7 @@ $flashOld = Session::get('old');
                     <g id="SVGRepo_iconCarrier">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M12.7071 4.29289C12.3166 3.90237 11.6834 3.90237 11.2929 4.29289L7.29289 8.29289C6.90237 8.68342 6.90237 9.31658 7.29289 9.70711C7.68342 10.0976 8.31658 10.0976 8.70711 9.70711L12 6.41421L15.2929 9.70711C15.6834 10.0976 16.3166 10.0976 16.7071 9.70711C17.0976 9.31658 17.0976 8.68342 16.7071 8.29289L12.7071 4.29289ZM7.29289 15.7071L11.2929 19.7071C11.6834 20.0976 12.3166 20.0976 12.7071 19.7071L16.7071 15.7071C17.0976 15.3166 17.0976 14.6834 16.7071 14.2929C16.3166 13.9024 15.6834 13.9024 15.2929 14.2929L12 17.5858L8.70711 14.2929C8.31658 13.9024 7.68342 13.9024 7.29289 14.2929C6.90237 14.6834 6.90237 15.3166 7.29289 15.7071Z"
-                            fill="#000000"></path>
+                            fill="currentColor"></path>
                     </g>
                 </svg>
             </div>
@@ -195,6 +235,7 @@ $flashOld = Session::get('old');
                 Save
             </button>
         </form>
+        <span id="password"></span>
     </div>
 
     <!-- change password content -->
@@ -215,7 +256,7 @@ $flashOld = Session::get('old');
                 Admins be careful while changing user password.
             </p>
             <!-- form for user name and about -->
-            <form action="/accountSecurity/password" method="post">
+            <form action="/admin/update/user/password/<?= $user['user_id']?>" method="post">
 
                 <!-- PUT method  -->
                 <input type="hidden" name="_method" value="PUT">
@@ -225,6 +266,14 @@ $flashOld = Session::get('old');
                     <label for="newPassword">New
                         Password</label>
                         <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
+                </div>
+
+                 <!-- confirm password -->
+                 <div class="confirmPassword sm:row-start-3">
+                    <label for="confirmPassword">Confirm
+                        Password</label>
+                    <input type="password" placeholder="••••••••" required name="confirmPassword"
+                        id="confirmPassword" />
                 </div>
 
                 <!-- save button -->

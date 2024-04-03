@@ -8,6 +8,7 @@ class UserModel extends Model
         parent::__construct($table);
         $this->fillable = [
             'full_name',
+            'email',
             'username',
             'password',
             'private',
@@ -87,6 +88,7 @@ class UserModel extends Model
     public function userDetails($user_id)
     {
         return $this->select([
+            'user_id',
             'full_name',
             'username',
             'email',
@@ -110,17 +112,14 @@ class UserModel extends Model
             ->execute();
 
         if ($result) {
-            if (array_key_exists('username', $data)) {
-                $_SESSION['user']['username'] = $data['username'];
-            }
             return [
                 'status' => true,
-                'message' => Session::get('user')['username'] . ' Profile updated successfully'
+                'message' => 'Profile updated successfully'
             ];
         } else {
             return [
                 'status' => false,
-                'message' => Session::get('user')['username'] . ' Profile update failed'
+                'message' => 'Profile update failed'
             ];
         }
     }
@@ -164,6 +163,26 @@ class UserModel extends Model
             ];
         }
 
+    }
+
+    public function adminUpdatePassword($user_id, $newPassword)
+    {
+        $result = $this->update(['password' => password_hash($newPassword, PASSWORD_BCRYPT)])
+            ->where('user_id = :user_id')
+            ->appendBindings(['user_id' => $user_id])
+            ->execute();
+
+        if ($result) {
+            return [
+                'status' => true,
+                'message' => 'Password updated successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Password update failed'
+            ];
+        }
     }
 
     public function updatePreferences($user_id, $data)

@@ -37,7 +37,7 @@ $router->post('/request/store', 'RequestController@store')->only('auth');
 //routes for upload page
 $router->get('/material/create', 'UploadController@index')->only('auth');
 $router->post('/material/store', 'UploadController@store')->only('auth');
-$router->post('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
+$router->get('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
 
 //routes for add project page
 $router->get('/project', 'ProjectController@index')->only('auth');
@@ -82,7 +82,10 @@ $router->get('/admin/dashboard', 'AdminDashboardController@index')->only('admin'
 $router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
 $router->post('/api/admin/update/users/status', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/user/{user_id}', 'AdminManageUserController@delete')->only('apiAdmin');
-$router->post('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
+$router->get('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
+$router->put('/admin/update/user/profile/{user_id}', 'AdminManageUserController@updateUserProfile')->only('admin');
+$router->put('/admin/update/user/info/{user_id}', 'AdminManageUserController@updateUserInfo')->only('admin');
+$router->put('/admin/update/user/password/{user_id}', 'AdminManageUserController@updatePassword')->only('admin');
 
 
 //routes for admin project management
@@ -95,3 +98,7 @@ $router->get('/admin/manage/material', 'AdminManageRequestController@index')->on
 $router->get('/admin/manage/requests', 'AdminManageMaterialController@index')->only('admin');
 
 
+// routes for admin manage admin
+$router->get('/admin/manage/admin', 'AdminManageAdminController@index')->only('admin');
+$router->post('/api/admin/update/admin/status', 'AdminManageAdminController@updateAdminStatus')->only('apiAdmin');
+$router->delete('/api/admin/delete/admin/{admin_id}', 'AdminManageAdminController@delete')->only('apiAdmin');

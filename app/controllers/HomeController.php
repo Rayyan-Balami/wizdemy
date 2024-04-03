@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     $material = $this->model->view($material_id);
 
-    if (!$material) {
+    if (!$material || $material['status'] == 'suspend') {
       View::render('viewMaterial', ['material' => null]);
       return;
     }
