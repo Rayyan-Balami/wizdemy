@@ -32,7 +32,7 @@ class ProfileController extends Controller
     //if its own pofile
     if ($myProfile) {
       // $uploads = $this->model->showUploads($user_id);
-      $uploads = $MaterialViewModel->showUploadsByUserId($user_id);
+      $uploads = $MaterialViewModel->showUploadsByCurrentUser();
       $this->renderProfileView($myProfile, $user, $uploads, $isPrivate, $isCurrentUserFollower);
       return;
     }
@@ -59,11 +59,19 @@ class ProfileController extends Controller
   }
 
 
-  public function category()
+  public function myMaterials()
   {
     $current_user = Session::get('user')['user_id'] ?? null;
-    $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    $uploads = (new MaterialViewModel())->showUploadsByUserId($user_id, $_POST['category']);
+    $user_id = $_POST['user_id'] ?? $current_user;
+    $category = $_POST['category'];
+
+    $materialViewModel = new MaterialViewModel();
+
+    if ($user_id == $current_user) {
+      $uploads = $materialViewModel->showUploadsByCurrentUser($category);
+    } else {
+      $uploads = $materialViewModel->showUploadsByUserId($user_id, $category);
+    }
 
     $this->buildJsonResponse($uploads);
   }
@@ -71,11 +79,18 @@ class ProfileController extends Controller
   public function myRequests()
   {
     $current_user = Session::get('user')['user_id'] ?? null;
-    $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    // $myRequests = $this->model->myRequests($user_id, $_POST['category']);
-    $myRequests = (new StudyMaterialRequestModel())->myRequests($user_id, $_POST['category']);
+    $user_id = $_POST['user_id'] ?? $current_user;
+    $category = $_POST['category'];
 
-    $this->buildJsonResponse($myRequests);
+    $requestModel = new StudyMaterialRequestModel();
+
+    if ($user_id == $current_user) {
+      $requests = $requestModel->showRequestsByCurrentUser($category);
+    } else {
+      $requests = $requestModel->showRequestsByUserId($user_id, $category);
+    }
+
+    $this->buildJsonResponse($requests);
   }
 
   
@@ -83,9 +98,16 @@ class ProfileController extends Controller
   public function myProjects()
   {
     $current_user = Session::get('user')['user_id'] ?? null;
-    $user_id = $_POST['user_id'] == null ? $current_user : $_POST['user_id'];
-    // $projects = $this->model->myProjects($user_id);
-    $projects = (new GithubProjectModel())->myProjects($user_id);
+    $user_id = $_POST['user_id'] ?? $current_user;
+
+    $projectModel = new GithubProjectModel();
+    
+    if($user_id == $current_user){
+      $projects = $projectModel->showProjectsByCurrentUser();
+    }else{
+      $projects = $projectModel->showProjectsByUserId($user_id);
+    }
+
     $this->buildJsonResponse($projects);
   }
 }

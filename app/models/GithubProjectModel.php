@@ -42,8 +42,11 @@ class GithubProjectModel extends Model
             'repo_link' => $repoLink,
         ])->execute();
     }
-    public function myProjects($user_id)
+
+    //shows suspended projects too in owner's profile
+    public function showProjectsByCurrentUser()
     {
+        $user_id = Session::get('user')['user_id'] ?? null;
         return $this->select([
             'p.*',
             'u.username'
@@ -53,6 +56,19 @@ class GithubProjectModel extends Model
             ->bind(['user_id' => $user_id])
             ->getAll();
     }
+
+    public function showProjectsByUserId($user_id)
+    {
+        return $this->select([
+            'p.*',
+            'u.username'
+        ], 'p')
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+            ->where('p.user_id = :user_id AND p.status <> :status')
+            ->bind(['user_id' => $user_id, 'status' => 'suspend'])
+            ->getAll();
+    }
+   
     public function getProjectsForAdmin()
     {
         return $this->show();

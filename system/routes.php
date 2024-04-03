@@ -37,7 +37,10 @@ $router->post('/request/store', 'RequestController@store')->only('auth');
 //routes for upload page
 $router->get('/material/create', 'UploadController@index')->only('auth');
 $router->post('/material/store', 'UploadController@store')->only('auth');
-$router->get('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
+
+$router->post('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
+$router->post('/material/respond/store/{request_id}', 'UploadController@store')->only('auth'); //while responding to request
+
 
 //routes for add project page
 $router->get('/project', 'ProjectController@index')->only('auth');
@@ -49,7 +52,7 @@ $router->get('/profile', 'ProfileController@index')->only('auth');
 $router->get('/profile/{user_id}', 'ProfileController@index')->only('auth');
 $router->post('/follow/{user_id}', 'FollowController@follow')->only('auth');
 $router->delete('/unfollow/{user_id}', 'FollowController@unfollow')->only('auth');
-$router->post('/api/profile/category', 'ProfileController@category')->only('apiAuth');
+$router->post('/api/profile/myMaterials', 'ProfileController@myMaterials')->only('apiAuth');
 $router->post('/api/profile/myRequests', 'ProfileController@myRequests')->only('apiAuth');
 $router->post('/api/profile/myProjects', 'ProfileController@myProjects')->only('apiAuth');
 

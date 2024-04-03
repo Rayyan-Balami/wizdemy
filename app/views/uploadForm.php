@@ -97,11 +97,10 @@ View::renderPartial('MenuHeader', [
     [ CCC ] Correct, Complete, Concise Materials are always appreciated.
   </p>
   <!-- form -->
-  <form action="/material/store" id="uploadForm" method="post" enctype="multipart/form-data">
+  <form action="/material<?= isset($requestDetails['request_id']) ? '/respond/store/' . $requestDetails['request_id'] : '/store' ?>" id="uploadForm" method="post" enctype="multipart/form-data">
 
     <?php if (!empty ($requestDetails)): ?>
       <div class="request-details">
-        <input type="hidden" name="request_id" value="<?= $requestDetails['request_id'] ?>">
         <p class="request-subject">
           <?= $requestDetails['subject'] ?>
         </p>

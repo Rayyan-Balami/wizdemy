@@ -9,13 +9,22 @@ class UploadController extends Controller
 
   public function index($request_id = null)
   {
-    $request_id != null ? $requestDetails = (new StudyMaterialRequestModel())->getRequestDetailById($request_id): $requestDetails = null;
+    $request_id = $request_id ?? Session::get('post')['request_id'] ?? null;
+    $requestDetails = null;
 
-    View::render('uploadForm', [
-      'requestDetails' => $requestDetails
-    ]);
+    if ($request_id) {
+      $requestDetails = (new StudyMaterialRequestModel())->getRequestDetailById($request_id);
+      if (!$requestDetails) {
+        Session::flash('error', ['message' => 'Invalid request']);
+        $this->redirect('/material/create');
+        return;
+      }
+    }
+
+    View::render('uploadForm', ['requestDetails' => $requestDetails]);
   }
-  public function store()
+
+  public function store($request_id = null)
   {
     //hadle html special characters for security purposes and store in variables
     $title = htmlspecialchars($_POST['title']);
@@ -28,10 +37,7 @@ class UploadController extends Controller
     $subject = htmlspecialchars($_POST['subject']);
     $class_faculty = htmlspecialchars($_POST['classFaculty']);
     $author = htmlspecialchars($_POST['author']);
-    $request_id = null;
-    if (isset ($_POST['request_id']) && !empty ($_POST['request_id'])) {
-      $request_id = filter_var($_POST['request_id'], FILTER_SANITIZE_NUMBER_INT);
-    }
+
 
     $imageFile = $_FILES['imageFile'];
     $documentFile = $_FILES['documentFile'];
@@ -98,7 +104,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material'. ($request_id != null ? '/respond/'.$request_id : '/create'));
+      $this->redirect('/material/create');
     }
 
     //upload files in the server
@@ -120,7 +126,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material'. ($request_id != null ? '/respond/'.$request_id : '/create'));
+      $this->redirect('/material/create');
     }
 
     //store material in the database
@@ -144,7 +150,7 @@ class UploadController extends Controller
       Session::flash('success', [
         'message' => $result['message']
       ]);
-      $this->redirect('/');
+      $this->redirect('/'. $document_type);
     } else {
       Session::flash('post', ['request_id' => $request_id]);
       Session::flash('error', [
@@ -162,7 +168,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material'. ($request_id != null ? '/respond/'.$request_id : '/create'));
+      $this->redirect('/material/create');
     }
   }
 }

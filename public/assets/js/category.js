@@ -80,9 +80,8 @@ function RequestCard(
                 <button type="button" onclick="toggleSideInfo()" class="see-details-button">
                     • <span>See Details</span>
                 </button>
-                <form action="/material/respond" method="post">
+                <form action="/material/respond/${request_id}" method="post">
                 <!-- respond button  -->
-                <input type="hidden" name="request_id" value="${request_id}">
                 <button type="submit" class="respond-button">
                     <span>Respond</span>
                     <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'
@@ -226,7 +225,7 @@ function MaterialCard(
 
   <!-- time  -->
   <div class="time">
-    <p><a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
+    <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
     <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
@@ -312,7 +311,7 @@ function ProjectCard(
     </a>
     <!-- time  -->
     <div class="time">
-      <p><a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
+      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
@@ -599,7 +598,7 @@ function changeCategory(page) {
     if ($("#requestCheck").prop("checked")) {
       myRequests(page, category);
     } else {
-      profileCategoryChange(page, category);
+      myMaterials(page, category);
     }
   }
 }
@@ -658,7 +657,7 @@ function requestCategoryChange(page, category) {
   });
 }
 
-function profileCategoryChange(page, category) {
+function myMaterials(page, category) {
   const cardCategory = $(".card-category-wrapper");
   let materialCardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
@@ -674,22 +673,17 @@ function profileCategoryChange(page, category) {
   }
   ZeroResultSection.remove();
 
-  ["note", "question", "labreport"].forEach((cat) => {
-    const element = $(`#${cat}-category`);
-    element.removeClass("is-active-category").attr("disabled", false);
-    if (cat === category) {
-      element.addClass("is-active-category").attr("disabled", true);
-    }
-  });
+  // Extract user_id from the URL 
+  //eg: http://localhost:8000/profile/1
+  const pathSegments = window.location.pathname.split('/');
+  const user_id = pathSegments[pathSegments.length - 1];
 
-  // Extract user_id from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const user_id = urlParams.get("id");
   $.ajax({
-    url: `/api/${page}/category`,
+    url: `/api/${page}/myMaterials`,
     type: "POST",
     data: { category, user_id },
     success: function (respond) {
+      console.log(respond);
       if (respond.data.length <= 0) {
         cardCategory.after(ZeroResult(page));
         return;
@@ -745,17 +739,11 @@ function myRequests(page, category) {
   }
   ZeroResultSection.remove();
 
-  ["note", "question", "labreport"].forEach((cat) => {
-    const element = $(`#${cat}-category`);
-    element.removeClass("is-active-category").attr("disabled", false);
-    if (cat === category) {
-      element.addClass("is-active-category").attr("disabled", true);
-    }
-  });
-
-  // Extract user_id from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const user_id = urlParams.get("id");
+  // Extract user_id from the URL 
+  //eg: http://localhost:8000/profile/1
+  const pathSegments = window.location.pathname.split('/');
+  const user_id = pathSegments[pathSegments.length - 1];
+  
   $.ajax({
     url: `/api/${page}/myRequests`,
     type: "POST",
@@ -817,9 +805,11 @@ function myProjects(page) {
 
   ZeroResultSection.remove();
 
-  // Extract user_id from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const user_id = urlParams.get("id");
+  // Extract user_id from the URL 
+  //eg: http://localhost:8000/profile/1
+  const pathSegments = window.location.pathname.split('/');
+  const user_id = pathSegments[pathSegments.length - 1];
+  
 
   $.ajax({
     url: `/api/${page}/myProjects`,

@@ -37,13 +37,29 @@ class MaterialViewModel extends Model
             ->bind(['material_id' => $material_id])
             ->get();
     }
+
+    //shows suspended materials too in owner's profile
+    public function showUploadsByCurrentUser($document_type = 'note')
+    {
+        $current_user = Session::get('user')['user_id'] ?? null;
+        return $this->select([
+            'mv.*'
+        ], 'mv')
+            ->where('mv.user_id = :current_user AND mv.document_type = :document_type')
+            ->bind(['current_user' => $current_user, 'document_type' => $document_type])
+            ->groupBy('mv.material_id')
+            ->limit(10)
+            ->getAll();
+    }
+    
+    // does not show suspended materials while viewing other profiles
     public function showUploadsByUserId($user_id, $document_type = 'note')
     {
         return $this->select([
             'mv.*'
         ], 'mv')
-            ->where('mv.user_id = :user_id AND mv.document_type = :document_type')
-            ->bind(['user_id' => $user_id, 'document_type' => $document_type])
+            ->where('mv.user_id = :user_id AND mv.document_type = :document_type AND mv.status <> :status')
+            ->bind(['user_id' => $user_id, 'document_type' => $document_type, 'status' => 'suspend'])
             ->groupBy('mv.material_id')
             ->limit(10)
             ->getAll();

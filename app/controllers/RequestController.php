@@ -94,8 +94,9 @@ class RequestController extends Controller
   }
 
   public function category()
-  {    
-    $requests = $this->model->show();
+  {
+    $category = $_POST['category'];
+    $requests = $this->model->show($category);
     // if(!empty($requests)){
     $this->buildJsonResponse($requests);
   }

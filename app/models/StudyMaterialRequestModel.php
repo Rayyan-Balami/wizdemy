@@ -17,12 +17,8 @@ class StudyMaterialRequestModel extends Model
         ];
     }
 
-    public function show()
+    public function show($category = 'note')
     {
-
-        // If 'category' parameter is not set or invalid, default to 'notes'
-        $category = $_POST['category'] ?? 'note';
-
 
         return $this->select([
             'r.*',
@@ -76,7 +72,26 @@ class StudyMaterialRequestModel extends Model
             ];
         }
     }
-    public function myRequests($user_id, $document_type = 'note')
+
+    //shows suspended materials too in owner's profile
+    public function showRequestsByCurrentUser($document_type = 'note'){
+        $current_user = Session::get('user')['user_id'] ?? null;
+        return $this->select([
+            'r.*',
+            'u.username',
+            'COUNT(DISTINCT m.material_id) as no_of_materials'
+        ], 'r')
+            ->leftJoin('users as u', 'u.user_id = r.user_id')
+            ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
+            ->where('r.document_type = :document_type AND r.user_id = :current_user')
+            ->bind(['document_type' => $document_type, 'current_user' => $current_user])
+            ->groupBy('r.request_id')
+            ->orderBy('r.created_at', 'DESC')
+            ->getAll();
+    }
+
+
+    public function showRequestsByUserId($user_id, $document_type = 'note')
     {
 
         return $this->select([
@@ -86,8 +101,8 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.document_type = :document_type AND r.user_id = :user_id')
-            ->bind(['document_type' => $document_type, 'user_id' => $user_id])
+            ->where('r.document_type = :document_type AND r.user_id = :user_id AND r.status <> :status')
+            ->bind(['document_type' => $document_type, 'user_id' => $user_id, 'status' => 'suspend'])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
             ->getAll();
@@ -101,8 +116,8 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.request_id = :request_id')
-            ->bind(['request_id' => $request_id])
+            ->where('r.request_id = :request_id AND r.status <> :status')
+            ->bind(['request_id' => $request_id, 'status' => 'suspend'])
             ->groupBy('r.request_id')
             ->get();
     }
