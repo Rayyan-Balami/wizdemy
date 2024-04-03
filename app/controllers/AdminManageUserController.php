@@ -212,7 +212,7 @@ class AdminManageUserController extends Controller
     if (!empty($this->errors)) {
       Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
-      $this->redirect('/admin/edit/use#password');   
+      $this->redirect('/admin/edit/user#password');   
     }
 
     $result = $this->model->adminUpdatePassword($user_id, $newPassword);
@@ -224,6 +224,6 @@ class AdminManageUserController extends Controller
     }
 
     Session::flash('post', ['user_id' => $user_id]);
-    $this->redirect('/admin/edit/use#password');
+    $this->redirect('/admin/edit/user#password');
   }
 }

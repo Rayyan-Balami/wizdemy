@@ -1,19 +1,20 @@
 <?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
-  'stylesheets' => [
-    'statusAndZeroResult',
-    'adminStyles',
-  ],
-  'scripts' => [
-    'script',
-    'toastTimer'
-  ]
+    'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+    'stylesheets' => [
+        'statusAndZeroResult',
+        'adminStyles',
+    ],
+    'scripts' => [
+        'script',
+        'toastTimer',
+        'authFormValidation',
+    ]
 ]);
 
 View::renderPartial('AdminSideNav', [
-  'currentPage' => 'userManagement'
+    'currentPage' => 'userManagement'
 ]);
 
 View::renderPartial('AdminMenuHeader');
@@ -64,9 +65,9 @@ $flashOld = Session::get('old');
 <!-- profile content -->
 <div class="form-section">
 
-<!-- profile content -->
-<div>
-        <h2 class="form-heading" >
+    <!-- profile content -->
+    <div>
+        <h2 class="form-heading">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                 <g fill="currentColor">
                     <path d="M8 9.05a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5" />
@@ -79,7 +80,7 @@ $flashOld = Session::get('old');
             Admins be careful while editing user's profile.
         </p>
         <!-- form for user name and about -->
-        <form action="/admin/update/user/profile/<?= $user['user_id']?>" method="post">
+        <form action="/admin/update/user/profile/<?= $user['user_id'] ?>" method="post">
             <!-- PUT method -->
             <input type="hidden" name="_method" value="PUT">
 
@@ -87,14 +88,14 @@ $flashOld = Session::get('old');
             <div class="username">
                 <label for="username">User Name</label>
                 <input type="text" placeholder="rynb_hir000" required name="username" id="username"
-                    value="<?= isset ($flashOld['username']) ? $flashOld['username'] : $user['username'] ?>" />
+                    value="<?= isset($flashOld['username']) ? $flashOld['username'] : $user['username'] ?>" />
             </div>
 
             <!-- bio -->
             <div class="bio">
                 <label for="bio">Bio</label>
                 <textarea id="bio" name="bio"
-                    rows="3"><?= isset ($flashOld['bio']) ? $flashOld['bio'] : $user['bio'] ?></textarea>
+                    rows="3"><?= isset($flashOld['bio']) ? $flashOld['bio'] : $user['bio'] ?></textarea>
 
                 <p class="mt-2 text-sm text-gray-600">
                     Write a few sentences about yourself.
@@ -111,7 +112,7 @@ $flashOld = Session::get('old');
 
     <!-- personal information content -->
     <div>
-        <h2 class="form-heading" >
+        <h2 class="form-heading">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12.5 2.5h-11a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1" />
@@ -123,7 +124,7 @@ $flashOld = Session::get('old');
             Admins be careful while editing user details.
         </p>
         <!-- form for full name, gender, student/teacher, school name, email -->
-        <form action="/admin/update/user/info/<?= $user['user_id']?>" method="post">
+        <form action="/admin/update/user/info/<?= $user['user_id'] ?>" method="post">
 
             <!-- PUT method -->
             <input type="hidden" name="_method" value="PUT">
@@ -132,21 +133,21 @@ $flashOld = Session::get('old');
             <div class="name">
                 <label for="fullName">Full Name</label>
                 <input type="text" placeholder="Hakuna Matata" required name="fullName" id="fullName"
-                    value="<?= isset ($flashOld['full_name']) ? $flashOld['full_name'] : $user['full_name'] ?>" />
+                    value="<?= isset($flashOld['full_name']) ? $flashOld['full_name'] : $user['full_name'] ?>" />
             </div>
 
             <!-- email (required)-->
             <div class="email">
                 <label for="email">Email Address</label>
-                <input type="email" required name="email" id="emailDisabled" 
-                value="<?= isset ($flashOld['email']) ? $flashOld['email'] : $user['email'] ?>" required />
+                <input type="email" required name="email" id="emailDisabled"
+                    value="<?= isset($flashOld['email']) ? $flashOld['email'] : $user['email'] ?>" required />
             </div>
 
             <!-- phone number (optional)-->
             <div class="phoneNumber">
                 <label for="phoneNumber">Phone Number (Optional)</label>
                 <input type="tel" placeholder="984XXXXX07" name="phoneNumber" id="phoneNumber"
-                    value="<?= isset ($flashOld['phone_number']) ? $flashOld['phone_number'] : $user['phone_number'] ?>" />
+                    value="<?= isset($flashOld['phone_number']) ? $flashOld['phone_number'] : $user['phone_number'] ?>" />
             </div>
 
             <!-- userType , student or teacher (required)-->
@@ -162,7 +163,7 @@ $flashOld = Session::get('old');
                         'Institution' => 'institution'
                     ];
                     foreach ($userTypes as $label => $value) {
-                        $selected = (isset ($flashOld['user_type']) && $flashOld['user_type'] === $value) ? 'selected' : (($user['user_type'] === $value) ? 'selected' : '');
+                        $selected = (isset($flashOld['user_type']) && $flashOld['user_type'] === $value) ? 'selected' : (($user['user_type'] === $value) ? 'selected' : '');
                         echo "<option value=\"$value\" $selected>$label</option>";
                     }
                     ?>
@@ -197,7 +198,7 @@ $flashOld = Session::get('old');
                         'PhD' => 'phd'
                     ];
                     foreach ($educationLevels as $label => $value) {
-                        $selected = (isset ($flashOld['education_level']) && $flashOld['education_level'] === $value) ? 'selected' : (($user['education_level'] === $value) ? 'selected' : '');
+                        $selected = (isset($flashOld['education_level']) && $flashOld['education_level'] === $value) ? 'selected' : (($user['education_level'] === $value) ? 'selected' : '');
                         echo "<option value=\"$value\" $selected>$label</option>";
                     }
                     ?>
@@ -219,7 +220,7 @@ $flashOld = Session::get('old');
                 <label for="enrolledCourse">Enrolled
                     Course (Optional)</label>
                 <input type="text" placeholder="BCA, CSIT, MCA in short form" name="enrolledCourse" id="enrolledCourse"
-                    value="<?= isset ($flashOld['enrolled_course']) ? $flashOld['enrolled_course'] : $user['enrolled_course'] ?>" />
+                    value="<?= isset($flashOld['enrolled_course']) ? $flashOld['enrolled_course'] : $user['enrolled_course'] ?>" />
             </div>
 
             <!-- school-->
@@ -227,7 +228,7 @@ $flashOld = Session::get('old');
                 <label for="school">School/ College
                     Name (Optional)</label>
                 <input type="text" placeholder="Enter school/ College name" name="school" id="school"
-                    value="<?= isset ($flashOld['school_name']) ? $flashOld['school_name'] : $user['school_name'] ?>" />
+                    value="<?= isset($flashOld['school_name']) ? $flashOld['school_name'] : $user['school_name'] ?>" />
             </div>
 
             <!-- save button -->
@@ -240,48 +241,47 @@ $flashOld = Session::get('old');
 
     <!-- change password content -->
     <div>
-            <h2 class="form-heading">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                    </g>
-                </svg>Change Password
-            </h2>
-            <p class="form-info">
-                Admins be careful while changing user password.
-            </p>
-            <!-- form for user name and about -->
-            <form action="/admin/update/user/password/<?= $user['user_id']?>" method="post">
+        <h2 class="form-heading">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M12.3212 10.6852L4 19L6 21M7 16L9 18M20 7.5C20 9.98528 17.9853 12 15.5 12C13.0147 12 11 9.98528 11 7.5C11 5.01472 13.0147 3 15.5 3C17.9853 3 20 5.01472 20 7.5Z"
+                        stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    </path>
+                </g>
+            </svg>Change Password
+        </h2>
+        <p class="form-info">
+            Admins be careful while changing user password.
+        </p>
+        <!-- form for user name and about -->
+        <form action="/admin/update/user/password/<?= $user['user_id'] ?>" method="post">
 
-                <!-- PUT method  -->
-                <input type="hidden" name="_method" value="PUT">
+            <!-- PUT method  -->
+            <input type="hidden" name="_method" value="PUT">
 
-                <!-- new password -->
-                <div class="newPassword sm:row-start-2">
-                    <label for="newPassword">New
-                        Password</label>
-                        <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
-                </div>
+            <!-- new password -->
+            <div class="newPassword sm:row-start-2">
+                <label for="newPassword">New
+                    Password</label>
+                <input type="password" placeholder="••••••••" required name="newPassword" id="newPassword" />
+            </div>
 
-                 <!-- confirm password -->
-                 <div class="confirmPassword sm:row-start-3">
-                    <label for="confirmPassword">Confirm
-                        Password</label>
-                    <input type="password" placeholder="••••••••" required name="confirmPassword"
-                        id="confirmPassword" />
-                </div>
+            <!-- confirm password -->
+            <div class="confirmPassword sm:row-start-3">
+                <label for="confirmPassword">Confirm
+                    Password</label>
+                <input type="password" placeholder="••••••••" required name="confirmPassword" id="confirmPassword" />
+            </div>
 
-                <!-- save button -->
-                <button type="submit" name="submitBtn">
-                    Save
-                </button>
-            </form>
-        </div>
+            <!-- save button -->
+            <button type="submit" name="submitBtn">
+                Save
+            </button>
+        </form>
+    </div>
 
 </div>
 </main>
