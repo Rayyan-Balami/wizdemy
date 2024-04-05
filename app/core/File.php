@@ -49,4 +49,34 @@ class File
             ];
         }
     }
+    /**
+     * reupload a file
+     * 
+     * @param string $oldPath The path to the file to replace
+     * @param array $file The new file to upload
+     * @param string $path The path to upload the file to
+     * 
+     * @return array An array containing the status of the upload and a message
+     */
+    public static function reupload(string $oldPath, array $file, string $path) : array
+    {
+        if (file_exists($oldPath)) {
+            unlink($oldPath);
+        }
+        return self::upload($file, $path);
+    }
+    /**
+     * Delete a file
+     * 
+     * @param string $path The path to the file to delete
+     * 
+     * @return bool True if the file was deleted, false otherwise
+     */
+    public static function delete(string $path) : bool
+    {
+        if (file_exists($path)) {
+            return unlink($path);
+        }
+        return false;
+    }
 }

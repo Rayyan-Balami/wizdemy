@@ -304,7 +304,10 @@ else:
 
 endif;
 
-View::renderPartial('ThreeDotMenu');
+View::renderPartial('ThreeDotMenu', [
+  'myProfile' => $myProfile,
+  'user_id' => $user['user_id'],
+]);
 
 View::renderPartial('SideInfo');
 

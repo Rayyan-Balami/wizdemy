@@ -43,7 +43,7 @@ class StudyMaterialModel extends Model
             ->limit(10)
             ->getAll();
     }
-    
+
 
     public function store($user_id, $request_id, $title, $description, $document_type, $format, $education_level, $semester, $subject, $class_faculty, $author, $thumbnail_path, $file_path)
     {
@@ -72,6 +72,53 @@ class StudyMaterialModel extends Model
             return [
                 'status' => false,
                 'message' => 'Upload failed. Please try again later'
+            ];
+        }
+    }
+    public function edit($material_id)
+    {
+        $material = $this->select([
+            'DISTINCT mv.*'
+        ], 'mv')
+            ->where('mv.material_id = :material_id')
+            ->bind(['material_id' => $material_id])
+            ->get();
+
+        if ($material) {
+            return $material;
+        } else {
+            return false;
+        }
+    }
+    public function updateMaterial($material_id, $title, $description, $document_type, $format, $education_level, $semester, $subject, $class_faculty, $author, $thumbnail_path, $file_path)
+    {
+        $update = $this->update([
+            'title' => $title,
+            'description' => $description,
+            'document_type' => $document_type,
+            'format' => $format,
+            'education_level' => $education_level,
+            'semester' => $semester,
+            'subject' => $subject,
+            'class_faculty' => $class_faculty,
+            'author' => $author,
+            'thumbnail_path' => $thumbnail_path,
+            'file_path' => $file_path
+        ])
+            ->where('material_id = :material_id')
+            ->appendBindings(['material_id' => $material_id])
+            ->execute();
+
+
+        if ($update) {
+            return [
+                'status' => true,
+                'message' => 'Update successful'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Update failed. Please try again later'
             ];
         }
     }
