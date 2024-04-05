@@ -38,6 +38,7 @@ $router->post('/request/store', 'RequestController@store')->only('auth');
 $router->get('/material/create', 'UploadController@index')->only('auth');
 $router->post('/material/store', 'UploadController@store')->only('auth');
 $router->get('/material/edit/{material_id}', 'UploadController@edit')->only('auth');
+
 $router->put('/material/update/{material_id}', 'UploadController@update')->only('auth');
 
 $router->post('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
