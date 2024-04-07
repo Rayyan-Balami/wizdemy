@@ -9,7 +9,7 @@ function likeMaterial(studyMaterialId, element) {
                     element.classList.remove('active');
                     element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) - 1;
                 }
-            }
+            } 
         });
     } else {
         $.ajax({
