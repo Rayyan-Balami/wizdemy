@@ -52,6 +52,11 @@ document.getElementById("logoutForm").addEventListener("submit", async (event) =
 //add event listener in delete account form to show confirm modal (id = deleteAccountForm )
 
 function smallClientAlert(message) {
+  const checkAlert = document.querySelector(".smallClientAlert");
+  if (checkAlert) {
+    checkAlert.remove();
+  }
+
   const Alert = document.createElement("div");
   Alert.classList.add("smallClientAlert");
   Alert.innerHTML = message;
@@ -65,8 +70,6 @@ function smallClientAlert(message) {
       Alert.remove();
     }, 500);
   }, 3000);
-
-
 }
 
 // smallClientAlert("This is a small alert message");

@@ -51,8 +51,10 @@ class HomeController extends Controller
     
     //check like status
     $isLiked = (new LikeModel)->isLiked($current_user, $material_id);
+    $isBookmarked = (new BookmarkModel)->isBookmarked($current_user, $material_id);
     
     $material['is_liked'] = $isLiked;
+    $material['is_bookmarked'] = $isBookmarked;
     //if its own material
     if ($isOwnMaterial) {
       View::render('viewMaterial', [

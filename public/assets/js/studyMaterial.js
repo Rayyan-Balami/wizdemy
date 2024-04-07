@@ -4,7 +4,6 @@ function likeMaterial(studyMaterialId, element) {
     const throttleTime = 1000; // 1000 milliseconds = 1 second
 
     if (now - lastCall < throttleTime) {
-        console.log('You are doing that too often. Please wait a moment.');
         return;
     }
     lastCall = now;
@@ -36,6 +35,16 @@ function likeMaterial(studyMaterialId, element) {
 }
 
 function bookmarkMaterial(studyMaterialId, element) {
+    
+    const now = Date.now();
+    const throttleTime = 1000; // 1000 milliseconds = 1 second
+
+    if (now - lastCall < throttleTime) {
+        return;
+    }
+    lastCall = now;
+    
+
     if (element.classList.contains('active')) {
         $.ajax({
             type: 'DELETE',
@@ -44,7 +53,7 @@ function bookmarkMaterial(studyMaterialId, element) {
                 console.log(response);
                 if (response.data.status === 'success') {
                     element.classList.remove('active');
-                    smallClientAlert('Bookmark removed');
+                    smallClientAlert('Removed from bookmarks');
                 }
             }
         });
@@ -56,7 +65,7 @@ function bookmarkMaterial(studyMaterialId, element) {
                 console.log(response);
                 if (response.data.status === 'success') {
                     element.classList.add('active');
-                    smallClientAlert('Bookmark added');
+                    smallClientAlert('Added to bookmarks');
                 }
             }
         });
