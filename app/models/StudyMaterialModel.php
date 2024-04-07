@@ -75,7 +75,7 @@ class StudyMaterialModel extends Model
             ];
         }
     }
-    public function edit($material_id)
+    public function getMaterialById($material_id)
     {
         $material = $this->select([
             'DISTINCT mv.*'

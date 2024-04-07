@@ -123,11 +123,21 @@ form > .request-details > .request-meta-datas > .no-of-responses{
 }
 
 form > .request-details > .request-meta-datas > span{
+  display: flex;
+  align-items: center;
+  gap: 0.3rem/* 6px */;
   border-radius: 9999px;
   background-color: rgb(243 244 246);
   border: var(--border);
   padding:0.25rem 0.5rem;
   text-transform: uppercase;
+}
+
+form > .request-details > .request-meta-datas > .suspended-svg{
+  background-color: rgb(237, 164, 17);
+  color: white;
+  border-color: rgb(237, 164, 17);
+  font-weight: 500;
 }
 
 
