@@ -48,20 +48,41 @@ class HomeController extends Controller
     $isPrivate = $material['private'];
     $isOwnMaterial = $current_user == $material['user_id'];
     $isCurrentUserFollower = !$isOwnMaterial ? (new FollowRelationModel)->isFollowing($current_user, $material['user_id']) : false;
+    
+    //check like status
+    $isLiked = (new LikeModel)->isLiked($current_user, $material_id);
+    
+    $material['is_liked'] = $isLiked;
     //if its own material
     if ($isOwnMaterial) {
-      View::render('viewMaterial', ['material' => $material, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
+      View::render('viewMaterial', [
+        'material' => $material,
+        'isPrivate' => $isPrivate,
+        'isCurrentUserFollower' => $isCurrentUserFollower,
+        'isOwnMaterial' => $isOwnMaterial
+      ]);
       return;
     }
+
 
 
     //check if material is by private user and current user is not a follower
     if ($isPrivate && !$isCurrentUserFollower) {
-      View::render('viewMaterial', ['material' => null, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
+      View::render('viewMaterial', [
+        'material' => null,
+        'isPrivate' => $isPrivate,
+        'isCurrentUserFollower' => $isCurrentUserFollower,
+        'isOwnMaterial' => $isOwnMaterial
+      ]);
       return;
     }
 
-    View::render('viewMaterial', ['material' => $material, 'isPrivate' => $isPrivate, 'isCurrentUserFollower' => $isCurrentUserFollower, 'isOwnMaterial' => $isOwnMaterial]);
+    View::render('viewMaterial', [
+      'material' => $material,
+      'isPrivate' => $isPrivate,
+      'isCurrentUserFollower' => $isCurrentUserFollower,
+      'isOwnMaterial' => $isOwnMaterial
+    ]);
 
   }
 

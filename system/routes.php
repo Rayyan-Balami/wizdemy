@@ -60,8 +60,9 @@ $router->post('/api/profile/myRequests', 'ProfileController@myRequests')->only('
 $router->post('/api/profile/myProjects', 'ProfileController@myProjects')->only('apiAuth');
 
 
-//routes for like page
-$router->post('/like', 'LikeController@store')->only('auth');
+//routes for like study material
+$router->post('/api/material/like/{material_id}', 'LikeController@like')->only('apiAuth');
+$router->delete('/api/material/unlike/{material_id}', 'LikeController@unlike')->only('apiAuth');
 
 //routes for bookmark page
 $router->post('/bookmark', 'BookmarkController@store')->only('auth');

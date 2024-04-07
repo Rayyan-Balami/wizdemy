@@ -417,8 +417,12 @@ section > .background-thumbnail {
   background-color: rgb(59 130 246);
   color: white;
 }
-
 .intercation > .like:hover{
+  background-color: gray;
+  color: white;
+}
+
+.intercation > .like.active{
   background-color: rgb(236 72 153);
   color: white;
 }
