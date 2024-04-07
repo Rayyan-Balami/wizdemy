@@ -13,8 +13,8 @@ function openThreeDotMenu(element) {
   threeDotMenuEditForm?.setAttribute("action", editLink);
   threeDotMenuDeleteButton?.setAttribute("data-delete-link", deleteLink);
   threeDotMenuDeleteButton?.setAttribute(
-    "data-material-id",
-    element.getAttribute("data-material-id")
+    "data-card-id",
+    element.getAttribute("data-card-id")
   );
 
   threeDotMenu.classList.add("open");
@@ -29,10 +29,11 @@ function copyLink() {
 async function deleteMaterial(element) {
   const link = element.getAttribute("data-delete-link");
   console.log(link);
-  const materialId = element.getAttribute("data-material-id");
+  const cardId = element.getAttribute("data-card-id");
+  console.log(cardId);
   const confirmed = await openConfirmModal(
     "delete",
-    "Do you want to delete this material ?"
+    `Are you sure you want to "Delete" ?`
   );
   if (!confirmed) {
     return false;
@@ -44,9 +45,10 @@ async function deleteMaterial(element) {
     console.log(response);
     if (response.status == 200) {
       if (response.data.status) {
-        $(".card[data-material-id='" + materialId + "']").remove();
-        const materialCardSection = document.querySelector(".card-section");
-        if (materialCardSection.children.length == 0) {
+        const cardSection = document.querySelector(".card-section");
+        const card = cardSection.querySelector(`#card-${cardId}`);
+        card.remove();
+        if (cardSection.children.length == 0) {
           const cardCategory = document.querySelector(".card-category-wrapper");
           cardCategory.insertAdjacentHTML('afterend', ZeroResult('profile'));
         }

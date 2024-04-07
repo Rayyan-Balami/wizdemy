@@ -50,7 +50,7 @@ function RequestCard(
   if (document_type === "labreport") {
     document_type = "lab report";
   }
-  return `<div class="request-card">
+  return `<div class="request-card" id="card-${request_id}">
   <!-- subject -->
   <p class="subject">${subject}</p>
   <!-- title  -->
@@ -92,6 +92,7 @@ function RequestCard(
     </a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/request/${request_id}"
+      data-card-id="${request_id}"
       data-edit-link="${page == "profile" ? `/request/edit/${request_id}` : `/profile/${user_id}`}"
       data-delete-link="${page == "profile" ? `/api/request/delete/${request_id}` : `/profile/${user_id}`}"
       >
@@ -215,7 +216,7 @@ function MaterialCard(
     formatHTML = photo;
   }
 
-  return `<div class="card " data-material-id="${material_id}">
+  return `<div class="card " id="card-${material_id}">
   <!-- image -->
   <a href="/material/view/${material_id}" class="thumbnail">
     <img src="/${thumbnail_path}" alt="thumbnail" />
@@ -264,7 +265,7 @@ function MaterialCard(
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
     <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      data-material-id="${material_id}"
+      data-card-id="${material_id}"
       data-edit-link="${page == "profile" ? `/material/edit/${material_id}` : `/profile/${user_id}`}"
       data-delete-link="${page == "profile" ? `/api/material/delete/${material_id}` : `/profile/${user_id}`}"
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
@@ -344,7 +345,7 @@ function ProjectCard(
   // console.log(page, project_id, repo_link, user_id, username, created_at);
   let repo_info = repo_link.replace("https://github.com/", "");
   return ` <!--project card  -->
-  <div class="card project-card">
+  <div class="card project-card" id="card-${project_id}">
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
       <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
