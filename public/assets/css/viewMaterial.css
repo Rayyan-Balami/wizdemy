@@ -397,6 +397,7 @@ section > .background-thumbnail {
   transition: var(--transition);
   border: none;
   background-color: inherit;
+  cursor: pointer;
 }
 
 @media (width > 768px) {
@@ -408,27 +409,33 @@ section > .background-thumbnail {
   }
 }
 
-.intercation > .view:hover{
-  background-color: rgb(31 41 55);
-  color: white;
+.intercation > .view:not(.active):hover {
+  color: rgb(31 41 55);
+  background-color: rgb(31 41 55 / 0.1);
 }
 
-.intercation > .comment:hover{
+.intercation > .comment:not(.active):hover {
+color: rgb(59 130 246);
+background-color: rgb(59 130 246 / 0.1);
+}
+
+.intercation > .comment.active {
   background-color: rgb(59 130 246);
   color: white;
 }
-.intercation > .like:hover{
-  background-color: gray;
-  color: white;
+
+.intercation > .like:not(.active):hover {
+  color: rgb(236 72 153);
+  background-color: rgb(236 72 153 / 0.1);
 }
 
-.intercation > .like.active{
+.intercation > .like.active {
   background-color: rgb(236 72 153);
   color: white;
 }
-.intercation > .bookmark:hover{
-  background-color: rgb(255, 183, 15);
-  color: white;
+.intercation > .bookmark:not(.active):hover {
+  color: rgb(232, 155, 0);
+  background-color: rgb(255, 183, 15, 0.1);
 }
 .intercation > .bookmark.active{
   background-color: rgb(255, 183, 15);
