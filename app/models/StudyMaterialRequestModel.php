@@ -116,8 +116,8 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.request_id = :request_id AND r.status <> :status')
-            ->bind(['request_id' => $request_id, 'status' => 'suspend'])
+            ->where('r.request_id = :request_id')
+            ->bind(['request_id' => $request_id])
             ->groupBy('r.request_id')
             ->get();
     }

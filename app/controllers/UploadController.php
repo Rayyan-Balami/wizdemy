@@ -171,64 +171,44 @@ class UploadController extends Controller
       $this->redirect('/material/create');
     }
   }
-  public function edit($material_id)
+  public function edit($material_id = null)
   {
+    $material_id = $material_id ?? Session::get('post')['material_id'] ?? null;
+
     if (!$material_id) {
-      Session::flash('error', ['message' => 'Invalid material']);
+      Session::flash('error', ['message' => 'Material ID is required']);
       $this->redirect('/material/create');
       return;
-    }
-    $material = $this->model->edit($material_id);
-    if (!$material) {
-      Session::flash('error', ['message' => 'Invalid material']);
+  }
+
+  $materialDetails = $this->model->getMaterialById($material_id);
+  if (!$materialDetails || $materialDetails['user_id'] != Session::get('user')['user_id']) {
+      Session::flash('error', ['message' => 'Material not found']);
       $this->redirect('/material/create');
       return;
-    }
-    if ($material['user_id'] != Session::get('user')['user_id']) {
-      Session::flash('error', ['message' => 'Unauthorized access']);
-      $this->redirect('/material/create');
-      return;
-    }
+  }
+
+
+    //if materail is a response to a request, get the request details
     $requestDetails = null;
-    if ($material['request_id']) {
-      $requestDetails = (new StudyMaterialRequestModel())->getRequestDetailById($material['request_id']);
+    if ($materialDetails['request_id']) {
+      $requestDetails = (new StudyMaterialRequestModel())->getRequestDetailById($materialDetails['request_id']);
     }
-    Session::flash('old', [
-      'material_id' => $material['material_id'],
-      'title' => $material['title'],
-      'description' => $material['description'],
-      'document_type' => $material['document_type'],
-      'education_level' => $material['education_level'],
-      'semester' => $material['semester'],
-      'subject' => $material['subject'],
-      'class_faculty' => $material['class_faculty'],
-      'format' => $material['format'],
-      'author' => $material['author'],
-      'thumbnail_path' => $material['thumbnail_path'],
-      'file_path' => $material['file_path']
-    ]);
-    // dd($material);
-    View::render('editUploadForm', ['requestDetails' => $requestDetails]);
+
+    View::render('editUploadForm', ['requestDetails' => $requestDetails,
+    'materialDetails'=> $materialDetails]);
   }
   public function update($material_id)
   {
-    if (!$material_id) {
-      Session::flash('error', ['message' => 'Invalid material']);
-      $this->redirect('/material/create');
-      return;
+    if ($material_id) {
+      $materialDetails = $this->model->getMaterialById($material_id);
+      if (!$materialDetails || $materialDetails['user_id'] != Session::get('user')['user_id']) {
+        Session::flash('error', ['message' => 'Material not found']);
+        $this->redirect('/material/create');
+        return;
+      }
     }
-    // check if the material belongs to the user
-    $material = $this->model->edit($material_id);
-    if (!$material) {
-      Session::flash('error', ['message' => 'Invalid material']);
-      $this->redirect('/material/create');
-      return;
-    }
-    if ($material['user_id'] != Session::get('user')['user_id']) {
-      Session::flash('error', ['message' => 'Unauthorized access']);
-      $this->redirect('/material/create');
-      return;
-    }
+
     //hadle html special characters for security purposes and store in variables
     $title = htmlspecialchars($_POST['title']);
     $description = htmlspecialchars($_POST['description']);
@@ -242,8 +222,8 @@ class UploadController extends Controller
 
     // if file are not uploaded, keep the old file
     if (!$_FILES['imageFile']['name'] && !$_FILES['documentFile']['name']) {
-      $imageFile = $material['thumbnail_path'];
-      $documentFile = $material['file_path'];
+      $imageFile = $materialDetails['thumbnail_path'];
+      $documentFile = $materialDetails['file_path'];
     } else {
       $imageFile = $_FILES['imageFile'];
       $documentFile = $_FILES['documentFile'];
@@ -299,6 +279,7 @@ class UploadController extends Controller
     }
     //check if there are any errors
     if (!empty($this->errors)) {
+      Session::flash('post', ['material_id' => $material_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'title' => $title,
@@ -311,13 +292,14 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/edit/' . $material_id);
+      $this->redirect('/material/edit');
     }
 
     //upload files in the server
     if ($_FILES['imageFile']['name']) {
       $imageUpload = File::upload($imageFile, 'assets/uploads/thumbnails');
       if (!$imageUpload['status']) {
+      Session::flash('post', ['material_id' => $material_id]);
         Session::flash('error', [
           'message' => 'Failed to upload image file'
         ]);
@@ -332,12 +314,13 @@ class UploadController extends Controller
           'format' => $format,
           'author' => $author
         ]);
-        $this->redirect('/material/edit/' . $material_id);
+        $this->redirect('/material/edit');
       }
     }
     if ($_FILES['documentFile']['name']) {
       $documentUpload = File::upload($documentFile, 'assets/uploads/documents');
       if (!$documentUpload['status']) {
+      Session::flash('post', ['material_id' => $material_id]);
         Session::flash('error', [
           'message' => 'Failed to upload document file'
         ]);
@@ -352,7 +335,7 @@ class UploadController extends Controller
           'format' => $format,
           'author' => $author
         ]);
-        $this->redirect('/material/edit/' . $material_id);
+        $this->redirect('/material/edit');
       }
     }
 
@@ -368,8 +351,8 @@ class UploadController extends Controller
       $subject,
       $class_faculty,
       $author,
-      $_FILES['imageFile']['name'] ? $imageUpload['file_path'] : $material['thumbnail_path'],
-      $_FILES['documentFile']['name'] ? $documentUpload['file_path'] : $material['file_path']
+      $_FILES['imageFile']['name'] ? $imageUpload['file_path'] : $materialDetails['thumbnail_path'],
+      $_FILES['documentFile']['name'] ? $documentUpload['file_path'] : $materialDetails['file_path']
     );
   
     if ($result['status']) {
@@ -378,6 +361,7 @@ class UploadController extends Controller
       ]);
       $this->redirect('/material/view/' . $material_id);
     } else {
+      Session::flash('post', ['material_id' => $material_id]);
       Session::flash('error', [
         'message' => $result['message']
       ]);
@@ -392,7 +376,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/edit/' . $material_id);
+      $this->redirect('/material/edit');
     }
   }
 
@@ -405,30 +389,26 @@ class UploadController extends Controller
       ], 400);
     }
     // check if the material belongs to the user
-    $material = $this->model->edit($material_id);
-    if (!$material) {
+    $material = $this->model->getMaterialById($material_id);
+    if (!$material || $material['user_id'] != Session::get('user')['user_id']) {
       $this->buildJsonResponse([
         'status' => false,
         'message' => 'Invalid material'
       ], 400);
     }
-    if ($material['user_id'] != Session::get('user')['user_id']) {
-      $this->buildJsonResponse([
-        'status' => false,
-        'message' => 'Unauthorized access'
-      ], 403);
-    }
+
     $result = $this->model->deleteMaterial($material_id);
+
     if ($result['status']) {
       $this->buildJsonResponse([
         'status' => true,
         'message' => $result['message']
       ]);
-      } else {
+    } else {
       $this->buildJsonResponse([
         'status' => false,
         'message' => $result['message']
-      ], 500);
+      ], 400);
     }
   }
 }

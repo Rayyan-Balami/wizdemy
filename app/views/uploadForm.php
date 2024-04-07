@@ -148,6 +148,15 @@
                 <?= $requestDetails['semester'] ?> Sem
               </span>
             <?php endif; ?>
+            <?php if ($requestDetails['status'] === 'suspend'): ?>
+              <span class="suspended-svg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" d="M16 12H8" />
+                  <circle cx="12" cy="12" r="10" />
+                </g>
+              </svg> Suspended</span>
+            <?php endif; ?>
           </div>
         </div>
       <?php endif; ?>
@@ -206,7 +215,7 @@
       <div class="format">
         <label for="format">Format ?</label>
         <select name="format" id="format" required>
-          <option value="" disabled <?= isset($flashOld['document_type']) ? '' : 'selected' ?>>Select an option...
+          <option value="" disabled <?= isset($flashOld['format']) ? '' : 'selected' ?>>Select an option...
           </option>
           <?php
           $format = [
@@ -363,9 +372,9 @@
       <!-- file -->
       <div class="file-preview" id="document-file-preview">
         <input type="file" name="documentFile" id="documentFile" accept="application/pdf" hidden required />
-        <label class="file-header"><span class="file-name"></span><span>Study Material</span></label>
+        <label class="file-header"><span class="file-name"></span><span>File</span></label>
         <span class="file-icon">
-          <svg height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.267 309.267" xml:space="preserve"
             fill="#000000">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
