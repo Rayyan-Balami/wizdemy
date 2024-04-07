@@ -85,7 +85,7 @@
         </li>
       </a>
       <!-- delete -->
-      <button id="delete-button">
+      <button id="delete-button" onclick="deleteMaterial(this)">
         <li>
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

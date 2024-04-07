@@ -395,4 +395,40 @@ class UploadController extends Controller
       $this->redirect('/material/edit/' . $material_id);
     }
   }
+
+  public function delete($material_id)
+  {
+    if (!$material_id) {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => 'Invalid material'
+      ], 400);
+    }
+    // check if the material belongs to the user
+    $material = $this->model->edit($material_id);
+    if (!$material) {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => 'Invalid material'
+      ], 400);
+    }
+    if ($material['user_id'] != Session::get('user')['user_id']) {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => 'Unauthorized access'
+      ], 403);
+    }
+    $result = $this->model->deleteMaterial($material_id);
+    if ($result['status']) {
+      $this->buildJsonResponse([
+        'status' => true,
+        'message' => $result['message']
+      ]);
+      } else {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => $result['message']
+      ], 500);
+    }
+  }
 }

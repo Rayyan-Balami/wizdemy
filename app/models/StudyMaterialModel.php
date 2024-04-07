@@ -122,4 +122,23 @@ class StudyMaterialModel extends Model
             ];
         }
     }
+    function deleteMaterial($material_id)
+    {
+        $delete = $this->delete()
+            ->where('material_id = :material_id')
+            ->bind(['material_id' => $material_id])
+            ->execute();
+
+        if ($delete) {
+            return [
+                'status' => true,
+                'message' => 'Material deleted successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Material deletion failed. Please try again later'
+            ];
+        }
+    }
 }

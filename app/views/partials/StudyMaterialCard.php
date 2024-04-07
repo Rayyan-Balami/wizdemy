@@ -2,7 +2,7 @@
 <div class="card-section">
   <?php foreach ($materials as $material): ?>
     <!-- material card-->
-    <div class="card ">
+    <div class="card " data-material-id="<?= $material['material_id'] ?>">
       <!-- image -->
       <a href="/material/view/<?= $material['material_id'] ?>" class="thumbnail">
         <img src="/<?= $material['thumbnail_path'] ?>" alt="thumbnail">
@@ -123,11 +123,12 @@
             class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
         <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+          data-material-id="<?= $material['material_id'] ?>"
           data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>"
           
           data-edit-link="<?= SITE_DOMAIN . '/material/edit/' . $material['material_id'] ?>"
           data-report-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>"
-          data-delete-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>"
+          data-delete-link="<?= SITE_DOMAIN . '/api/material/delete/' . $material['material_id'] ?>"
           
           >
 
