@@ -91,7 +91,10 @@ function RequestCard(
     }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
-      <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/request/${request_id}">
+      <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/request/${request_id}"
+      data-edit-link="${page == "profile" ? `/request/edit/${request_id}` : `/profile/${user_id}`}"
+      data-delete-link="${page == "profile" ? `/api/request/delete/${request_id}` : `/profile/${user_id}`}"
+      >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
               <path fill="#000"
                   d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
@@ -658,17 +661,17 @@ function changeCategory(page) {
 
 function requestCategoryChange(page, category) {
   const cardCategory = $(".card-category-wrapper");
-  let requestCardSection = $(".request-card-section");
+  let cardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
 
-  // Check if requestCardSection exists, if not, create it
-  if (requestCardSection.length === 0) {
-    requestCardSection = $("<div class='request-card-section'></div>");
-    // Append requestCardSection after cardCategory
-    cardCategory.after(requestCardSection);
+  // Check if cardSection exists, if not, create it
+  if (cardSection.length === 0) {
+    cardSection = $("<div class='card-section'></div>");
+    // Append cardSection after cardCategory
+    cardCategory.after(cardSection);
   } else {
-    // If requestCardSection exists, empty it
-    requestCardSection.empty();
+    // If cardSection exists, empty it
+    cardSection.empty();
   }
   ZeroResultSection.remove();
 
@@ -679,6 +682,7 @@ function requestCategoryChange(page, category) {
     success: function (respond) {
       if (respond.data.length <= 0) {
         cardCategory.after(ZeroResult());
+        cardSection.remove();
         return;
       }
       respond.data.forEach((request) => {
@@ -698,31 +702,30 @@ function requestCategoryChange(page, category) {
           request.created_at,
           request.status
         );
-        requestCardSection.append(requestCard);
+        cardSection.append(requestCard);
       });
 
       // Call updateTimeAgo to update time ago text for newly added content
       updateTimeAgo();
     },
     error: function (error) {
-      requestCardSection.html("Failed to load data");
+      cardSection.html("Failed to load data");
     },
   });
 }
 
 function myMaterials(page, category) {
   const cardCategory = $(".card-category-wrapper");
-  let materialCardSection = $(".card-section");
+  let cardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
-  $(".request-card-section").remove();
 
-  // Check if materialCardSection exists, if not, create it
-  if (materialCardSection.length === 0) {
-    materialCardSection = $("<div class='card-section'></div>");
-    // Append materialCardSection after cardCategory
-    cardCategory.after(materialCardSection);
+  // Check if cardSection exists, if not, create it
+  if (cardSection.length === 0) {
+    cardSection = $("<div class='card-section'></div>");
+    // Append cardSection after cardCategory
+    cardCategory.after(cardSection);
   } else {
-    materialCardSection.empty();
+    cardSection.empty();
   }
   ZeroResultSection.remove();
 
@@ -739,6 +742,7 @@ function myMaterials(page, category) {
       console.log(respond);
       if (respond.data.length <= 0) {
         cardCategory.after(ZeroResult(page));
+        cardSection.remove();
         return;
       }
       respond.data.forEach((m) => {
@@ -764,32 +768,31 @@ function myMaterials(page, category) {
           m.views_count,
           m.status
         );
-        materialCardSection.append(materialCard);
+        cardSection.append(materialCard);
       });
 
       // Call updateTimeAgo to update time ago text for newly added content
       updateTimeAgo();
     },
     error: function (error) {
-      materialCardSection.html("Failed to load data");
+      cardSection.html("Failed to load data");
     },
   });
 }
 
 function myRequests(page, category) {
   const cardCategory = $(".card-category-wrapper");
-  let requestCardSection = $(".request-card-section");
+  let cardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
-  $(".card-section").remove();
 
-  // Check if requestCardSection exists, if not, create it
-  if (requestCardSection.length === 0) {
-    requestCardSection = $("<div class='request-card-section'></div>");
-    // Append requestCardSection after cardCategory
-    cardCategory.after(requestCardSection);
+  // Check if cardSection exists, if not, create it
+  if (cardSection.length === 0) {
+    cardSection = $("<div class='card-section'></div>");
+    // Append cardSection after cardCategory
+    cardCategory.after(cardSection);
   } else {
-    // If requestCardSection exists, empty it
-    requestCardSection.empty();
+    // If cardSection exists, empty it
+    cardSection.empty();
   }
   ZeroResultSection.remove();
 
@@ -805,6 +808,7 @@ function myRequests(page, category) {
     success: function (respond) {
       if (respond.data.length <= 0) {
         cardCategory.after(ZeroResult("myRequest"));
+        cardSection.remove();
         return;
       }
       respond.data.forEach((request) => {
@@ -824,37 +828,34 @@ function myRequests(page, category) {
           request.created_at,
           request.status
         );
-        requestCardSection.append(requestCard);
+        cardSection.append(requestCard);
       });
 
       // Call updateTimeAgo to update time ago text for newly added content
       updateTimeAgo();
     },
     error: function (error) {
-      requestCardSection.html("Failed to load data");
+      cardSection.html("Failed to load data");
     },
   });
 }
 
 function myProjects(page) {
-
-
   //disable the requestCheck  checkbox
   $("#requestCheck").prop("disabled", true);
 
   const cardCategory = $(".card-category-wrapper");
-  let projectCardSection = $(".card-section");
+  let cardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
-  $(".request-card-section").remove();
 
-  // Check if projectCardSection exists, if not, create it
-  if (projectCardSection.length === 0) {
-    projectCardSection = $("<div class='card-section'></div>");
-    // Append projectCardSection after cardCategory
-    cardCategory.after(projectCardSection);
+  // Check if cardSection exists, if not, create it
+  if (cardSection.length === 0) {
+    cardSection = $("<div class='card-section'></div>");
+    // Append cardSection after cardCategory
+    cardCategory.after(cardSection);
   } else {
-    // If projectCardSection exists, empty it
-    projectCardSection.empty();
+    // If cardSection exists, empty it
+    cardSection.empty();
   }
 
   ZeroResultSection.remove();
@@ -872,6 +873,7 @@ function myProjects(page) {
     success: function (respond) {
       if (respond.data.length <= 0) {
         cardCategory.after(ZeroResult('project'));
+        cardSection.remove();
         return;
       }
       respond.data.forEach((project) => {
@@ -886,14 +888,14 @@ function myProjects(page) {
           project.status
         );
         // console.log(projectCard);
-        projectCardSection.append(projectCard);
+        cardSection.append(projectCard);
       });
 
       // Call updateTimeAgo to update time ago text for newly added content
       updateTimeAgo();
     },
     error: function (error) {
-      projectCardSection.html("Failed to load data");
+      cardSection.html("Failed to load data");
     },
   });
 }

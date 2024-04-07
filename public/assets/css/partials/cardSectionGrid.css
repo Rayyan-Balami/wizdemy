@@ -1,0 +1,43 @@
+/* -----card Section (Main Content) starts here ----- */
+
+.card-section {
+  padding: 1.5rem 1rem; /* 24px 16px */
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 1.5rem /* 24px */;
+  row-gap: 2rem /* 32px */;
+  transition: var(--transition);
+  height: max-content;
+
+}
+@media (width > 640px) {
+  .card-section {
+    padding: 1.5rem /* 16px 24px */;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (width > 768px) {
+  .card-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (width > 1024px) {
+  .card-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (width > 1280px) {
+  .card-section {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (width > 1536px) {
+  .card-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (width > 1920px) {
+  .card-section {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

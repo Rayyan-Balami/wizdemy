@@ -1,44 +1,5 @@
-/* -----request card Section (Main Content) starts here ----- */
+@import url("./cardSectionGrid.css");
 
-.request-card-section {
-  padding: 1.5rem 1rem; /* 24px 16px */
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  column-gap: 1.5rem/* 24px */;
-  row-gap: 2rem/* 32px */;
-  transition: var(--transition);
-}
-@media (width > 640px) {
-  .request-card-section {
-    padding: 1rem 1.5rem /* 16px 24px */;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (width > 768px) {
-  .request-card-section {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (width > 1024px) {
-  .request-card-section {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (width > 1280px) {
-  .request-card-section {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-@media (width > 1536px) {
-  .request-card-section {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-@media (width > 1920px) {
-  .request-card-section {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
 
 .request-card {
   display: flex;

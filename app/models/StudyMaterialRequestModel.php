@@ -121,9 +121,52 @@ class StudyMaterialRequestModel extends Model
             ->groupBy('r.request_id')
             ->get();
     }
-    public function getRequestsForAdmin()
-    {
-        return $this->showAdmin();
 
+    public function updateRequest($request_id, $title, $description, $document_type, $education_level, $semester, $subject, $class_faculty)
+    {
+        $update = $this->update([
+            'title' => $title,
+            'description' => $description,
+            'document_type' => $document_type,
+            'education_level' => $education_level,
+            'semester' => $semester,
+            'subject' => $subject,
+            'class_faculty' => $class_faculty
+        ])
+            ->where('request_id = :request_id')
+            ->appendBindings(['request_id' => $request_id])
+            ->execute();
+
+        if ($update) {
+            return [
+                'status' => true,
+                'message' => 'Request updated successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Failed to update request'
+            ];
+        }
+    }
+
+    public function deleteRequest($request_id)
+    {
+        $delete = $this->delete()
+            ->where('request_id = :request_id')
+            ->bind(['request_id' => $request_id])
+            ->execute();
+
+        if ($delete) {
+            return [
+                'status' => true,
+                'message' => 'Request deleted successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Failed to delete request'
+            ];
+        }
     }
 }

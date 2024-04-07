@@ -9,6 +9,7 @@
     'toastTimer',
     'timeAgo',
     'upload',
+    'authFormValidation',
     'confirmModal',
   ]
 ]);
@@ -96,70 +97,70 @@ View::renderPartial('MenuHeader', [
     [ CCC ] Correct, Complete, Concise Materials are always appreciated.
   </p>
   <!-- form -->
-  <form action="/material/update/<?= $materialDetails['material_id']?>" id="uploadForm" method="post"
+  <form action="/material/update/<?= $materialDetails['material_id'] ?>" id="uploadForm" method="post"
     enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT">
 
     <?php if (!empty($requestDetails)): ?>
-        <div class="request-details">
-          <p class="request-subject">
-            <?= $requestDetails['subject'] ?>
-          </p>
-          <h3 class="request-title">
-            <?= $requestDetails['title'] ?>
-          </h3>
-          <p class="request-description">
-            <?= $requestDetails['description'] ?>
-          </p>
-          <div class="request-meta-datas">
-            <a href="/profile" class="username">
-              <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
-                viewBox="0 0 512 512">
-                <path
-                  d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
-                </path>
-              </svg>
-              <h3>
-                <?= $requestDetails['username'] ?>
-              </h3>
-              <span>·</span>
-              <p class="time-ago" data-datetime="<?= $requestDetails['created_at'] ?>">
-              </p>
-            </a>
+      <div class="request-details">
+        <p class="request-subject">
+          <?= $requestDetails['subject'] ?>
+        </p>
+        <h3 class="request-title">
+          <?= $requestDetails['title'] ?>
+        </h3>
+        <p class="request-description">
+          <?= $requestDetails['description'] ?>
+        </p>
+        <div class="request-meta-datas">
+          <a href="/profile" class="username">
+            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
+              viewBox="0 0 512 512">
+              <path
+                d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+              </path>
+            </svg>
+            <h3>
+              <?= $requestDetails['username'] ?>
+            </h3>
+            <span>·</span>
+            <p class="time-ago" data-datetime="<?= $requestDetails['created_at'] ?>">
+            </p>
+          </a>
 
-            <p class="no-of-responses">Responds :
-              <?= $requestDetails['no_of_materials'] ?>
-            </p>
-            <p class="document-type">Document Need :
-              <?php if ($requestDetails['document_type'] === 'labreport'): ?>
-                Lab Report
-              <?php else:
-                echo $requestDetails['document_type'];
-              endif; ?>
-            </p>
+          <p class="no-of-responses">Responds :
+            <?= $requestDetails['no_of_materials'] ?>
+          </p>
+          <p class="document-type">Document Need :
+            <?php if ($requestDetails['document_type'] === 'labreport'): ?>
+              Lab Report
+            <?php else:
+              echo $requestDetails['document_type'];
+            endif; ?>
+          </p>
+          <span>#
+            <?= $requestDetails['class_faculty'] ?>
+          </span>
+          <span>#
+            <?= $requestDetails['education_level'] ?>
+          </span>
+          <?php if (!empty($requestDetails['semester'])): ?>
             <span>#
-              <?= $requestDetails['class_faculty'] ?>
+              <?= $requestDetails['semester'] ?> Sem
             </span>
-            <span>#
-              <?= $requestDetails['education_level'] ?>
-            </span>
-            <?php if (!empty($requestDetails['semester'])): ?>
-              <span>#
-                <?= $requestDetails['semester'] ?> Sem
-              </span>
-            <?php endif; ?>
-            <?php if ($requestDetails['status'] === 'suspend'): ?>
-              <span class="suspended-svg">
+          <?php endif; ?>
+          <?php if ($requestDetails['status'] === 'suspend'): ?>
+            <span class="suspended-svg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g fill="none" stroke="currentColor" stroke-width="3">
                   <path stroke-linecap="round" d="M16 12H8" />
                   <circle cx="12" cy="12" r="10" />
                 </g>
               </svg> Suspended</span>
-            <?php endif; ?>
-          </div>
+          <?php endif; ?>
         </div>
-      <?php endif; ?>
+      </div>
+    <?php endif; ?>
 
     <!-- title (required)-->
     <div class="title">
@@ -170,7 +171,8 @@ View::renderPartial('MenuHeader', [
     <!-- description (required)-->
     <div class="description">
       <label for="description">Description</label>
-      <textarea required id="description" name="description" rows="3"><?= $flashOld['description'] ?? $materialDetails['description'] ?></textarea>
+      <textarea required id="description" name="description"
+        rows="3"><?= $flashOld['description'] ?? $materialDetails['description'] ?></textarea>
 
       <p class="mt-2 text-sm text-gray-600">
         Describe what you are covering in your study materials.
@@ -371,8 +373,8 @@ View::renderPartial('MenuHeader', [
       <input type="file" name="documentFile" id="documentFile" accept="application/pdf" hidden />
       <label class="file-header"><span class="file-name"></span><span>File</span></label>
       <span class="file-icon" style="display: <?= isset($materialDetails['file_path']) ? 'block' : 'none' ?>">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.267 309.267" xml:space="preserve" fill="#000000">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 309.267 309.267" xml:space="preserve" fill="#000000">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">

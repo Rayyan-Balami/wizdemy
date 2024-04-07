@@ -1,8 +1,8 @@
 <!-- request card-section  -->
-<div class="request-card-section">
+<div class="card-section">
     <?php foreach ($requests as $request): ?>
         <!-- request card -->
-        <div class="card request-card" >
+        <div class="request-card" >
             <!-- subject -->
             <p class="subject">
                 <?= $request['subject']?>
