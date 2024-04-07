@@ -426,8 +426,11 @@ section > .background-thumbnail {
   background-color: rgb(236 72 153);
   color: white;
 }
-
 .intercation > .bookmark:hover{
+  background-color: rgb(255, 183, 15);
+  color: white;
+}
+.intercation > .bookmark.active{
   background-color: rgb(255, 183, 15);
   color: white;
 }

@@ -48,3 +48,28 @@ document.getElementById("logoutForm").addEventListener("submit", async (event) =
   }
 });
 
+
+//add event listener in delete account form to show confirm modal (id = deleteAccountForm )
+
+function smallClientAlert(message) {
+  const checkAlert = document.querySelector(".smallClientAlert");
+  if (checkAlert) {
+    checkAlert.remove();
+  }
+
+  const Alert = document.createElement("div");
+  Alert.classList.add("smallClientAlert");
+  Alert.innerHTML = message;
+  document.body.appendChild(Alert);
+  console.log(Alert);
+  Alert.classList.add("show");
+  setTimeout(() => {
+    Alert.classList.remove("show");
+    Alert.classList.add("hide");
+    setTimeout(() => {
+      Alert.remove();
+    }, 500);
+  }, 3000);
+}
+
+// smallClientAlert("This is a small alert message");

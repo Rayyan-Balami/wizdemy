@@ -23,7 +23,7 @@ function openThreeDotMenu(element) {
 function copyLink() {
   const link = threeDotMenuCopyLink.getAttribute("data-copy-link");
   navigator.clipboard.writeText(link).then(() => {
-    console.log("Link copied to clipboard");
+    smallClientAlert("Link copied to clipboard");
   });
 }
 async function deleteMaterial(element) {

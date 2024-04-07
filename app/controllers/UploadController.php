@@ -397,6 +397,19 @@ class UploadController extends Controller
       ], 400);
     }
 
+    $documentPath = $material['file_path'];
+    $thumbnailPath = $material['thumbnail_path'];
+    
+    //delete the material
+    $documentDeleted = File::delete($documentPath);
+    $thumbnailDeleted = File::delete($thumbnailPath);
+
+    if (!$documentDeleted || !$thumbnailDeleted) {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => 'Failed to delete material'
+      ], 400);
+    }
     $result = $this->model->deleteMaterial($material_id);
 
     if ($result['status']) {

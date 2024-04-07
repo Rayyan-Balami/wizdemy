@@ -30,6 +30,7 @@
   font-size: inherit;
   font-weight: inherit;
   -webkit-tap-highlight-color: transparent;
+  /* filter: invert(1); */
 }
 
 body.menu-open {
@@ -126,3 +127,63 @@ form > button {
 html {
   scrollbar-gutter: stable;
 } */
+
+.smallClientAlert {
+  position: fixed;
+  top: 0.7rem;
+  left: 50%;
+  z-index: 1000;  
+  padding: 0.5rem 1rem;
+
+  background-color: rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--border-radius);
+  box-shadow: rgba(75, 75, 75, 0.16) 0px 0px 8px, rgba(48, 48, 48, 0.23) 0px 3px 6px;
+  max-width: 20rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  scale: 0;
+}
+
+.smallClientAlert.show {
+  animation: fadeInSmallClientAlert 0.5s ease-in-out forwards;
+}
+
+.smallClientAlert.hide {
+  animation: fadeOutSmallClientAlert 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInSmallClientAlert {
+  from {
+    scale: 0;
+    transform: translateY(-200%)
+  }
+  to {
+    scale: 1;
+    transform: translateY(0)
+  }
+}
+
+@keyframes fadeOutSmallClientAlert {
+  from {
+    scale: 1;
+    transform: translateY(0)
+  }
+  to {
+    scale: 0;
+    transform: translateY(-100%)
+  }
+}
+
+
+
+
+@media (width <= 1280px) {
+  .smallClientAlert {
+    top: auto;
+  translate: -50%;
+  bottom: 4.5rem;
+  }
+}

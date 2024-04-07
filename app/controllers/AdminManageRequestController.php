@@ -9,7 +9,7 @@ class AdminManageRequestController extends Controller
 
   public function index()
   {
-    $requests = $this->model->getRequestsForAdmin();
+    $requests = $this->model->showAdmin();
     View::render('admin/requestManagement', [
       'requests' => $requests
     ]);
