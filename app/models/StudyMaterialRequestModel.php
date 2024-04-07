@@ -121,9 +121,4 @@ class StudyMaterialRequestModel extends Model
             ->groupBy('r.request_id')
             ->get();
     }
-    public function getRequestsForAdmin()
-    {
-        return $this->showAdmin();
-
-    }
 }
