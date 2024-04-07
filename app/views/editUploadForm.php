@@ -97,9 +97,9 @@
     </p>
     <!-- form -->
     <form
-      action="/material<?= isset($requestDetails['request_id']) ? '/respond/store/' . $requestDetails['request_id'] : '/store' ?>"
+      action="/material/update/<?= $flashOld['material_id'] ?? '' ?>"
       id="uploadForm" method="post" enctype="multipart/form-data">
-
+      <input type="hidden" name="_method" value="PUT">
       <?php if (!empty($requestDetails)): ?>
         <div class="request-details">
           <p class="request-subject">
@@ -350,9 +350,9 @@
 
       <!-- thumbnail -->
       <div class="file-preview" id="image-file-preview">
-        <img src="" alt="">
+        <img src="<?= SITE_DOMAIN."/" .$flashOld['thumbnail_path'] ?? '' ?>" alt="Thumbnail" style="display: <?= isset($flashOld['thumbnail_path']) ? 'block' : 'none' ?>" />
         <input type="file" name="imageFile" id="imageFile" accept="image/jpeg, image/jpg, image/png, image/gif"
-          required />
+   />
         <label class="file-header"><span class="file-name"></span><span>Thumbnail</span></label>
         <div class="file-info">
           <p class="file-size"></p>
@@ -362,9 +362,9 @@
 
       <!-- file -->
       <div class="file-preview" id="document-file-preview">
-        <input type="file" name="documentFile" id="documentFile" accept="application/pdf" hidden required />
+        <input type="file" name="documentFile" id="documentFile" accept="application/pdf" hidden  />
         <label class="file-header"><span class="file-name"></span><span>Study Material</span></label>
-        <span class="file-icon">
+        <span class="file-icon"style="display: <?= isset($flashOld['file_path']) ? 'block' : 'none' ?>">
           <svg height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.267 309.267" xml:space="preserve"
             fill="#000000">
@@ -392,11 +392,7 @@
 
       <!-- save button -->
       <button type="submit" name="submitBtn" id="submitBtn">
-        <?php if (!empty($requestDetails)): ?>
-          Respond
-        <?php else: ?>
-          Upload
-        <?php endif; ?>
+          Update
       </button>
     </form>
   </div>

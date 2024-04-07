@@ -61,7 +61,7 @@
     </button>
     <?php if (isset($myProfile) && $myProfile == true): ?>
       <!-- edit -->
-      <button onclick="toggleSideInfo()">
+      <a id="edit-link" href="#">
         <li class="meta-data text-sm">
           <span>
             <svg fill="currentColor" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
@@ -83,9 +83,9 @@
             <path d="M9 6l6 6l-6 6"></path>
           </svg>
         </li>
-      </button>
+      </a>
       <!-- delete -->
-      <button>
+      <button id="delete-button">
         <li>
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@
       </button>
     <?php else: ?>
       <!-- report -->
-      <button >
+      <a id="report-link" href="#">
         <li>
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -124,7 +124,7 @@
             <path d="M9 6l6 6l-6 6"></path>
           </svg>
         </li>
-      </button>
+      </a>
     <?php endif; ?>
     <!-- cancel -->
     <button onclick="closeThreeDotMenu()">

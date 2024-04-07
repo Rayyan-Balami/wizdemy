@@ -38,12 +38,14 @@
   -webkit-backdrop-filter: blur(24px);
 }
 
-#three-dot-menu > ul > button {
+#three-dot-menu > ul > button,
+#three-dot-menu > ul > a {
   border: none;
   background: none;
 
 }
-#three-dot-menu > ul > button > li {
+#three-dot-menu > ul > button > li,
+#three-dot-menu > ul > a > li {
   display: flex;
   align-items: center;
   gap: 0.875rem/* 14px */;
@@ -53,7 +55,8 @@
   cursor: pointer;
 }
 
-#three-dot-menu > ul > button > li > span {
+#three-dot-menu > ul > button > li > span ,
+#three-dot-menu > ul > a > li > span {
   display: grid;
   place-content: center;
   width: 2.5rem/* 40px */;
@@ -63,41 +66,48 @@
   background-color: white;
 }
 
-#three-dot-menu > ul > button > li > span > svg {
+#three-dot-menu > ul > button > li > span > svg ,
+  #three-dot-menu > ul > a > li > span > svg {
   width: 1.5rem/* 24px */;
   height: 1.5rem/* 24px */;
   flex-shrink: 0;
 }
 
-#three-dot-menu > ul > button > li > div {
+#three-dot-menu > ul > button > li > div, 
+  #three-dot-menu > ul > a > li > div {
   flex-grow: 1;
   text-align: left;
   margin-right: 0.875rem/* 14px */;
 }
 
-#three-dot-menu > ul > button > li > div > h3 {
+#three-dot-menu > ul > button > li > div > h3 ,
+  #three-dot-menu > ul > a > li > div > h3 {
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
   font-weight: 500;
 }
 
-#three-dot-menu > ul > button > li > div > div {
+#three-dot-menu > ul > button > li > div > div ,
+  #three-dot-menu > ul > a > li > div > div {
   margin-top: auto;
   font-size: 0.75rem/* 12px */;
   line-height: 1rem/* 16px */;
   color: rgb(107 114 128);
 }
 
-#three-dot-menu > ul > button > li > div > div > span{
+#three-dot-menu > ul > button > li > div > div > span,
+  #three-dot-menu > ul > a > li > div > div > span{
   padding-right: 0.2rem;
 }
 
-#three-dot-menu > ul > button > li > div > div > span:not(:first-child) {
+#three-dot-menu > ul > button > li > div > div > span:not(:first-child) ,
+  #three-dot-menu > ul > a > li > div > div > span:not(:first-child) {
   border-left: 1px solid rgb(156 163 175);
   padding-left: 0.375rem;
 }
 
-#three-dot-menu > ul > button > li > svg {
+#three-dot-menu > ul > button > li > svg ,
+  #three-dot-menu > ul > a > li > svg {
   width: 1.5rem/* 24px */;
   height: 1.5rem/* 24px */;
   flex-shrink: 0;

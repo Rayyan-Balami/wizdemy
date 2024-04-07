@@ -1,10 +1,16 @@
 const cards = document.querySelectorAll(".card");
 const threeDotMenu = document.getElementById("three-dot-menu");
 const threeDotMenuCopyLink = document.getElementById("copy-link");
+const threeDotMenuEditLink = document.getElementById("edit-link");
 
 function openThreeDotMenu(element) {
   const copyLink = element.getAttribute("data-copy-link");
+  const editLink = element.getAttribute("data-edit-link");
+
   threeDotMenuCopyLink.setAttribute("data-copy-link", copyLink);
+  threeDotMenuEditLink.setAttribute("href", editLink);
+  
+
   threeDotMenu.classList.add("open");
   document.body.classList.add("menu-open");
 }

@@ -123,7 +123,13 @@
             class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
         <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-          data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
+          data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>"
+          
+          data-edit-link="<?= SITE_DOMAIN . '/material/edit/' . $material['material_id'] ?>"
+          data-report-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>"
+          data-delete-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>"
+          
+          >
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
             <path fill="currentColor"
