@@ -8,17 +8,6 @@
 @import url("./partials/titleLabel.css");
 @import url('./partials/forms.css');
 
-#confirm-modal > ul,
-#confirm-modal > ul > .confirm-header> li > span  {
-background-color: rgb(31, 41, 55, 0.9);
-} 
-
-#confirm-modal > ul > .confirm-header> li,
-#confirm-modal > ul > .button-wrapper > button {
-  background-color: rgb(17 24 39);
-}
-
-
 .title-label > .message,
 .form-section .form-info {
   color: rgb(209 213 219);
@@ -100,3 +89,19 @@ header,
 .continue-with > h3 {
   color: rgb(209 213 219);
 }
+
+#confirm-modal > ul > .button-wrapper > #confirm-button {
+  background-color: rgb(31, 41, 55, 0.9);
+  filter: brightness(2);
+}
+
+#confirm-modal > ul,
+#confirm-modal > ul > .confirm-header> li > span  {
+background-color: rgb(31, 41, 55, 0.9);
+} 
+
+#confirm-modal > ul > .confirm-header> li,
+#confirm-modal > ul > .button-wrapper > button {
+  background-color: rgb(17 24 39);
+}
+

@@ -119,6 +119,11 @@
   text-transform: capitalize;
   transition: var(--transition);
 }
+#confirm-modal > ul > .button-wrapper > #confirm-button {
+  background-color: var(--primary-color);
+  color: white;
+
+}
 
 #confirm-modal[data-modal-type = "suspend"] ul > .confirm-header> li > span {
   color: rgb(237 164 17);
@@ -156,15 +161,14 @@
   background-color: rgb(0 200 83 / 0.9);
 }
 
-#confirm-modal[data-modal-type = "logout"] ul > .confirm-header> li > span {
+/* #confirm-modal[data-modal-type = "logout"] ul > .confirm-header> li > span {
   color: rgb(0 122 255);
-}
+} */
 
-#confirm-modal[data-modal-type = "logout"] > ul > .button-wrapper > #confirm-button {
+/* #confirm-modal[data-modal-type = "logout"] > ul > .button-wrapper > #confirm-button {
   background-color: rgb(0 122 255);
-  color: white;
 }
 
 #confirm-modal[data-modal-type = "logout"] > ul > .button-wrapper > #confirm-button:hover {
   background-color: rgb(0 122 255 / 0.9);
-}
+} */

@@ -83,7 +83,6 @@
 #three-dot-menu > ul li > div > h3{
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
-  font-weight: 500;
 }
 
 @media (width < 640px) {
