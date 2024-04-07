@@ -7,4 +7,5 @@ class BookmarkModel extends Model
         parent::__construct($table);
         $this->fillable = ['user_id', 'project_id'];
     }
+
 }

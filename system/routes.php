@@ -69,7 +69,9 @@ $router->post('/api/material/like/{material_id}', 'LikeController@like')->only('
 $router->delete('/api/material/unlike/{material_id}', 'LikeController@unlike')->only('apiAuth');
 
 //routes for bookmark page
-$router->post('/bookmark', 'BookmarkController@store')->only('auth');
+$router->post('/api/material/bookmark/{material_id}', 'BookmarkController@bookmark')->only('apiAuth');
+$router->delete('/api/material/unbookmark/{material_id}', 'BookmarkController@unbookmark')->only('apiAuth');
+
 
 //routes for settings page (myInformation, accountSecurity)
 $router->get('/myInformation', 'SettingsController@myInformation')->only('auth');

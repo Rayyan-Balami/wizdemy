@@ -10,9 +10,9 @@ function openThreeDotMenu(element) {
   const deleteLink = element.getAttribute("data-delete-link");
 
   threeDotMenuCopyLink.setAttribute("data-copy-link", copyLink);
-  threeDotMenuEditForm.setAttribute("action", editLink);
-  threeDotMenuDeleteButton.setAttribute("data-delete-link", deleteLink);
-  threeDotMenuDeleteButton.setAttribute(
+  threeDotMenuEditForm?.setAttribute("action", editLink);
+  threeDotMenuDeleteButton?.setAttribute("data-delete-link", deleteLink);
+  threeDotMenuDeleteButton?.setAttribute(
     "data-material-id",
     element.getAttribute("data-material-id")
   );
