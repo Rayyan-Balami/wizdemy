@@ -90,10 +90,6 @@ header,
   color: rgb(209 213 219);
 }
 
-#confirm-modal > ul > .button-wrapper > #confirm-button {
-  background-color: rgb(31, 41, 55, 0.9);
-  filter: brightness(2);
-}
 
 #confirm-modal > ul,
 #confirm-modal > ul > .confirm-header> li > span  {
@@ -104,4 +100,9 @@ background-color: rgb(31, 41, 55, 0.9);
 #confirm-modal > ul > .button-wrapper > button {
   background-color: rgb(17 24 39);
 }
+
+#confirm-modal > ul > .button-wrapper > #confirm-button {
+  background-color: rgb(51 61 75);
+}
+
 
