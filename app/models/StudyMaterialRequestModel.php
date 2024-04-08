@@ -169,4 +169,9 @@ class StudyMaterialRequestModel extends Model
             ];
         }
     }
+    public function getTotalRequestsCount()
+    {
+        $result = $this->count()->get();
+        return $result['total'];
+    }
 }

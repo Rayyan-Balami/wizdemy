@@ -266,4 +266,10 @@ class UserModel extends Model
             ];
         }
     }
+    public function getTotalUsersCount()
+    {
+        $result = $this->count()->get();
+        return $result['total'];
+    }
+
 }

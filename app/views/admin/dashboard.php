@@ -52,8 +52,8 @@ View::renderPartial('AdminMenuHeader');
 		</div>
 		<div class="heading">
 			<h3>Welcome To Dashboard</h3>
-			<h4>Rayyan Balami</h4>
-			<p> Email@gmail.com</p>
+			<h4> <?= Session::get('admin')['username']??"Something went wrong" ?> </h4>
+			<p> <?= Session::get('admin')['email'] ?? "Something went wrong" ?> </p>
 		</div>
 	</div>
 
@@ -73,7 +73,7 @@ View::renderPartial('AdminMenuHeader');
 				</div>
 				<div class="card-info">
 					<p class="type">Total Users</p>
-					<p class="num-data">71,897</p>
+					<p class="num-data"><?= $userCount ?></p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
@@ -98,7 +98,7 @@ View::renderPartial('AdminMenuHeader');
 				</div>
 				<div class="card-info">
 					<p class="type">Total Materials</p>
-					<p class="num-data">71,897</p>
+					<p class="num-data"><?= $materialCount ?></p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
@@ -123,7 +123,7 @@ View::renderPartial('AdminMenuHeader');
 				</div>
 				<div class="card-info">
 					<p class="type">Total Requests</p>
-					<p class="num-data">71,897</p>
+					<p class="num-data"><?= $requestCount ?></p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
@@ -156,7 +156,7 @@ View::renderPartial('AdminMenuHeader');
 				</div>
 				<div class="card-info">
 					<p class="type">Total Github Projects</p>
-					<p class="num-data">71,897</p>
+					<p class="num-data"><?= $projectCount ?></p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">

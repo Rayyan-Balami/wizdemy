@@ -234,9 +234,9 @@ class Model extends Database
      * 
      * @return $this
      */
-    protected function count(string $column = '*')
+    protected function count(string $column = '*', string $as = "total") // "SELECT COUNT(*) as total FROM table"
     {
-        $this->query = "SELECT COUNT({$column}) FROM {$this->table}";
+        $this->query = "SELECT COUNT({$column}) as {$as} FROM {$this->table}";
         return $this;
     }
 

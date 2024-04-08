@@ -36,6 +36,13 @@ class AdminModel extends Model
       ->where('admin_id <> 1')
       ->getAll();
   }
+  public function getAdminById($admin_id)
+  {
+    return $this->select(['admin_id', 'username', 'email', 'status', 'created_at'])
+      ->where('admin_id = :admin_id')
+      ->bind(['admin_id' => $admin_id])
+      ->get();
+  }
   public function getAdminStatus($admin_id)
   {
     return $this->select(['status'])

@@ -91,4 +91,10 @@ class GithubProjectModel extends Model
             ];
         }
     }
+    
+    public function getTotalProjectsCount()
+    {
+        $result = $this->count()->get();
+        return $result['total'];
+    }
 }

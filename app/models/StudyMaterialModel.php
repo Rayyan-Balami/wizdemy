@@ -141,4 +141,9 @@ class StudyMaterialModel extends Model
             ];
         }
     }
+    public function getTotalMaterialsCount()
+    {
+        $result = $this->count()->get();
+        return $result['total'];
+    }
 }
