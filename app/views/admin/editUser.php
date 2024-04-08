@@ -3,8 +3,7 @@
 View::renderPartial('Header', [
     'pageTitle' => SITE_NAME . ' | Admin Dashboard',
     'stylesheets' => [
-        'statusAndZeroResult',
-        'adminStyles',
+        'adminSettingForm',
     ],
     'scripts' => [
         'script',

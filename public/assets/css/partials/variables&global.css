@@ -12,7 +12,6 @@
   --warning-color: rgb(245 158 11); 
   --info-color: rgb(6 125 247);
   --text-color: rgb(55 65 81);
-
 }
 
 /* Global Styles */
@@ -176,9 +175,6 @@ html {
     transform: translateY(-100%)
   }
 }
-
-
-
 
 @media (width <= 1280px) {
   .smallClientAlert {

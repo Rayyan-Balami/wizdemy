@@ -2,10 +2,12 @@
 @import url("./partials/sideNav.css");
 @import url("./partials/main.css");
 @import url("./partials/header.css");
-@import url("./partials/titleLabel.css");
-@import url("./partials/searchOverlay.css");
-@import url("./partials/notificationOverlay.css");
-@import url("./partials/toastNotification.css");
-@import url('./partials/formsLayout.css');
 @import url('./partials/confirmModel.css');
+@import url("./partials/titleLabel.css");
+@import url('./partials/formsLayout.css');
+@import url("./partials/AdminGlobalStyle.css");
 
+.title-label > .message,
+.form-section .form-info {
+  color: rgb(209 213 219);
+}
