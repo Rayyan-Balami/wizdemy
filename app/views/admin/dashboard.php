@@ -61,7 +61,6 @@ View::renderPartial('AdminMenuHeader');
 		</div>
 	</div>
 
-
 	<!-- cards of data  -->
 	<div class="card-section">
 		<!-- total users  -->
