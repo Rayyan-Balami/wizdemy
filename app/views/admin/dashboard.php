@@ -52,19 +52,24 @@ View::renderPartial('AdminMenuHeader');
 		</div>
 		<div class="heading">
 			<h3>Welcome To Dashboard</h3>
-			<h4> <?= Session::get('admin')['username']??"Something went wrong" ?> </h4>
-			<p> <?= Session::get('admin')['email'] ?? "Something went wrong" ?> </p>
+			<h4>
+				<?= Session::get('admin')['username'] ?? "Something went wrong" ?>
+			</h4>
+			<p>
+				<?= Session::get('admin')['email'] ?? "Something went wrong" ?>
+			</p>
 		</div>
 	</div>
 
 
 	<!-- cards of data  -->
 	<div class="card-section">
+		<!-- total users  -->
 		<div class="admin-card">
 			<div>
 				<div class="svg-div">
-					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-						<path fill="currentColor" fill-opacity="0.25" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path fill="currentColor" fill-opacity="0.3" d="M3 12a9 9 0 1 1 18 0a9 9 0 0 1-18 0" />
 						<circle cx="12" cy="10" r="4" fill="currentColor" />
 						<path fill="currentColor" fill-rule="evenodd"
 							d="M18.22 18.246c.06.097.041.22-.04.297A8.969 8.969 0 0 1 12 21a8.969 8.969 0 0 1-6.18-2.457a.239.239 0 0 1-.04-.297C6.942 16.318 9.291 15 12 15c2.708 0 5.057 1.318 6.22 3.246"
@@ -72,14 +77,17 @@ View::renderPartial('AdminMenuHeader');
 					</svg>
 				</div>
 				<div class="card-info">
-					<p class="type">Total Users</p>
-					<p class="num-data"><?= $userCount ?></p>
+					<p class="type">Users</p>
+					<p class="num-data">
+						<?= $userCount ?>
+					</p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
 				View all
 			</a>
 		</div>
+		<!-- total materials  -->
 		<div class="admin-card">
 			<div>
 				<div class="svg-div user-svg">
@@ -97,14 +105,17 @@ View::renderPartial('AdminMenuHeader');
 					</svg>
 				</div>
 				<div class="card-info">
-					<p class="type">Total Materials</p>
-					<p class="num-data"><?= $materialCount ?></p>
+					<p class="type">Materials</p>
+					<p class="num-data">
+						<?= $materialCount ?>
+					</p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
 				View all
 			</a>
 		</div>
+		<!-- total requests  -->
 		<div class="admin-card">
 			<div>
 				<div class="svg-div user-svg">
@@ -112,24 +123,27 @@ View::renderPartial('AdminMenuHeader');
 						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 						<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 						<g id="SVGRepo_iconCarrier">
-							<path opacity="0.3"
+							<path
 								d="M12.9839 22.4946L13.521 21.5879C13.9375 20.8846 14.1458 20.5329 14.4804 20.3384C14.815 20.144 15.2362 20.1367 16.0786 20.1222C17.3224 20.1008 18.1024 20.0247 18.7566 19.7539C19.9704 19.2515 20.9348 18.2878 21.4375 17.0748C21.6226 16.6283 21.7169 16.123 21.7648 15.4515C21.7903 15.0958 21.803 14.9179 21.708 14.7756C21.6131 14.6332 21.4329 14.5728 21.0723 14.452C19.5606 13.9454 16.0584 12.6565 14.1 11.0008C11.8925 9.13444 9.91782 5.3404 9.21118 3.88615C9.0707 3.59705 9.00047 3.4525 8.87715 3.37622C8.75383 3.29994 8.59743 3.30159 8.28463 3.3049C6.25036 3.32638 5.32915 3.43899 4.36537 4.02919C3.69883 4.43737 3.13843 4.9974 2.72997 5.66349C2 6.85388 2 8.47432 2 11.7152V12.7053C2 15.0118 2 16.1651 2.37707 17.0748C2.87984 18.2878 3.84419 19.2515 5.05797 19.7539C5.71215 20.0247 6.49219 20.1008 7.73591 20.1222C8.57837 20.1367 8.9996 20.144 9.33417 20.3384C9.66874 20.5329 9.87702 20.8846 10.2936 21.5879L10.8307 22.4946C11.3094 23.3028 12.5052 23.3028 12.9839 22.4946Z"
 								fill="currentColor"></path>
-							<path fill-rule="evenodd" clip-rule="evenodd"
+							<path fill-rule="evenodd" clip-rule="evenodd" opacity="0.5"
 								d="M14.8719 0.239228C15.2073 0.55542 15.2039 1.06491 14.8643 1.3772L13.7622 2.39066C14.721 2.39968 15.6433 2.42144 16.4756 2.47388C17.1913 2.51898 17.8616 2.5879 18.4457 2.69609C19.0178 2.80206 19.569 2.95641 20.0069 3.20311C20.8206 3.66166 21.5058 4.29141 22.0058 5.04157C22.4867 5.76328 22.6986 6.57904 22.8003 7.56276C22.8998 8.52518 22.8998 9.72792 22.8998 11.253V11.2953C22.8998 11.7397 22.5129 12.1 22.0355 12.1C21.5582 12.1 21.1712 11.7397 21.1712 11.2953C21.1712 9.7186 21.1703 8.59328 21.0797 7.71697C20.9904 6.85308 20.8201 6.31502 20.5369 5.89005C20.1817 5.35695 19.6936 4.90776 19.1118 4.57993C18.9261 4.47529 18.6031 4.36615 18.1084 4.27451C17.6257 4.18509 17.0367 4.12228 16.3589 4.07957C15.5758 4.03023 14.7025 4.00921 13.7763 4.00026L14.8643 5.00068C15.2039 5.31298 15.2073 5.82246 14.8719 6.13865C14.5364 6.45485 13.9892 6.45801 13.6496 6.14572L11.0568 3.76146C10.8923 3.61027 10.7998 3.40409 10.7998 3.18894C10.7998 2.97379 10.8923 2.76761 11.0568 2.61642L13.6496 0.232165C13.9892 -0.0801259 14.5364 -0.0769636 14.8719 0.239228Z"
 								fill="currentColor"></path>
 						</g>
 					</svg>
 				</div>
 				<div class="card-info">
-					<p class="type">Total Requests</p>
-					<p class="num-data"><?= $requestCount ?></p>
+					<p class="type">Requests</p>
+					<p class="num-data">
+						<?= $requestCount ?>
+					</p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
 				View all
 			</a>
 		</div>
+		<!-- total projects  -->
 		<div class="admin-card">
 			<div>
 				<div class="svg-div user-svg">
@@ -155,18 +169,21 @@ View::renderPartial('AdminMenuHeader');
 					</svg>
 				</div>
 				<div class="card-info">
-					<p class="type">Total Github Projects</p>
-					<p class="num-data"><?= $projectCount ?></p>
+					<p class="type">Projects</p>
+					<p class="num-data">
+						<?= $projectCount ?>
+					</p>
 				</div>
 			</div>
 			<a href="#" class="view-all-anchor">
 				View all
 			</a>
 		</div>
-		<div>
+	</div>
+
+	<div>
 			<canvas id="myChart"></canvas>
 		</div>
-	</div>
 	<?php
 	View::renderPartial(
 		'AdminUserListTable'
@@ -177,48 +194,48 @@ View::renderPartial('AdminMenuHeader');
 </main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const ctx = document.getElementById('myChart').getContext('2d');
+	document.addEventListener('DOMContentLoaded', function () {
+		const ctx = document.getElementById('myChart').getContext('2d');
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [
-                    {
-                        label: 'Fully Rounded',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderColor: 'red',
-                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                        borderWidth: 2,
-                        borderRadius: Number.MAX_VALUE,
-                        borderSkipped: false,
-                    },
-                    {
-                        label: 'Small Radius',
-                        data: [2, 3, 20, 5, 1, 4],
-                        borderColor: 'blue',
-                        backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                        borderWidth: 2,
-                        borderRadius: 5,
-                        borderSkipped: false,
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Bar Chart'
-                    }
-                }
-            },
-        });
-    });
+		new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+				datasets: [
+					{
+						label: 'Fully Rounded',
+						data: [12, 19, 3, 5, 2, 3],
+						borderColor: 'red',
+						backgroundColor: 'rgba(255, 0, 0, 0.5)',
+						borderWidth: 2,
+						borderRadius: Number.MAX_VALUE,
+						borderSkipped: false,
+					},
+					{
+						label: 'Small Radius',
+						data: [2, 3, 20, 5, 1, 4],
+						borderColor: 'blue',
+						backgroundColor: 'rgba(0, 0, 255, 0.5)',
+						borderWidth: 2,
+						borderRadius: 5,
+						borderSkipped: false,
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						position: 'top',
+					},
+					title: {
+						display: true,
+						text: 'Chart.js Bar Chart'
+					}
+				}
+			},
+		});
+	});
 </script>
 
 <?php
