@@ -372,13 +372,16 @@ function ProjectCard(
     }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
-      <button class="three-dot-icon" onclick="openThreeDotMenu('1')">
-
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
-          <path fill="currentColor"
-            d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
-        </svg>
-      </button>
+      <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+      data-card-id="${project_id}"
+      data-edit-link="${page == "profile" ? `/project/edit/${project_id}` : `/profile/${user_id}`}"
+      data-delete-link="${page == "profile" ? `/api/project/delete/${project_id}` : `/profile/${user_id}`}"
+    data-copy-link="${repo_link}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
+        <path fill="#000"
+          d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
+      </svg>
+    </button>
     </div>
   </div>`;
 }
