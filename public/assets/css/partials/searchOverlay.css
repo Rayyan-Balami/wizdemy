@@ -51,7 +51,6 @@ background-color: white;
   height: 4rem/* 64px */;
   display: flex;
   align-items: center;
-  gap: 1rem/* 16px */;
   padding: 1rem/* 16px */;
   border-bottom: var(--border);
   margin-bottom: 0.75rem/* 12px */;
@@ -63,7 +62,15 @@ background-color: white;
   place-content: center;
   cursor: pointer;
   border: none;
-  background-color: transparent;
+  background-color: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+#searchModal > form > #back-button-search:hover,
+#searchModal > form > #search-button:hover,
+#searchModal > ul > li:hover{
+  background-color: var(--hover-color);
 }
 
 #searchModal > form > input{
@@ -72,6 +79,7 @@ background-color: white;
   border: none;
   outline: none;
   font-size: 1.125rem/* 18px */;
+  margin: 0;
 }
 
 #searchModal > h3{
@@ -81,7 +89,7 @@ background-color: white;
 }
 
 #searchModal > ul{
-  padding: 0 1rem/* 16px */;
+  padding: 0 0.5rem/* 16px */;
   margin-bottom: 0.75rem/* 12px */;
   overflow-y: scroll;
   flex-grow: 1;
@@ -96,7 +104,8 @@ background-color: white;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem 0/* 16px */;
+  padding: 0.75rem 0.5rem/* 16px */;
+  border-radius: var(--border-radius);
 }
 
 #searchModal > ul > li > p{
