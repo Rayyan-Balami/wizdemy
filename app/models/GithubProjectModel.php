@@ -71,8 +71,50 @@ class GithubProjectModel extends Model
    
     public function getProjectsForAdmin()
     {
-        return $this->show();
+        {
+            //join user table and github_projects table to get username,user_id,project_id,repo_link
+            return $this->select([
+                'u.user_id',
+                'u.username',
+                'u.full_name',
+                'p.*'
+            ], 'p')
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+                ->orderBy('p.created_at', 'DESC')
+                ->limit(10)
+                ->getAll();
+        }
     }
+
+    public function getProjectDetailById($project_id)
+    {
+        return $this->select(['*'])
+            ->where('project_id = :project_id')
+            ->bind(['project_id' => $project_id])
+            ->get();
+    }
+
+    public function updateProject($project_id, $repo_link)
+    {
+        $result = $this->update([
+            'repo_link' => $repo_link
+        ])
+            ->where('project_id = :project_id')
+            ->appendBindings(['project_id' => $project_id])
+            ->execute();
+        if($result){
+            return [
+                'status' => true,
+                'message' => 'Project updated successfully'
+            ];
+        }else{
+            return [
+                'status' => false,
+                'message' => 'Project update failed'
+            ];
+        }
+    }
+
     public function deleteProject($project_id)
     {
         $result = $this->delete()

@@ -31,29 +31,50 @@ $router->get('/material/view/{material_id}', 'HomeController@view')->only('auth'
 //routes for request page
 $router->get('/request', 'RequestController@index')->only('auth');
 $router->post('/api/request/category', 'RequestController@category');
+
+//routes for create of request
 $router->get('/request/create', 'RequestController@create')->only('auth');
 $router->post('/request/store', 'RequestController@store')->only('auth');
 
-//routes for upload page
+//routes for upload of material
 $router->get('/material/create', 'UploadController@index')->only('auth');
 $router->post('/material/store', 'UploadController@store')->only('auth');
 
+//routes for upload of material (comming from request)
+$router->post('/material/respond/{request_id}', 'UploadController@index')->only('auth'); 
+$router->post('/material/respond/store/{request_id}', 'UploadController@store')->only('auth');
+
+//routes for edit of material
 $router->get('/material/edit', 'UploadController@edit')->only('auth');
 $router->post('/material/edit/{material_id}', 'UploadController@edit')->only('auth');
 $router->put('/material/update/{material_id}', 'UploadController@update')->only('auth');
+
+//routes for delete material
 $router->delete('/api/material/delete/{material_id}', 'UploadController@delete')->only('apiAuth');
 
-$router->post('/material/respond/{request_id}', 'UploadController@index')->only('auth'); //coming from request page
-$router->post('/material/respond/store/{request_id}', 'UploadController@store')->only('auth'); //while responding to request
+
+//routes for edit of request
 $router->get('/request/edit', 'RequestController@edit')->only('auth');
 $router->post('/request/edit/{request_id}', 'RequestController@edit')->only('auth');
 $router->put('/request/update/{material_id}', 'RequestController@update')->only('auth');
+
+//routes for delete request
 $router->delete('/api/request/delete/{request_id}', 'RequestController@delete')->only('apiAuth');
 
-//routes for add project page
+//routes for project page
 $router->get('/project', 'ProjectController@index')->only('auth');
+
+//routes for create of project
 $router->get('/project/create', 'ProjectController@create')->only('auth');
 $router->post('/project/store', 'ProjectController@store')->only('auth');
+
+//routes for edit of project
+$router->get('/project/edit', 'ProjectController@edit')->only('auth');
+$router->post('/project/edit/{project_id}', 'ProjectController@edit')->only('auth');
+$router->put('/project/update/{project_id}', 'ProjectController@update')->only('auth');
+
+//routes for delete project
+$router->delete('/api/project/delete/{project_id}', 'ProjectController@delete')->only('apiAuth');
 
 //routes for profile page
 $router->get('/profile', 'ProfileController@index')->only('auth');

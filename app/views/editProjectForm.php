@@ -64,7 +64,9 @@ View::renderPartial('MenuHeader', [
         Fill in the details of your project.
     </p>
     <!-- form -->
-    <form action="/project/store" method="post">
+
+    <form action="/project/update/<?= $projectDetails['project_id'] ?>" id="projectForm" method="post">
+    <input type="hidden" name="_method" value="PUT">
 
         <!-- title (required)-->
         <div class="title">
