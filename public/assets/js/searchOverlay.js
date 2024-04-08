@@ -13,8 +13,23 @@ function toggleSearchOverlay() {
   }
 }
 
-function closeSearchOverlay(){
+function closeSearchOverlay() {
   searchOverlay.classList.remove('open');
   document.body.classList.remove('menu-open');
   searchField.blur(); // Remove focus from the search field if needed
+}
+
+
+function loadSearchHistory() {
+
+  // Get the search history from local storage
+  let searchHistory = localStorage.getItem('searchHistory');
+
+  // If there is no search history, create an empty array
+  if (!searchHistory) {
+    searchHistory = [];
+  } else {
+    searchHistory = JSON.parse(searchHistory);
+  }
+  
 }

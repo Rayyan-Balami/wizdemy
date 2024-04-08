@@ -2,14 +2,14 @@
 <div id="searchOverlay" onclick="toggleSearchOverlay()">
 
   <div id="searchModal">
-    <form id="search-bar" action="">
+    <form id="search-bar" action="/search" method="GET">
       <button type="button" id="back-button-search" onclick="closeSearchOverlay()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path fill="currentColor"
             d="m7.825 13l4.9 4.9q.3.3.288.7t-.313.7q-.3.275-.7.288t-.7-.288l-6.6-6.6q-.15-.15-.213-.325T4.426 12q0-.2.063-.375T4.7 11.3l6.6-6.6q.275-.275.688-.275t.712.275q.3.3.3.713t-.3.712L7.825 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13z" />
         </svg>
       </button>
-      <input type="text" id="searchField" placeholder="Search">
+      <input type="text" id="searchField" placeholder="Search" name="q" required>
       <button id="search-button" type="submit">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -22,6 +22,7 @@
           </g>
         </svg>
       </button>
+      
     </form>
     <h3>Recent Searches</h3>
     <ul>
