@@ -66,14 +66,99 @@ class ProjectController extends Controller
     }
   }
 
-  // private function fetchRepoThumbnailLink($repoLink)
-  // {
-  //   $html = file_get_contents($repoLink);
+  public function edit($project_id = null)
+  {
+    $project_id = $project_id ?? Session::get('post')['project_id'] ?? null;
 
-  //   // Extract the social thumbnail URL from the HTML
-  //   preg_match('/<meta property="og:image" content="(.*?)"/', $html, $matches);
-  //   $repo_thumbnailUrl = isset($matches[1]) ? $matches[1] : null;
+    if (!$project_id) {
+      Session::flash('error', ['message' => 'Invalid project']);
+      $this->redirect('/project/create');
+      return;
+  }
 
-  //   return $repo_thumbnailUrl;
-  // }
+  $projectDetails = $this->model->getProjectDetailById($project_id);
+  if (!$projectDetails || $projectDetails['user_id'] != Session::get('user')['user_id']) {
+      Session::flash('error', ['message' => 'Project not found']);
+      $this->redirect('/project/create');
+      return;
+  }
+
+    View::render('editProjectForm', ['projectDetails' => $projectDetails]);
+  }
+  public function update($project_id)
+  {
+    if ($project_id) {
+      $projectDetails = $this->model->getProjectDetailById($project_id);
+      if (!$projectDetails || $projectDetails['user_id'] != Session::get('user')['user_id']) {
+        Session::flash('error', ['message' => 'Project not found']);
+        $this->redirect('/project/create');
+        return;
+      }
+    }
+
+    $repoLink = $_POST['repo-link'];
+
+    //match github repo link
+    $pattern = '/^(https:\/\/github.com\/)([a-zA-Z0-9-._]+)\/([a-zA-Z0-9-._]+)$/';
+    if (!preg_match($pattern, $repoLink)) {
+      Session::flash('post', ['project_id' => $project_id]);
+      Session::flash('errors', ['repo-link' => 'Invalid Github repository link']);
+      Session::flash('old', ['repo-link' => $repoLink]);
+      $this->redirect('/project/edit');
+    }
+
+    //validate github repo link is accessible
+    if (!Validate::accessibleUrl($repoLink)) {
+      Session::flash('post', ['project_id' => $project_id]);
+      Session::flash('errors', ['repo-link' => 'Github repository link is not accessible']);
+      Session::flash('old', ['repo-link' => $repoLink]);
+      $this->redirect('/project/edit');
+    }
+
+    $result = $this->model->updateProject($project_id, $repoLink);
+
+    if ($result) {
+      Session::flash('success', ['project' => 'Project updated successfully']);
+      $this->redirect('/project');
+    } else {
+      Session::flash('post', ['project_id' => $project_id]);
+      Session::flash('errors', ['project' => 'Failed to update project']);
+      $this->redirect('/project/edit');
+    }
+
+  }
+
+
+  public function delete($project_id)
+  {
+    if (!$project_id) {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => 'Invalid project'
+      ], 400);
+    }
+    // check if the project belongs to the user
+    $project = $this->model->getProjectDetailById($project_id);
+    if (!$project || $project['user_id'] != Session::get('user')['user_id']) {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => 'Invalid project'
+      ], 400);
+    }
+
+    $result = $this->model->deleteProject($project_id);
+
+    if ($result['status']) {
+      $this->buildJsonResponse([
+        'status' => true,
+        'message' => $result['message']
+      ]);
+    } else {
+      $this->buildJsonResponse([
+        'status' => false,
+        'message' => $result['message']
+      ], 400);
+    }
+  }
+
 }

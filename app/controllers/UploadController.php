@@ -298,46 +298,59 @@ class UploadController extends Controller
     //upload files in the server
     if ($_FILES['imageFile']['name']) {
       $imageUpload = File::upload($imageFile, 'assets/uploads/thumbnails');
-      if (!$imageUpload['status']) {
-      Session::flash('post', ['material_id' => $material_id]);
-        Session::flash('error', [
-          'message' => 'Failed to upload image file'
-        ]);
-        Session::flash('old', [
-          'title' => $title,
-          'description' => $description,
-          'document_type' => $document_type,
-          'education_level' => $education_level,
-          'semester' => $semester,
-          'subject' => $subject,
-          'class_faculty' => $class_faculty,
-          'format' => $format,
-          'author' => $author
-        ]);
-        $this->redirect('/material/edit');
-      }
     }
     if ($_FILES['documentFile']['name']) {
       $documentUpload = File::upload($documentFile, 'assets/uploads/documents');
-      if (!$documentUpload['status']) {
-      Session::flash('post', ['material_id' => $material_id]);
-        Session::flash('error', [
-          'message' => 'Failed to upload document file'
-        ]);
-        Session::flash('old', [
-          'title' => $title,
-          'description' => $description,
-          'document_type' => $document_type,
-          'education_level' => $education_level,
-          'semester' => $semester,
-          'subject' => $subject,
-          'class_faculty' => $class_faculty,
-          'format' => $format,
-          'author' => $author
-        ]);
-        $this->redirect('/material/edit');
-      }
     }
+
+    if(($_FILES['imageFile']['name'] && !$imageUpload['status']) || ($_FILES['documentFile']['name'] && !$documentUpload['status'])){
+      Session::flash('post', ['material_id' => $material_id]);
+      Session::flash('error', [
+        'message' => 'Failed to upload file'
+      ]);
+      Session::flash('old', [
+        'title' => $title,
+        'description' => $description,
+        'document_type' => $document_type,
+        'education_level' => $education_level,
+        'semester' => $semester,
+        'subject' => $subject,
+        'class_faculty' => $class_faculty,
+        'format' => $format,
+        'author' => $author
+      ]);
+      $this->redirect('/material/edit');
+    }
+
+    //delete the old files
+    if ($_FILES['imageFile']['name']) {
+      $thumbnailDeleted = File::delete($materialDetails['thumbnail_path']);
+    }
+
+    //delete the old files
+    if ($_FILES['documentFile']['name']) {
+      $documentDeleted = File::delete($materialDetails['file_path']);
+    }
+
+    if (($_FILES['imageFile']['name'] && !$thumbnailDeleted) || ($_FILES['documentFile']['name'] && !$documentDeleted)) {
+      Session::flash('post', ['material_id' => $material_id]);
+      Session::flash('error', [
+        'message' => 'Failed to delete old file'
+      ]);
+      Session::flash('old', [
+        'title' => $title,
+        'description' => $description,
+        'document_type' => $document_type,
+        'education_level' => $education_level,
+        'semester' => $semester,
+        'subject' => $subject,
+        'class_faculty' => $class_faculty,
+        'format' => $format,
+        'author' => $author
+      ]);
+      $this->redirect('/material/edit');
+    }
+
 
     //store material in the database
     $result = $this->model->updateMaterial(
@@ -359,7 +372,7 @@ class UploadController extends Controller
       Session::flash('success', [
         'message' => $result['message']
       ]);
-      $this->redirect('/material/view/' . $material_id);
+      $this->redirect('/' . $document_type);
     } else {
       Session::flash('post', ['material_id' => $material_id]);
       Session::flash('error', [
