@@ -157,7 +157,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/like" class="menu-links <?= $currentPage === 'likes' ? 'is-active' : ''; ?>">
+                    <a href="/like" class="menu-links <?= $currentPage === 'like' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -173,7 +173,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/bookmark" class="menu-links <?= $currentPage === 'saved' ? 'is-active' : ''; ?>">
+                    <a href="/bookmark" class="menu-links <?= $currentPage === 'bookmark' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

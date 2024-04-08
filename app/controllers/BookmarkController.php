@@ -6,7 +6,12 @@ class BookmarkController extends Controller
     {
         parent::__construct(new BookmarkModel());
     }
-
+    public function index()
+    {
+        $user_id = Session::get('user')['user_id'];
+        $bookmarks = $this->model->getBookmarks($user_id);
+        View::render('bookmarks', ['bookmarks' => $bookmarks]);
+    }
     public function bookmark($material_id)
     {
         $user_id = Session::get('user')['user_id'];

@@ -1,7 +1,7 @@
 <?php 
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Likes',
+  'pageTitle' => SITE_NAME . ' | Bookmarks',
   'stylesheets' => [
     'styles',
     'statusAndZeroResult'
@@ -18,25 +18,26 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('SideNav', [
-  'currentPage' => 'like'
+  'currentPage' => 'bookmark'
 ]);
 
 View::renderPartial('MenuHeader');
 
 ?>
-
+<div class="smallClientAlert">
+For better experience, please use a larger screen.
+</div>
 <section>
 <?php
- if (!empty($likes)):
+ if (!empty($bookmarks)):
   View::renderPartial('StudyMaterialCard', [
-    'materials' => $likes,
+    'materials' => $bookmarks,
   ]);
 else:
   View::renderPartial('ZeroResult');
 endif;
 ?>
 </section>
-
 </main>
 
 <?php

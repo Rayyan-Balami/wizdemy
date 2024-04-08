@@ -39,4 +39,14 @@ class LikeModel extends Model
             ->execute() ;
         return $unlike;
     }
+    public function getLikes($user_id)
+    {
+        return $this->select([
+            'mv.*',
+        ], 'l')
+            ->leftJoin('material_view as mv', 'mv.material_id = l.material_id')
+            ->where('l.user_id = :user_id')
+            ->bind(['user_id' => $user_id])
+            ->getAll();
+    }
 }

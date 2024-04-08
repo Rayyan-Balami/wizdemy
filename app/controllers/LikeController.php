@@ -6,12 +6,18 @@ class LikeController extends Controller
     {
         parent::__construct(new LikeModel());
     }
+    public function index()
+    {
+        $user_id = Session::get('user')['user_id'];
+        $likes = $this->model->getLikes($user_id);
+        View::render('likes', ['likes' => $likes]);
+    }
 
     public function like($material_id)
     {
         $user_id = Session::get('user')['user_id'];
         $like = $this->model->like($user_id, $material_id);
-    
+
         if ($like) {
             $this->buildJsonResponse([
                 'status' => 'success',
