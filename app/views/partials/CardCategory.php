@@ -1,5 +1,4 @@
 <!--card category note, question , labreport -->
-<div class="card-category-wrapper">
     <div class="card-category">
         <!-- notes category  -->
         <input type="radio" value="note" id="noteCategory" name="category" hidden checked
@@ -37,4 +36,3 @@
             <label for="userCategory" class="category-label">Users</label>
         <?php endif; ?>
     </div>
-</div>

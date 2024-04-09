@@ -22,6 +22,20 @@
           </g>
         </svg>
       </button>
+      <!-- select category, material, request, user, project -->
+      <select id="search-category" name="category" required>
+        <option value="material">Material</option>
+        <option value="request">Request</option>
+        <option value="user">User</option>
+        <option value="project">Project</option>
+      </select>
+      <!-- select type, note, question, labreport -->
+      <select id="search-type" name="type" required>
+        <option value="note">Note</option>
+        <option value="question">Question</option>
+        <option value="labreport">Lab Report</option>
+      </select>
+      <!-- select time frame using a date picker interval  -->
       
     </form>
     <ul id="search-list">

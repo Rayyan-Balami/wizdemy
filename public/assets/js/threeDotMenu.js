@@ -49,7 +49,7 @@ async function deleteMaterial(element) {
         const card = cardSection.querySelector(`#card-${cardId}`);
         card.remove();
         if (cardSection.children.length == 0) {
-          const cardCategory = document.querySelector(".card-category-wrapper");
+          const cardCategory = document.querySelector(".card-category");
           cardCategory.insertAdjacentHTML('afterend', ZeroResult('profile'));
         }
       }

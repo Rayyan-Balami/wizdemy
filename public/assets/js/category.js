@@ -694,7 +694,7 @@ function changeCategory(page) {
 }
 
 // Declare cardCategory globally
-const cardCategory = $(".card-category-wrapper");
+const cardCategory = $(".card-category");
 
 function ajaxRequest(url, type, data = {}, cardType, zeroResultType, page) {
   let cardSection = $(".card-section");
@@ -725,7 +725,6 @@ function ajaxRequest(url, type, data = {}, cardType, zeroResultType, page) {
 
 function renderData(data, cardType, zeroResultType, page) {
   const cardSection = $(".card-section");
-  const ZeroResultSection = $(".zeroResult-container");
 
   if (data.length === 0) {
     cardCategory.after(ZeroResult(zeroResultType));
