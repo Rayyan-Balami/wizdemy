@@ -9,8 +9,8 @@ class SearchController extends Controller
     public function index()
     {
         $search = $_GET['q'] ?? '';
-        $materials = $this->model->searchMaterials($search);
-        View::render('search', ['materials' => $materials]);
+        // $materials = $this->model->searchMaterials($search);
+        View::render('searchResult');
     }
     public function searchSuggestions()
     {

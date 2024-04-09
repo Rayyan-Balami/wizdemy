@@ -17,7 +17,7 @@
         <label for="labreportCategory" class="category-label">Lab Reports</label>
 
         <!-- my-reqestcheck checkbox  -->
-        <?php if ($page === 'profile'): ?>
+        <?php if ($page === 'profile' || $page === 'search') : ?>
             <input type="checkbox" id="requestCheck" name="requestCheck" hidden>
             <label for="requestCheck" class="requestCheck-label">Requests</label>
         
@@ -27,6 +27,13 @@
             onchange="myProjects('<?= $page ?>')">
         <label for="projectsCategory" class="category-label">Projects</label>
 
+        <?php endif; ?>
+
+        <!-- users category  -->
+        <?php if ($page === 'search') : ?>
+            <input type="radio" value="user" id="userCategory" name="category" hidden
+                onchange="changeCategory('<?= $page ?>')">
+            <label for="userCategory" class="category-label">Users</label>
         <?php endif; ?>
     </div>
     <!-- search icon -->

@@ -4,7 +4,7 @@
     $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
     ?>
     <!--project card  -->
-    <div class="card project-card" data-copy-link="<?= $project['repo_link'] ?>">
+    <div class="card project-card">
       <!-- image -->
       <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
         <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail">

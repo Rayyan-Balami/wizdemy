@@ -51,7 +51,7 @@ background-color: white;
   height: 4rem/* 64px */;
   display: flex;
   align-items: center;
-  padding: 1rem/* 16px */;
+  padding: 1rem 0.5rem/* 16px */;
   border-bottom: var(--border);
   margin-bottom: 0.75rem/* 12px */;
 }
@@ -65,6 +65,7 @@ background-color: white;
   background-color: inherit;
   color: inherit;
   margin: 0;
+  padding: 0.5rem;
 }
 
 #searchModal > form > #back-button-search:hover,

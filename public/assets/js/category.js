@@ -1,6 +1,6 @@
 //website config
-const SITE_NAME = 'WizDemy';
-const SITE_DOMAIN = 'http://localhost:8000';
+const SITE_NAME = "WizDemy";
+const SITE_DOMAIN = "http://localhost:8000";
 
 function RequestCard(
   page,
@@ -21,7 +21,7 @@ function RequestCard(
   let semesterHTML = "";
   let suspendRespondHTML = "";
 
-  if(status == "suspend") {
+  if (status == "suspend") {
     suspendRespondHTML = `<div class="suspended-request">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g fill="none" stroke="currentColor" stroke-width="1.7">
@@ -30,7 +30,7 @@ function RequestCard(
         </g>
       </svg> Suspended
     </div>`;
-  }else{
+  } else {
     suspendRespondHTML = `<form action="/material/respond/${request_id}" method="post">
     <!-- respond button  -->
     <button type="submit" class="respond-button">
@@ -43,14 +43,15 @@ function RequestCard(
     </form>`;
   }
 
-
   if (semester) {
     semesterHTML = `<span title="Semester"># ${semester} Sem</span>`;
   }
   if (document_type === "labreport") {
     document_type = "lab report";
   }
-  return `<div class="request-card" id="card-${request_id}">
+  return `<div class="request-card" ${
+    page == "profile" ? `id="card-${request_id}"` : ""
+  }>
   <!-- subject -->
   <p class="subject">${subject}</p>
   <!-- title  -->
@@ -72,8 +73,7 @@ function RequestCard(
       <p>Document Need</p><span>${document_type}</span>
   </div>
   <!-- username  -->
-  <a href="${page == "profile" ? "#" : `/profile/${user_id}`
-    }" class="username">
+  <a href="${page == "profile" ? "#" : `/profile/${user_id}`}" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -87,14 +87,22 @@ function RequestCard(
 
   <!-- time  -->
   <div class="time">
-      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
-    }" class="time-ago" data-datetime="${created_at}"></a>
+      <p><a href="${
+        page == "profile" ? "#" : `/profile/${user_id}`
+      }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
-      <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="${SITE_DOMAIN}/request/${request_id}"
+      <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+      ${
+        page == "profile"
+          ? `
       data-card-id="${request_id}"
-      data-edit-link="${page == "profile" ? `/request/edit/${request_id}` : `/profile/${user_id}`}"
-      data-delete-link="${page == "profile" ? `/api/request/delete/${request_id}` : `/profile/${user_id}`}"
+      data-edit-link="/request/edit/${request_id}"
+      data-delete-link="/api/request/delete/${request_id}"
+      `
+          : ""
+      }
+      data-copy-link="${SITE_DOMAIN}/request/${request_id}"
       >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
               <path fill="#000"
@@ -140,7 +148,7 @@ function MaterialCard(
   let suspendHTML = "";
   let formatHTML = "";
 
-  if(status == "suspend") {
+  if (status == "suspend") {
     suspendHTML = `<div class="suspended-svg">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g fill="none" stroke="currentColor" stroke-width="1.7">
@@ -216,7 +224,9 @@ function MaterialCard(
     formatHTML = photo;
   }
 
-  return `<div class="card " id="card-${material_id}">
+  return `<div class="card " ${
+    page == "profile" ? `id="card-${material_id}"` : ""
+  }>
   <!-- image -->
   <a href="/material/view/${material_id}" class="thumbnail">
     <img src="/${thumbnail_path}" alt="thumbnail" />
@@ -246,8 +256,7 @@ function MaterialCard(
   </a>
 
   <!-- username  -->
-  <a href="${page == "profile" ? "#" : `/profile/${user_id}`
-    }" class="username">
+  <a href="${page == "profile" ? "#" : `/profile/${user_id}`}" class="username">
     <!-- at icon @  -->
     <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
       viewBox="0 0 512 512">
@@ -261,13 +270,20 @@ function MaterialCard(
 
   <!-- time  -->
   <div class="time">
-    <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
+    <p><a href="${
+      page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
     <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      data-card-id="${material_id}"
-      data-edit-link="${page == "profile" ? `/material/edit/${material_id}` : `/profile/${user_id}`}"
-      data-delete-link="${page == "profile" ? `/api/material/delete/${material_id}` : `/profile/${user_id}`}"
+    ${
+      page == "profile"
+        ? `
+    data-card-id="${material_id}"
+    data-edit-link="/material/edit/${material_id}"
+    data-delete-link="/api/material/delete/${material_id}"
+    `
+        : ""
+    }
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
         <path fill="#000"
@@ -329,7 +345,7 @@ function ProjectCard(
 ) {
   let suspendHTML = "";
 
-  if(status == "suspend") {
+  if (status == "suspend") {
     suspendHTML = `
     <div>
     <div class="suspended-svg">
@@ -345,14 +361,17 @@ function ProjectCard(
   // console.log(page, project_id, repo_link, user_id, username, created_at);
   let repo_info = repo_link.replace("https://github.com/", "");
   return ` <!--project card  -->
-  <div class="card project-card" id="card-${project_id}">
+  <div class="card project-card" ${
+    page == "profile" ? `id="card-${project_id}"` : ""
+  }>
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
       <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
       ${suspendHTML}
     </a>
     <!-- username  -->
-    <a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
+    <a href="${
+      page == "profile" ? "#" : `/profile/'.${user_id}'`
     }" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -368,14 +387,21 @@ function ProjectCard(
     </a>
     <!-- time  -->
     <div class="time">
-      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
-    }" class="time-ago"
+      <p><a href="${
+        page == "profile" ? "#" : `/profile/${user_id}`
+      }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+      ${
+        page == "profile"
+          ? `
       data-card-id="${project_id}"
-      data-edit-link="${page == "profile" ? `/project/edit/${project_id}` : `/profile/${user_id}`}"
-      data-delete-link="${page == "profile" ? `/api/project/delete/${project_id}` : `/profile/${user_id}`}"
+      data-edit-link="/project/edit/${project_id}"
+      data-delete-link="/api/project/delete/${project_id}"
+      `
+          : ""
+      }
     data-copy-link="${repo_link}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
         <path fill="#000"
@@ -386,14 +412,14 @@ function ProjectCard(
   </div>`;
 }
 
-function ZeroResult(page = "default") {
+function ZeroResult(type) {
   let message = {
     default: "No Results Found",
-    profile: "Ouch! No Uploads",
+    myMaterial: "Ouch! No Uploads",
     ghostProfile: "Looking for a Ghost?",
-    search: "No results found for your search",
+    search: "No Matches Found",
     myRequest: "No Requests Made",
-    project: "No Repos Linked",
+    myProject: "No Repos Linked",
   };
 
   // Extract user_id from the URL to see if its other user's profile
@@ -462,7 +488,7 @@ function ZeroResult(page = "default") {
         </ul>
       </div>`;
 
-  profileSvg = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  myMaterialSvg = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
   <g id="SVGRepo_iconCarrier">
@@ -567,7 +593,7 @@ function ZeroResult(page = "default") {
 
   myRequestSvg = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M148.427 132.9C215.702 45.876 338.403 185.999 252.181 243.354C185.181 287.927 106.521 218.453 137.977 158.003" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M222.555 180.284C222.635 180.459 222.804 180.575 223.03 180.679C223.319 180.859 223.58 181.055 223.867 181.236C224.143 181.41 224.478 181.554 224.798 181.696C225.365 181.947 225.956 182.168 226.594 182.346C227.036 182.469 227.491 182.565 227.964 182.634C228.504 182.714 229.073 182.734 229.626 182.735C230.116 182.735 230.604 182.686 231.087 182.645C231.575 182.605 232.056 182.538 232.532 182.462C233.496 182.307 234.451 182.068 235.314 181.761C236.139 181.468 236.858 181.078 237.428 180.611C237.695 180.392 237.903 180.164 238.077 179.913" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M178.811 179.913C179.019 180.207 179.291 180.474 179.538 180.744C179.851 181.085 180.206 181.396 180.571 181.694C181.971 182.833 183.751 183.641 185.641 183.982C187.757 184.362 189.926 184.055 191.887 183.324C192.287 183.176 192.668 183.011 193.047 182.823C193.504 182.594 193.927 182.294 194.333 182.007" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M155.001 292C155.001 292 154 302.314 153.001 321.549C152 340.814 151.001 369 151.001 369" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M255.501 366C255.501 330.878 252.001 289.584 252.001 289.584C281.756 290.185 295.875 289.477 307.371 263.405C315.537 244.886 307.371 187 307.371 187" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M156.001 286.725C156.001 286.725 136.453 289.223 114.229 279.169C92.0042 269.115 95.9404 208.058 114.228 181" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M117.343 174.496C124.359 114.592 120.235 61.656 200.803 61.656C272.556 61.656 298.585 108.904 298.585 178.551" stroke="#000000" stroke-opacity="0.9" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M288.933 148.523C288.933 148.523 294.295 163.923 294.295 181.769C294.295 199.615 292.032 208.331 291.491 215.014" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M122.988 147.281C122.988 147.281 117.402 168.505 117.402 184.675C117.402 200.846 116.781 200.676 119.574 222.069" stroke="#000000" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M94.6228 101.875C105.525 97.0946 109.362 113.263 98.6301 117.259C87.8001 121.292 85.8363 107.69 90.0816 104.528C90.798 103.994 91.5268 104.155 92.2185 103.467" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M128.586 93.8959C140.239 82.9861 150.02 106.169 136.313 109.578C126.2 112.093 122.354 102.864 130.132 95.1254" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M106.001 109C107.498 104.859 106.114 74.9739 107.514 72.5657C107.67 72.2987 117.501 67.7122 127.491 64.4303C134.165 62.2376 142.306 60.7738 142.528 61.0285C143.591 62.2466 142.528 91.4518 142.528 96.5965" stroke="#000000" stroke-opacity="0.9" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
 
-  projectSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 50 50"><path fill="currentColor" fill-rule="evenodd" d="M25 10c-8.3 0-15 6.7-15 15c0 6.6 4.3 12.2 10.3 14.2c.8.1 1-.3 1-.7v-2.6c-4.2.9-5.1-2-5.1-2c-.7-1.7-1.7-2.2-1.7-2.2c-1.4-.9.1-.9.1-.9c1.5.1 2.3 1.5 2.3 1.5c1.3 2.3 3.5 1.6 4.4 1.2c.1-1 .5-1.6 1-2c-3.3-.4-6.8-1.7-6.8-7.4c0-1.6.6-3 1.5-4c-.2-.4-.7-1.9.1-4c0 0 1.3-.4 4.1 1.5c1.2-.3 2.5-.5 3.8-.5c1.3 0 2.6.2 3.8.5c2.9-1.9 4.1-1.5 4.1-1.5c.8 2.1.3 3.6.1 4c1 1 1.5 2.4 1.5 4c0 5.8-3.5 7-6.8 7.4c.5.5 1 1.4 1 2.8v4.1c0 .4.3.9 1 .7c6-2 10.2-7.6 10.2-14.2C40 16.7 33.3 10 25 10" clip-rule="evenodd"/></svg>`;
+  myProjectSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 50 50"><path fill="currentColor" fill-rule="evenodd" d="M25 10c-8.3 0-15 6.7-15 15c0 6.6 4.3 12.2 10.3 14.2c.8.1 1-.3 1-.7v-2.6c-4.2.9-5.1-2-5.1-2c-.7-1.7-1.7-2.2-1.7-2.2c-1.4-.9.1-.9.1-.9c1.5.1 2.3 1.5 2.3 1.5c1.3 2.3 3.5 1.6 4.4 1.2c.1-1 .5-1.6 1-2c-3.3-.4-6.8-1.7-6.8-7.4c0-1.6.6-3 1.5-4c-.2-.4-.7-1.9.1-4c0 0 1.3-.4 4.1 1.5c1.2-.3 2.5-.5 3.8-.5c1.3 0 2.6.2 3.8.5c2.9-1.9 4.1-1.5 4.1-1.5c.8 2.1.3 3.6.1 4c1 1 1.5 2.4 1.5 4c0 5.8-3.5 7-6.8 7.4c.5.5 1 1.4 1 2.8v4.1c0 .4.3.9 1 .7c6-2 10.2-7.6 10.2-14.2C40 16.7 33.3 10 25 10" clip-rule="evenodd"/></svg>`;
 
   defaultSvg = `  <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -609,22 +635,23 @@ function ZeroResult(page = "default") {
   <div class="error-container ">
 
     <div class="svg-icon">
-      ${page === "profile"
-      ? profileSvg
-      : page === "search"
-        ? searchSvg
-        : page === "ghostProfile"
+      ${
+        type === "myMaterial"
+          ? myMaterialSvg
+          : type === "search"
+          ? searchSvg
+          : type === "ghostProfile"
           ? ghostProfileSvg
-          : page === "myRequest"
-            ? myRequestSvg
-            : page === "project"
-              ? projectSvg
-              : defaultSvg
-    }
+          : type === "myRequest"
+          ? myRequestSvg
+          : type === "myProject"
+          ? myProjectSvg
+          : defaultSvg
+      }
     </div>
 
     <div class="status-msg-top">
-      <h2>${message[page]}</h2>
+      <h2>${message[type]}</h2>
     </div>
   </div>
 
@@ -660,246 +687,171 @@ function changeCategory(page) {
     } else {
       myMaterials(page, category);
     }
+  } else if (page === "search") {
+    if ($("#requestCheck").prop("checked")) {
+      searchRequests(page, category);
+    } else {
+      searchMaterials(page, category);
+    }
   }
 }
 
-function requestCategoryChange(page, category) {
-  const cardCategory = $(".card-category-wrapper");
+// Declare cardCategory globally
+const cardCategory = $(".card-category-wrapper");
+
+function ajaxRequest(url, type, data = {}, cardType, zeroResultType, page) {
   let cardSection = $(".card-section");
   const ZeroResultSection = $(".zeroResult-container");
 
-  // Check if cardSection exists, if not, create it
   if (cardSection.length === 0) {
     cardSection = $("<div class='card-section'></div>");
-    // Append cardSection after cardCategory
     cardCategory.after(cardSection);
   } else {
-    // If cardSection exists, empty it
     cardSection.empty();
   }
+
   ZeroResultSection.remove();
 
   $.ajax({
-    url: `/api/${page}/category`,
-    type: "POST",
-    data: { category },
-    success: function (respond) {
-      if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult());
-        cardSection.remove();
-        return;
-      }
-      respond.data.forEach((request) => {
-        const requestCard = RequestCard(
-          page,
-          request.request_id,
-          request.user_id,
-          request.title,
-          request.subject,
-          request.description,
-          request.education_level,
-          request.class_faculty,
-          request.semester,
-          request.no_of_materials,
-          request.document_type,
-          request.username,
-          request.created_at,
-          request.status
-        );
-        cardSection.append(requestCard);
-      });
-
-      // Call updateTimeAgo to update time ago text for newly added content
-      updateTimeAgo();
+    url: url,
+    type: type,
+    data: data,
+    success: function (response) {
+      renderData(response.data, cardType, zeroResultType, page);
     },
     error: function (error) {
       cardSection.html("Failed to load data");
     },
   });
+}
+
+function renderData(data, cardType, zeroResultType, page) {
+  const cardSection = $(".card-section");
+  const ZeroResultSection = $(".zeroResult-container");
+
+  if (data.length === 0) {
+    cardCategory.after(ZeroResult(zeroResultType));
+    cardSection.remove();
+    return;
+  }
+
+  data.forEach((item) => {
+    let card;
+    if (cardType === "request") {
+      card = RequestCard(
+        page,
+        item.request_id,
+        item.user_id,
+        item.title,
+        item.subject,
+        item.description,
+        item.education_level,
+        item.class_faculty,
+        item.semester,
+        item.no_of_materials,
+        item.document_type,
+        item.username,
+        item.created_at,
+        item.status
+      );
+    } else if (cardType === "material") {
+      card = MaterialCard(
+        page,
+        item.class_faculty,
+        item.comments_count,
+        item.created_at,
+        item.document_type,
+        item.education_level,
+        item.file_path,
+        item.format,
+        item.likes_count,
+        item.material_id,
+        item.responded_to,
+        item.semester,
+        item.subject,
+        item.thumbnail_path,
+        item.title,
+        item.user_id,
+        item.updated_at,
+        item.username,
+        item.views_count,
+        item.status
+      );
+    } else if (cardType === "project") {
+      card = ProjectCard(
+        page,
+        item.project_id,
+        item.repo_link,
+        item.user_id,
+        item.username,
+        item.created_at,
+        item.updated_at,
+        item.status
+      );
+    } else if (cardType === "profile") {
+      card = UserCard(
+        page,
+        item.user_id,
+        item.username,
+        item.email,
+        item.created_at,
+        item.updated_at,
+        item.status
+      );
+    }
+
+    cardSection.append(card);
+  });
+}
+
+// Functions for different types of AJAX calls
+
+function requestCategoryChange(page, category) {
+  ajaxRequest(`/api/${page}/category`,"POST",{ category },"request","myRequest",page);
 }
 
 function myMaterials(page, category) {
-  const cardCategory = $(".card-category-wrapper");
-  let cardSection = $(".card-section");
-  const ZeroResultSection = $(".zeroResult-container");
-
-  // Check if cardSection exists, if not, create it
-  if (cardSection.length === 0) {
-    cardSection = $("<div class='card-section'></div>");
-    // Append cardSection after cardCategory
-    cardCategory.after(cardSection);
-  } else {
-    cardSection.empty();
-  }
-  ZeroResultSection.remove();
-
-  // Extract user_id from the URL 
-  //eg: http://localhost:8000/profile/1
-  const pathSegments = window.location.pathname.split('/');
-  const user_id = pathSegments[pathSegments.length - 1];
-
-  $.ajax({
-    url: `/api/${page}/myMaterials`,
-    type: "POST",
-    data: { category, user_id },
-    success: function (respond) {
-      console.log(respond);
-      if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult(page));
-        cardSection.remove();
-        return;
-      }
-      respond.data.forEach((m) => {
-        const materialCard = MaterialCard(
-          page,
-          m.class_faculty,
-          m.comments_count,
-          m.created_at,
-          m.document_type,
-          m.education_level,
-          m.file_path,
-          m.format,
-          m.likes_count,
-          m.material_id,
-          m.responded_to,
-          m.semester,
-          m.subject,
-          m.thumbnail_path,
-          m.title,
-          m.user_id,
-          m.updated_at,
-          m.username,
-          m.views_count,
-          m.status
-        );
-        cardSection.append(materialCard);
-      });
-
-      // Call updateTimeAgo to update time ago text for newly added content
-      updateTimeAgo();
-    },
-    error: function (error) {
-      cardSection.html("Failed to load data");
-    },
-  });
+  const user_id = getUserIdFromUrl();
+  ajaxRequest(`/api/${page}/myMaterials`,"POST",{ category, user_id },"material","myMaterial",page);
 }
 
 function myRequests(page, category) {
-  const cardCategory = $(".card-category-wrapper");
-  let cardSection = $(".card-section");
-  const ZeroResultSection = $(".zeroResult-container");
-
-  // Check if cardSection exists, if not, create it
-  if (cardSection.length === 0) {
-    cardSection = $("<div class='card-section'></div>");
-    // Append cardSection after cardCategory
-    cardCategory.after(cardSection);
-  } else {
-    // If cardSection exists, empty it
-    cardSection.empty();
-  }
-  ZeroResultSection.remove();
-
-  // Extract user_id from the URL 
-  //eg: http://localhost:8000/profile/1
-  const pathSegments = window.location.pathname.split('/');
-  const user_id = pathSegments[pathSegments.length - 1];
-  
-  $.ajax({
-    url: `/api/${page}/myRequests`,
-    type: "POST",
-    data: { category, user_id },
-    success: function (respond) {
-      if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult("myRequest"));
-        cardSection.remove();
-        return;
-      }
-      respond.data.forEach((request) => {
-        const requestCard = RequestCard(
-          page,
-          request.request_id,
-          request.user_id,
-          request.title,
-          request.subject,
-          request.description,
-          request.education_level,
-          request.class_faculty,
-          request.semester,
-          request.no_of_materials,
-          request.document_type,
-          request.username,
-          request.created_at,
-          request.status
-        );
-        cardSection.append(requestCard);
-      });
-
-      // Call updateTimeAgo to update time ago text for newly added content
-      updateTimeAgo();
-    },
-    error: function (error) {
-      cardSection.html("Failed to load data");
-    },
-  });
+  const user_id = getUserIdFromUrl();
+  ajaxRequest(`/api/${page}/myRequests`,"POST",{ category, user_id },"request","myRequest",page);
 }
 
 function myProjects(page) {
-  //disable the requestCheck  checkbox
-  $("#requestCheck").prop("disabled", true);
+  const user_id = getUserIdFromUrl();
+  ajaxRequest(`/api/${page}/myProjects`,"POST",{ user_id },"project","myProject",page);
+}
 
-  const cardCategory = $(".card-category-wrapper");
-  let cardSection = $(".card-section");
-  const ZeroResultSection = $(".zeroResult-container");
+function searchMaterials(page, category) {
+  const searchQuery = getSearchQueryFromUrl();
+  ajaxRequest(`/api/search?q=${searchQuery}`,"POST",{ category },"material","search",page);
+}
 
-  // Check if cardSection exists, if not, create it
-  if (cardSection.length === 0) {
-    cardSection = $("<div class='card-section'></div>");
-    // Append cardSection after cardCategory
-    cardCategory.after(cardSection);
-  } else {
-    // If cardSection exists, empty it
-    cardSection.empty();
-  }
+function searchRequests(page, category) {
+  const searchQuery = getSearchQueryFromUrl();
+  ajaxRequest(`/api/search?q=${searchQuery}`,"POST",{ category },"request","search",page);
+}
 
-  ZeroResultSection.remove();
+function searchProjects(page) {
+  const searchQuery = getSearchQueryFromUrl();
+  ajaxRequest(`/api/search?q=${searchQuery}`,"POST",{},"project","search",page);
+}
 
-  // Extract user_id from the URL 
-  //eg: http://localhost:8000/profile/1
-  const pathSegments = window.location.pathname.split('/');
-  const user_id = pathSegments[pathSegments.length - 1];
-  
+function searchUsers(page) {
+  const searchQuery = getSearchQueryFromUrl();
+  ajaxRequest(`/api/search?q=${searchQuery}`,"POST",{},"profile","search",page);
+}
 
-  $.ajax({
-    url: `/api/${page}/myProjects`,
-    type: "POST",
-    data: { user_id },
-    success: function (respond) {
-      if (respond.data.length <= 0) {
-        cardCategory.after(ZeroResult('project'));
-        cardSection.remove();
-        return;
-      }
-      respond.data.forEach((project) => {
-        const projectCard = ProjectCard(
-          page,
-          project.project_id,
-          project.repo_link,
-          project.user_id,
-          project.username,
-          project.created_at,
-          project.updated_at,
-          project.status
-        );
-        // console.log(projectCard);
-        cardSection.append(projectCard);
-      });
+// Helper functions
 
-      // Call updateTimeAgo to update time ago text for newly added content
-      updateTimeAgo();
-    },
-    error: function (error) {
-      cardSection.html("Failed to load data");
-    },
-  });
+function getUserIdFromUrl() {
+  const pathSegments = window.location.pathname.split("/");
+  return pathSegments[pathSegments.length - 1];
+}
+
+function getSearchQueryFromUrl() {
+  return new URLSearchParams(window.location.search).get("q");
 }

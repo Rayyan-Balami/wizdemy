@@ -4,7 +4,7 @@ $message = [
   'default' => 'No Results Found',
   'profile' => 'Ouch! No uploads',
   'ghostProfile' => 'Looking for a ghost?',
-  'search' => 'No results found for your search'
+  'search' => 'No Matches Found',
 ];
 
 ?>
