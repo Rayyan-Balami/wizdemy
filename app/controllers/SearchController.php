@@ -14,7 +14,7 @@ class SearchController extends Controller
     }
     public function searchSuggestions()
     {
-        $search = $_GET['q'];
+        $search = trim($_GET['q']);
         if (!$search) {
             $this->buildJsonResponse([
                 'status' => 'error',
@@ -35,8 +35,8 @@ class SearchController extends Controller
         } else {
             $this->buildJsonResponse([
                 'status' => 'error',
-                'message' => 'No suggestions found'
-            ], 404);
+                'message' => 'No matches found'
+            ]);
         }
     }
 }

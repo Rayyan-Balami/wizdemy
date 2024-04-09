@@ -1,84 +1,122 @@
-const searchOverlay = document.querySelector('#searchOverlay');
-const searchField = document.querySelector('#searchField');
+const searchOverlay = document.getElementById('searchOverlay')
+const searchField = document.getElementById('searchField');
 const searchModal = document.querySelector('#searchModal');
-const backBtnSearch = document.querySelector('#back-button-search');
+const backBtnSearch = document.getElementById('back-button-search');
+const searchForm = document.getElementById('search-bar-form');
 
-let searchHistory = localStorage.getItem('searchHistory');
-searchHistory = JSON.parse(searchHistory);
+let searchHistory = localStorage.getItem('searchHistory')
+searchHistory = JSON.parse(searchHistory) || [];
 
 let searchList = [];
 
-function toggleSearchOverlay() {
-  console.log('toggleSearchOverlay');
+function openSearchModal() {
+  searchOverlay.classList.add('open');
+  renderSearchHistory();
+}
 
-  if (!searchModal.contains(event.target)) {
-    renderSearchHistory();
-    searchOverlay.classList.toggle('open');
-    document.body.classList.toggle('menu-open');
-    searchField.focus();
+searchOverlay.addEventListener('click', function (event) {
+  if (event.target.id === 'searchOverlay') {
+    // Close the modal only if the overlay is clicked, not its children
+    searchOverlay.classList.remove('open');
   }
-}
+});
 
-function closeSearchOverlay() {
+// Prevent closing when clicking the remove button
+backBtnSearch.addEventListener('click', function (event) {
+  console.log('clicked');
+  event.stopPropagation(); // Prevent the click event from bubbling up
   searchOverlay.classList.remove('open');
-  document.body.classList.remove('menu-open');
-  searchField.blur(); // Remove focus from the search field if needed
-}
+});
 
-
+// Prevent closing when clicking the search input
+searchField.addEventListener('click', function (event) {
+  event.stopPropagation(); // Prevent the click event from bubbling up
+});
 
 function renderSearchHistory() {
-  let searchList = '';
-  if (searchHistory) {
-    searchHistory.forEach((search) => {
-      searchList += searchLi('history', search);
-    });
-    document.querySelector('#search-list').innerHTML = searchList;
+  let historyItems = '';
+  if (searchHistory.length > 0) {
+    historyItems = searchHistory.map(history => searchLi('history', history)).join('');
+  } else {
+    historyItems = `<li><a href="#" style="pointer-events: none; text-align: center;"><p> Open your heart and search for something</p></a></li>`;
   }
+  document.querySelector('#search-list').innerHTML = historyItems;
 }
+
 function renderSearchList() {
   document.querySelector('#search-list').innerHTML = searchList.join('');
+  // Select all search suggestion links
+  var searchLinks = document.querySelectorAll('.search-suggestion-link');
+  console.log(searchLinks);
+  // Add click event listener to each link
+  searchLinks.forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      // Prevent the default action
+      event.preventDefault();
+
+      // Get the search query from the link's href attribute
+      var searchQuery = this.getAttribute('href').split('=')[1];
+
+      // Store the search query in the history
+      searchHistory.unshift(searchQuery);
+
+      // Redirect to the search page
+      window.location.href = this.getAttribute('href');
+    });
+  });
 }
 
 
 searchField.addEventListener('keyup', async function (e) {
+  const inputValue = searchField.value.trim();
   searchList = [];
-  if (searchField.value.length === 0) {
+
+  if (inputValue.length === 0) {
     renderSearchHistory();
     return;
   }
-
-  // search history that matches the search field value
-  const top4History = searchHistory.filter((search) => search.includes(searchField.value)).slice(0, 4);
-  const result = await fetch(`/api/search?q=${searchField.value ?? ''}`);
+  const top4History = searchHistory?.filter(search => search.includes(inputValue)).slice(0, 4) || [];
+  const result = await fetch(`/api/search?q=${inputValue}`);
   const { data } = await result.json();
+
+  if (top4History.length > 0) {
+    searchList.push(...top4History.map(history => searchLi('history', history)));
+  }
   if (data.status !== 'error') {
     const { suggestions } = data;
-    searchList.push(
-      ...top4History.map((history) => searchLi('history', history))
-    );
-    searchList.push(
-      ...suggestions.map((suggestion) => searchLi('search', suggestion))
-    );
-
+    searchList.push(...suggestions.map(suggestion => searchLi('search', suggestion)));
   } else {
     const { message } = data;
-    searchList.push(
-      ...top4History.map((history) => searchLi('history', history))
-    );
     if (top4History.length === 0) {
-      searchList.push(
-        `<li>
-        <a href="#" style="pointer-events: none; texa-align: center;">
-        <p>${message}</p>
-        </a>
-      </li>`
-      );
+      searchList.push(...top4History.map(history => searchLi('history', history)));
     }
+    if (message)
+  searchList.push(`<li style="pointer-events: none; padding: 0.75rem 0.5rem/* 16px */;  text-align: center;  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.7;"><p>${message}</p></li>`);
+
   }
   renderSearchList();
 });
 
+function removeSearchHistory(text) {
+  searchHistory = searchHistory.filter((search) => search !== text);
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  renderSearchHistory();
+}
+
+//when the search form is submitted add the search term to the search history
+searchForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const searchValue = searchField.value.trim();
+  if (searchValue.length > 0) {
+    if (!searchHistory.includes(searchValue)) {
+      searchHistory.unshift(searchValue);
+      localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+    window.location.href = `/search?q=${searchValue}`;
+  }
+});
 
 function searchLi(type, text) {
 
@@ -95,7 +133,7 @@ function searchLi(type, text) {
     <path d="M13.5 10.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 .5.5" />
   </g>
 </svg>`;
-    removeBtn = `<button onclick="removeSearchHistory('${text}')">Remove</button>`;
+    removeBtn = `<button class="search-history-remove-btn" onclick="removeSearchHistory('${text}')">Remove</button>`;
   } else if (type == 'search') {
     svgHTML = ` <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -110,18 +148,11 @@ function searchLi(type, text) {
   }
 
   return `<li>
-<a href="/search?q=${text}">
+<a  href="/search?q=${text}" class="search-suggestion-link">
   ${svgHTML}
   <p>${text}</p>
   </a>
   ${removeBtn}
 </li>`;
 
-}
-
-
-function removeSearchHistory(text) {
-  searchHistory = searchHistory.filter((search) => search !== text);
-  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-  renderSearchHistory();
 }
