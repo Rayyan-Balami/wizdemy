@@ -37,6 +37,16 @@ class MaterialViewModel extends Model
             ->bind(['material_id' => $material_id])
             ->get();
     }
+    public function showAdmin()
+    {
+        return $this->select([
+            'DISTINCT mv.*'
+        ], 'mv')
+            ->where('mv.status <> :status')
+            ->bind(['status' => 'suspend'])
+            ->limit(10)
+            ->getAll();
+    }
 
     //shows suspended materials too in owner's profile
     public function showUploadsByCurrentUser($document_type = 'note')

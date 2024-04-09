@@ -9,7 +9,11 @@ class AdminManageMaterialController extends Controller
 
   public function index()
   {
-    View::render('admin/dashboard');
+    $materials = (new MaterialViewModel())->showAdmin();
+    dd($materials);
+    View::render('admin/materialManagement', [
+      'materials' => $materials
+    ]);
   }
 
 }

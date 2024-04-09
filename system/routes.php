@@ -137,10 +137,10 @@ $router->put('/admin/update/user/password/{user_id}', 'AdminManageUserController
 $router->get('/admin/manage/projects', 'AdminManageProjectController@index')->only('admin');
 
 //routes for admin requests management
-$router->get('/admin/manage/material', 'AdminManageRequestController@index')->only('admin');
+$router->get('/admin/manage/material', 'AdminManageMaterialController@index')->only('admin');
 
 //routes for admin materials management
-$router->get('/admin/manage/requests', 'AdminManageMaterialController@index')->only('admin');
+$router->get('/admin/manage/requests', 'AdminManageRequestController@index')->only('admin');
 
 
 // routes for admin manage admin
