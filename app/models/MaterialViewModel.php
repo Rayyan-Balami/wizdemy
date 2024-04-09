@@ -74,6 +74,18 @@ class MaterialViewModel extends Model
             ->limit(10)
             ->getAll();
     }
+
+    public function getMaterialDetailById($material_id)
+    {
+        return $this->select([
+            'mv.*'
+        ], 'mv')
+            ->where('mv.material_id = :material_id')
+            ->bind(['material_id' => $material_id])
+            ->get();
+    }
+
+
     public function searchSuggestions($search)
     {
         return $this->select([

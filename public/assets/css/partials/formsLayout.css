@@ -67,12 +67,12 @@
   }
 }
 
-form > .request-details  svg{
+form > .post-details  svg{
   width: 0.75rem/* 12px */;
   height: 0.75rem/* 12px */;
 }
 
-form > .request-details > .request-title{
+form > .post-details > .post-title{
   margin-top: 0.25rem;
   font-size: 1rem/* 16px */;
   line-height: 1.5rem/* 24px */;
@@ -81,7 +81,7 @@ form > .request-details > .request-title{
   border-left: 2px solid rgb(0, 0, 0);
 }
 
-form > .request-details > .request-subject{
+form > .post-details > .post-subject{
   font-size: 0.85rem/* 16px */;
   line-height: 1.5rem/* 24px */;
   color: rgb(59 130 246);
@@ -90,7 +90,7 @@ form > .request-details > .request-subject{
   border-left: 2px solid rgb(59 130 246);
 }
 
-form > .request-details > .request-description{
+form > .post-details > .post-description{
   margin-top: 0.5rem/* 8px */;
   padding-left: 0.75rem/* 12px */;
   border-left: 2px solid rgb(209 213 219);
@@ -99,7 +99,7 @@ form > .request-details > .request-description{
   color: rgb(55 65 81);
 }
 
-form > .request-details > .request-meta-datas{
+form > .post-details > .post-meta-datas{
   margin-top: 1rem/* 16px */;
   display: flex;
   align-items: center;
@@ -109,9 +109,8 @@ form > .request-details > .request-meta-datas{
   line-height: 1rem/* 16px */;
 }
 
-form > .request-details > .request-meta-datas > .username,
-form > .request-details > .request-meta-datas > .document-type,
-form > .request-details > .request-meta-datas > .no-of-responses{
+form > .post-details > .post-meta-datas > .username,
+form > .post-details > .post-meta-datas > p{
   display: flex;
   align-items: center;
   gap: 0.3rem/* 6px */;
@@ -122,7 +121,7 @@ form > .request-details > .request-meta-datas > .no-of-responses{
   border: none;
 }
 
-form > .request-details > .request-meta-datas > span{
+form > .post-details > .post-meta-datas > span{
   display: flex;
   align-items: center;
   gap: 0.3rem/* 6px */;
@@ -133,7 +132,7 @@ form > .request-details > .request-meta-datas > span{
   text-transform: uppercase;
 }
 
-form > .request-details > .request-meta-datas > .suspended-svg{
+form > .post-details > .post-meta-datas > .suspended-svg{
   background-color: rgb(237, 164, 17);
   color: white;
   border-color: rgb(237, 164, 17);
@@ -142,7 +141,7 @@ form > .request-details > .request-meta-datas > .suspended-svg{
 
 
 @media (width >= 640px) {
-  .request-details,
+  .post-details,
   .title,
   .description,
   .bio,
@@ -172,7 +171,8 @@ form > .request-details > .request-meta-datas > .suspended-svg{
   .confirmPassword,
   .file-preview,
   .enrolledCourse,
-  .school {
+  .school,
+  .card {
     grid-column: span 3 / span 3;
   }
 }

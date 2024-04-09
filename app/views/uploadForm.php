@@ -101,18 +101,18 @@
       id="uploadForm" method="post" enctype="multipart/form-data">
 
       <?php if (!empty($requestDetails)): ?>
-        <div class="request-details">
-          <p class="request-subject">
+        <div class="post-details">
+          <p class="post-subject">
             <?= $requestDetails['subject'] ?>
           </p>
-          <h3 class="request-title">
+          <h3 class="post-title">
             <?= $requestDetails['title'] ?>
           </h3>
-          <p class="request-description">
+          <p class="post-description">
             <?= $requestDetails['description'] ?>
           </p>
-          <div class="request-meta-datas">
-            <a href="/profile" class="username">
+          <div class="post-meta-datas">
+            <a href="/profile/<?= $requestDetails['user_id'] ?>" class="username">
               <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
                 viewBox="0 0 512 512">
                 <path
@@ -127,10 +127,10 @@
               </p>
             </a>
 
-            <p class="no-of-responses">Responds :
+            <p>Responds :
               <?= $requestDetails['no_of_materials'] ?>
             </p>
-            <p class="document-type">Document Need :
+            <p>Document Need :
               <?php if ($requestDetails['document_type'] === 'labreport'): ?>
                 Lab Report
               <?php else:

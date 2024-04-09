@@ -1,14 +1,88 @@
-<!-- material card-section  -->
-<div class="card-section">
-  <?php foreach ($materials as $material): ?>
-    <!-- material card-->
-    <div class="card " id="card-<?= $material['material_id'] ?>">
-      <!-- image -->
-      <a href="/material/view/<?= $material['material_id'] ?>" class="thumbnail">
-        <img src="/<?= $material['thumbnail_path'] ?>" alt="thumbnail">
+<?php
+View::renderPartial('Header', [
+  'pageTitle' => SITE_NAME . ' | Report',
+  'stylesheets' => [
+    'ReportForm'
+  ],
+  'scripts' => [
+    'script',
+    'searchOverlay',
+    'toastTimer',
+    'confirmModal',
+    'timeAgo',
+    'authFormValidation',
+  ]
+]);
 
+$flashOld = Session::get('old');
+
+View::renderPartial('SideNav');
+
+View::renderPartial('MenuHeader');
+
+?>
+<!-- New Request title -->
+<div class="title-label">
+
+  <div>
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path  fill-rule="evenodd" clip-rule="evenodd"
+          d="M6.5 1.75C6.5 1.33579 6.16421 1 5.75 1C5.33579 1 5 1.33579 5 1.75V21.75C5 22.1642 5.33579 22.5 5.75 22.5C6.16421 22.5 6.5 22.1642 6.5 21.75V13.6V3.6V1.75Z"
+          fill="currentColor"></path>
+        <path opacity="0.3"
+          d="M13.5582 3.87333L13.1449 3.70801C11.5821 3.08288 9.8712 2.9258 8.22067 3.25591L6.5 3.60004V13.6L8.22067 13.2559C9.8712 12.9258 11.5821 13.0829 13.1449 13.708C14.8385 14.3854 16.7024 14.5119 18.472 14.0695L18.5721 14.0445C19.1582 13.898 19.4361 13.2269 19.1253 12.7089L17.5647 10.1078C17.2232 9.53867 17.0524 9.25409 17.0119 8.94455C16.9951 8.81543 16.9951 8.68466 17.0119 8.55553C17.0524 8.24599 17.2232 7.96141 17.5647 7.39225L18.8432 5.26136C19.1778 4.70364 18.6711 4.01976 18.0401 4.17751C16.5513 4.54971 14.9831 4.44328 13.5582 3.87333Z"
+          fill="currentColor"></path>
+      </g>
+    </svg>
+  </div>
+
+  <h2 class="title">
+  Initiate Report
+  </h2>
+
+  <p class="message">
+    Inappropriate, non-credit, or irrelevant content?
+  </p>
+
+</div>
+
+<!-- .form-section  -->
+<div class="form-section">
+  <h2 class="form-heading">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+      <path fill="currentColor" fill-rule="evenodd"
+        d="M12.238 3.64a1.854 1.854 0 0 0-1.629-1.628l-.8.8a3.367 3.367 0 0 1 1.63 1.628zM4.74 7.88l3.87-3.868a1.854 1.854 0 0 1 1.628 1.629L6.369 9.51a1.5 1.5 0 0 1-.814.418l-1.48.247l.247-1.48a1.5 1.5 0 0 1 .418-.814ZM9.72.78l-2 2l-4.04 4.04a3 3 0 0 0-.838 1.628L2.48 10.62a1 1 0 0 0 1.151 1.15l2.17-.36a3 3 0 0 0 1.629-.839l4.04-4.04l2-2c.18-.18.28-.423.28-.677A3.353 3.353 0 0 0 10.397.5c-.254 0-.498.1-.678.28ZM2.75 13a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5z"
+        clip-rule="evenodd" />
+    </svg>
+    Report Details
+  </h2>
+  <p class="form-info">
+    If false report is made from your side, you will be suspended / banned from the platform.
+  </p>
+  <!-- form -->
+  <form action="/report/store/<?= $targetType ?>/<?= $targetId ?>" id="reportForm" method="post">
+
+  <?php if($targetType != "project" && $targetType != "user"): 
+    $link = "";
+    $src = "";
+    if($targetType == "material"){
+      $link = "/material/view/".$reportDetails['material_id'];
+      $src = '/'.$reportDetails['thumbnail_path'];
+    } else if($targetType == "project"){
+      $link = $reportDetails['repo_link'];
+      $repo_info = str_replace("https://github.com/", "", $reportDetails['repo_link']);
+      $src = "https://opengraph.githubassets.com/wizdemy/".$repo_info;
+    }
+    ?>
+
+<div class="card project-card">
+    <a href="<?= $link ?>" class="thumbnail">
+        <img src="<?= $src ?>" alt="thumbnail">
         <div>
-          <?php if ($material['status'] === 'suspend'): ?>
+          <?php if ($reportDetails['status'] === 'suspend'): ?>
             <div class="suspended-svg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g fill="none" stroke="currentColor" stroke-width="1.7">
@@ -19,7 +93,8 @@
             </div>
           <?php endif; ?>
 
-          <?php if ($material['responded_to'] ?? false): ?>
+          <?php if($targetType=='material'): ?>
+          <?php if ($reportDetails['responded_to'] ?? false): ?>
             <!-- is responded post to request ?  -->
             <div class="request-responded-post">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +114,7 @@
           <?php endif; ?>
 
           <div class="document-format">
-            <?php if ($material['format'] === 'handwritten'): ?>
+            <?php if ($reportDetails['format'] === 'handwritten'): ?>
               <!-- handwritten svg  -->
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -54,7 +129,7 @@
                     fill="#000"></path>
                 </g>
               </svg>
-            <?php elseif ($material['format'] === 'typed'): ?>
+            <?php elseif ($reportDetails['format'] === 'typed'): ?>
               <!-- typed svg  -->
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -67,7 +142,7 @@
                   </path>
                 </g>
               </svg>
-            <?php elseif ($material['format'] === 'photo'): ?>
+            <?php elseif ($reportDetails['format'] === 'photo'): ?>
               <!-- photo svg  -->
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -85,103 +160,136 @@
               </svg>
             <?php endif; ?>
           </div>
-        </div>
-      </a>
-
-      <!-- subject  -->
-      <a href="/material/view/<?= $material['material_id'] ?>">
-        <p class="subject">
-          <?= $material['subject'] ?> •
-          <?= $material['education_level'] ?> •
-          <?= $material['class_faculty'] ?>
-          <?= $material['semester'] != '' ? ' • ' . $material['semester'] . ' sem' : '' ?>
-        </p>
-        </p>
-        <!-- title  -->
-        <h2 class="title">
-          <?= $material['title'] ?>
-        </h2>
-      </a>
-
-      <!-- username  -->
-      <a href="<?= isset($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>" class="username">
-        <!-- at icon @  -->
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0" viewBox="0 0 512 512">
-          <path
-            d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
-          </path>
-        </svg>
-        <!-- username  -->
-        <h3>
-          <?= $material['username'] ?>
-        </h3>
-      </a>
-
-      <!-- time  -->
-      <div class="time">
-        <p><a href="<?= isset($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>"
-            class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
-        <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-        <?php if (isset($myProfile) && $myProfile === true): ?>
-          data-card-id="<?= $material['material_id'] ?>"
-          data-edit-link="<?= '/material/edit/' . $material['material_id'] ?>"
-          data-delete-link="<?= '/api/material/delete/' . $material['material_id'] ?>"
-        <?php endif; ?>
-          data-report-link="/report/material/<?= $material['user_id'] ?>"
-          data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
-
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
-            <path fill="currentColor"
-              d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- intercation -->
-      <a href="/material/view/<?= $material['material_id'] ?>" class="intercation">
-        <!-- views  -->
-        <div class="view">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
-            </path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-            </path>
-          </svg>
-          <span>
-            <?= $material['views_count'] ?>
-          </span>
-        </div>
-        <!-- comments -->
-        <div class="comment">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <path d="M7 7H15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M7 11H11" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              </path>
-              <path
-                d="M19 3H5C3.89543 3 3 3.89543 3 5V15C3 16.1046 3.89543 17 5 17H8L11.6464 20.6464C11.8417 20.8417 12.1583 20.8417 12.3536 20.6464L16 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3Z"
-                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg>
-          <span>
-            <?= $material['comments_count'] ?>
-          </span>
-        </div>
-        <!-- likes -->
-        <div class="like">
-          <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
-            <path fill="currentColor"
-              d="M178 28c-20.09 0-37.92 7.93-50 21.56C115.92 35.93 98.09 28 78 28a66.08 66.08 0 0 0-66 66c0 72.34 105.81 130.14 110.31 132.57a12 12 0 0 0 11.38 0C138.19 224.14 244 166.34 244 94a66.08 66.08 0 0 0-66-66m-5.49 142.36a328.69 328.69 0 0 1-44.51 31.8a328.69 328.69 0 0 1-44.51-31.8C61.82 151.77 36 123.42 36 94a42 42 0 0 1 42-42c17.8 0 32.7 9.4 38.89 24.54a12 12 0 0 0 22.22 0C145.3 61.4 160.2 52 178 52a42 42 0 0 1 42 42c0 29.42-25.82 57.77-47.49 76.36" />
-          </svg>
-          <span>
-            <?= $material['likes_count'] ?>
-          </span>
+          <?php endif; ?>
         </div>
       </a>
     </div>
-  <?php endforeach; ?>
+    <?php endif; ?>
+
+  <?php if (!empty($reportDetails)): ?>
+        <div class="post-details">
+          <?php if($targetType != "project" && $targetType != "user"): ?>
+          <p class="post-subject">
+            <?= $reportDetails['subject'] ?>
+          </p>
+          <?php endif; ?>
+          <h3 class="post-title">
+            <?= $reportDetails['title'] ?>
+          </h3>
+          <?php if($targetType != "project" && $targetType != "user"): ?>
+          <p class="post-description">
+            <?= $reportDetails['description'] ?>
+          </p>
+          <?php endif; ?>
+          <div class="post-meta-datas">
+            <a href="/profile/<?= $reportDetails['user_id'] ?>" class="username">
+              <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
+                viewBox="0 0 512 512">
+                <path
+                  d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+                </path>
+              </svg>
+              <h3>
+                <?= $reportDetails['username'] ?>
+              </h3>
+              <span>·</span>
+              <?php if($targetType != "user"): ?>
+              <p class="time-ago" data-datetime="<?= $reportDetails['created_at'] ?>">
+              </p>
+              <?php endif; ?>
+              <?php if($targetType == "user"): ?>
+              <p><?= date('Y', strtotime($reportDetails['created_at'])) ?></p>
+              <?php endif; ?>
+            </a>
+
+            <?php if($targetType == "request" ): ?>
+            <p class="no-of-responses">Responds :
+              <?= $reportDetails['no_of_materials'] ?>
+            </p>
+            <?php endif; ?>
+
+            <?php if($targetType == "material" ): ?>
+              <p>
+                Views :
+                <?= $reportDetails['views_count'] ?>
+              </p>
+              <p class="no-of-responses">Likes :
+                <?= $reportDetails['likes_count'] ?>
+            </p>
+            <p>
+              Comments :
+              <?= $reportDetails['comments_count'] ?>
+            </p>
+            <?php endif; ?>
+
+            <p class="document-type">Document <?= $targetType == 'request' ? 'Need' : 'Type' ?> :
+              <?php if ($reportDetails['document_type'] === 'labreport'): ?>
+                Lab Report
+              <?php else:
+                echo $reportDetails['document_type'];
+              endif; ?>
+            </p>
+
+            <?php if($targetType != "project" && $targetType != "user"): ?>
+            <span>#
+              <?= $reportDetails['class_faculty'] ?>
+            </span>
+            <span>#
+              <?= $reportDetails['education_level'] ?>
+            </span>
+            <?php if (!empty($reportDetails['semester'])): ?>
+              <span>#
+                <?= $reportDetails['semester'] ?> Sem
+              </span>
+            <?php endif; ?>
+            <?php endif; ?>
+            <?php if ($reportDetails['status'] === 'suspend'): ?>
+              <span class="suspended-svg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" d="M16 12H8" />
+                  <circle cx="12" cy="12" r="10" />
+                </g>
+              </svg> Suspended</span>
+            <?php endif; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
+    <!-- title (required)-->
+    <div class="title">
+      <label for="title">Title</label>
+      <input type="text" placeholder="Inappropriate Post" required name="title" id="title"
+        value="<?= $flashOld['title'] ?? '' ?>">
+    </div>
+
+    <!-- description (required)-->
+    <div class="description">
+      <label for="description">Description</label>
+      <textarea required id="description" name="description"
+        rows="3"><?= $flashOld['description'] ?? '' ?></textarea>
+
+      <p class="mt-2 text-sm text-gray-600">
+        Describe why you think this post is inappropriate.
+      </p>
+    </div>
+
+    <!-- save button -->
+    <button type="submit" name="submitBtn">
+      Report
+    </button>
+  </form>
 </div>
+
+</main>
+<?php
+
+View::renderPartial('SearchOverlay');
+
+View::renderPartial('ToastNotification');
+
+View::renderPartial('ConfirmModal');
+
+View::renderPartial('EndOfHTMLDocument');
+
+?>

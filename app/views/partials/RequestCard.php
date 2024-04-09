@@ -65,7 +65,9 @@
                     <a href="/profile/<?= $request['user_id'] ?>" class="time-ago" data-datetime="<?= $request['created_at'] ?>"></a>
                 </p>
                 <!-- three dot icon -->
-                <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN.'/request?id='.$request['request_id'] ?>">
+                <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN.'/request?id='.$request['request_id'] ?>"
+                data-report-link="/report/request/<?= $request['request_id'] ?>"
+                >
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
                         <path fill="#000"
