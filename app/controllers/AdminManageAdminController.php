@@ -40,4 +40,5 @@ class AdminManageAdminController extends Controller
       $this->buildJsonResponse($result['message'], 400);
     }
   }
+  
 }
