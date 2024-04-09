@@ -74,7 +74,8 @@ class StudyMaterialRequestModel extends Model
     }
 
     //shows suspended materials too in owner's profile
-    public function showRequestsByCurrentUser($document_type = 'note'){
+    public function showRequestsByCurrentUser($document_type = 'note')
+    {
         $current_user = Session::get('user')['user_id'] ?? null;
         return $this->select([
             'r.*',
@@ -173,5 +174,31 @@ class StudyMaterialRequestModel extends Model
     {
         $result = $this->count()->get();
         return $result['total'];
+    }
+    public function search($search, $document_type = 'note')
+    {
+        $current_user = Session::get('user')['user_id'] ?? null;
+        return $this->select([
+            'DISTINCT r.*',
+            'u.username',
+            'COUNT(DISTINCT m.material_id) as no_of_materials'
+        ], 'r')
+            ->leftJoin('users as u', 'u.user_id = r.user_id')
+            ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
+            ->where('(
+                r.title LIKE :search 
+            OR r.subject LIKE :search 
+            OR r.class_faculty LIKE :search
+            OR r.semester LIKE :search
+            OR r.education_level LIKE :search
+            )
+            AND r.document_type = :document_type AND r.status <> :status')
+            ->bind([
+                'search' => "%$search%",
+                'document_type' => $document_type,
+                'status' => 'suspend'
+            ])
+            ->groupBy('r.request_id')
+            ->getAll();
     }
 }

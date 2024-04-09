@@ -24,4 +24,13 @@ class UserProfileViewModel extends Model
     ], 'upv')
       ->getAll();
   }
+  public function search($search)
+  {
+    return $this->select([
+      'upv.*'
+    ], 'upv')
+      ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
+      ->bind(['search' => '%' . $search . '%'])
+      ->getAll();
+  }
 }

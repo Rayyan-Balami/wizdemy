@@ -49,9 +49,8 @@ function RequestCard(
   if (document_type === "labreport") {
     document_type = "lab report";
   }
-  return `<div class="request-card" ${
-    page == "profile" ? `id="card-${request_id}"` : ""
-  }>
+  return `<div class="request-card" ${page == "profile" ? `id="card-${request_id}"` : ""
+    }>
   <!-- subject -->
   <p class="subject">${subject}</p>
   <!-- title  -->
@@ -87,21 +86,19 @@ function RequestCard(
 
   <!-- time  -->
   <div class="time">
-      <p><a href="${
-        page == "profile" ? "#" : `/profile/${user_id}`
-      }" class="time-ago" data-datetime="${created_at}"></a>
+      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
+    }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      ${
-        page == "profile"
-          ? `
+      ${page == "profile"
+      ? `
       data-card-id="${request_id}"
       data-edit-link="/request/edit/${request_id}"
       data-delete-link="/api/request/delete/${request_id}"
       `
-          : ""
-      }
+      : ""
+    }
       data-copy-link="${SITE_DOMAIN}/request/${request_id}"
       >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
@@ -224,9 +221,8 @@ function MaterialCard(
     formatHTML = photo;
   }
 
-  return `<div class="card " ${
-    page == "profile" ? `id="card-${material_id}"` : ""
-  }>
+  return `<div class="card " ${page == "profile" ? `id="card-${material_id}"` : ""
+    }>
   <!-- image -->
   <a href="/material/view/${material_id}" class="thumbnail">
     <img src="/${thumbnail_path}" alt="thumbnail" />
@@ -270,19 +266,17 @@ function MaterialCard(
 
   <!-- time  -->
   <div class="time">
-    <p><a href="${
-      page == "profile" ? "#" : `/profile/${user_id}`
+    <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
     <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-    ${
-      page == "profile"
-        ? `
+    ${page == "profile"
+      ? `
     data-card-id="${material_id}"
     data-edit-link="/material/edit/${material_id}"
     data-delete-link="/api/material/delete/${material_id}"
     `
-        : ""
+      : ""
     }
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
@@ -361,17 +355,15 @@ function ProjectCard(
   // console.log(page, project_id, repo_link, user_id, username, created_at);
   let repo_info = repo_link.replace("https://github.com/", "");
   return ` <!--project card  -->
-  <div class="card project-card" ${
-    page == "profile" ? `id="card-${project_id}"` : ""
-  }>
+  <div class="card project-card" ${page == "profile" ? `id="card-${project_id}"` : ""
+    }>
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
       <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
       ${suspendHTML}
     </a>
     <!-- username  -->
-    <a href="${
-      page == "profile" ? "#" : `/profile/'.${user_id}'`
+    <a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
     }" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -387,21 +379,19 @@ function ProjectCard(
     </a>
     <!-- time  -->
     <div class="time">
-      <p><a href="${
-        page == "profile" ? "#" : `/profile/${user_id}`
-      }" class="time-ago"
+      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
+    }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      ${
-        page == "profile"
-          ? `
+      ${page == "profile"
+      ? `
       data-card-id="${project_id}"
       data-edit-link="/project/edit/${project_id}"
       data-delete-link="/api/project/delete/${project_id}"
       `
-          : ""
-      }
+      : ""
+    }
     data-copy-link="${repo_link}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
         <path fill="#000"
@@ -635,19 +625,18 @@ function ZeroResult(type) {
   <div class="error-container ">
 
     <div class="svg-icon">
-      ${
-        type === "myMaterial"
-          ? myMaterialSvg
-          : type === "search"
-          ? searchSvg
-          : type === "ghostProfile"
+      ${type === "myMaterial"
+      ? myMaterialSvg
+      : type === "search"
+        ? searchSvg
+        : type === "ghostProfile"
           ? ghostProfileSvg
           : type === "myRequest"
-          ? myRequestSvg
-          : type === "myProject"
-          ? myProjectSvg
-          : defaultSvg
-      }
+            ? myRequestSvg
+            : type === "myProject"
+              ? myProjectSvg
+              : defaultSvg
+    }
     </div>
 
     <div class="status-msg-top">
@@ -1193,6 +1182,7 @@ function ajaxRequest(url, type, data = {}, cardType, zeroResultType, page) {
     type: type,
     data: data,
     success: function (response) {
+      console.log(response);
       renderData(response.data, cardType, zeroResultType, page);
     },
     error: function (error) {
@@ -1283,101 +1273,55 @@ function renderData(data, cardType, zeroResultType, page) {
 // Functions for different types of AJAX calls
 
 function requestCategoryChange(page, category) {
-  ajaxRequest(
-    `/api/${page}/category`,
-    "POST",
-    { category },
-    "request",
-    "myRequest",
-    page
-  );
+  ajaxRequest(`/api/${page}/category`, "POST", { category }, "request", "myRequest", page);
 }
 
 function myMaterials(page, category) {
   const user_id = getUserIdFromUrl();
-  ajaxRequest(
-    `/api/${page}/myMaterials`,
-    "POST",
-    { category, user_id },
-    "material",
-    "myMaterial",
-    page
-  );
+  ajaxRequest(`/api/${page}/myMaterials`, "POST", { category, user_id }, "material", "myMaterial", page);
 }
 
 function myRequests(page, category) {
   const user_id = getUserIdFromUrl();
-  ajaxRequest(
-    `/api/${page}/myRequests`,
-    "POST",
-    { category, user_id },
-    "request",
-    "myRequest",
-    page
-  );
+  ajaxRequest(`/api/${page}/myRequests`, "POST", { category, user_id }, "request", "myRequest", page);
 }
 
 function myProjects(page) {
   $("#requestCheck").prop("disabled", true);
   const user_id = getUserIdFromUrl();
-  ajaxRequest(
-    `/api/${page}/myProjects`,
-    "POST",
-    { user_id },
-    "project",
-    "myProject",
-    page
-  );
+  ajaxRequest(`/api/${page}/myProjects`, "POST", { user_id }, "project", "myProject", page);
 }
 
 function searchMaterials(page, category) {
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(
-    `/api/search?q=${searchQuery}`,
-    "POST",
-    { category },
-    "material",
-    "search",
-    page
-  );
+  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
+    category,
+    "search_type": "material",
+  }, "material", "search", page);
 }
 
 function searchRequests(page, category) {
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(
-    `/api/search?q=${searchQuery}`,
-    "POST",
-    { category },
-    "request",
-    "search",
-    page
-  );
+  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
+    category,
+    "search_type": "request",
+  }, "request", "search", page);
 }
 
 function searchProjects(page) {
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(
-    `/api/search?q=${searchQuery}`,
-    "POST",
-    {},
-    "project",
-    "search",
-    page
-  );
+  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
+    "search_type": "project",
+  }, "project", "search", page);
 }
 
 function searchUsers(page) {
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(
-    `/api/search?q=${searchQuery}`,
-    "POST",
-    {},
-    "profile",
-    "search",
-    page
-  );
+  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
+    "search_type": "user",
+  }, "profile", "search", page);
 }
 
 // Helper functions

@@ -86,4 +86,31 @@ class MaterialViewModel extends Model
             ->getAll();
 
     }
+    public function search($search, $document_type = 'note')
+    {
+        $current_user = Session::get('user')['user_id'] ?? null;
+        return $this->select([
+            'DISTINCT mv.*'
+        ], 'mv')
+            ->leftJoin('follow_relation as fr', 'fr.following_id = mv.user_id')
+            ->where('(
+                mv.title LIKE :search 
+            OR mv.subject LIKE :search 
+            OR mv.author LIKE :search
+            OR mv.class_faculty LIKE :search
+            OR mv.semester LIKE :search
+            OR mv.education_level LIKE :search
+            )
+            AND mv.document_type = :document_type
+            AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))
+            AND mv.status <> :status')
+            ->bind([
+                'search' => "%$search%",
+                'document_type' => $document_type,
+                'current_user' => $current_user,
+                'status' => 'suspend'
+            ])
+            ->limit(10)
+            ->getAll();
+    }
 }
