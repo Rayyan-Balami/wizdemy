@@ -15,6 +15,17 @@ function openSearchModal() {
   renderSearchHistory();
 }
 
+//also open/close search model when clicked ctrl + k
+document.addEventListener('keydown', function (e) {
+  if (e.ctrlKey && e.key === 'k') {
+    if (searchOverlay.classList.contains('open')) {
+      searchOverlay.classList.remove('open');
+    } else {
+      openSearchModal();
+    }
+  }
+});
+
 searchOverlay.addEventListener('click', function (event) {
   if (event.target.id === 'searchOverlay') {
     // Close the modal only if the overlay is clicked, not its children
