@@ -78,7 +78,9 @@ $router->delete('/api/project/delete/{project_id}', 'ProjectController@delete')-
 
 // search page
 $router->get('/search', 'SearchController@index')->only('auth');
-$router->get('/api/search', 'SearchController@searchSuggestions');
+$router->get('/api/search', 'SearchController@searchSuggestions')->only('apiAuth');
+$router->post('/api/search', 'SearchController@search')->only('apiAuth');
+
 
 
 //routes for profile page

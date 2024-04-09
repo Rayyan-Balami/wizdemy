@@ -139,4 +139,23 @@ class GithubProjectModel extends Model
         $result = $this->count()->get();
         return $result['total'];
     }
+    public function search($search)
+    {
+        return $this->select([
+            'DISTINCT p.*'
+        ], 'p')
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+            ->where('(
+                p.repo_link LIKE :search 
+            OR u.username LIKE :search 
+            OR u.full_name LIKE :search
+            )
+            AND p.status <> :status')
+            ->bind([
+                'search' => "%$search%",
+                'status' => 'suspend'
+            ])
+            ->limit(10)
+            ->getAll();
+    }
 }
