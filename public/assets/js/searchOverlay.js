@@ -38,7 +38,9 @@ function renderSearchHistory() {
   if (searchHistory.length > 0) {
     historyItems = searchHistory.map(history => searchLi('history', history)).join('');
   } else {
-    historyItems = `<li><a href="#" style="pointer-events: none; text-align: center;"><p> Open your heart and search for something</p></a></li>`;
+    historyItems = `<li style="pointer-events: none; padding: 0.75rem 0.5rem/* 16px */;  text-align: center;  text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.7;"><p>Start Searching 🔍</p></li>`;
   }
   document.querySelector('#search-list').innerHTML = historyItems;
 }
