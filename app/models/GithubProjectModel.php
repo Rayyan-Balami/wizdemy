@@ -142,7 +142,8 @@ class GithubProjectModel extends Model
     public function search($search)
     {
         return $this->select([
-            'DISTINCT p.*'
+            'DISTINCT p.*',
+            'u.username',
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
             ->where('(
@@ -156,6 +157,22 @@ class GithubProjectModel extends Model
                 'status' => 'suspend'
             ])
             ->limit(10)
+            ->getAll();
+    }
+    public function searchSuggestions($search)
+    {
+        return $this->select([
+            'DISTINCT p.repo_link as title',
+        ], 'p')
+            ->where('(
+                p.repo_link LIKE :search 
+            )
+            AND p.status <> :status')
+            ->bind([
+                'search' => "%$search%",
+                'status' => 'suspend'
+            ])
+            ->limit(5)
             ->getAll();
     }
 }

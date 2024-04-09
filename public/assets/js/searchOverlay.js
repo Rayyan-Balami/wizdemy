@@ -11,6 +11,7 @@ let searchList = [];
 
 function openSearchModal() {
   searchOverlay.classList.add('open');
+  searchField.focus();
   renderSearchHistory();
 }
 
@@ -60,7 +61,7 @@ function renderSearchList() {
       var searchQuery = this.getAttribute('href').split('=')[1];
 
       // Store the search query in the history
-      searchHistory.unshift(searchQuery);
+      addSearchHistory(searchQuery);
 
       // Redirect to the search page
       window.location.href = this.getAttribute('href');
@@ -86,7 +87,13 @@ searchField.addEventListener('keyup', async function (e) {
   }
   if (data.status !== 'error') {
     const { suggestions } = data;
-    searchList.push(...suggestions.map(suggestion => searchLi('search', suggestion)));
+    // remove duplicates from suggestions that are already in the search history
+    // searchList.push(...suggestions.map(suggestion => searchLi('search', suggestion)));
+    searchList.push(...suggestions.map(suggestion => {
+      if (!searchHistory.includes(suggestion)) {
+        return searchLi('search', suggestion);
+      }
+    }));
   } else {
     const { message } = data;
     if (top4History.length === 0) {
@@ -101,11 +108,27 @@ searchField.addEventListener('keyup', async function (e) {
   renderSearchList();
 });
 
+
+function addSearchHistory(text) {
+  if (!searchHistory.includes(text)) {
+    // if search history is more than 20 remove the last item
+    if (searchHistory.length >= 20) {
+      searchHistory.pop();
+    }
+    searchHistory.unshift(text);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
+  }
+  renderSearchHistory();
+}
+
+
 function removeSearchHistory(text) {
   searchHistory = searchHistory.filter((search) => search !== text);
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
   renderSearchHistory();
 }
+
 
 //when the search form is submitted add the search term to the search history
 searchForm.addEventListener('submit', function (e) {

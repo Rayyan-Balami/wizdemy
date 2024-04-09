@@ -718,6 +718,7 @@ function ajaxRequest(url, type, data = {}, cardType, zeroResultType, page) {
       renderData(response.data, cardType, zeroResultType, page);
     },
     error: function (error) {
+      console.log(error);
       cardSection.html("Failed to load data");
     },
   });
@@ -798,6 +799,7 @@ function renderData(data, cardType, zeroResultType, page) {
     }
 
     cardSection.append(card);
+    updateTimeAgo();
   });
 }
 
@@ -840,7 +842,7 @@ function searchRequests(page, category) {
 }
 
 function searchProjects(page) {
-  console.log("searchProjects fun");
+
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
   ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
