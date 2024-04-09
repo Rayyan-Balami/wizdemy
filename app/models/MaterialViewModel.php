@@ -5,9 +5,9 @@ class MaterialViewModel extends Model
     public function __construct(string $table = 'material_view')
     {
         parent::__construct($table);
-        
+
     }
-    
+
     public function show($document_type = 'note')
     {
         $current_user = Session::get('user')['user_id'] ?? null;
@@ -17,7 +17,7 @@ class MaterialViewModel extends Model
         // 2. The 'user_id' in 'mv' matches the provided 'current_user'.
         // 3. The material is not private ('mv.private' is 0) OR the material is private ('mv.private' is 1) but the 'follower_id' in 'fr' matches the provided 'current_user'.
         // The function binds the 'document_type' and 'current_user' parameters to the query, paginates the results (10 per page), and returns all matching records.
-        
+
         return $this->select([
             'DISTINCT mv.*'
         ], 'mv')
@@ -51,7 +51,7 @@ class MaterialViewModel extends Model
             ->limit(10)
             ->getAll();
     }
-    
+
     // does not show suspended materials while viewing other profiles
     public function showUploadsByUserId($user_id, $document_type = 'note')
     {
@@ -63,5 +63,27 @@ class MaterialViewModel extends Model
             ->groupBy('mv.material_id')
             ->limit(10)
             ->getAll();
+    }
+    public function searchSuggestions($search)
+    {
+        return $this->select([
+            'DISTINCT mv.title',
+        ], 'mv')
+            ->where('(
+                mv.title LIKE :search 
+            OR mv.subject LIKE :search 
+            OR mv.author LIKE :search
+            OR mv.class_faculty LIKE :search
+            OR mv.semester LIKE :search
+            OR mv.education_level LIKE :search
+            )
+            AND mv.status <> :status')
+            ->bind([
+                'search' => "%$search%",
+                'status' => 'suspend'
+            ])
+            ->limit(10)
+            ->getAll();
+
     }
 }

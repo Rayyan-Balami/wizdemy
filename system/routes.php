@@ -76,6 +76,11 @@ $router->put('/project/update/{project_id}', 'ProjectController@update')->only('
 //routes for delete project
 $router->delete('/api/project/delete/{project_id}', 'ProjectController@delete')->only('apiAuth');
 
+// search page
+$router->get('/search', 'SearchController@index')->only('auth');
+$router->get('/api/search', 'SearchController@searchSuggestions');
+
+
 //routes for profile page
 $router->get('/profile', 'ProfileController@index')->only('auth');
 $router->get('/profile/{user_id}', 'ProfileController@index')->only('auth');
