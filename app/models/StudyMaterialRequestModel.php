@@ -201,4 +201,24 @@ class StudyMaterialRequestModel extends Model
             ->groupBy('r.request_id')
             ->getAll();
     }
+    public function searchSuggestions($search)
+    {
+        return $this->select([
+            'DISTINCT r.title as title',
+        ], 'r')
+            ->where('(
+                r.title LIKE :search 
+            OR r.subject LIKE :search 
+            OR r.class_faculty LIKE :search
+            OR r.semester LIKE :search
+            OR r.education_level LIKE :search
+            )
+            AND r.status <> :status')
+            ->bind([
+                'search' => "%$search%",
+                'status' => 'suspend'
+            ])
+            ->limit(5)
+            ->getAll();
+    }
 }

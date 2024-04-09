@@ -33,4 +33,19 @@ class UserProfileViewModel extends Model
       ->bind(['search' => '%' . $search . '%'])
       ->getAll();
   }
+  public function searchSuggestions($search)
+  {
+    return $this->select([
+      'DISTINCT upv.username as title',
+    ], 'upv')
+      ->where('(
+                upv.username LIKE :search 
+            OR upv.full_name LIKE :search
+            OR upv.email LIKE :search
+      ) AND upv.status = :status')
+      ->bind(['search' => '%' . $search . '%', 'status' => 'active'])
+      ->limit(5)
+      ->getAll();
+  }
+
 }

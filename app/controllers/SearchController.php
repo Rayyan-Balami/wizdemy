@@ -25,8 +25,21 @@ class SearchController extends Controller
                 'message' => 'Search query is required'
             ], 400);
         }
-        $suggestions = $this->model->searchSuggestions($search);
-        // make suggestions string array
+        $materialsSuggestions = $this->model->searchSuggestions($search);
+        $requestsSuggestions = (new StudyMaterialRequestModel())->searchSuggestions($search);
+        $usersSuggestions = (new UserProfileViewModel())->searchSuggestions($search);
+        $search = str_replace(' ', '_', $search);
+        $projectsSuggestions = (new GithubProjectModel())->searchSuggestions($search);
+        // merge
+        $suggestions = array_merge(
+            $materialsSuggestions,
+            $requestsSuggestions,
+            $usersSuggestions,
+            $projectsSuggestions
+        );
+        // remove duplicates
+        $suggestions = array_unique($suggestions, SORT_REGULAR);
+        // make into string array
         $suggestions = array_map(function ($suggestion) {
             return $suggestion['title'];
         }, $suggestions);
@@ -47,7 +60,7 @@ class SearchController extends Controller
     {
         $search = trim($_GET['q']);
         $searchType = $_POST['search_type'];
-        $category = $_POST['category'];
+        $category = $_POST['category']??null;
         if (!$search) {
             $this->buildJsonResponse([
                 'status' => 'error',
