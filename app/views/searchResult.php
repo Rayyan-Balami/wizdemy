@@ -3,7 +3,7 @@
 View::renderPartial('Header', [
   'pageTitle' => SITE_NAME . ' | Search Results',
   'stylesheets' => [
-    'profile',
+    'styles',
     'statusAndZeroResult'
   ],
   'scripts' => [

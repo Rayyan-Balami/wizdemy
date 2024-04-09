@@ -650,16 +650,23 @@ function ZeroResult(type) {
 }
 
 $(document).ready(function () {
+
+  //extract the page from the url /profile/1 or /search?q=math
+  const page = window.location.pathname.split("/")[1];
+
+
   // Add event listener to the "requestCheck" checkbox
   $("#requestCheck").on("change", function () {
     if ($(this).is(":checked")) {
-      //if the requestCheck is checked, then disable the projectRadio , expect from note, question, labreport
+      //if the requestCheck is checked, then disable the projectRadio and usersRadio
       $("#projectsCategory").prop("disabled", true);
-      myRequests("profile", $("input[name='category']:checked").val());
+      $("#userCategory").prop("disabled", true);
+      changeCategory(page);
     } else {
       //if the requestCheck is unchecked, then enable the projectRadio
       $("#projectsCategory").prop("disabled", false);
-      changeCategory("profile");
+      $("#userCategory").prop("disabled", false);
+      changeCategory(page);
     }
   });
 });
@@ -668,6 +675,7 @@ function changeCategory(page) {
   //enable the requestCheck
   $("#requestCheck").prop("disabled", false);
   let category = $("input[name='category']:checked").val(); // Get the currently selected category
+  console.log(page, category);
   if (page === "request") {
     requestCategoryChange(page, category);
   } else if (page === "profile") {
@@ -684,482 +692,6 @@ function changeCategory(page) {
     }
   }
 }
-
-// function requestCategoryChange(page, category) {
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     // If cardSection exists, empty it
-//     cardSection.empty();
-//   }
-//   ZeroResultSection.remove();
-
-//   $.ajax({
-//     url: `/api/${page}/category`,
-//     type: "POST",
-//     data: { category },
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult());
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((request) => {
-//         const requestCard = RequestCard(
-//           page,
-//           request.request_id,
-//           request.user_id,
-//           request.title,
-//           request.subject,
-//           request.description,
-//           request.education_level,
-//           request.class_faculty,
-//           request.semester,
-//           request.no_of_materials,
-//           request.document_type,
-//           request.username,
-//           request.created_at,
-//           request.status
-//         );
-//         cardSection.append(requestCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function myMaterials(page, category) {
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     cardSection.empty();
-//   }
-//   ZeroResultSection.remove();
-
-//   // Extract user_id from the URL
-//   //eg: http://localhost:8000/profile/1
-//   const pathSegments = window.location.pathname.split('/');
-//   const user_id = pathSegments[pathSegments.length - 1];
-
-//   $.ajax({
-//     url: `/api/${page}/myMaterials`,
-//     type: "POST",
-//     data: { category, user_id },
-//     success: function (respond) {
-//       console.log(respond);
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult(page));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((m) => {
-//         const materialCard = MaterialCard(
-//           page,
-//           m.class_faculty,
-//           m.comments_count,
-//           m.created_at,
-//           m.document_type,
-//           m.education_level,
-//           m.file_path,
-//           m.format,
-//           m.likes_count,
-//           m.material_id,
-//           m.responded_to,
-//           m.semester,
-//           m.subject,
-//           m.thumbnail_path,
-//           m.title,
-//           m.user_id,
-//           m.updated_at,
-//           m.username,
-//           m.views_count,
-//           m.status
-//         );
-//         cardSection.append(materialCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function myRequests(page, category) {
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     // If cardSection exists, empty it
-//     cardSection.empty();
-//   }
-//   ZeroResultSection.remove();
-
-//   // Extract user_id from the URL
-//   //eg: http://localhost:8000/profile/1
-//   const pathSegments = window.location.pathname.split('/');
-//   const user_id = pathSegments[pathSegments.length - 1];
-
-//   $.ajax({
-//     url: `/api/${page}/myRequests`,
-//     type: "POST",
-//     data: { category, user_id },
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult("myRequest"));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((request) => {
-//         const requestCard = RequestCard(
-//           page,
-//           request.request_id,
-//           request.user_id,
-//           request.title,
-//           request.subject,
-//           request.description,
-//           request.education_level,
-//           request.class_faculty,
-//           request.semester,
-//           request.no_of_materials,
-//           request.document_type,
-//           request.username,
-//           request.created_at,
-//           request.status
-//         );
-//         cardSection.append(requestCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function myProjects(page) {
-//   //disable the requestCheck  checkbox
-//   $("#requestCheck").prop("disabled", true);
-
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     // If cardSection exists, empty it
-//     cardSection.empty();
-//   }
-
-//   ZeroResultSection.remove();
-
-//   // Extract user_id from the URL
-//   //eg: http://localhost:8000/profile/1
-//   const pathSegments = window.location.pathname.split('/');
-//   const user_id = pathSegments[pathSegments.length - 1];
-
-//   $.ajax({
-//     url: `/api/${page}/myProjects`,
-//     type: "POST",
-//     data: { user_id },
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult('project'));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((project) => {
-//         const projectCard = ProjectCard(
-//           page,
-//           project.project_id,
-//           project.repo_link,
-//           project.user_id,
-//           project.username,
-//           project.created_at,
-//           project.updated_at,
-//           project.status
-//         );
-//         // console.log(projectCard);
-//         cardSection.append(projectCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function searchMaterials(page, category) {
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     cardSection.empty();
-//   }
-//   ZeroResultSection.remove();
-
-//   //get the search query from url with id q
-//   const searchQuery = new URLSearchParams(window.location.search).get("q");
-//   console.log(searchQuery);
-
-//   $.ajax({
-//     url: `/api/search?q=${searchQuery}`,
-//     type: "POST",
-//     data: { category },
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult('search'));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((m) => {
-//         const materialCard = MaterialCard(
-//           page,
-//           m.class_faculty,
-//           m.comments_count,
-//           m.created_at,
-//           m.document_type,
-//           m.education_level,
-//           m.file_path,
-//           m.format,
-//           m.likes_count,
-//           m.material_id,
-//           m.responded_to,
-//           m.semester,
-//           m.subject,
-//           m.thumbnail_path,
-//           m.title,
-//           m.user_id,
-//           m.updated_at,
-//           m.username,
-//           m.views_count,
-//           m.status
-//         );
-//         cardSection.append(materialCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function searchRequests(page, category) {
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     // If cardSection exists, empty it
-//     cardSection.empty();
-//   }
-//   ZeroResultSection.remove();
-
-//   //get the search query from url with id q
-//   const searchQuery = new URLSearchParams(window.location.search).get("q");
-//   console.log(searchQuery);
-
-//   $.ajax({
-//     url: `/api/search?q=${searchQuery}`,
-//     type: "POST",
-//     data: { category },
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult('search'));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((request) => {
-//         const requestCard = RequestCard(
-//           page,
-//           request.request_id,
-//           request.user_id,
-//           request.title,
-//           request.subject,
-//           request.description,
-//           request.education_level,
-//           request.class_faculty,
-//           request.semester,
-//           request.no_of_materials,
-//           request.document_type,
-//           request.username,
-//           request.created_at,
-//           request.status
-//         );
-//         cardSection.append(requestCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function searchProjects(page) {
-//   //disable the requestCheck  checkbox
-//   $("#requestCheck").prop("disabled", true);
-
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     // If cardSection exists, empty it
-//     cardSection.empty();
-//   }
-
-//   ZeroResultSection.remove();
-
-//   //get the search query from url with id q
-//   const searchQuery = new URLSearchParams(window.location.search).get("q");
-//   console.log(searchQuery);
-
-//   $.ajax({
-//     url: `/api/search?q=${searchQuery}`,
-//     type: "POST",
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult('project'));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((project) => {
-//         const projectCard = ProjectCard(
-//           page,
-//           project.project_id,
-//           project.repo_link,
-//           project.user_id,
-//           project.username,
-//           project.created_at,
-//           project.updated_at,
-//           project.status
-//         );
-//         // console.log(projectCard);
-//         cardSection.append(projectCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
-
-// function searchUsers(page) {
-//   //disable the requestCheck  checkbox
-//   $("#requestCheck").prop("disabled", true);
-
-//   const cardCategory = $(".card-category-wrapper");
-//   let cardSection = $(".card-section");
-//   const ZeroResultSection = $(".zeroResult-container");
-
-//   // Check if cardSection exists, if not, create it
-//   if (cardSection.length === 0) {
-//     cardSection = $("<div class='card-section'></div>");
-//     // Append cardSection after cardCategory
-//     cardCategory.after(cardSection);
-//   } else {
-//     // If cardSection exists, empty it
-//     cardSection.empty();
-//   }
-
-//   ZeroResultSection.remove();
-
-//   //get the search query from url with id q
-//   const searchQuery = new URLSearchParams(window.location.search).get("q");
-//   console.log(searchQuery);
-
-//   $.ajax({
-//     url: `/api/search?q=${searchQuery}`,
-//     type: "POST",
-//     success: function (respond) {
-//       if (respond.data.length <= 0) {
-//         cardCategory.after(ZeroResult('profile'));
-//         cardSection.remove();
-//         return;
-//       }
-//       respond.data.forEach((user) => {
-//         const userCard = UserCard(
-//           page,
-//           user.user_id,
-//           user.username,
-//           user.email,
-//           user.created_at,
-//           user.updated_at,
-//           user.status
-//         );
-//         // console.log(userCard);
-//         cardSection.append(userCard);
-//       });
-
-//       // Call updateTimeAgo to update time ago text for newly added content
-//       updateTimeAgo();
-//     },
-//     error: function (error) {
-//       cardSection.html("Failed to load data");
-//     },
-//   });
-// }
 
 // Declare cardCategory globally
 const cardCategory = $(".card-category-wrapper");
@@ -1309,6 +841,7 @@ function searchRequests(page, category) {
 }
 
 function searchProjects(page) {
+  console.log("searchProjects fun");
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
   ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
@@ -1317,6 +850,7 @@ function searchProjects(page) {
 }
 
 function searchUsers(page) {
+  console.log("searchUsers fun");
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
   ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
