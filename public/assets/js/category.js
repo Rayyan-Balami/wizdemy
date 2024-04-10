@@ -99,6 +99,7 @@ function RequestCard(
       `
       : ""
     }
+      data-report-link="/report/request/${request_id}"
       data-copy-link="${SITE_DOMAIN}/request/${request_id}"
       >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
@@ -278,6 +279,7 @@ function MaterialCard(
     `
       : ""
     }
+    data-report-link="/report/material/${material_id}"
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
         <path fill="#000"
@@ -392,6 +394,7 @@ function ProjectCard(
       `
       : ""
     }
+    data-report-link="/report/project/${project_id}"
     data-copy-link="${repo_link}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
         <path fill="#000"

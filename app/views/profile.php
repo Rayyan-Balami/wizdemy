@@ -76,7 +76,7 @@ else:
         <?php
         View::renderPartial('CardCategory', ['page' => 'profile']);
         if (!empty($uploads)):
-          View::renderPartial('StudyMaterialCard', ['materials' => $uploads, 'page' => 'profile']);
+          View::renderPartial('StudyMaterialCard', ['materials' => $uploads, 'page' => 'profile', 'myProfile' => $myProfile]);
         else:
           View::renderPartial('ZeroResult', ['page' => 'profile', 'myProfile' => $myProfile]);
         endif;
