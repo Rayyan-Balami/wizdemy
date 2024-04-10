@@ -19,6 +19,15 @@ class CommentController extends Controller
         $user_id = Session::get('user')['user_id'];
         $comment = trim($_POST['comment']);
 
+        // Validate comment
+        if (!Validate::string($comment, 10, 500)) {
+            $this->buildJsonResponse([
+                'status' => 'error',
+                'message' => 'Comment 10 to 500 characters'
+            ]);
+        }
+        
+
         $comment = $this->model->addComment($material_id, $user_id, $comment);
         if ($comment) {
             $this->buildJsonResponse([
