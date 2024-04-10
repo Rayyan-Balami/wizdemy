@@ -63,8 +63,6 @@ $router->delete('/api/request/delete/{request_id}', 'RequestController@delete')-
 
 //routes for project page
 $router->get('/project', 'ProjectController@index')->only('auth');
-// infinite scroll api
-$router->post('/api/project', 'ProjectController@infiniteScroll')->only('apiAuth');
 
 //routes for create of project
 $router->get('/project/create', 'ProjectController@create')->only('auth');
@@ -158,3 +156,7 @@ $router->get('/admin/manage/requests', 'AdminManageRequestController@index')->on
 $router->get('/admin/manage/admin', 'AdminManageAdminController@index')->only('admin');
 $router->post('/api/admin/update/admin/status', 'AdminManageAdminController@updateAdminStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/admin/{admin_id}', 'AdminManageAdminController@delete')->only('apiAdmin');
+
+
+//routes for infinite scroll
+$router->get('/api/infinite-scroll', 'InfiniteScrollController@index');

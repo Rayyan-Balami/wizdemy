@@ -8,8 +8,10 @@ class MaterialViewModel extends Model
 
     }
 
-    public function show($document_type = 'note')
+    public function show($document_type = 'note', $page = 1)
     {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
         $current_user = Session::get('user')['user_id'] ?? null;
         // It performs a left join with the 'follow_relation' table (alias 'fr') on the condition that the 'following_id' in 'fr' matches the 'user_id' in 'mv'.
         // The selection is further filtered by the 'where' clause which checks for three conditions:
@@ -23,9 +25,15 @@ class MaterialViewModel extends Model
         ], 'mv')
             ->leftJoin('follow_relation as fr', 'fr.following_id = mv.user_id')
             ->where('mv.document_type = :document_type AND mv.status <> :status AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))')
-            ->bind(['document_type' => $document_type, 'current_user' => $current_user, 'status' => 'suspend'])
-            ->limit(10)
+            ->bind([
+                'document_type' => $document_type,
+                'current_user' => $current_user,
+                'status' => 'suspend'
+            ])
+            ->limit($limit)
+            ->offset($offset)
             ->getAll();
+
     }
     public function view($material_id)
     {
