@@ -11,7 +11,6 @@ class GetInfoController extends Controller
   public function getInfo($targetType, $targetId)
   {
 
-    dd($targetType);
 
     if (!in_array($targetType, ['material', 'request', 'project'])) {
       $this->buildJsonResponse('Invalid target type', 400);
@@ -21,6 +20,7 @@ class GetInfoController extends Controller
 
     if ($targetType == 'material') {
       $infoDetails = $this->model->getMaterialDetailById($targetId);
+      // dd($infoDetails);
       //sending only necessary data ( username, request_id, description, created_at, updated_at,author_id)
       $infoDetails = [
         'username' => $infoDetails['username'],
@@ -28,7 +28,7 @@ class GetInfoController extends Controller
         'description' => $infoDetails['description'],
         'created_at' => $infoDetails['created_at'],
         'updated_at' => $infoDetails['updated_at'],
-        'author_id' => $infoDetails['author_id']
+        'author' => $infoDetails['author']
       ];
     } else if ($targetType == 'request') {
       $infoDetails = (new StudyMaterialRequestModel())->getRequestDetailById($targetId);

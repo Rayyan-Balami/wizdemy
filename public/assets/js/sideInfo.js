@@ -3,16 +3,26 @@ async function toggleSideInfo(element) {
   sideInfo.classList.toggle('open');
   document.body.classList.toggle("sideInfo-open");
   const infoLink = element.getAttribute("data-info-link");
-  console.log(infoLink);
-
+  // /api/info/material/1
+  const targetType = infoLink.split('/')[3];
+  console.log(targetType);
+  const sideInfoSection = document.querySelector('.info-section');
   try {
-  const response = await fetch('/api/info/material/1');
-  const data = await response.json();
-  console.log(data);
-  }catch (error) {
+    const response = await fetch(infoLink);
+    const {data,status} = await response.json();
+    if (status === 200) {
+      console.log(data);
+      const infoList = document.getElementById('infoList');
+      infoList.innerHTML = '';
+      data.forEach((info) => {
+        const li = document.createElement('li');
+        li.innerHTML = infoLi(info.type, info.text, info.label);
+        infoList.appendChild(li);
+      });
+    }
+  } catch (error) {
     console.error(error);
   }
-  
 }
 
 const infoTypeSvg = {
@@ -86,9 +96,9 @@ const infoTypeSvg = {
   'time': `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8s-3.58-8-8-8m4.25 12.15L11 13V7h1.5v5.25l4.5 2.67z" opacity="0.3"/><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2M12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8m.5-13H11v6l5.25 3.15l.75-1.23l-4.5-2.67z"/></svg>`,
 }
 
-function infoLi(type, text, label={}) {
+function infoLi(type, text, label = {}) {
   return ` <li>
-  <span>
+  <span>infoLi
     <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
