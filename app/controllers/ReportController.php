@@ -11,6 +11,7 @@ class ReportController extends Controller
   public function index($targetType = null, $targetId = null)
   {
 
+    //get any previous post data
     $targetDetails = Session::get('post') ?? null;
 
     $targetId = $targetId ?? $targetDetails['target_id'] ?? null;
