@@ -79,6 +79,7 @@ $router->delete('/api/project/delete/{project_id}', 'ProjectController@delete')-
 //routes for report page
 $router->get('/report', 'ReportController@index')->only('auth');
 $router->post('/report/{targetType}/{targetId}', 'ReportController@index')->only('auth');
+$router->post('/report/store/{targetType}/{targetId}', 'ReportController@store')->only('auth');
 
 // search page
 $router->get('/search', 'SearchController@index')->only('auth');

@@ -12,7 +12,3 @@
   transition-duration: 300ms;
   border-color: rgb(156 163 175);
 }
-
-.project-card > .username{
-  margin-top: 0.75rem /* 12px */;
-}

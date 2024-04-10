@@ -10,7 +10,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'confirmModal',
     'timeAgo',
-    'authFormValidation',
+    // 'authFormValidation',
   ]
 ]);
 
@@ -74,6 +74,9 @@ View::renderPartial('MenuHeader');
         } else if ($targetType == "project") {
           $link = $reportDetails['repo_link'];
           $repo_info = str_replace("https://github.com/", "", $reportDetails['repo_link']);
+          //explode the repo_info to get the owner and repo name
+          $owner = explode("/", $repo_info)[0];
+          $repo = explode("/", $repo_info)[1];
           $src = "https://opengraph.githubassets.com/wizdemy/" . $repo_info;
         }
         ?>
@@ -172,13 +175,15 @@ View::renderPartial('MenuHeader');
     <?php if (!empty($reportDetails)): ?>
       <div class="post-details">
 
-        <?php if ($targetType == "material" || $targetType == "request"): ?>
+        <?php if ($targetType == "material" || $targetType == "request" || $targetType == "project"): ?>
           <p class="post-subject">
-            <?= $reportDetails['subject'] ?>
+            <?= $targetType == 'project' ? 'Github / '.$owner : $reportDetails['subject'] ?>
           </p>
           <h3 class="post-title">
-            <?= $reportDetails['title'] ?>
+            <?= $targetType == 'project' ? $repo : $reportDetails['title'] ?>
           </h3>
+        <?php endif; ?>
+          <?php if ($targetType == "material" || $targetType == "request"): ?>
           <p class="post-description">
             <?= $reportDetails['description'] ?>
           </p>

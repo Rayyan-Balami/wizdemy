@@ -1,16 +1,19 @@
 <!-- project card  -->
 <div class="card-section">
-  <?php foreach ($projects as $project): 
+  <?php foreach ($projects as $project):
     $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
+    //explode the repo_info to get the owner and repo name
+    $owner = explode("/", $repo_info)[0];
+    $repo = explode("/", $repo_info)[1];
     ?>
     <!--project card  -->
     <div class="card project-card">
       <!-- image -->
       <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
-        <img src="https://opengraph.githubassets.com/wizdemy/<?=$repo_info?>" alt="github repo thumbnail">
+        <img src="https://opengraph.githubassets.com/wizdemy/<?= $repo_info ?>" alt="github repo thumbnail">
 
         <?php if ($project['status'] === 'suspend'): ?>
-        <div>
+          <div>
             <div class="suspended-svg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g fill="none" stroke="currentColor" stroke-width="1.7">
@@ -20,10 +23,26 @@
               </svg> Suspended
             </div>
           </div>
-          <?php endif; ?>
+        <?php endif; ?>
       </a>
+
+
+      <!-- subject | here in project card subject is rplaced with the owner of repo , but still using the subject class so that styles are not broken -->
+      <a href="<?= $project['repo_link'] ?>">
+        <p class="subject">
+          Github / 
+          <?= $owner ?>
+        </p>
+        </p>
+        <!-- title  -->
+        <h2 class="title">
+          <?= $repo ?>
+        </h2>
+      </a>
+
+
       <!-- username  -->
-      <a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile/' . $project['user_id'] ?>" class="username">
+      <a href="<?= isset($page) && $page === 'profile' ? '#' : '/profile/' . $project['user_id'] ?>" class="username">
         <!-- at icon @  -->
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
           viewBox="0 0 512 512">
@@ -38,10 +57,11 @@
       </a>
       <!-- time  -->
       <div class="time">
-        <p><a href="<?= isset ($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>" class="time-ago"
-            data-datetime="<?= $project['created_at'] ?>"></a></p>
+        <p><a href="<?= isset($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>"
+            class="time-ago" data-datetime="<?= $project['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= $project['repo_link'] ?>" data-report-link="/report/project/<?= $project['user_id'] ?>">
+        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= $project['repo_link'] ?>"
+          data-report-link="/report/project/<?= $project['user_id'] ?>">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
             <path fill="currentColor"
