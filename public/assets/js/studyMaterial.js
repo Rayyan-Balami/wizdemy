@@ -126,8 +126,8 @@ function submitComment(element) {
             if (response.data.status === 'success') {
                 smallClientAlert('Comment added');
                 form.querySelector('textarea').value = '';
-                // appent comment to comment section at first position
-                // commentSection.innerHTML += commentLi(username, new Date(), comment);
+                document.querySelector('#comment-button').classList.add('active');
+                document.querySelector('.no-comments').style.display = 'none';
                 commentSection.innerHTML = commentLi(username, new Date(), comment) + commentSection.innerHTML;
                 commentCount.forEach((span) => {
                     span.innerText = parseInt(span.innerText) + 1;
