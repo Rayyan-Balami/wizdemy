@@ -122,10 +122,7 @@ form > button {
   border-radius: var(--border-radius);
   cursor: pointer;
 }
-/* 
-html {
-  scrollbar-gutter: stable;
-} */
+
 
 .smallClientAlert {
   position: fixed;
@@ -136,7 +133,6 @@ html {
   font-size: 0.875rem;
   line-height: 1.25rem;
   background-color: rgb(31 41 55 / 0.8);
-  /* filter: invert(1); */
   color: white;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -153,7 +149,6 @@ opacity: 0;
   translate: -50%;
   }
 }
-
 
 .smallClientAlert.show {
   animation: fadeInSmallClientAlert 0.5s ease-in-out forwards;
