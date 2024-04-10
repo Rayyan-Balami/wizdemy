@@ -112,6 +112,9 @@ $router->delete('/api/material/unbookmark/{material_id}', 'BookmarkController@un
 $router->post('/api/material/comment/{material_id}', 'CommentController@addComment')->only('apiAuth');
 $router->delete('/api/material/comment/{comment_id}', 'CommentController@deleteComment')->only('apiAuth');
 
+//routes for infos 
+$router->get('/api/info/{targetType}/{targetId}', 'GetInfoController@getInfo');
+
 
 //routes for settings page (myInformation, accountSecurity)
 $router->get('/myInformation', 'SettingsController@myInformation')->only('auth');

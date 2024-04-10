@@ -30,7 +30,7 @@
       <!-- subject | here in project card subject is rplaced with the owner of repo , but still using the subject class so that styles are not broken -->
       <a href="<?= $project['repo_link'] ?>">
         <p class="subject">
-          Github / 
+          Github /
           <?= $owner ?>
         </p>
         </p>
@@ -61,6 +61,7 @@
             class="time-ago" data-datetime="<?= $project['created_at'] ?>"></a></p>
         <!-- three dot icon -->
         <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= $project['repo_link'] ?>"
+          data-info-link="/api/info/project/<?= $project['project_id'] ?>"
           data-report-link="/report/project/<?= $project['project_id'] ?>">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">

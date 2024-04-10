@@ -70,7 +70,9 @@ else: ?>
                         <p><a href="<?= '/profile?id=' . $material['user_id'] ?>" class="time-ago"
                                 data-datetime="<?= $material['created_at'] ?>"></a></p>
                         <!-- three dot icon -->
-                        <button class="three-dot-icon" onclick="openThreeDotMenu('<?= $material['material_id'] ?>')">
+                        <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+                            data-info-link="/api/info/material/<?= $material['material_id'] ?>"
+                            data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
                                 <path fill="currentColor"
@@ -259,7 +261,9 @@ else: ?>
                 </div>
             </div>
             <!-- info/ description -->
-            <div class="meta-data meta-data-clickable" onclick="toggleSideInfo()">
+            <div
+            data-info-link="/api/info/material/<?= $material['material_id'] ?>"
+            class="meta-data meta-data-clickable" onclick="toggleSideInfo(this)">
                 <span>
                     <svg fill="currentColor" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -395,7 +399,7 @@ else: ?>
                 <?php foreach ($comments as $comment): ?>
 
                     <div class="comment">
-                    <p class="comment-description">
+                        <p class="comment-description">
                             <?= $comment['comment'] ?>
                         </p>
                         <div class="username-time">
@@ -410,7 +414,8 @@ else: ?>
                                     <?= $comment['username'] ?>
                                 </h3>
                             </a>
-                            <a href="/profile/<?= $comment['user_id'] ?>" class="time-ago" data-datetime="<?= $comment['created_at'] ?>">
+                            <a href="/profile/<?= $comment['user_id'] ?>" class="time-ago"
+                                data-datetime="<?= $comment['created_at'] ?>">
                             </a>
                         </div>
                     </div>

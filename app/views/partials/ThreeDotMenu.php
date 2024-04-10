@@ -19,7 +19,7 @@
       </li>
     </button>
     <!-- info/ description -->
-    <button onclick="toggleSideInfo()">
+    <button id="info-button" data-info-link="" onclick="toggleSideInfo(this)">
       <li class="meta-data">
         <span>
           <svg fill="currentColor" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
