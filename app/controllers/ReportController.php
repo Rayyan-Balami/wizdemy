@@ -13,7 +13,7 @@ class ReportController extends Controller
 
     //get any previous post data
     $targetDetails = Session::get('post') ?? null;
-
+    
     $targetId = $targetId ?? $targetDetails['target_id'] ?? null;
     $targetType = $targetType ?? $targetDetails['target_type'] ?? null;
 
@@ -21,7 +21,6 @@ class ReportController extends Controller
       Session::flash('errors', ['message' => 'Invalid Report Request']);
       $this->redirect('/profile/' . Session::get('user')['user_id']);
     }
-
     if ($targetType == 'user') {
       $reportDetails = (new UserProfileViewModel())->profileData($targetId);
     } else if ($targetType == 'material') {
@@ -30,8 +29,9 @@ class ReportController extends Controller
       $reportDetails = (new StudyMaterialRequestModel())->getRequestDetailById($targetId);
     } else if ($targetType == 'project') {
       $reportDetails = (new GithubProjectModel())->getProjectDetailById($targetId);
+    }else{
+      $reportDetails = 'no data found';
     }
-
     View::render('reportForm', [
       'reportDetails' => $reportDetails,
       'targetId' => $targetId,

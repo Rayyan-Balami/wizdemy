@@ -128,7 +128,7 @@
           data-edit-link="<?= '/material/edit/' . $material['material_id'] ?>"
           data-delete-link="<?= '/api/material/delete/' . $material['material_id'] ?>"
         <?php endif; ?>
-          data-report-link="/report/material/<?= $material['user_id'] ?>"
+          data-report-link="/report/material/<?= $material['material_id'] ?>"
           data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">

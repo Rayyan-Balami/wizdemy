@@ -43,6 +43,7 @@ const validationRules = {
   email_username: {
     message: "Invalid email or username",
   },
+  comment: { min: 10, max: 500, message: "Comment must be 5-200 characters" },
 };
 
 const forms = document.querySelectorAll("form:not(#logoutForm)");

@@ -61,7 +61,7 @@
             class="time-ago" data-datetime="<?= $project['created_at'] ?>"></a></p>
         <!-- three dot icon -->
         <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= $project['repo_link'] ?>"
-          data-report-link="/report/project/<?= $project['user_id'] ?>">
+          data-report-link="/report/project/<?= $project['project_id'] ?>">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
             <path fill="currentColor"

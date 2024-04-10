@@ -17,6 +17,7 @@ View::renderPartial('Header', [
         'category',
         'confirmModal',
         'studyMaterial',
+        'authFormValidation'
     ]
 ]);
 
