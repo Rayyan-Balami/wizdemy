@@ -313,7 +313,7 @@ else: ?>
                             </path>
                         </g>
                     </svg>
-                    <span>
+                    <span class="comment-count">
                         <?= $material['comments_count'] ?>
                     </span>
                 </label>
@@ -351,7 +351,8 @@ else: ?>
 
 
         <!--write comments form  -->
-        <form class="comment-form" action="/material/comment/<?= $material['material_id'] ?>" method="post" onsubmit="return false">
+        <form class="comment-form" action="/material/comment/<?= $material['material_id'] ?>" method="post"
+            onsubmit="return false">
             <label for="comment"><span>Write a comment : </span>
                 <div>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -379,9 +380,7 @@ else: ?>
             </p>
             <!-- comment button -->
             <button type="submit" name="submitBtn" onclick="submitComment(this)"
-                data-material-id="<?= $material['material_id'] ?>"
-                data-username="<?= Session::get('user')['username'] ?>"
-                >
+                data-material-id="<?= $material['material_id'] ?>" data-username="<?= Session::get('user')['username'] ?>">
                 Comment
             </button>
         </form>
@@ -391,8 +390,7 @@ else: ?>
             <!-- <?php foreach ($comments as $comment): ?> -->
                 <div class="comment">
                     <!-- username  -->
-                    <a href="/profile/<?= $comment['user_id'] ?>" 
-                    class="username">
+                    <a href="/profile/<?= $comment['user_id'] ?>" class="username">
                         <!-- at icon @  -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0"
                             viewBox="0 0 512 512">

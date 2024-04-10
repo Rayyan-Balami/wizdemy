@@ -10,7 +10,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'confirmModal',
     'timeAgo',
-    // 'authFormValidation',
+    'authFormValidation',
   ]
 ]);
 

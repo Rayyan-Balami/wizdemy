@@ -179,14 +179,14 @@
   flex-shrink: 0;
 }
 
-.side-profile > .userstats-bio-wrapper > .user-buttons > form {
+.side-profile > .userstats-bio-wrapper > .user-buttons > #follow-form,
+.side-profile > .userstats-bio-wrapper > .user-buttons > #unfollow-form {
   display: flex;
   flex-grow: 1;
 }
 
-.side-profile > .userstats-bio-wrapper > .user-buttons > form > .follow-button,
-.side-profile > .userstats-bio-wrapper > .user-buttons > .upload-button,
-.side-profile > .userstats-bio-wrapper > .user-buttons > .social-link-button {
+.side-profile > .userstats-bio-wrapper > .user-buttons button,
+.side-profile > .userstats-bio-wrapper > .user-buttons a  {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,11 +195,11 @@
   padding: 0.5rem 0.75rem/* 8px 12px */;
   text-align: center;
   border-radius: var(--border-radius)/* 12px */;
+  margin: 0;
 }
 
 .side-profile > .userstats-bio-wrapper > .user-buttons > form > .follow-button,
 .side-profile > .userstats-bio-wrapper > .user-buttons > .upload-button{
-  margin: 0;
   flex-grow: 1;
   background-color: rgb(17 24 39);
   border: 1px solid rgb(17 24 39);
@@ -214,6 +214,12 @@
 .side-profile > .userstats-bio-wrapper > .user-buttons > .social-link-button.whatsapp{
   background-color: rgba(153, 255, 0, 0.1);
   border: 1px solid #34a853;
+}
+
+.side-profile > .userstats-bio-wrapper > .user-buttons > #report-form > button {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ea4335;
+  color: #ea4335;
 }
 
 .side-profile > .userstats-bio-wrapper > .bio{

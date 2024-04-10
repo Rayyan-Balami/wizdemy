@@ -1,87 +1,92 @@
-const searchOverlay = document.getElementById('searchOverlay')
-const searchField = document.getElementById('searchField');
-const searchModal = document.querySelector('#searchModal');
-const backBtnSearch = document.getElementById('back-button-search');
-const searchForm = document.getElementById('search-bar-form');
+const searchOverlay = document.getElementById("searchOverlay");
+const searchField = document.getElementById("searchField");
+const searchModal = document.querySelector("#searchModal");
+const backBtnSearch = document.getElementById("back-button-search");
+const searchForm = document.getElementById("search-bar-form");
 
-let searchHistory = localStorage.getItem('searchHistory')
+let searchHistory = localStorage.getItem("searchHistory");
 searchHistory = JSON.parse(searchHistory) || [];
 
 let searchList = [];
 
 function openSearchModal() {
-  searchOverlay.classList.add('open');
+  searchOverlay.classList.add("open");
   searchField.focus();
   renderSearchHistory();
 }
 
 //also open/close search model when clicked ctrl + k
-document.addEventListener('keydown', function (e) {
-  if (e.ctrlKey && e.key === 'k') {
-    if (searchOverlay.classList.contains('open')) {
-      searchOverlay.classList.remove('open');
+document.addEventListener("keydown", function (e) {
+  if (
+    (e.ctrlKey && e.key === "k") ||
+    (e.key === "/" && !searchOverlay.classList.contains("open"))
+  ) {
+    e.preventDefault(); // prevent the default behavior of the key press
+    if (searchOverlay.classList.contains("open")) {
+      searchOverlay.classList.remove("open");
     } else {
       openSearchModal();
     }
   }
 });
 
-searchOverlay.addEventListener('click', function (event) {
-  if (event.target.id === 'searchOverlay') {
+searchOverlay.addEventListener("click", function (event) {
+  if (event.target.id === "searchOverlay") {
     // Close the modal only if the overlay is clicked, not its children
-    searchOverlay.classList.remove('open');
+    searchOverlay.classList.remove("open");
   }
 });
 
 // Prevent closing when clicking the remove button
-backBtnSearch.addEventListener('click', function (event) {
-  console.log('clicked');
+backBtnSearch.addEventListener("click", function (event) {
+  console.log("clicked");
   event.stopPropagation(); // Prevent the click event from bubbling up
-  searchOverlay.classList.remove('open');
+  searchOverlay.classList.remove("open");
 });
 
 // Prevent closing when clicking the search input
-searchField.addEventListener('click', function (event) {
+searchField.addEventListener("click", function (event) {
   event.stopPropagation(); // Prevent the click event from bubbling up
 });
 
 function renderSearchHistory() {
-  let historyItems = '';
+  let historyItems = "";
   if (searchHistory.length > 0) {
-    historyItems = searchHistory.map(history => searchLi('history', history)).join('');
+    historyItems = searchHistory
+      .map((history) => searchLi("history", history))
+      .join("");
   } else {
     historyItems = `<li style="pointer-events: none; padding: 0.75rem 0.5rem/* 16px */;  text-align: center;  text-transform: uppercase;
     font-weight: 700;
     opacity: 0.7;"><p>Start Searching 🔍</p></li>`;
   }
-  document.querySelector('#search-list').innerHTML = historyItems;
+  document.querySelector("#search-list").innerHTML = historyItems;
 }
 
 function renderSearchList() {
-  document.querySelector('#search-list').innerHTML = searchList.join('');
+  document.querySelector("#search-list").innerHTML = searchList.join("");
   // Select all search suggestion links
-  var searchLinks = document.querySelectorAll('.search-suggestion-link');
+  var searchLinks = document.querySelectorAll(".search-suggestion-link");
   console.log(searchLinks);
   // Add click event listener to each link
   searchLinks.forEach(function (link) {
-    link.addEventListener('click', function (event) {
+    link.addEventListener("click", function (event) {
       // Prevent the default action
       event.preventDefault();
 
       // Get the search query from the link's href attribute
-      var searchQuery = this.getAttribute('href').split('=')[1];
+      var searchQuery = this.getAttribute("href").split("=")[1];
 
       // Store the search query in the history
       addSearchHistory(searchQuery);
 
       // Redirect to the search page
-      window.location.href = this.getAttribute('href');
+      window.location.href = this.getAttribute("href");
     });
   });
 }
 
-
-searchField.addEventListener('keyup', async function (e) {
+searchField.addEventListener("keyup", async function (e) {
   const inputValue = searchField.value.trim();
   searchList = [];
 
@@ -89,76 +94,76 @@ searchField.addEventListener('keyup', async function (e) {
     renderSearchHistory();
     return;
   }
-  const top4History = searchHistory?.filter(search => search.includes(inputValue)).slice(0, 4) || [];
+  const top4History =
+    searchHistory
+      ?.filter((search) => search.includes(inputValue))
+      .slice(0, 4) || [];
   const result = await fetch(`/api/search?q=${inputValue}`);
   const { data } = await result.json();
 
   if (top4History.length > 0) {
-    searchList.push(...top4History.map(history => searchLi('history', history)));
+    searchList.push(
+      ...top4History.map((history) => searchLi("history", history))
+    );
   }
-  if (data.status !== 'error') {
+  if (data.status !== "error") {
     const { suggestions } = data;
     // remove duplicates from suggestions that are already in the search history
     // searchList.push(...suggestions.map(suggestion => searchLi('search', suggestion)));
-    searchList.push(...suggestions.map(suggestion => {
-      if (!searchHistory.includes(suggestion)) {
-        return searchLi('search', suggestion);
-      }
-    }));
+    searchList.push(
+      ...suggestions?.map((suggestion) => {
+        if (!searchHistory.includes(suggestion)) {
+          return searchLi("search", suggestion);
+        }
+      })
+    );
   } else {
     const { message } = data;
     if (top4History.length === 0) {
-      searchList.push(...top4History.map(history => searchLi('history', history)));
+      searchList.push(
+        ...top4History.map((history) => searchLi("history", history))
+      );
     }
     if (message)
-  searchList.push(`<li style="pointer-events: none; padding: 0.75rem 0.5rem/* 16px */;  text-align: center;  text-transform: uppercase;
+      searchList.push(`<li style="pointer-events: none; padding: 0.75rem 0.5rem/* 16px */;  text-align: center;  text-transform: uppercase;
   font-weight: 700;
   opacity: 0.7;"><p>${message}</p></li>`);
-
   }
   renderSearchList();
 });
 
-
 function addSearchHistory(text) {
   if (!searchHistory.includes(text)) {
+    searchHistory.unshift(text);
     // if search history is more than 20 remove the last item
-    if (searchHistory.length >= 20) {
+    if (searchHistory.length > 20) {
       searchHistory.pop();
     }
-    searchHistory.unshift(text);
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
   }
   renderSearchHistory();
 }
 
-
 function removeSearchHistory(text) {
   searchHistory = searchHistory.filter((search) => search !== text);
-  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
   renderSearchHistory();
 }
 
-
 //when the search form is submitted add the search term to the search history
-searchForm.addEventListener('submit', function (e) {
+searchForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const searchValue = searchField.value.trim();
   if (searchValue.length > 0) {
-    if (!searchHistory.includes(searchValue)) {
-      searchHistory.unshift(searchValue);
-      localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    }
+    addSearchHistory(searchValue);
     window.location.href = `/search?q=${searchValue}`;
   }
 });
 
 function searchLi(type, text) {
-
-  let svgHTML = '';
-  let removeBtn = '';
-  if (type == 'history') {
+  let svgHTML = "";
+  let removeBtn = "";
+  if (type == "history") {
     svgHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
   <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
     <path
@@ -170,7 +175,7 @@ function searchLi(type, text) {
   </g>
 </svg>`;
     removeBtn = `<button class="search-history-remove-btn" onclick="removeSearchHistory('${text}')">Remove</button>`;
-  } else if (type == 'search') {
+  } else if (type == "search") {
     svgHTML = ` <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -190,5 +195,4 @@ function searchLi(type, text) {
   </a>
   ${removeBtn}
 </li>`;
-
 }
