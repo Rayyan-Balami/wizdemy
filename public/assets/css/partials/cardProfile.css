@@ -1,0 +1,143 @@
+.profile-card {
+  border-radius: var(--border-radius)/* 12px */;
+  background-image: radial-gradient(164.75% 100% at 50% 0%,#334155 0%,#0F172A 48.73%);
+  color: white;
+  padding: 1rem/* 16px */;
+  display: grid;
+  gap: 0.625rem/* 10px */;
+}
+
+.profile-card svg{
+  width: 1.25rem/* 24px */;
+  height: 1.25rem/* 24px */;
+  flex-shrink: 0;
+}
+
+.profile-card > .username-logo,
+.profile-card > .name-private{
+  display: flex;
+  align-items: center;
+  gap: 0.375rem/* 6px */;
+}
+
+.profile-card > .name-private{
+  padding-bottom: 0.625rem/* 10px */;
+}
+
+.profile-card > .username-logo > .username,
+.profile-card > .name-private > .full-name{
+  flex-grow: 1;
+}
+
+.profile-card > .username-logo > .username > div{
+  display: flex;
+  align-items: center;
+  gap: 0.375rem/* 6px */;
+}
+
+.profile-card > .username-logo > .username > div >svg{
+  width: 0.9rem /* 14px */;
+  height: 0.9rem /* 14px */;
+  flex-shrink: 0;
+}
+
+.profile-card > .username-logo > .logo > svg {
+  width: 2rem/* 40px */;
+  height: 2rem/* 40px */;
+  flex-shrink: 0;
+}
+
+.profile-card > .username-logo > .username > p,
+.profile-card > .name-private > .full-name > p {
+  font-weight: 300;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+}
+
+.profile-card > .username-logo > .username > div > div,
+.profile-card > .name-private > .full-name > div {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-card > .name-private > .full-name > div {
+  letter-spacing: 0.1em;
+}
+
+.profile-card > .infos {
+  padding-top: 0.625rem/* 10px */;
+  /* display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem/* 8px */;
+}
+
+.profile-card > .search-follow-infos{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem/* 8px */;
+}
+
+.profile-card > .infos > button {
+  padding: 0.25rem;
+  border-radius: var(--border-radius);
+  margin: 0;
+  border: none;
+  background-color: inherit;
+  justify-self: center;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.profile-card > .infos > button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-card > .infos > .class-course,
+.profile-card > .infos > .user-type,
+.profile-card > .infos > .year{
+  flex-grow: 1;
+}
+
+.profile-card > .infos p,
+.profile-card > .search-follow-infos p
+{
+  font-weight: 300;
+  font-size: 0.75rem/* 12px */;
+  line-height: 1rem/* 16px */;
+}
+
+/* .profile-card > .search-follow-infos > div {
+  text-align: center;
+} */
+
+.profile-card > .search-follow-infos > .follower-count{
+  text-align: center;
+}
+
+.profile-card > .search-follow-infos > .following-count{
+  text-align: right;
+}
+
+.profile-card > .infos > .class-course > div,
+.profile-card > .infos > .user-type > div,
+.profile-card > .infos > .year > div {
+  font-weight: 500;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.profile-card > .infos > .user-type> p,
+.profile-card > .infos > .year > p,
+.profile-card > .infos > .user-type > div,
+.profile-card > .infos > .year > div {
+  text-align: center;
+}

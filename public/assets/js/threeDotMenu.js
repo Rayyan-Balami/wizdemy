@@ -23,10 +23,11 @@ function openThreeDotMenu(element) {
   threeDotMenu.classList.add("open");
   document.body.classList.add("menu-open");
 }
-function copyLink() {
-  const link = threeDotMenuCopyLink.getAttribute("data-copy-link");
+
+function copyLink(element) {
+  const link = element.getAttribute("data-copy-link");
   navigator.clipboard.writeText(link).then(() => {
-    smallClientAlert("Link copied to clipboard");
+    smallClientAlert("Copied to clipboard");
   });
 }
 async function deleteMaterial(element) {

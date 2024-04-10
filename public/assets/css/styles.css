@@ -11,6 +11,30 @@
 @import url("./partials/toastNotification.css");
 @import url("./partials/cardRequest.css");
 @import url("./partials/cardProject.css");
-@import url('./partials/confirmModel.css');
+@import url("./partials/cardProfile.css");
+@import url("./partials/confirmModel.css");
 
+.profile-card {
+  background: radial-gradient(circle at 40% 40%, #f1f3f5 25%, transparent 26%),
+    radial-gradient(circle at 60% 60%, #f7f8f9 25%, transparent 26%);
+  background-size: 2.2rem 2.2rem;
+  background-color: #fffefe;
+  color: black;
+  border: var(--border);
+  border-color: #d1d5db;
+  border-width: 1.5px;
+  transition-duration: 300ms;
+}
+.profile-card:hover {
+  border-color: rgb(55 65 81);
+}
+@media (min-width: 768px) {
+  .profile-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+}
 
+.profile-card > .infos > button:hover {
+  background-color: #d1d5db7b;
+}

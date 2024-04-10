@@ -49,8 +49,9 @@ function RequestCard(
   if (document_type === "labreport") {
     document_type = "lab report";
   }
-  return `<div class="request-card" ${page == "profile" ? `id="card-${request_id}"` : ""
-    }>
+  return `<div class="request-card" ${
+    page == "profile" ? `id="card-${request_id}"` : ""
+  }>
   <!-- subject -->
   <p class="subject">${subject}</p>
   <!-- title  -->
@@ -86,19 +87,21 @@ function RequestCard(
 
   <!-- time  -->
   <div class="time">
-      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
-    }" class="time-ago" data-datetime="${created_at}"></a>
+      <p><a href="${
+        page == "profile" ? "#" : `/profile/${user_id}`
+      }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      ${page == "profile"
-      ? `
+      ${
+        page == "profile"
+          ? `
       data-card-id="${request_id}"
       data-edit-link="/request/edit/${request_id}"
       data-delete-link="/api/request/delete/${request_id}"
       `
-      : ""
-    }
+          : ""
+      }
       data-report-link="/report/request/${request_id}"
       data-copy-link="${SITE_DOMAIN}/request/${request_id}"
       >
@@ -222,8 +225,9 @@ function MaterialCard(
     formatHTML = photo;
   }
 
-  return `<div class="card " ${page == "profile" ? `id="card-${material_id}"` : ""
-    }>
+  return `<div class="card " ${
+    page == "profile" ? `id="card-${material_id}"` : ""
+  }>
   <!-- image -->
   <a href="/material/view/${material_id}" class="thumbnail">
     <img src="/${thumbnail_path}" alt="thumbnail" />
@@ -267,17 +271,19 @@ function MaterialCard(
 
   <!-- time  -->
   <div class="time">
-    <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
+    <p><a href="${
+      page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
     <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-    ${page == "profile"
-      ? `
+    ${
+      page == "profile"
+        ? `
     data-card-id="${material_id}"
     data-edit-link="/material/edit/${material_id}"
     data-delete-link="/api/material/delete/${material_id}"
     `
-      : ""
+        : ""
     }
     data-report-link="/report/material/${material_id}"
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
@@ -354,18 +360,33 @@ function ProjectCard(
     </div>
     </div>`;
   }
-  // console.log(page, project_id, repo_link, user_id, username, created_at);
   let repo_info = repo_link.replace("https://github.com/", "");
+  let owner = repo_info.split("/")[0];
+  let repo = repo_info.split("/")[1];
   return ` <!--project card  -->
-  <div class="card project-card" ${page == "profile" ? `id="card-${project_id}"` : ""
-    }>
+  <div class="card project-card" ${
+    page == "profile" ? `id="card-${project_id}"` : ""
+  }>
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
       <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
       ${suspendHTML}
     </a>
+    <!-- subject | here in project card subject is rplaced with the owner of repo , but still using the subject class so that styles are not broken -->
+    <a href="<?= $project['repo_link'] ?>">
+      <p class="subject">
+        Github / 
+        ${owner}
+      </p>
+      </p>
+      <!-- title  -->
+      <h2 class="title">
+        ${repo}
+      </h2>
+    </a>
     <!-- username  -->
-    <a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
+    <a href="${
+      page == "profile" ? "#" : `/profile/'.${user_id}'`
     }" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -381,19 +402,21 @@ function ProjectCard(
     </a>
     <!-- time  -->
     <div class="time">
-      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
-    }" class="time-ago"
+      <p><a href="${
+        page == "profile" ? "#" : `/profile/${user_id}`
+      }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      ${page == "profile"
-      ? `
+      ${
+        page == "profile"
+          ? `
       data-card-id="${project_id}"
       data-edit-link="/project/edit/${project_id}"
       data-delete-link="/api/project/delete/${project_id}"
       `
-      : ""
-    }
+          : ""
+      }
     data-report-link="/report/project/${project_id}"
     data-copy-link="${repo_link}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
@@ -403,6 +426,133 @@ function ProjectCard(
     </button>
     </div>
   </div>`;
+}
+
+function UserCard(
+  page,
+  user_id,
+  username,
+  full_name,
+  private,
+  created_at,
+  education_level,
+  user_type,
+  materials_count,
+  project_count,
+  requests_count,
+  followers_count,
+  following_count
+) {
+  let dateTime = new Date(created_at);
+  let year = dateTime.getFullYear();
+  let post = materials_count + project_count + requests_count;
+
+  return `<!-- user card  -->
+  <a href="/profile/${user_id}" class="profile-card">
+        <div class="username-logo">
+          <div class="username">
+            <p>Username</p>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                <path
+                  d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z" />
+              </svg>
+              <div>
+                ${username}
+              </div>
+            </div>
+          </div>
+          <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                <path fill="currentColor"
+                  d="M5.708 13.35c.625-1.92 1.75-4.379 3.757-6.386c3.934-3.934 9.652-4.515 9.797-4.53a1.005 1.005 0 0 1 .944.454c.208.313 1.38 2.283-.191 4.663a2.63 2.63 0 0 1-.276.344a.996.996 0 0 1-.03.37c-.19.689-.434 1.412-.75 2.135c-.551 1.263-1.328 2.54-2.423 3.636c-2.05 2.05-4.742 2.991-6.844 3.43a19.357 19.357 0 0 1-2.883.378C6.778 18.09 6.5 20.57 6.5 21a1 1 0 1 1-2 0c0-.571.116-1.67.221-2.56c.205-1.732.446-3.427.987-5.09m12.637-6.9c.527-.8.52-1.48.415-1.92c-1.527.275-5.219 1.186-7.881 3.849c-1.704 1.703-2.7 3.84-3.269 5.59a17.75 17.75 0 0 0-.494 1.85a17.417 17.417 0 0 0 2.167-.31c1.92-.402 4.179-1.228 5.838-2.888c.85-.85 1.484-1.857 1.954-2.905c-.976.52-2.018.986-2.759 1.233a1 1 0 1 1-.632-1.898c.674-.225 1.758-.713 2.754-1.265c.494-.274.946-.553 1.301-.808c.384-.276.56-.46.606-.529Z" />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="name-private">
+          <div class="full-name">
+            <p>Name</p>
+            <div>
+              ${full_name}
+            </div>
+          </div>
+          <?php if ($isPrivate): ?>
+          ${
+            private == 1
+              ? `
+            <div class="private-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path opacity="0.4"
+                    d="M2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.75736 10 5.17157 10 8 10H16C18.8284 10 20.2426 10 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16Z"
+                    fill="currentColor"></path>
+                  <path
+                    d="M12 18C13.1046 18 14 17.1046 14 16C14 14.8954 13.1046 14 12 14C10.8954 14 10 14.8954 10 16C10 17.1046 10.8954 18 12 18Z"
+                    fill="currentColor"></path>
+                  <path
+                    d="M6.75 8C6.75 5.10051 9.10051 2.75 12 2.75C14.8995 2.75 17.25 5.10051 17.25 8V10.0036C17.8174 10.0089 18.3135 10.022 18.75 10.0546V8C18.75 4.27208 15.7279 1.25 12 1.25C8.27208 1.25 5.25 4.27208 5.25 8V10.0546C5.68651 10.022 6.18264 10.0089 6.75 10.0036V8Z"
+                    fill="currentColor"></path>
+                </g>
+              </svg>
+            </div>`
+              : ""
+          }
+        </div>
+        <div class="search-follow-infos">
+        <div class="post-count">
+          <p>Post</p>
+          <div>
+            ${post}
+          </div>
+        </div>
+        <div class="follower-count">
+          <p>Followers</p>
+          <div>
+            ${followers_count}
+          </div>
+        </div>
+
+        <div class="following-count">
+          <p>Following</p>
+          <div>
+            ${following_count}
+          </div>
+        </div>
+        </div>
+        <div class="infos">
+          <div class="class-course">
+            <p>EDU LEVEL</p>
+            <div>
+              ${education_level == "" ? "- - - - - - -" : education_level}
+            </div>
+          </div>
+          <div class="user-type">
+            <p>U/T</p>
+            <div>
+              ${user_type == "" ? "-" : user_type[0]}
+            </div>
+          </div>
+
+          <div class="year">
+            <p>J-YR</p>
+            <div>
+              ${year}
+            </div>
+          </div>
+         
+          <button class="copy-link" 
+            data-copy-link="${SITE_DOMAIN}/profile/${user_id}"
+            onclick="event.preventDefault();copyLink(this)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9.25 3.5A1.75 1.75 0 0 0 7.5 5.25v1a.75.75 0 0 1-1.5 0v-1A3.25 3.25 0 0 1 9.25 2h1a.75.75 0 0 1 0 1.5zM12 2.75a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75m.75 13.75a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5zm-6-8.5a.75.75 0 0 1 .75.75v2.5a.75.75 0 0 1-1.5 0v-2.5A.75.75 0 0 1 6.75 8M22 8.75a.75.75 0 0 0-1.5 0v2.5a.75.75 0 0 0 1.5 0zm-3.25 7.75a1.75 1.75 0 0 0 1.75-1.75v-1a.75.75 0 0 1 1.5 0v1A3.25 3.25 0 0 1 18.75 18h-1a.75.75 0 0 1 0-1.5zM20.5 5.25a1.75 1.75 0 0 0-1.75-1.75h-1a.75.75 0 0 1 0-1.5h1A3.25 3.25 0 0 1 22 5.25v1a.75.75 0 0 1-1.5 0zM9.25 16.5a1.75 1.75 0 0 1-1.75-1.75v-1a.75.75 0 0 0-1.5 0v1A3.25 3.25 0 0 0 9.25 18h1a.75.75 0 0 0 0-1.5zM2 9.25a3.25 3.25 0 0 1 3-3.24v1.508A1.75 1.75 0 0 0 3.5 9.25v7a4.25 4.25 0 0 0 4.25 4.25h7a1.75 1.75 0 0 0 1.732-1.5h1.509a3.25 3.25 0 0 1-3.241 3h-7A5.75 5.75 0 0 1 2 16.25z"/></svg>
+            </button>
+        </div>
+      </a>`;
 }
 
 function ZeroResult(type) {
@@ -628,18 +778,19 @@ function ZeroResult(type) {
   <div class="error-container ">
 
     <div class="svg-icon">
-      ${type === "myMaterial"
-      ? myMaterialSvg
-      : type === "search"
-        ? searchSvg
-        : type === "ghostProfile"
+      ${
+        type === "myMaterial"
+          ? myMaterialSvg
+          : type === "search"
+          ? searchSvg
+          : type === "ghostProfile"
           ? ghostProfileSvg
           : type === "myRequest"
-            ? myRequestSvg
-            : type === "myProject"
-              ? myProjectSvg
-              : defaultSvg
-    }
+          ? myRequestSvg
+          : type === "myProject"
+          ? myProjectSvg
+          : defaultSvg
+      }
     </div>
 
     <div class="status-msg-top">
@@ -653,10 +804,8 @@ function ZeroResult(type) {
 }
 
 $(document).ready(function () {
-
   //extract the page from the url /profile/1 or /search?q=math
   const page = window.location.pathname.split("/")[1];
-
 
   // Add event listener to the "requestCheck" checkbox
   $("#requestCheck").on("change", function () {
@@ -789,19 +938,26 @@ function renderData(data, cardType, zeroResultType, page) {
         item.updated_at,
         item.status
       );
-    } else if (cardType === "profile") {
+    } else if (cardType === "user") {
       card = UserCard(
         page,
         item.user_id,
         item.username,
-        item.email,
+        item.full_name,
+        item.private,
         item.created_at,
-        item.updated_at,
-        item.status
+        item.education_level,
+        item.user_type,
+        item.materials_count,
+        item.project_count,
+        item.requests_count,
+        item.followers_count,
+        item.following_count
       );
     }
-
+    console.log(item);
     cardSection.append(card);
+    console.log("card rendered");
     updateTimeAgo();
   });
 }
@@ -809,57 +965,112 @@ function renderData(data, cardType, zeroResultType, page) {
 // Functions for different types of AJAX calls
 
 function requestCategoryChange(page, category) {
-  ajaxRequest(`/api/${page}/category`, "POST", { category }, "request", "myRequest", page);
+  ajaxRequest(
+    `/api/${page}/category`,
+    "POST",
+    { category },
+    "request",
+    "myRequest",
+    page
+  );
 }
 
 function myMaterials(page, category) {
   const user_id = getUserIdFromUrl();
-  ajaxRequest(`/api/${page}/myMaterials`, "POST", { category, user_id }, "material", "myMaterial", page);
+  ajaxRequest(
+    `/api/${page}/myMaterials`,
+    "POST",
+    { category, user_id },
+    "material",
+    "myMaterial",
+    page
+  );
 }
 
 function myRequests(page, category) {
   const user_id = getUserIdFromUrl();
-  ajaxRequest(`/api/${page}/myRequests`, "POST", { category, user_id }, "request", "myRequest", page);
+  ajaxRequest(
+    `/api/${page}/myRequests`,
+    "POST",
+    { category, user_id },
+    "request",
+    "myRequest",
+    page
+  );
 }
 
 function myProjects(page) {
   $("#requestCheck").prop("disabled", true);
   const user_id = getUserIdFromUrl();
-  ajaxRequest(`/api/${page}/myProjects`, "POST", { user_id }, "project", "myProject", page);
+  ajaxRequest(
+    `/api/${page}/myProjects`,
+    "POST",
+    { user_id },
+    "project",
+    "myProject",
+    page
+  );
 }
 
 function searchMaterials(page, category) {
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
-    category,
-    "search_type": "material",
-  }, "material", "search", page);
+  ajaxRequest(
+    `/api/search?q=${searchQuery}`,
+    "POST",
+    {
+      category,
+      search_type: "material",
+    },
+    "material",
+    "search",
+    page
+  );
 }
 
 function searchRequests(page, category) {
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
-    category,
-    "search_type": "request",
-  }, "request", "search", page);
+  ajaxRequest(
+    `/api/search?q=${searchQuery}`,
+    "POST",
+    {
+      category,
+      search_type: "request",
+    },
+    "request",
+    "search",
+    page
+  );
 }
 
 function searchProjects(page) {
-
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
-    "search_type": "project",
-  }, "project", "search", page);
+  ajaxRequest(
+    `/api/search?q=${searchQuery}`,
+    "POST",
+    {
+      search_type: "project",
+    },
+    "project",
+    "search",
+    page
+  );
 }
 
 function searchUsers(page) {
   console.log("searchUsers fun");
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
-  ajaxRequest(`/api/search?q=${searchQuery}`, "POST", {
-    "search_type": "user",
-  }, "profile", "search", page);
+  ajaxRequest(
+    `/api/search?q=${searchQuery}`,
+    "POST",
+    {
+      search_type: "user",
+    },
+    "user",
+    "search",
+    page
+  );
 }
 
 // Helper functions

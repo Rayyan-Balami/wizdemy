@@ -2,7 +2,7 @@
 <div id="three-dot-menu" onclick="closeThreeDotMenu()">
   <ul>
     <!-- copy link -->
-    <button id="copy-link" data-copy-link="" onclick="copyLink()">
+    <button id="copy-link" data-copy-link="" onclick="copyLink(this)">
       <li>
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

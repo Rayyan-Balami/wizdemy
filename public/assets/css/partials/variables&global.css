@@ -1,7 +1,7 @@
 :root {
   --background-color: rgb(255 255 255);
   --background-gray: rgb(249 250 251);
-  --border: 1px solid rgb(229, 231, 235);
+  --border: 1px solid #e5e7eb;
   --transition : all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --hover-color: rgb(243 244 246);
   --border-radius: 0.75rem;
@@ -129,22 +129,31 @@ html {
 
 .smallClientAlert {
   position: fixed;
-  top: 0.7rem;
+  bottom: 3.5rem;
   left: 50%;
   z-index: 1000;  
-  padding: 0.5rem 1rem;
-
-  background-color: rgb(255 255 255 / 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: rgb(31 41 55 / 0.8);
+  /* filter: invert(1); */
+  color: white;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: var(--border-radius);
-  box-shadow: rgba(75, 75, 75, 0.16) 0px 0px 8px, rgba(48, 48, 48, 0.23) 0px 3px 6px;
-  max-width: 20rem;
-  white-space: nowrap;
+  box-shadow: rgb(38, 57, 77) 0px 15px 30px -10px;  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  scale: 0;
+opacity: 0;
 }
+
+
+@media (width <= 1280px) {
+  .smallClientAlert {
+  translate: -50%;
+  }
+}
+
 
 .smallClientAlert.show {
   animation: fadeInSmallClientAlert 0.5s ease-in-out forwards;
@@ -156,30 +165,18 @@ html {
 
 @keyframes fadeInSmallClientAlert {
   from {
-    scale: 0;
-    transform: translateY(-200%)
+    opacity: 0;
   }
   to {
-    scale: 1;
-    transform: translateY(0)
+    opacity: 1;
   }
 }
 
 @keyframes fadeOutSmallClientAlert {
   from {
-    scale: 1;
-    transform: translateY(0)
+    opacity: 1;
   }
   to {
-    scale: 0;
-    transform: translateY(-100%)
-  }
-}
-
-@media (width <= 1280px) {
-  .smallClientAlert {
-    top: auto;
-  translate: -50%;
-  bottom: 4.5rem;
+    opacity: 0;
   }
 }

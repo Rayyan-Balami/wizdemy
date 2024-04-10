@@ -200,14 +200,42 @@ View::renderPartial('MenuHeader');
             <h3>
               <?= $reportDetails['username'] ?>
             </h3>
-            <span>·</span>
             <?php if ($targetType != "user"): ?>
+            <span>·</span>
               <p class="time-ago" data-datetime="<?= $reportDetails['created_at'] ?>">
               </p>
-            <?php else: ?>
-              <p><?= date('Y', strtotime($reportDetails['created_at'])) ?></p>
             <?php endif; ?>
           </a>
+
+          <?php if ($targetType == "user"): ?>
+            <p>FullName :
+              <?= $reportDetails['full_name'] ?>
+            </p>
+            <p>Joined :
+              <?= date('jS M Y', strtotime($reportDetails['created_at'])) ?>
+            </p>
+            <p>Email :
+              <?= $reportDetails['email'] ?>
+            </p>
+            <p>Posts :
+            <?= $reportDetails['materials_count'] + $reportDetails['requests_count'] + $reportDetails['project_count'] ?>
+            </p>
+            <span>Materials:
+              <?= $reportDetails['materials_count'] ?>
+            </span>
+            <span>Requests:
+              <?= $reportDetails['requests_count'] ?>
+            </span>
+            <span>Projects:
+              <?= $reportDetails['project_count'] ?>
+            </span>
+            <span>Follower :
+              <?= $reportDetails['followers_count'] ?>
+            </span>
+            <span>Following :
+              <?= $reportDetails['following_count'] ?>
+            </span>
+          <?php endif; ?>
 
           <?php if ($targetType == "request"): ?>
             <p class="no-of-responses">Responds :

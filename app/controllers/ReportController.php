@@ -22,7 +22,7 @@ class ReportController extends Controller
     }
 
     if ($targetType == 'user') {
-      $reportDetails = (new UserModel())->userDetails($targetId);
+      $reportDetails = (new UserProfileViewModel())->profileData($targetId);
     } else if ($targetType == 'material') {
       $reportDetails = (new MaterialViewModel())->getMaterialDetailById($targetId);
     } else if ($targetType == 'request') {

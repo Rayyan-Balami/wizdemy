@@ -97,7 +97,9 @@ class UserModel extends Model
             'education_level',
             'enrolled_course',
             'school_name',
-            'phone_number'
+            'phone_number',
+            'created_at',
+            'status'
         ])
             ->where('user_id = :user_id')
             ->bind(['user_id' => $user_id])
