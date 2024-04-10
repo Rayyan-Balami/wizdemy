@@ -75,7 +75,7 @@ function bookmarkMaterial(studyMaterialId, element) {
 
 // comment form
 
-function comment(username, created_at, comment) {
+function commentLi(username, created_at, comment) {
     return `<div class="comment">
     <!-- username  -->
     <a href="profile.html" class="username">
@@ -126,7 +126,9 @@ function submitComment(element) {
             if (response.data.status === 'success') {
                 smallClientAlert('Comment added');
                 form.querySelector('textarea').value = '';
-                commentSection.innerHTML += comment(username, new Date(), comment);
+                // appent comment to comment section at first position
+                // commentSection.innerHTML += commentLi(username, new Date(), comment);
+                commentSection.innerHTML = commentLi(username, new Date(), comment) + commentSection.innerHTML;
                 commentCount.forEach((span) => {
                     span.innerText = parseInt(span.innerText) + 1;
                 });
