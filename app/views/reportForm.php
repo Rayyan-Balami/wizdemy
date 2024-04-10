@@ -78,6 +78,7 @@ View::renderPartial('MenuHeader');
         }
         ?>
 
+      <!-- thumbnail element  -->
       <div class="card project-card">
         <a href="<?= $link ?>" class="thumbnail">
           <img src="<?= $src ?>" alt="thumbnail">
@@ -167,21 +168,22 @@ View::renderPartial('MenuHeader');
 
     <?php endif; ?>
 
+    <!-- details of the post/ user that is being reported  -->
     <?php if (!empty($reportDetails)): ?>
       <div class="post-details">
-        <?php if ($targetType != "project" && $targetType != "user"): ?>
+
+        <?php if ($targetType == "material" || $targetType == "request"): ?>
           <p class="post-subject">
             <?= $reportDetails['subject'] ?>
           </p>
-        <?php endif; ?>
-        <h3 class="post-title">
-          <?= $reportDetails['title'] ?>
-        </h3>
-        <?php if ($targetType != "project" && $targetType != "user"): ?>
+          <h3 class="post-title">
+            <?= $reportDetails['title'] ?>
+          </h3>
           <p class="post-description">
             <?= $reportDetails['description'] ?>
           </p>
         <?php endif; ?>
+
         <div class="post-meta-datas">
           <a href="/profile/<?= $reportDetails['user_id'] ?>" class="username">
             <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -197,8 +199,7 @@ View::renderPartial('MenuHeader');
             <?php if ($targetType != "user"): ?>
               <p class="time-ago" data-datetime="<?= $reportDetails['created_at'] ?>">
               </p>
-            <?php endif; ?>
-            <?php if ($targetType == "user"): ?>
+            <?php else: ?>
               <p><?= date('Y', strtotime($reportDetails['created_at'])) ?></p>
             <?php endif; ?>
           </a>
@@ -223,6 +224,7 @@ View::renderPartial('MenuHeader');
             </p>
           <?php endif; ?>
 
+          <?php if ($targetType == "material" || $targetType == "request"): ?>
           <p class="document-type">Document <?= $targetType == 'request' ? 'Need' : 'Type' ?> :
             <?php if ($reportDetails['document_type'] === 'labreport'): ?>
               Lab Report
@@ -230,8 +232,9 @@ View::renderPartial('MenuHeader');
               echo $reportDetails['document_type'];
             endif; ?>
           </p>
+          <?php endif; ?>
 
-          <?php if ($targetType != "project" && $targetType != "user"): ?>
+          <?php if ($targetType == "material" || $targetType == "request"): ?>
             <span>#
               <?= $reportDetails['class_faculty'] ?>
             </span>
@@ -243,7 +246,9 @@ View::renderPartial('MenuHeader');
                 <?= $reportDetails['semester'] ?> Sem
               </span>
             <?php endif; ?>
+
           <?php endif; ?>
+
           <?php if ($reportDetails['status'] === 'suspend'): ?>
             <span class="suspended-svg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -253,6 +258,7 @@ View::renderPartial('MenuHeader');
                 </g>
               </svg> Suspended</span>
           <?php endif; ?>
+
         </div>
       </div>
     <?php endif; ?>

@@ -88,8 +88,12 @@ class GithubProjectModel extends Model
 
     public function getProjectDetailById($project_id)
     {
-        return $this->select(['*'])
-            ->where('project_id = :project_id')
+        return $this->select([
+            'p.*',
+            'u.username'
+        ], 'p')
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+            ->where('p.project_id = :project_id')
             ->bind(['project_id' => $project_id])
             ->get();
     }
