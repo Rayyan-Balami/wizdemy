@@ -55,13 +55,16 @@ class HomeController extends Controller
     
     $material['is_liked'] = $isLiked;
     $material['is_bookmarked'] = $isBookmarked;
+
+    $comments = (new CommentModel)->getComments($material_id);
     //if its own material
     if ($isOwnMaterial) {
       View::render('viewMaterial', [
         'material' => $material,
         'isPrivate' => $isPrivate,
         'isCurrentUserFollower' => $isCurrentUserFollower,
-        'isOwnMaterial' => $isOwnMaterial
+        'isOwnMaterial' => $isOwnMaterial,
+        'comments' => $comments
       ]);
       return;
     }
@@ -74,7 +77,8 @@ class HomeController extends Controller
         'material' => null,
         'isPrivate' => $isPrivate,
         'isCurrentUserFollower' => $isCurrentUserFollower,
-        'isOwnMaterial' => $isOwnMaterial
+        'isOwnMaterial' => $isOwnMaterial,
+        'comments' => $comments
       ]);
       return;
     }
@@ -83,7 +87,8 @@ class HomeController extends Controller
       'material' => $material,
       'isPrivate' => $isPrivate,
       'isCurrentUserFollower' => $isCurrentUserFollower,
-      'isOwnMaterial' => $isOwnMaterial
+      'isOwnMaterial' => $isOwnMaterial,
+      'comments' => $comments
     ]);
 
   }

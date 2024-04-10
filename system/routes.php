@@ -103,6 +103,10 @@ $router->get('/bookmark', 'BookmarkController@index')->only('auth');
 $router->post('/api/material/bookmark/{material_id}', 'BookmarkController@bookmark')->only('apiAuth');
 $router->delete('/api/material/unbookmark/{material_id}', 'BookmarkController@unbookmark')->only('apiAuth');
 
+//routes for comment
+$router->post('/api/material/comment/{material_id}', 'CommentController@addComment')->only('apiAuth');
+$router->delete('/api/material/comment/{comment_id}', 'CommentController@deleteComment')->only('apiAuth');
+
 
 //routes for settings page (myInformation, accountSecurity)
 $router->get('/myInformation', 'SettingsController@myInformation')->only('auth');
