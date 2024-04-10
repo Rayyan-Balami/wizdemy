@@ -62,9 +62,11 @@ class HomeController extends Controller
     //check like status
     $isLiked = (new LikeModel)->isLiked($current_user, $material_id);
     $isBookmarked = (new BookmarkModel)->isBookmarked($current_user, $material_id);
+    $hasCommented = (new CommentModel)->hasCommented($material_id, $current_user)? true : false;
     
     $material['is_liked'] = $isLiked;
     $material['is_bookmarked'] = $isBookmarked;
+    $material['has_commented'] = $hasCommented;
 
     $comments = (new CommentModel)->getComments($material_id);
     // dd($comments);

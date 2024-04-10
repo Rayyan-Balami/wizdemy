@@ -25,6 +25,13 @@ class CommentModel extends Model
         ->getAll();
 
     }
+    public function hasCommented($material_id, $user_id)
+    {
+        return $this->select()
+            ->where('material_id = :material_id AND user_id = :user_id')
+            ->bind(['material_id' => $material_id, 'user_id' => $user_id])
+            ->get();
+    }
 
     public function addComment($material_id, $user_id, $comment)
     {
