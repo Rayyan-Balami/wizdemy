@@ -28,7 +28,7 @@ View::renderPartial('MenuHeader');
 ?>
 <?php if (!$material):
     View::renderPartial('ZeroResult');
-elseif (!$isOwnMaterial && ( $isPrivate && !$isCurrentUserFollower )):
+elseif (!$isOwnMaterial && ($isPrivate && !$isCurrentUserFollower)):
     View::renderPartial('ZeroResult', [
         'page' => 'ghostProfile'
     ]);
@@ -177,7 +177,7 @@ else: ?>
                 <?= $material['education_level'] ?>
             </span>
             <span>#
-            <?= $material['education_level'] == 'school' || $material['education_level'] == '+2' ? $material['class_faculty'] . ' class' : $material['class_faculty'] ?>
+                <?= $material['education_level'] == 'school' || $material['education_level'] == '+2' ? $material['class_faculty'] . ' class' : $material['class_faculty'] ?>
             </span>
             <?php if (!empty($material['semester'])): ?>
                 <span>#
@@ -318,7 +318,8 @@ else: ?>
                     </span>
                 </label>
                 <!-- likes -->
-                <button class="like <?= $material['is_liked'] ? 'active' : '' ?>" id="like-button" onclick="likeMaterial(<?= $material['material_id'] ?>, this)">
+                <button class="like <?= $material['is_liked'] ? 'active' : '' ?>" id="like-button"
+                    onclick="likeMaterial(<?= $material['material_id'] ?>, this)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                         <path fill="currentColor"
                             d="M178 28c-20.09 0-37.92 7.93-50 21.56C115.92 35.93 98.09 28 78 28a66.08 66.08 0 0 0-66 66c0 72.34 105.81 130.14 110.31 132.57a12 12 0 0 0 11.38 0C138.19 224.14 244 166.34 244 94a66.08 66.08 0 0 0-66-66m-5.49 142.36a328.69 328.69 0 0 1-44.51 31.8a328.69 328.69 0 0 1-44.51-31.8C61.82 151.77 36 123.42 36 94a42 42 0 0 1 42-42c17.8 0 32.7 9.4 38.89 24.54a12 12 0 0 0 22.22 0C145.3 61.4 160.2 52 178 52a42 42 0 0 1 42 42c0 29.42-25.82 57.77-47.49 76.36" />
@@ -330,8 +331,8 @@ else: ?>
 
                 <?php if (Session::exists('user')): ?>
                     <!-- bookmark -->
-                    <button class="bookmark <?= $material['is_bookmarked'] ? 'active' : '' ?>" onclick="bookmarkMaterial(<?= $material['material_id'] ?>, this)"
-                     id="bookmark-button">
+                    <button class="bookmark <?= $material['is_bookmarked'] ? 'active' : '' ?>"
+                        onclick="bookmarkMaterial(<?= $material['material_id'] ?>, this)" id="bookmark-button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentColor" stroke-width="2"
                                 d="M4 9c0-2.828 0-4.243.879-5.121C5.757 3 7.172 3 10 3h4c2.828 0 4.243 0 5.121.879C20 4.757 20 6.172 20 9v6.828c0 2.683 0 4.024-.844 4.435c-.845.41-1.9-.419-4.01-2.076l-.675-.531c-1.186-.932-1.78-1.398-2.471-1.398c-.692 0-1.285.466-2.471 1.398l-.676.53c-2.11 1.658-3.164 2.487-4.009 2.077C4 19.853 4 18.51 4 15.828z" />
@@ -345,12 +346,12 @@ else: ?>
 
         <!-- pdf section  -->
         <div class="pdf-section">
-        <iframe src="/<?= $material['file_path'] ?>#view=FitH"  loading="lazy"></iframe>
+            <iframe src="/<?= $material['file_path'] ?>#view=FitH" loading="lazy"></iframe>
         </div>
 
 
         <!--write comments form  -->
-        <form class="comment-form" action="/material/comment?id=<?= $material['material_id'] ?>" method="post">
+        <form class="comment-form" action="/material/comment/<?= $material['material_id'] ?>" method="post" onsubmit="return false">
             <label for="comment"><span>Write a comment : </span>
                 <div>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -367,7 +368,7 @@ else: ?>
                             </path>
                         </g>
                     </svg>
-                    <span>
+                    <span class="comment-count">
                         <?= $material['comments_count'] ?>
                     </span>
                 </div>
@@ -377,7 +378,10 @@ else: ?>
                 Use of abusive words or phrases will lead to strict action against the user.
             </p>
             <!-- comment button -->
-            <button type="submit" name="submitBtn">
+            <button type="submit" name="submitBtn" onclick="submitComment(this)"
+                data-material-id="<?= $material['material_id'] ?>"
+                data-username="<?= Session::get('user')['username'] ?>"
+                >
                 Comment
             </button>
         </form>
@@ -390,8 +394,8 @@ else: ?>
                     <!-- username  -->
                     <a href="profile.html" class="username">
                         <!-- at icon @  -->
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            style="flex-shrink: 0" viewBox="0 0 512 512">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0"
+                            viewBox="0 0 512 512">
                             <path
                                 d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
                             </path>
