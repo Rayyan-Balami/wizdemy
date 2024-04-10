@@ -68,6 +68,7 @@ View::renderPartial('MenuHeader');
     <?php if ($targetType == "material" || $targetType == "project"):  //material and project have thumbnail so we can show it
         $link = "";
         $src = "";
+        
         if ($targetType == "material") {
           $link = "/material/view/" . $reportDetails['material_id'];
           $src = '/' . $reportDetails['thumbnail_path'];

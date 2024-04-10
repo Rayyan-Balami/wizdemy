@@ -161,4 +161,15 @@ class ProjectController extends Controller
     }
   }
 
+  public function infiniteScroll()
+  {
+    $page = $_POST['page'] ?? 1;
+    $projects = $this->model->show($page);
+
+    $this->buildJsonResponse([
+      'status' => true,
+      'projects' => $projects
+    ]);
+  }
+
 }

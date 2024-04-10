@@ -9,23 +9,22 @@ class GithubProjectModel extends Model
         $this->fillable = ['user_id', 'repo_link'];
     }
 
-    public function show()
+    public function show($page = 1)
     {
-        //join user table and github_projects table to get username,user_id,project_id,repo_link
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
         return $this->select([
-            'u.user_id',
-            'u.username',
-            'u.full_name',
-            'p.*'
+            'p.*',
+            'u.username'
         ], 'p')
-        ->leftJoin('users as u', 'u.user_id = p.user_id')
-        ->where('p.status <> :status')
-        ->bind(['status' => 'suspend'])
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+            ->where('p.status <> :status')
+            ->bind(['status' => 'suspend'])
             ->orderBy('p.created_at', 'DESC')
-            ->limit(10)
+            ->limit($limit)
+            ->offset($offset)
             ->getAll();
     }
-
     public function isDuplicate($userId, $repoLink)
     {
         return $this->select(['*'])

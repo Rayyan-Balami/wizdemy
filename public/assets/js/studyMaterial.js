@@ -148,14 +148,16 @@ function submitComment(element) {
         success: function (response) {
             console.log(response);
             if (response.data.status === 'success') {
-                smallClientAlert('Comment added');
                 form.querySelector('textarea').value = '';
-                // document.querySelector('.no-comments').style.display = 'none';
+                document.querySelector('.no-comments').style.display = 'none';
+                document.querySelector('#comment-button').classList.add('active');
                 console.table(user_id,username, new Date(), comment );
                 commentSection.innerHTML = commentLi(user_id,username, new Date(), comment) + commentSection.innerHTML;
                 commentCount.forEach((span) => {
                     span.innerText = parseInt(span.innerText) + 1;
                 });
+                smallClientAlert('Comment added');
+                updateTimeAgo();
             }else if(response.data.status === 'error'){
                 smallClientAlert(response.data.message);
             }

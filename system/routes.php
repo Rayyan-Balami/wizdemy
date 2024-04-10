@@ -63,6 +63,8 @@ $router->delete('/api/request/delete/{request_id}', 'RequestController@delete')-
 
 //routes for project page
 $router->get('/project', 'ProjectController@index')->only('auth');
+// infinite scroll api
+$router->post('/api/project', 'ProjectController@infiniteScroll')->only('apiAuth');
 
 //routes for create of project
 $router->get('/project/create', 'ProjectController@create')->only('auth');
