@@ -14,26 +14,28 @@ class CommentModel extends Model
     public function getComments($material_id)
     {
         return $this->select([
-            'COUNT(c.comment_id) as no_of_comments',
-            'c.*',
-            'upv.username'
+            "c.*",
+            "u.username",
         ], 'c')
-            ->leftJoin('user_profile_view as upv', 'upv.user_id = c.user_id')
-            ->where('c.material_id = :material_id')
-            ->bind(['material_id' => $material_id])
-            ->getAll();
+        ->leftJoin('users u', 'c.user_id = u.user_id')
+        ->where('material_id = :material_id')
+        ->bind(['material_id' => $material_id])
+        ->orderBy('c.created_at', 'DESC')
+        ->limit(10)
+        ->getAll();
+
     }
 
     public function addComment($material_id, $user_id, $comment)
     {
 
-        $result =$this->insert([
+        return $this->insert([
                 'material_id' => $material_id,
                 'user_id' => $user_id,
                 'comment' => $comment
             ])->execute();
 
-        return false;
+        
     }
 
     public function deleteComment($comment_id)

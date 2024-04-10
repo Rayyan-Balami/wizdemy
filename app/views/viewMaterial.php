@@ -386,13 +386,13 @@ else: ?>
             </button>
         </form>
 
-        <!-- <?php print_r($material['comments']); ?> -->
         <!-- comments section  -->
         <div class="comment-section">
-            <!-- <?php foreach ($material['comments'] as $comment): ?> -->
+            <!-- <?php foreach ($comments as $comment): ?> -->
                 <div class="comment">
                     <!-- username  -->
-                    <a href="profile.html" class="username">
+                    <a href="/profile/<?= $comment['user_id'] ?>" 
+                    class="username">
                         <!-- at icon @  -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="flex-shrink: 0"
                             viewBox="0 0 512 512">
@@ -402,20 +402,13 @@ else: ?>
                         </svg>
                         <!-- username  -->
                         <h3>
-                            <?= $comment['user_name'] ?>
+                            <?= $comment['username'] ?>
                         </h3>
                     </a>
                     <!-- time  -->
                     <div class="time">
                         <span class="time-ago" data-datetime="<?= $comment['created_at'] ?>"
                             style="font-size: 0.8rem; color: #a0a0a0;"></span>
-                        <!-- three dot icon -->
-                        <button class="three-dot-icon" onclick="openThreeDotMenu('<?= $comment['id'] ?>')">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
-                                <path fill="#000"
-                                    d="M5.217 12a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0-9.392a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0m0 18.783a2.608 2.608 0 1 1-5.216 0a2.608 2.608 0 0 1 5.216 0" />
-                            </svg>
-                        </button>
                     </div>
                     <!-- comment  -->
                     <p class="comment-content">
