@@ -78,7 +78,7 @@ class MaterialViewModel extends Model
     public function getMaterialDetailById($material_id)
     {
         return $this->select([
-            'mv.*'
+            'mv.*',
         ], 'mv')
             ->where('mv.material_id = :material_id')
             ->bind(['material_id' => $material_id])

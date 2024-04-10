@@ -66,6 +66,7 @@
                 </p>
                 <!-- three dot icon -->
                 <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= SITE_DOMAIN.'/request?id='.$request['request_id'] ?>"
+                data-info-link="/api/info/request/<?= $request['request_id'] ?>"
                 data-report-link="/report/request/<?= $request['request_id'] ?>"
                 >
 

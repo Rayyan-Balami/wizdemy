@@ -128,6 +128,7 @@
           data-edit-link="<?= '/material/edit/' . $material['material_id'] ?>"
           data-delete-link="<?= '/api/material/delete/' . $material['material_id'] ?>"
         <?php endif; ?>
+        data-info-link="/api/info/material/<?= $material['material_id'] ?>"
           data-report-link="/report/material/<?= $material['material_id'] ?>"
           data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
 
