@@ -14,8 +14,9 @@ class InfiniteScrollController extends Controller
 
         if ($pageName == 'project') {
             $data = (new GithubProjectModel)->show($pageNumber);
-        }else if($pageName == ''){
-            $data = $this->model->show($pageNumber);
+        }else if($pageName == '' || $pageName == 'question' || $pageName == 'labreport'){
+            $data = $this->model->show( $pageName, $pageNumber,);
+        }
         sleep(3);
         if($data){
             $this->buildJsonResponse($data);

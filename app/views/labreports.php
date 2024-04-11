@@ -14,6 +14,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'timeAgo',
     'confirmModal',
+    'infiniteScroll',
   ]
 ]);
 

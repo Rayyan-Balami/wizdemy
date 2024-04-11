@@ -130,9 +130,8 @@ function RequestCard(
   if (document_type === "labreport") {
     document_type = "lab report";
   }
-  return `<div class="request-card" ${
-    page == "profile" ? `id="card-${request_id}"` : ""
-  }>
+  return `<div class="request-card" ${page == "profile" ? `id="card-${request_id}"` : ""
+    }>
   <!-- subject -->
   <p class="subject">${subject}</p>
   <!-- title  -->
@@ -168,21 +167,19 @@ function RequestCard(
 
   <!-- time  -->
   <div class="time">
-      <p><a href="${
-        page == "profile" ? "#" : `/profile/${user_id}`
-      }" class="time-ago" data-datetime="${created_at}"></a>
+      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
+    }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      ${
-        page == "profile"
-          ? `
+      ${page == "profile"
+      ? `
       data-card-id="${request_id}"
       data-edit-link="/request/edit/${request_id}"
       data-delete-link="/api/request/delete/${request_id}"
       `
-          : ""
-      }
+      : ""
+    }
       data-report-link="/report/request/${request_id}"
       data-copy-link="${SITE_DOMAIN}/request/${request_id}"
       >
@@ -306,9 +303,8 @@ function MaterialCard(
     formatHTML = photo;
   }
 
-  return `<div class="card " ${
-    page == "profile" ? `id="card-${material_id}"` : ""
-  }>
+  return `<div class="card " ${page == "profile" ? `id="card-${material_id}"` : ""
+    }>
   <!-- image -->
   <a href="/material/view/${material_id}" class="thumbnail">
     <img src="/${thumbnail_path}" alt="thumbnail" />
@@ -352,19 +348,17 @@ function MaterialCard(
 
   <!-- time  -->
   <div class="time">
-    <p><a href="${
-      page == "profile" ? "#" : `/profile/${user_id}`
+    <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
     <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-    ${
-      page == "profile"
-        ? `
+    ${page == "profile"
+      ? `
     data-card-id="${material_id}"
     data-edit-link="/material/edit/${material_id}"
     data-delete-link="/api/material/delete/${material_id}"
     `
-        : ""
+      : ""
     }
     data-report-link="/report/material/${material_id}"
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
@@ -445,9 +439,8 @@ function ProjectCard(
   let owner = repo_info.split("/")[0];
   let repo = repo_info.split("/")[1];
   return ` <!--project card  -->
-  <div class="card project-card" ${
-    page == "profile" ? `id="card-${project_id}"` : ""
-  }>
+  <div class="card project-card" ${page == "profile" ? `id="card-${project_id}"` : ""
+    }>
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
       <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
@@ -466,8 +459,7 @@ function ProjectCard(
       </h2>
     </a>
     <!-- username  -->
-    <a href="${
-      page == "profile" ? "#" : `/profile/'.${user_id}'`
+    <a href="${page == "profile" ? "#" : `/profile/'.${user_id}'`
     }" class="username">
       <!-- at icon @  -->
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
@@ -483,21 +475,19 @@ function ProjectCard(
     </a>
     <!-- time  -->
     <div class="time">
-      <p><a href="${
-        page == "profile" ? "#" : `/profile/${user_id}`
-      }" class="time-ago"
+      <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
+    }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
       <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
-      ${
-        page == "profile"
-          ? `
+      ${page == "profile"
+      ? `
       data-card-id="${project_id}"
       data-edit-link="/project/edit/${project_id}"
       data-delete-link="/api/project/delete/${project_id}"
       `
-          : ""
-      }
+      : ""
+    }
     data-report-link="/report/project/${project_id}"
     data-copy-link="${repo_link}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
@@ -562,9 +552,8 @@ function UserCard(
             </div>
           </div>
           <?php if ($isPrivate): ?>
-          ${
-            private == 1
-              ? `
+          ${private == 1
+      ? `
             <div class="private-icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -582,8 +571,8 @@ function UserCard(
                 </g>
               </svg>
             </div>`
-              : ""
-          }
+      : ""
+    }
         </div>
         <div class="search-follow-infos">
         <div class="post-count">
@@ -610,13 +599,15 @@ function UserCard(
           <div class="class-course">
             <p>EDU LEVEL</p>
             <div>
-              ${education_level == "" ? "- - - - - - -" : education_level}
+              ${education_level == "" || education_level == null
+      ? "- - - - - - -" : education_level}
             </div>
           </div>
           <div class="user-type">
             <p>U/T</p>
             <div>
-              ${user_type == "" ? "-" : user_type[0]}
+              ${user_type == "" || user_type == null
+      ? "-" : user_type[0]}
             </div>
           </div>
 
@@ -859,19 +850,18 @@ function ZeroResult(type) {
   <div class="error-container ">
 
     <div class="svg-icon">
-      ${
-        type === "myMaterial"
-          ? myMaterialSvg
-          : type === "search"
-          ? searchSvg
-          : type === "ghostProfile"
+      ${type === "myMaterial"
+      ? myMaterialSvg
+      : type === "search"
+        ? searchSvg
+        : type === "ghostProfile"
           ? ghostProfileSvg
           : type === "myRequest"
-          ? myRequestSvg
-          : type === "myProject"
-          ? myProjectSvg
-          : defaultSvg
-      }
+            ? myRequestSvg
+            : type === "myProject"
+              ? myProjectSvg
+              : defaultSvg
+    }
     </div>
 
     <div class="status-msg-top">

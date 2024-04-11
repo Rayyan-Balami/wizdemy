@@ -9,7 +9,7 @@ class MaterialViewModel extends Model
     }
 
     public function show($document_type = 'note', $page = 1)
-    {
+    {   
         $limit = 10;
         $offset = ($page - 1) * $limit;
         $current_user = Session::get('user')['user_id'] ?? null;

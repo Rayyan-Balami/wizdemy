@@ -1,4 +1,4 @@
-
+let category = "note";
 $(document).ready(function () {
   //extract the page from the url /profile/1 or /search?q=math
   const page = window.location.pathname.split("/")[1];
@@ -22,7 +22,7 @@ $(document).ready(function () {
 function changeCategory(page) {
   //enable the requestCheck
   $("#requestCheck").prop("disabled", false);
-  let category = $("input[name='category']:checked").val(); // Get the currently selected category
+  category = $("input[name='category']:checked").val(); // Get the currently selected category
   console.log(page, category);
   if (page === "request") {
     requestCategoryChange(page, category);

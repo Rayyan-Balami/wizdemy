@@ -16,6 +16,7 @@ View::renderPartial('Header', [
     'authStatus',
     'category',
     'confirmModal',
+    'infiniteScroll',
   ]
 ]);
 
