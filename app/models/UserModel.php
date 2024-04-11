@@ -106,6 +106,14 @@ class UserModel extends Model
             ->get();
     }
 
+    public function usernameExists($userName)
+    {
+        return $this->select(['user_id'])
+            ->where('username = :username')
+            ->bind(['username' => $userName])
+            ->get();
+    }
+
     public function updateUserDetails($user_id, $data)
     {
         $result = $this->update($data)

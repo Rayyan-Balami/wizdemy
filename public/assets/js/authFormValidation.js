@@ -149,3 +149,22 @@ function showSuccess(input) {
     existingErrorMessage.remove();
   }
 }
+
+
+//select a select element id educationLevel so that when the value of the select element changes, to school or +2 , hide the selct element id semester 
+
+const educationLevelSelect = document.getElementById('educationLevel');
+const semesterSelect = document.getElementById('semester');
+const parentDiv = semesterSelect.parentElement;
+
+educationLevelSelect.addEventListener('change', () => {
+  if (educationLevelSelect.value === 'school' || educationLevelSelect.value === '+2') {
+    //disable the select, ie pointer-events: none;
+    semesterSelect.style.pointerEvents = 'none';
+    //make opacity 0.5
+    parentDiv.style.opacity = '0.5';
+  } else {
+    semesterSelect.style.pointerEvents = 'initial';
+    parentDiv.style.opacity = 'initial';
+  }
+});

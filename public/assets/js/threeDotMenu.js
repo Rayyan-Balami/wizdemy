@@ -16,6 +16,8 @@ function openThreeDotMenu(element) {
   threeDotMenuCopyLink.setAttribute("data-copy-link", copyLink);
   threeDotMenuEditForm?.setAttribute("action", editLink);
   threeDotReportForm?.setAttribute("action", reportLink);
+  console.log(reportLink);
+  console.log(threeDotReportForm);
   threeDotMenuDeleteButton?.setAttribute("data-delete-link", deleteLink);
   threeDotMenuDeleteButton?.setAttribute(
     "data-card-id",

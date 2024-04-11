@@ -50,7 +50,7 @@ else: ?>
                     </p>
 
                     <!-- username  -->
-                    <a href="<?= '/profile?id=' . $material['user_id'] ?>" class="username">
+                    <a href="<?= '/profile/' . $material['user_id'] ?>" class="username">
                         <!-- at icon @  -->
                         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor"
                             style="flex-shrink: 0" viewBox="0 0 512 512">
@@ -66,10 +66,11 @@ else: ?>
 
                     <!-- time  -->
                     <div class="time">
-                        <p><a href="<?= '/profile?id=' . $material['user_id'] ?>" class="time-ago"
+                        <p><a href="<?= '/profile/' . $material['user_id'] ?>" class="time-ago"
                                 data-datetime="<?= $material['created_at'] ?>"></a></p>
                         <!-- three dot icon -->
                         <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+                        data-report-link="/report/material/<?= $material['material_id'] ?>"
                             data-info-link="/api/info/material/<?= $material['material_id'] ?>"
                             data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
 

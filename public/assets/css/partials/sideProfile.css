@@ -134,7 +134,7 @@
   border: 1px solid #34a853;
 }
 
-.side-profile > .userstats-bio-wrapper > .user-buttons > #report-form > button {
+.side-profile > .userstats-bio-wrapper > .user-buttons > #user-report-form > button {
   border: 1px solid rgb(156 163 175);
   background-color: rgb(156 163 175/ 0.15);
   color: inherit;

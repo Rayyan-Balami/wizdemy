@@ -180,6 +180,7 @@ function RequestCard(
       `
       : ""
     }
+    data-info-link="/api/info/request/${request_id}"
       data-report-link="/report/request/${request_id}"
       data-copy-link="${SITE_DOMAIN}/request/${request_id}"
       >
@@ -360,6 +361,7 @@ function MaterialCard(
     `
       : ""
     }
+    data-info-link="/api/info/material/${material_id}"
     data-report-link="/report/material/${material_id}"
     data-copy-link="${SITE_DOMAIN}/material/view/${material_id}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">
@@ -488,6 +490,7 @@ function ProjectCard(
       `
       : ""
     }
+    data-info-link="/api/info/project/${project_id}"
     data-report-link="/report/project/${project_id}"
     data-copy-link="${repo_link}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 24">

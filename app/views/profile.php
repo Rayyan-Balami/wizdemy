@@ -203,8 +203,9 @@ else:
             <?php endif; ?>
           <?php endif; ?>
 
+          <!-- report form   -->
           <?php if ($isCurrentUserFollower): ?>
-            <form id="report-form" action="/report/user/<?= $user['user_id'] ?>" method="post">
+            <form id="user-report-form" action="/report/user/<?= $user['user_id'] ?>" method="post">
               <button type="submit">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

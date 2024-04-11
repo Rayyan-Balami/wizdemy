@@ -45,6 +45,17 @@ class SettingsController extends Controller
       $this->redirect('/myInformation');
     }
 
+    //check if the username is already taken
+    if ($this->model->usernameExists($userName)) {
+      $this->errors['username'] = 'Username already taken';
+      Session::flash('errors', $this->errors);
+      Session::flash('old', [
+        'username' => $userName,
+        'bio' => $bio
+      ]);
+      $this->redirect('/myInformation');
+    }
+
     $result = $this->model->updateUserDetails(Session::get('user')['user_id'], ['username' => $userName, 'bio' => $bio]);
 
     if ($result['status']) {
