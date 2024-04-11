@@ -478,7 +478,7 @@ background-color: rgb(59 130 246 / 0.1);
 @media (width >= 1280px) {
   .pdf-section {
     height: calc(100dvh - 6rem);
-    max-width: 1280px;
+    max-width: 1536px;
     margin: 0 auto;
   }
 }
