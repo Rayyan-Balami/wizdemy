@@ -28,7 +28,7 @@
 
 
       <!-- subject | here in project card subject is rplaced with the owner of repo , but still using the subject class so that styles are not broken -->
-      <a href="<?= $project['repo_link'] ?>">
+      <a href="<?= $project['repo_link'] ?>" target="_blank">
         <p class="subject">
           Github /
           <?= $owner ?>

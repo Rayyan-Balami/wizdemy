@@ -107,6 +107,7 @@ function parseHTML(htmlString) {
 
 function appendCard(cardSection, cardDom, sentinel) {
   cardSection.insertBefore(cardDom, sentinel);
+  updateTimeAgo();
 }
 
 function handleNoMorePosts(sentinel, message) {

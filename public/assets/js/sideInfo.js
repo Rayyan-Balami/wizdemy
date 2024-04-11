@@ -1,13 +1,28 @@
 async function toggleSideInfo(element) {
   const sideInfo = document.getElementById("sideInfo");
+  const infoLink = element.getAttribute("data-info-link");
+
+ 
   sideInfo.classList.toggle("open");
   document.body.classList.toggle("sideInfo-open");
-  const infoLink = element.getAttribute("data-info-link");
+
+
+  // If infoLink is not present, return early
+  if (!infoLink) {
+    console.error('No info link provided');
+    return;
+  }
+
   const targetType = infoLink.split("/")[3];
-  //add child to sideInfo <div class="spinner"></div>
-  const spinner = document.createElement("div");
-  spinner.className = "spinner";
-  sideInfo.appendChild(spinner);
+
+  // Reduce opacity of child elements
+  Array.from(sideInfo.children).forEach(child => {
+    child.style.opacity = '0.0';
+  });
+
+  // Add spinner inside side info
+  const spinnerHTML = '<div class="relative-spinner"></div>';
+  sideInfo.insertAdjacentHTML('afterbegin', spinnerHTML);
 
   try {
     const response = await fetch(infoLink);
@@ -17,9 +32,17 @@ async function toggleSideInfo(element) {
     }
   } catch (error) {
     console.error(error);
+  } finally {
+    // Remove spinner
+    const spinner = sideInfo.querySelector('.relative-spinner');
+    if (spinner) {
+      spinner.remove();
+    }
+    // Restore opacity
+    Array.from(sideInfo.children).forEach(child => {
+      child.style.opacity = '1';
+    });
   }
-
-  sideInfo.removeChild(spinner);
 }
 
 function addInfoToSideInfo(data, targetType) {

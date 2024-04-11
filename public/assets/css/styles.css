@@ -21,8 +21,8 @@
   background-color: #fffefe;
   color: black;
   border: var(--border);
-  border-color: #d1d5db;
-  border-width: 1.5px;
+  border-width: 2px;
+  transition: var(--transition);
   transition-duration: 300ms;
 }
 .profile-card:hover {
