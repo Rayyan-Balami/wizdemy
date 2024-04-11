@@ -10,8 +10,8 @@ class GetInfoController extends Controller
 
   public function getInfo($targetType, $targetId)
   {
-
-
+    sleep(2); // to simluate spinner in frontend
+    
     if (!in_array($targetType, ['material', 'request', 'project'])) {
       $this->buildJsonResponse('Invalid target type', 400);
     }
@@ -24,7 +24,7 @@ class GetInfoController extends Controller
       //sending only necessary data ( username, request_id, description, created_at, updated_at,author_id)
       $infoDetails = [
         'username' => $infoDetails['username'],
-        'request_id' => $infoDetails['request_id'],
+        'responded_to' => $infoDetails['responded_to'],
         'description' => $infoDetails['description'],
         'created_at' => $infoDetails['created_at'],
         'updated_at' => $infoDetails['updated_at'],

@@ -17,7 +17,6 @@ View::renderPartial('Header', [
         'category',
         'confirmModal',
         'studyMaterial',
-        'authFormValidation'
     ]
 ]);
 
@@ -356,8 +355,7 @@ else: ?>
 
 
         <!--write comments form  -->
-        <form class="comment-form" action="/material/comment/<?= $material['material_id'] ?>" method="post"
-            onsubmit="return false">
+        <form id="comment-form" action="#" onsubmit="return false">
             <label for="comment"><span>Write a comment : </span>
                 <div>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -397,7 +395,6 @@ else: ?>
                 <p class="no-comments">No comments yet</p>
             <?php else: ?>
                 <?php foreach ($comments as $comment): ?>
-
                     <div class="comment">
                         <p class="comment-description">
                             <?= $comment['comment'] ?>

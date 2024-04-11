@@ -3,50 +3,60 @@
 
 .side-profile {
   order: -9999;
-  padding: 1rem/* 16px */;
+  padding: 1rem /* 16px */;
   transition: var(--transition);
 }
-@media ( 640px <= width < 1280px) {
+@media (640px <= width < 1280px) {
   .side-profile {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem/* 24px */;
-  }  
+    gap: 1rem /* 24px */;
+  }
 }
 @media (width >= 1280px) {
   .side-profile {
     position: fixed;
     z-index: 20;
-    top: 4rem/* 64px */;
+    top: 4rem /* 64px */;
     right: 0px;
-    width: 20rem/* 320px */;
+    width: 20rem /* 320px */;
     height: 100%;
-    padding-bottom: 8rem/* 128px */;
+    padding-bottom: 8rem /* 128px */;
     overflow-y: auto;
     border-left: var(--border);
     background-color: var(--background-color);
   }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .side-profile::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .side-profile {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
-.side-profile > .userstats-bio-wrapper{
+.side-profile > .userstats-bio-wrapper {
   display: grid;
-  gap: 1rem/* 24px */;
-  margin-top: 1rem/* 24px */;
+  gap: 1rem /* 24px */;
+  margin-top: 1rem /* 24px */;
 }
 
-@media ( 640px <= width < 1280px) {
-  .side-profile > .userstats-bio-wrapper{
+@media (640px <= width < 1280px) {
+  .side-profile > .userstats-bio-wrapper {
     margin-top: 0;
-  }  
+  }
 }
 
 .side-profile > .userstats-bio-wrapper > .userstats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   place-content: center;
-  gap: 1rem/* 24px */;
-  padding: 1rem 0.5rem/* 8px */;
-  border-radius: var(--border-radius)/* 12px */;
+  gap: 1rem /* 24px */;
+  padding: 1rem 0.5rem /* 8px */;
+  border-radius: var(--border-radius) /* 12px */;
   background-color: var(--background-gray);
   border: 1px solid rgb(156 163 175);
 }
@@ -54,28 +64,28 @@
 .side-profile > .userstats-bio-wrapper > .userstats > div > p {
   display: block;
   font-weight: 400;
-  font-size: 1.5rem/* 24px */;
-  line-height: 2rem/* 32px */;
+  font-size: 1.5rem /* 24px */;
+  line-height: 2rem /* 32px */;
   text-align: center;
 }
 
 .side-profile > .userstats-bio-wrapper > .userstats > div > div {
   font-weight: 300;
-  font-size: 0.875rem/* 14px */;
-  line-height: 1.25rem/* 20px */;
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
   text-align: center;
 }
 
 .side-profile > .userstats-bio-wrapper > .user-buttons {
   display: flex;
   align-items: center;
-  gap: 0.5rem/* 8px */;
+  gap: 0.5rem /* 8px */;
   flex-wrap: wrap;
 }
 
 .side-profile > .userstats-bio-wrapper > .user-buttons svg {
-  width: 1.5rem/* 24px */;
-  height: 1.5rem/* 24px */;
+  width: 1.5rem /* 24px */;
+  height: 1.5rem /* 24px */;
   flex-shrink: 0;
 }
 
@@ -86,53 +96,59 @@
 }
 
 .side-profile > .userstats-bio-wrapper > .user-buttons button,
-.side-profile > .userstats-bio-wrapper > .user-buttons a  {
+.side-profile > .userstats-bio-wrapper > .user-buttons a {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem/* 6px */;
+  gap: 0.375rem /* 6px */;
   white-space: nowrap;
-  padding: 0.5rem 0.625rem/* 10px */;
+  padding: 0.5rem 0.625rem /* 10px */;
   text-align: center;
-  border-radius: var(--border-radius)/* 12px */;
+  border-radius: var(--border-radius) /* 12px */;
   margin: 0;
   border: none;
   background-color: inherit;
 }
 
 .side-profile > .userstats-bio-wrapper > .user-buttons > form > .follow-button,
-.side-profile > .userstats-bio-wrapper > .user-buttons > .upload-button{
+.side-profile > .userstats-bio-wrapper > .user-buttons > .upload-button {
   flex-grow: 1;
   background-color: rgb(17 24 39);
   border: 1px solid rgb(17 24 39);
   color: white;
 }
 
-.side-profile > .userstats-bio-wrapper > .user-buttons > .social-link-button.gmail{
+.side-profile
+  > .userstats-bio-wrapper
+  > .user-buttons
+  > .social-link-button.gmail {
   background-color: rgba(255, 0, 0, 0.1);
   border: 1px solid #ea4335;
 }
 
-.side-profile > .userstats-bio-wrapper > .user-buttons > .social-link-button.whatsapp{
+.side-profile
+  > .userstats-bio-wrapper
+  > .user-buttons
+  > .social-link-button.whatsapp {
   background-color: rgba(153, 255, 0, 0.1);
   border: 1px solid #34a853;
 }
 
 .side-profile > .userstats-bio-wrapper > .user-buttons > #report-form > button {
   border: 1px solid rgb(156 163 175);
-  background-color:rgb(156 163 175/ 0.15);
-color: inherit;
+  background-color: rgb(156 163 175/ 0.15);
+  color: inherit;
 }
 
-.side-profile > .userstats-bio-wrapper > .bio{
+.side-profile > .userstats-bio-wrapper > .bio {
   text-align: center;
   line-height: 1.25;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
-  padding: 1rem/* 16px */;
-  border-radius: var(--border-radius)/* 12px */;
+  padding: 1rem /* 16px */;
+  border-radius: var(--border-radius) /* 12px */;
   background-color: var(--background-gray);
   border: 1px solid rgb(156 163 175);
 }

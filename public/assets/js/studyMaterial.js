@@ -1,82 +1,81 @@
 let lastCall = 0;
 function likeMaterial(studyMaterialId, element) {
-    const now = Date.now();
-    const throttleTime = 1000; // 1000 milliseconds = 1 second
+  const now = Date.now();
+  const throttleTime = 1000; // 1000 milliseconds = 1 second
 
-    if (now - lastCall < throttleTime) {
-        return;
-    }
-    lastCall = now;
-    if (element.classList.contains('active')) {
-        $.ajax({
-            type: 'DELETE',
-            url: '/api/material/unlike/' + studyMaterialId,
-            success: function (response) {
-                console.log(response);
-                if (response.data.status === 'success') {
-                    element.classList.remove('active');
-                    element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) - 1;
-                }
-            }
-        });
-    } else {
-        $.ajax({
-            type: 'POST',
-            url: '/api/material/like/' + studyMaterialId,
-            success: function (response) {
-                console.log(response);
-                if (response.data.status === 'success') {
-                    element.classList.add('active');
-                    element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) + 1;
-                }
-            }
-        });
-    }
+  if (now - lastCall < throttleTime) {
+    return;
+  }
+  lastCall = now;
+  if (element.classList.contains("active")) {
+    $.ajax({
+      type: "DELETE",
+      url: "/api/material/unlike/" + studyMaterialId,
+      success: function (response) {
+        console.log(response);
+        if (response.data.status === "success") {
+          element.classList.remove("active");
+          element.querySelector("span").innerText =
+            parseInt(element.querySelector("span").innerText) - 1;
+        }
+      },
+    });
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "/api/material/like/" + studyMaterialId,
+      success: function (response) {
+        console.log(response);
+        if (response.data.status === "success") {
+          element.classList.add("active");
+          element.querySelector("span").innerText =
+            parseInt(element.querySelector("span").innerText) + 1;
+        }
+      },
+    });
+  }
 }
 
 function bookmarkMaterial(studyMaterialId, element) {
+  const now = Date.now();
+  const throttleTime = 1000; // 1000 milliseconds = 1 second
 
-    const now = Date.now();
-    const throttleTime = 1000; // 1000 milliseconds = 1 second
+  if (now - lastCall < throttleTime) {
+    return;
+  }
+  lastCall = now;
 
-    if (now - lastCall < throttleTime) {
-        return;
-    }
-    lastCall = now;
-
-
-    if (element.classList.contains('active')) {
-        $.ajax({
-            type: 'DELETE',
-            url: '/api/material/unbookmark/' + studyMaterialId,
-            success: function (response) {
-                console.log(response);
-                if (response.data.status === 'success') {
-                    element.classList.remove('active');
-                    smallClientAlert('Removed from bookmarks');
-                }
-            }
-        });
-    } else {
-        $.ajax({
-            type: 'POST',
-            url: '/api/material/bookmark/' + studyMaterialId,
-            success: function (response) {
-                console.log(response);
-                if (response.data.status === 'success') {
-                    element.classList.add('active');
-                    smallClientAlert('Added to bookmarks');
-                }
-            }
-        });
-    }
+  if (element.classList.contains("active")) {
+    $.ajax({
+      type: "DELETE",
+      url: "/api/material/unbookmark/" + studyMaterialId,
+      success: function (response) {
+        console.log(response);
+        if (response.data.status === "success") {
+          element.classList.remove("active");
+          smallClientAlert("Removed from bookmarks");
+        }
+      },
+    });
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "/api/material/bookmark/" + studyMaterialId,
+      success: function (response) {
+        console.log(response);
+        if (response.data.status === "success") {
+          element.classList.add("active");
+          smallClientAlert("Added to bookmarks");
+        }
+      },
+    });
+  }
 }
-
 
 // comment form
 
 function commentLi(username, created_at, comment) {
-    return `<div class="comment">
+  return `<div class="comment">
     <!-- username  -->
     <a href="profile.html" class="username">
         <!-- at icon @  -->
@@ -100,11 +99,11 @@ function commentLi(username, created_at, comment) {
     <p class="comment-content">
         ${comment}
     </p>
-</div>`
+</div>`;
 }
 
-function commentLi(user_id,username, created_at, comment) {
-    return `<div class="comment">
+function commentLi(user_id, username, created_at, comment) {
+  return `<div class="comment">
     <p class="comment-description">
         ${comment}
         </p>
@@ -126,42 +125,53 @@ function commentLi(user_id,username, created_at, comment) {
     </div>`;
 }
 
-const commentSection = document.querySelector('.comment-section');
+const commentSection = document.querySelector(".comment-section");
+
+const commentForm = document.querySelector("#comment-form");
 
 function submitComment(element) {
-    const form = element.parentElement;
-    const studyMaterialId = element.getAttribute('data-material-id');
-    const username = element.getAttribute('data-username');
-    const user_id = element.getAttribute('data-user-id');
-    const comment = form.querySelector('textarea').value;
-    const commentCount = document.querySelectorAll('.comment-count');
+  const form = element.parentElement;
+  const studyMaterialId = element.getAttribute("data-material-id");
+  const username = element.getAttribute("data-username");
+  const user_id = element.getAttribute("data-user-id");
+  const comment = form.querySelector("textarea").value;
+  const commentCount = document.querySelectorAll(".comment-count");
 
-    if (comment.trim() === '') {
-        smallClientAlert('Comment cannot be empty');
-        return;
-    }
+  if (comment.trim() === "") {
+    smallClientAlert("Comment cannot be empty");
+    return;
+  }
 
-    $.ajax({
-        type: 'POST',
-        url: '/api/material/comment/' + studyMaterialId,
-        data: { comment },
-        success: function (response) {
-            console.log(response);
-            if (response.data.status === 'success') {
-                form.querySelector('textarea').value = '';
-                document.querySelector('.no-comments').style.display = 'none';
-                document.querySelector('#comment-button').classList.add('active');
-                console.table(user_id,username, new Date(), comment );
-                commentSection.innerHTML = commentLi(user_id,username, new Date(), comment) + commentSection.innerHTML;
-                commentCount.forEach((span) => {
-                    span.innerText = parseInt(span.innerText) + 1;
-                });
-                smallClientAlert('Comment added');
-                updateTimeAgo();
-            }else if(response.data.status === 'error'){
-                smallClientAlert(response.data.message);
-            }
+  if(comment.length < 10 || comment.length > 500){
+    smallClientAlert("Comment between 10 to 500 characters");
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/api/material/comment/" + studyMaterialId,
+    data: { comment },
+    success: function (response) {
+      console.log(response);
+      if (response.data.status === "success") {
+        form.querySelector("textarea").value = "";
+        let noCommentsElement = document.querySelector(".no-comments");
+        if (noCommentsElement) {
+          noCommentsElement.style.display = "none";
         }
-    });
+        document.querySelector("#comment-button").classList.add("active");
+        console.table(user_id, username, new Date(), comment);
+        commentSection.innerHTML =
+          commentLi(user_id, username, new Date(), comment) +
+          commentSection.innerHTML;
+        commentCount.forEach((span) => {
+          span.innerText = parseInt(span.innerText) + 1;
+        });
+        smallClientAlert("Comment added");
+        updateTimeAgo();
+      } else if (response.data.status === "error") {
+        smallClientAlert(response.data.message);
+      }
+    },
+  });
 }
-

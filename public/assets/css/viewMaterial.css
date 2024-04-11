@@ -483,12 +483,12 @@ background-color: rgb(59 130 246 / 0.1);
   }
 }
 
-.comment-form {
+#comment-form {
   margin: 1.5rem 0/* 24px */;
   max-width: 768px;
 }
 
-.comment-form > label{
+#comment-form > label{
   margin-bottom: 0.5rem/* 8px */;
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
@@ -498,19 +498,19 @@ background-color: rgb(59 130 246 / 0.1);
   gap: 1rem/* 16px */;
 }
 
-.comment-form > label > div {
+#comment-form > label > div {
   display: flex;
   align-items: center;
   gap: 0.5rem/* 8px */
 }
 
-.comment-form > label > div > svg {
+#comment-form > label > div > svg {
   flex-shrink: 0;
   width: 1rem /* 16px */;
   height: 1rem /* 16px */;
 }
 
-.comment-form > textarea{
+#comment-form > textarea{
   display: block;
   width: 100%;
   padding: 0.75rem 1.25rem/* 12px 20px */;
@@ -521,14 +521,14 @@ background-color: rgb(59 130 246 / 0.1);
   resize: none;
 }
 
-.comment-form > p{
+#comment-form > p{
   margin-top: 0.5rem/* 8px */;
   color: rgb(71 85 105);
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
 }
 
-.comment-form > button {
+#comment-form > button {
   margin-top: 0.75rem/* 8px */;
   padding: 0.5rem 1rem/* 12px 20px */;
   font-size: 0.875rem/* 14px */;

@@ -159,7 +159,6 @@ class GithubProjectModel extends Model
                 'search' => "%$search%",
                 'status' => 'suspend'
             ])
-            ->limit(10)
             ->getAll();
     }
     public function searchSuggestions($search)

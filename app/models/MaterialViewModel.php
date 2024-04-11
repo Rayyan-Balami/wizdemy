@@ -66,7 +66,6 @@ class MaterialViewModel extends Model
             ->where('mv.user_id = :current_user AND mv.document_type = :document_type')
             ->bind(['current_user' => $current_user, 'document_type' => $document_type])
             ->groupBy('mv.material_id')
-            ->limit(10)
             ->getAll();
     }
 
@@ -79,7 +78,6 @@ class MaterialViewModel extends Model
             ->where('mv.user_id = :user_id AND mv.document_type = :document_type AND mv.status <> :status')
             ->bind(['user_id' => $user_id, 'document_type' => $document_type, 'status' => 'suspend'])
             ->groupBy('mv.material_id')
-            ->limit(10)
             ->getAll();
     }
 
@@ -140,7 +138,6 @@ class MaterialViewModel extends Model
                 'current_user' => $current_user,
                 'status' => 'suspend'
             ])
-            ->limit(10)
             ->getAll();
     }
 }
