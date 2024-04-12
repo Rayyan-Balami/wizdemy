@@ -53,6 +53,7 @@ class GithubProjectModel extends Model
             ->leftJoin('users as u', 'u.user_id = p.user_id')
             ->where('p.user_id = :user_id')
             ->bind(['user_id' => $user_id])
+            ->orderBy('p.created_at', 'DESC')
             ->getAll();
     }
 
@@ -65,6 +66,7 @@ class GithubProjectModel extends Model
             ->leftJoin('users as u', 'u.user_id = p.user_id')
             ->where('p.user_id = :user_id AND p.status <> :status')
             ->bind(['user_id' => $user_id, 'status' => 'suspend'])
+            ->orderBy('p.created_at', 'DESC')
             ->getAll();
     }
    
@@ -159,6 +161,7 @@ class GithubProjectModel extends Model
                 'search' => "%$search%",
                 'status' => 'suspend'
             ])
+            ->orderBy('p.created_at', 'DESC')
             ->getAll();
     }
     public function searchSuggestions($search)

@@ -22,6 +22,7 @@ class UserProfileViewModel extends Model
     return $this->select([
       'upv.*'
     ], 'upv')
+    ->orderBy('upv.created_at', 'DESC')
       ->getAll();
   }
   public function search($search)
@@ -31,6 +32,7 @@ class UserProfileViewModel extends Model
     ], 'upv')
       ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
       ->bind(['search' => '%' . $search . '%'])
+      ->orderBy('upv.created_at', 'DESC')
       ->getAll();
   }
   public function searchSuggestions($search)

@@ -199,6 +199,7 @@ class StudyMaterialRequestModel extends Model
                 'status' => 'suspend'
             ])
             ->groupBy('r.request_id')
+            ->orderBy('r.created_at', 'DESC')
             ->getAll();
     }
     public function searchSuggestions($search)
