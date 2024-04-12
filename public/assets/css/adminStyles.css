@@ -5,7 +5,9 @@
 @import url("./partials/AdminTable.css");
 @import url("./partials/confirmModel.css");
 @import url("./partials/cardSectionGrid.css");
+@import url("./partials/toastNotification.css");
 @import url("./partials/AdminGlobalStyle.css");
+
 
 .welcome-banner {
   display: flex;

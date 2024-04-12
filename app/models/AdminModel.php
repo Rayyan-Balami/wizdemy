@@ -69,23 +69,135 @@ class AdminModel extends Model
     }
 
   }
-  public function updateAdmin($admin_id, $data)
+  public function updateAdminInfo($admin_id, $username, $email)
   {
-    $result = $this->update($data)
+    //check if username
+    $admin = $this->select(['admin_id'])
+      ->where('username = :username AND admin_id <> :admin_id')
+      ->bind(['username' => $username, 'admin_id' => $admin_id])
+      ->get();
+
+    if ($admin) {
+      return [
+        'status' => false,
+        'message' => 'Admin username already exists'
+      ];
+    }
+
+    $admin = $this->select(['admin_id'])
+      ->where('email = :email AND admin_id <> :admin_id')
+      ->bind(['email' => $email, 'admin_id' => $admin_id])
+      ->get();
+
+    if ($admin) {
+      return [
+        'status' => false,
+        'message' => 'Admin email already exists'
+      ];
+    }
+
+    $result = $this->update(['username' => $username, 'email' => $email])
       ->where('admin_id = :admin_id')
       ->appendBindings(['admin_id' => $admin_id])
       ->execute();
     if ($result) {
       return [
         'status' => true,
-        'message' => 'Admin updated successfully'
+        'message' => 'Admin info updated successfully'
       ];
     } else {
       return [
         'status' => false,
-        'message' => 'Failed to update admin'
+        'message' => 'Failed to update admin info'
       ];
     }
+  }
+
+  public function updateAdminPassword($admin_id, $password)
+  {
+    $result = $this->update(['password' => password_hash($password, PASSWORD_DEFAULT)])
+      ->where('admin_id = :admin_id')
+      ->appendBindings(['admin_id' => $admin_id])
+      ->execute();
+    if ($result) {
+      return [
+        'status' => true,
+        'message' => 'Admin password updated successfully'
+      ];
+    } else {
+      return [
+        'status' => false,
+        'message' => 'Failed to update admin password'
+      ];
+    }
+  }
+
+  public function deleteAdmin($admin_id)
+  {
+    $result = $this->delete()
+      ->where('admin_id = :admin_id AND admin_id <> 1')
+      ->bind(['admin_id' => $admin_id])
+      ->execute();
+    if ($result) {
+      return [
+        'status' => true,
+        'message' => 'Admin deleted successfully'
+      ];
+    } else {
+      return [
+        'status' => false,
+        'message' => 'Failed to delete admin'
+      ];
+    }
+  }
+
+  public function addAdmin($username, $email, $password)
+  {
+
+    //check if username or email already exists
+    $admin = $this->select(['admin_id'])
+      ->where('username = :username')
+      ->bind(['username' => $username])
+      ->get();
+
+    if ($admin) {
+      return [
+        'status' => false,
+        'message' => 'Admin username already exists'
+      ];
+    }
+
+    $admin = $this->select(['admin_id'])
+      ->where('email = :email')
+      ->bind(['email' => $email])
+      ->get();
+
+    if ($admin) {
+      return [
+        'status' => false,
+        'message' => 'Admin email already exists'
+      ];
+    }
+
+
+    $result = $this->insert([
+      'username' => $username,
+      'email' => $email,
+      'password' => password_hash($password, PASSWORD_DEFAULT)
+    ])->execute();
+
+    if ($result) {
+      return [
+        'status' => true,
+        'message' => 'Admin added successfully'
+      ];
+    } else {
+      return [
+        'status' => false,
+        'message' => 'Failed to add admin'
+      ];
+    }
+
   }
 }
 

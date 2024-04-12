@@ -172,7 +172,8 @@ form > .post-details > .post-meta-datas > .suspended-svg{
   .file-preview,
   .enrolledCourse,
   .school,
-  .card {
+  .card,
+  .admin-email{
     grid-column: span 3 / span 3;
   }
 }
@@ -353,7 +354,8 @@ form > button {
 }
 
 .newPassword,
-.confirmPassword {
+.confirmPassword,
+.admin-email {
   grid-column-start: 1;
 }
 

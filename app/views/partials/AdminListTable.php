@@ -84,8 +84,7 @@
                 </svg>
               </button>
               <!-- edit button  -->
-              <form action="/admin/edit/admin/<?= $user['admin_id'] ?>"method="post">
-              <button type="submit" class="edit-btn">
+              <a href="/admin/edit/admin/<?= $admin['admin_id'] ?>" class="edit-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                     <path
@@ -94,8 +93,7 @@
                       d="M21 12c0 4.243 0 6.364-1.318 7.682C18.364 21 16.242 21 12 21c-4.243 0-6.364 0-7.682-1.318C3 18.364 3 16.242 3 12c0-4.243 0-6.364 1.318-7.682C5.636 3 7.758 3 12 3" />
                   </g>
                 </svg>
-              </button>
-              </form>
+              </a>
               <!-- delete button  -->
               <button class="delete-btn" onclick="deleteUser(<?= $admin['admin_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

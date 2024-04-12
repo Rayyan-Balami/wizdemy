@@ -139,7 +139,7 @@ $flashOld = Session::get('old');
             <!-- email (required)-->
             <div class="email">
                 <label for="email">Email Address</label>
-                <input type="email" required name="email" id="emailDisabled"
+                <input type="email" required name="email" id="email"
                     value="<?= isset($flashOld['email']) ? $flashOld['email'] : $user['email'] ?>" required />
             </div>
 

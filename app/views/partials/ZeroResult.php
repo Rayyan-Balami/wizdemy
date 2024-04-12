@@ -157,6 +157,7 @@ $message = [
     </div>
   </div>
 
+  <?php if(!Session::exists('admin')) :?>
   <!-- Continue With -->
   <div class="continue-with flex flex-col mt-48">
     <h3 class="text-gray-400 font-bold uppercase">
@@ -219,4 +220,5 @@ $message = [
       </li>
     </ul>
   </div>
+  <?php endif; ?>
 </div>

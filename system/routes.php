@@ -159,6 +159,11 @@ $router->get('/admin/manage/requests', 'AdminManageRequestController@index')->on
 $router->get('/admin/manage/admin', 'AdminManageAdminController@index')->only('admin');
 $router->post('/api/admin/update/admin/status', 'AdminManageAdminController@updateAdminStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/admin/{admin_id}', 'AdminManageAdminController@delete')->only('apiAdmin');
+$router->get('/admin/add/admin', 'AdminManageAdminController@addAdminView')->only('admin');
+$router->post('/admin/add/admin', 'AdminManageAdminController@addAdminProcess')->only('admin');
+$router->get('/admin/edit/admin/{admin_id}', 'AdminManageAdminController@edit')->only('admin');
+$router->put('/admin/update/admin/info/{admin_id}', 'AdminManageAdminController@updateAdminInfo')->only('admin');
+$router->put('/admin/update/admin/password/{admin_id}', 'AdminManageAdminController@updateAdminPassword')->only('admin');
 
 
 //routes for infinite scroll

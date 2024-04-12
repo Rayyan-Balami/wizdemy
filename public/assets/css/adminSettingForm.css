@@ -5,6 +5,7 @@
 @import url('./partials/confirmModel.css');
 @import url("./partials/titleLabel.css");
 @import url('./partials/formsLayout.css');
+@import url("./partials/toastNotification.css");
 @import url("./partials/AdminGlobalStyle.css");
 
 .title-label > .message,

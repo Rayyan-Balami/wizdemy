@@ -154,7 +154,7 @@ function showSuccess(input) {
 //select a select element id educationLevel so that when the value of the select element changes, to school or +2 , hide the selct element id semester 
 
 const educationLevelSelect = document.getElementById('educationLevel');
-const semesterSelect = document.getElementById('semester');
+const semesterSelect = document.getElementById('semester') ?? '';
 const parentDiv = semesterSelect.parentElement;
 
 educationLevelSelect.addEventListener('change', () => {
