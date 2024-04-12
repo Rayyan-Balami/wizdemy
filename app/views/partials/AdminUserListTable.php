@@ -38,7 +38,7 @@
     <thead>
       <tr>
         <th>
-          Name
+          User
         </th>
         <th>
           Education
@@ -58,7 +58,7 @@
       <?php foreach ($users as $user): ?>
         <tr>
           <td>
-            <p title="<?= $user['full_name'] ?>">
+            <p title="username">
               <?= $user['username'] ?>
             </p>
             <a href="mailto:<?= $user['email'] ?>">
@@ -91,34 +91,45 @@
             </div>
           </td>
           <td>
-            <div class="text-base font-medium" title="Joined Date">
-              <?= date('d M Y', strtotime($user['created_at'])) ?>
-            </div>
-            <div class="multi-span"><span title="Followers: <?= $user['followers_count'] ?>">Flr:&nbsp;
+            <p title="Last Updated: <?= $user['updated_at'] ?>">
+              Updated : <?= date('d M Y', strtotime($user['updated_at'])) ?>
+            </p>
+            <div class="multi-span">
+            <span title="Joined At: <?= $user['created_at'] ?>">Created:&nbsp;<?= date('d M Y', strtotime($user['created_at'])) ?>
+              </span>
+              <span title="Followers: <?= $user['followers_count'] ?>">Flr:&nbsp;
                 <?= $user['followers_count'] ?>
-              </span> <span title="Following: <?= $user['following_count'] ?>">Fol:&nbsp;
+              </span>
+              <span title="Following: <?= $user['following_count'] ?>">Fol:&nbsp;
                 <?= $user['following_count'] ?>
-              </span></div>
+              </span>
+            </div>
           </td>
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
               <button class="suspend-btn" data-status="<?= $user['status'] == 'suspend' ? 'suspend' : '' ?>"
                 onclick="updateUserStatus(<?= $user['user_id'] ?>, this)">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M16 12H8"/><circle cx="12" cy="12" r="10"/></g></svg>
-              </button>
-              <!-- edit button  -->
-              <form action="/admin/edit/user/<?= $user['user_id'] ?>"method="post">
-              <button type="submit" class="edit-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                    <path
-                      d="M9.533 11.15A1.823 1.823 0 0 0 9 12.438V15h2.578c.483 0 .947-.192 1.289-.534l7.6-7.604a1.822 1.822 0 0 0 0-2.577l-.751-.751a1.822 1.822 0 0 0-2.578 0z" />
-                    <path
-                      d="M21 12c0 4.243 0 6.364-1.318 7.682C18.364 21 16.242 21 12 21c-4.243 0-6.364 0-7.682-1.318C3 18.364 3 16.242 3 12c0-4.243 0-6.364 1.318-7.682C5.636 3 7.758 3 12 3" />
+                  <g fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" d="M16 12H8" />
+                    <circle cx="12" cy="12" r="10" />
                   </g>
                 </svg>
               </button>
+              <!-- edit button  -->
+              <form action="/admin/edit/user/<?= $user['user_id'] ?>" method="post">
+                <button type="submit" class="edit-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="1.5">
+                      <path
+                        d="M9.533 11.15A1.823 1.823 0 0 0 9 12.438V15h2.578c.483 0 .947-.192 1.289-.534l7.6-7.604a1.822 1.822 0 0 0 0-2.577l-.751-.751a1.822 1.822 0 0 0-2.578 0z" />
+                      <path
+                        d="M21 12c0 4.243 0 6.364-1.318 7.682C18.364 21 16.242 21 12 21c-4.243 0-6.364 0-7.682-1.318C3 18.364 3 16.242 3 12c0-4.243 0-6.364 1.318-7.682C5.636 3 7.758 3 12 3" />
+                    </g>
+                  </svg>
+                </button>
               </form>
               <!-- delete button  -->
               <button class="delete-btn" onclick="deleteUser(<?= $user['user_id'] ?>,this)">

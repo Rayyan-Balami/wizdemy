@@ -9,7 +9,6 @@ class UploadController extends Controller
 
   public function index($request_id = null)
   {
-    $request_id = $request_id ?? Session::get('post')['request_id'] ?? null;
     $requestDetails = null;
 
     if ($request_id) {
@@ -91,7 +90,6 @@ class UploadController extends Controller
 
     //check if there are any errors
     if (!empty($this->errors)) {
-      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'title' => $title,
@@ -104,6 +102,9 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
+      if($request_id){
+        $this->redirectPost('/material/respond/'.$request_id);
+      }
       $this->redirect('/material/create');
     }
 
@@ -111,7 +112,6 @@ class UploadController extends Controller
     $imageUpload = File::upload($imageFile, 'assets/uploads/thumbnails');
     $documentUpload = File::upload($documentFile, 'assets/uploads/documents');
     if (!$imageUpload['status'] || !$documentUpload['status']) {
-      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('error', [
         'message' => 'Failed to upload file'
       ]);
@@ -126,6 +126,9 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
+      if($request_id){
+        $this->redirectPost('/material/respond/'.$request_id);
+      }
       $this->redirect('/material/create');
     }
 
@@ -152,7 +155,6 @@ class UploadController extends Controller
       ]);
       $this->redirect('/' . $document_type);
     } else {
-      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('error', [
         'message' => $result['message']
       ]);
@@ -168,12 +170,15 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
+      if($request_id){
+        $this->redirectPost('/material/respond/'.$request_id);
+      }
       $this->redirect('/material/create');
     }
   }
   public function edit($material_id = null)
   {
-    $material_id = $material_id ?? Session::get('post')['material_id'] ?? null;
+    // $material_id = $material_id ?? Session::get('post')['material_id'] ?? null;
 
     if (!$material_id) {
       Session::flash('error', ['message' => 'Material ID is required']);
@@ -279,7 +284,6 @@ class UploadController extends Controller
     }
     //check if there are any errors
     if (!empty($this->errors)) {
-      Session::flash('post', ['material_id' => $material_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'title' => $title,
@@ -292,7 +296,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/edit');
+      $this->redirectPost('/material/edit/'.$material_id);
     }
 
     //upload files in the server
@@ -304,7 +308,6 @@ class UploadController extends Controller
     }
 
     if(($_FILES['imageFile']['name'] && !$imageUpload['status']) || ($_FILES['documentFile']['name'] && !$documentUpload['status'])){
-      Session::flash('post', ['material_id' => $material_id]);
       Session::flash('error', [
         'message' => 'Failed to upload file'
       ]);
@@ -319,7 +322,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/edit');
+      $this->redirectPost('/material/edit/'.$material_id);
     }
 
     //delete the old files
@@ -333,7 +336,6 @@ class UploadController extends Controller
     }
 
     if (($_FILES['imageFile']['name'] && !$thumbnailDeleted) || ($_FILES['documentFile']['name'] && !$documentDeleted)) {
-      Session::flash('post', ['material_id' => $material_id]);
       Session::flash('error', [
         'message' => 'Failed to delete old file'
       ]);
@@ -348,7 +350,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/edit');
+      $this->redirectPost('/material/edit/'.$material_id);
     }
 
 
@@ -374,7 +376,6 @@ class UploadController extends Controller
       ]);
       $this->redirect('/' . $document_type);
     } else {
-      Session::flash('post', ['material_id' => $material_id]);
       Session::flash('error', [
         'message' => $result['message']
       ]);
@@ -389,7 +390,7 @@ class UploadController extends Controller
         'format' => $format,
         'author' => $author
       ]);
-      $this->redirect('/material/edit');
+      $this->redirectPost('/material/edit/'.$material_id);
     }
   }
 

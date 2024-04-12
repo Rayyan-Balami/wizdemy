@@ -34,7 +34,7 @@ class AdminManageAdminController extends Controller
 
     $result = $this->model->updateAdminStatus($admin_id, $status);
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'update_status_to_' . $status);
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', $status);
       $this->buildJsonResponse($result['message'], 200);
     } else {
       $this->buildJsonResponse($result['message'], 400);
@@ -55,7 +55,7 @@ class AdminManageAdminController extends Controller
     }
   }
 
-  public function addAdminView()
+  public function add()
   {
     if (Session::get('admin')['admin_id'] != 1) {
       Session::flash('error', ["unauthorized" => "You are not authorized to access this page"]);
@@ -64,7 +64,7 @@ class AdminManageAdminController extends Controller
     View::render('admin/addAdmin');
   }
 
-  public function addAdminProcess()
+  public function addProcess()
   {
     $admin_id = Session::get('admin')['admin_id'];
     if ($admin_id != 1) {
@@ -112,7 +112,7 @@ class AdminManageAdminController extends Controller
     // dd($result);
 
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'added new admin');
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'Insert new admin');
       Session::flash('success', ['addAdmin' => $result['message']]);
       $this->redirect('/admin/manage/admin');
     } else {
@@ -163,22 +163,22 @@ class AdminManageAdminController extends Controller
         'username' => $username,
         'email' => $email
       ]);
-      $this->redirect('/admin/edit/admin/' . $admin_id .'#profile');
+      $this->previousUrl();
     }
 
     $result = $this->model->updateAdminInfo($admin_id, $username, $email);
 
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'updated admin info');
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'update admin info');
       Session::flash('success', ['updateAdmin' => $result['message']]);
-      $this->redirect('/admin/manage/admin');
+      $this->previousUrl();
     } else {
       Session::flash('errors', ['updateAdmin' => $result['message']]);
       Session::flash('old', [
         'username' => $username,
         'email' => $email
       ]);
-      $this->redirect('/admin/edit/admin/' . $admin_id .'#profile');
+      $this->previousUrl();
     }
 
     // dd($result);
@@ -189,9 +189,7 @@ class AdminManageAdminController extends Controller
   public function updateAdminPassword($admin_id)
   {
     $currentAdminId = Session::get('admin')['admin_id'];
-    if ($currentAdminId != 1) {
-      $this->buildJsonResponse('You are not authorized to access this page', 401);
-    }
+
     $password = htmlspecialchars($_POST['newPassword']);
     $confirmPassword = htmlspecialchars($_POST['confirmPassword']);
 
@@ -208,19 +206,20 @@ class AdminManageAdminController extends Controller
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
       Session::flash('errors', $this->errors);
-      $this->redirect('/admin/edit/admin/' . $admin_id);
+      if($currentAdminId == 1){
+      $this->previousUrl();
+      }
     }
 
     $result = $this->model->updateAdminPassword($admin_id, $password);
 
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'updated password');
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'update admin password');
       Session::flash('success', ['updatePassword' => $result['message']]);
-      $this->redirect('/admin/manage/admin');
+      $this->previousUrl();
     } else {
       Session::flash('errors', ['updatePassword' => $result['message']]);
-      $this->redirect('/admin/edit/admin/' . $admin_id);
-    }
+      $this->previousUrl();
   }
-
+}
 }

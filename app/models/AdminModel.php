@@ -32,14 +32,17 @@ class AdminModel extends Model
   }
   public function getAllAdmins()
   {
-    return $this->select(['admin_id', 'username', 'email', 'status', 'created_at'])
-      ->where('admin_id <> 1')
+    return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'COUNT(al.admin_id) as logs_count'], 'a')
+      ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
+      ->where('a.admin_id <> 1')
+      ->groupBy('a.admin_id')
       ->getAll();
   }
   public function getAdminById($admin_id)
   {
-    return $this->select(['admin_id', 'username', 'email', 'status', 'created_at'])
-      ->where('admin_id = :admin_id')
+    return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'COUNT(al.admin_id) as logs_count'], 'a')
+      ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
+      ->where('a.admin_id = :admin_id')
       ->bind(['admin_id' => $admin_id])
       ->get();
   }

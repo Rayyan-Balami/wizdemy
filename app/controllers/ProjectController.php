@@ -27,7 +27,7 @@ class ProjectController extends Controller
   {
     //verify github repo link
     $repoLink = $_POST['repo-link'];
-    
+
     //match github repo link
     $pattern = '/^(https:\/\/github.com\/)([a-zA-Z0-9-._]+)\/([a-zA-Z0-9-._]+)$/';
     if (!preg_match($pattern, $repoLink)) {
@@ -66,22 +66,20 @@ class ProjectController extends Controller
     }
   }
 
-  public function edit($project_id = null)
+  public function edit($project_id)
   {
-    $project_id = $project_id ?? Session::get('post')['project_id'] ?? null;
-
     if (!$project_id) {
       Session::flash('error', ['message' => 'Invalid project']);
       $this->redirect('/project/create');
       return;
-  }
+    }
 
-  $projectDetails = $this->model->getProjectDetailById($project_id);
-  if (!$projectDetails || $projectDetails['user_id'] != Session::get('user')['user_id']) {
+    $projectDetails = $this->model->getProjectDetailById($project_id);
+    if (!$projectDetails || $projectDetails['user_id'] != Session::get('user')['user_id']) {
       Session::flash('error', ['message' => 'Project not found']);
       $this->redirect('/project/create');
       return;
-  }
+    }
 
     View::render('editProjectForm', ['projectDetails' => $projectDetails]);
   }
@@ -101,18 +99,16 @@ class ProjectController extends Controller
     //match github repo link
     $pattern = '/^(https:\/\/github.com\/)([a-zA-Z0-9-._]+)\/([a-zA-Z0-9-._]+)$/';
     if (!preg_match($pattern, $repoLink)) {
-      Session::flash('post', ['project_id' => $project_id]);
       Session::flash('errors', ['repo-link' => 'Invalid Github repository link']);
       Session::flash('old', ['repo-link' => $repoLink]);
-      $this->redirect('/project/edit');
+      $this->redirectPost('/project/edit/' . $project_id);
     }
 
     //validate github repo link is accessible
     if (!Validate::accessibleUrl($repoLink)) {
-      Session::flash('post', ['project_id' => $project_id]);
       Session::flash('errors', ['repo-link' => 'Github repository link is not accessible']);
       Session::flash('old', ['repo-link' => $repoLink]);
-      $this->redirect('/project/edit');
+      $this->redirectPost('/project/edit/' . $project_id);
     }
 
     $result = $this->model->updateProject($project_id, $repoLink);
@@ -121,9 +117,8 @@ class ProjectController extends Controller
       Session::flash('success', ['project' => 'Project updated successfully']);
       $this->redirect('/project');
     } else {
-      Session::flash('post', ['project_id' => $project_id]);
       Session::flash('errors', ['project' => 'Failed to update project']);
-      $this->redirect('/project/edit');
+      $this->redirectPost('/project/edit/' . $project_id);
     }
 
   }

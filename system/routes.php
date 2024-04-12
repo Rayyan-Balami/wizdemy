@@ -45,7 +45,7 @@ $router->post('/material/respond/{request_id}', 'UploadController@index')->only(
 $router->post('/material/respond/store/{request_id}', 'UploadController@store')->only('auth');
 
 //routes for edit of material
-$router->get('/material/edit', 'UploadController@edit')->only('auth');
+// $router->get('/material/edit', 'UploadController@edit')->only('auth');
 $router->post('/material/edit/{material_id}', 'UploadController@edit')->only('auth');
 $router->put('/material/update/{material_id}', 'UploadController@update')->only('auth');
 
@@ -54,7 +54,7 @@ $router->delete('/api/material/delete/{material_id}', 'UploadController@delete')
 
 
 //routes for edit of request
-$router->get('/request/edit', 'RequestController@edit')->only('auth');
+// $router->get('/request/edit', 'RequestController@edit')->only('auth');
 $router->post('/request/edit/{request_id}', 'RequestController@edit')->only('auth');
 $router->put('/request/update/{material_id}', 'RequestController@update')->only('auth');
 
@@ -69,7 +69,7 @@ $router->get('/project/create', 'ProjectController@create')->only('auth');
 $router->post('/project/store', 'ProjectController@store')->only('auth');
 
 //routes for edit of project
-$router->get('/project/edit', 'ProjectController@edit')->only('auth');
+// $router->get('/project/edit', 'ProjectController@edit')->only('auth');
 $router->post('/project/edit/{project_id}', 'ProjectController@edit')->only('auth');
 $router->put('/project/update/{project_id}', 'ProjectController@update')->only('auth');
 
@@ -77,7 +77,7 @@ $router->put('/project/update/{project_id}', 'ProjectController@update')->only('
 $router->delete('/api/project/delete/{project_id}', 'ProjectController@delete')->only('apiAuth');
 
 //routes for report page
-$router->get('/report', 'ReportController@index')->only('auth');
+// $router->get('/report', 'ReportController@index')->only('auth');
 $router->post('/report/{targetType}/{targetId}', 'ReportController@index')->only('auth');
 $router->post('/report/store/{targetType}/{targetId}', 'ReportController@store')->only('auth');
 
@@ -131,14 +131,14 @@ $router->get('/admin/login', 'AdminAuthController@loginPage')->only('guest');
 $router->post('/admin/login', 'AdminAuthController@loginProcess')->only('guest');
 $router->delete('/admin/logout', 'AdminAuthController@logout')->only('admin');
 //routes for admin dashboard
-$router->get('/admin/dashboard', 'AdminDashboardController@index')->only('admin');
+$router->get('/admin/dashboard', 'AdminHomeController@index')->only('admin');
 
 
 //routes for admin users management
 $router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
 $router->post('/api/admin/update/users/status', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/user/{user_id}', 'AdminManageUserController@delete')->only('apiAdmin');
-$router->get('/admin/edit/user', 'AdminManageUserController@edit')->only('admin');
+// $router->get('/admin/edit/user', 'AdminManageUserController@edit')->only('admin');
 $router->post('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
 $router->put('/admin/update/user/profile/{user_id}', 'AdminManageUserController@updateUserProfile')->only('admin');
 $router->put('/admin/update/user/info/{user_id}', 'AdminManageUserController@updateUserInfo')->only('admin');
@@ -159,12 +159,18 @@ $router->get('/admin/manage/requests', 'AdminManageRequestController@index')->on
 $router->get('/admin/manage/admin', 'AdminManageAdminController@index')->only('admin');
 $router->post('/api/admin/update/admin/status', 'AdminManageAdminController@updateAdminStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/admin/{admin_id}', 'AdminManageAdminController@delete')->only('apiAdmin');
-$router->get('/admin/add/admin', 'AdminManageAdminController@addAdminView')->only('admin');
-$router->post('/admin/add/admin', 'AdminManageAdminController@addAdminProcess')->only('admin');
+$router->get('/admin/add/admin', 'AdminManageAdminController@add')->only('admin');
+$router->post('/admin/add/admin', 'AdminManageAdminController@addProcess')->only('admin');
 $router->get('/admin/edit/admin/{admin_id}', 'AdminManageAdminController@edit')->only('admin');
 $router->put('/admin/update/admin/info/{admin_id}', 'AdminManageAdminController@updateAdminInfo')->only('admin');
 $router->put('/admin/update/admin/password/{admin_id}', 'AdminManageAdminController@updateAdminPassword')->only('admin');
 
+//routes for admin account security
+$router->get('/admin/accountSecurity', 'AdminHomeController@accountSecurity')->only('admin');
+
+//routes for admin log
+$router->get('/admin/log', 'AdminHomeController@adminLog')->only('admin');
+$router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@viewLog')->only('admin');
 
 //routes for infinite scroll
 $router->get('/api/infinite-scroll', 'InfiniteScrollController@index');

@@ -51,10 +51,7 @@ class MaterialViewModel extends Model
         return $this->select([
             'DISTINCT mv.*'
         ], 'mv')
-            ->where('mv.status <> :status')
-            ->bind(['status' => 'suspend'])
             ->orderBy('mv.created_at', 'DESC')
-            ->limit(10)
             ->getAll();
     }
 

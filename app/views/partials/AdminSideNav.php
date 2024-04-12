@@ -250,7 +250,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/manage/admin"
+                        <a href="/admin/log"
                             class="menu-links <?= $currentPage === 'adminLog' ? 'is-active' : ''; ?>">
                             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -287,7 +287,7 @@
         <div class="menu-section">
             <ul>
                 <li>
-                    <a href="/accountSecurity"
+                    <a href="/admin/accountSecurity"
                         class="menu-links <?= $currentPage === 'accountSecurity' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

@@ -33,7 +33,7 @@ class AdminManageUserController extends Controller
 
     $result = $this->model->updateUserStatus($user_id, $status);
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update_status_to_' . $status);
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', $status);
       $this->buildJsonResponse($result['message'], 200);
     } else {
       $this->buildJsonResponse($result['message'], 400);
@@ -54,10 +54,8 @@ class AdminManageUserController extends Controller
     }
   }
 
-  public function edit($user_id = null)
+  public function edit($user_id)
   {
-
-    $user_id = $user_id ?? Session::get('post')['user_id'] ?? null;
 
     $user = $this->model->userDetails($user_id);
     if (!$user) {
@@ -88,18 +86,18 @@ class AdminManageUserController extends Controller
 
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
-      Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'username' => $userName,
         'bio' => $bio
       ]);
-      $this->redirect('/admin/edit/user#profile');
+      $this->redirectPost('/admin/edit/user/' . $user_id . '#profile');
     }
 
     $result = $this->model->updateUserDetails($user_id, ['username' => $userName, 'bio' => $bio]);
 
     if ($result['status']) {
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update profile information');
       Session::flash('success', ['profile' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
       
     } else {
@@ -111,8 +109,7 @@ class AdminManageUserController extends Controller
       
     }
 
-    Session::flash('post', ['user_id' => $user_id]);
-    $this->redirect('/admin/edit/user#profile');
+    $this->redirectPost('/admin/edit/user/' . $user_id . '#profile');
   }
 
   public function updateUserInfo($user_id)
@@ -165,10 +162,8 @@ class AdminManageUserController extends Controller
 
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
-      Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
-        'user_id' => $user_id, // add user_id to old data to redirect to the same user
         'full_name' => $fullName,
         'email' => $email,
         'user_type' => $userType,
@@ -177,20 +172,19 @@ class AdminManageUserController extends Controller
         'school_name' => $schoolName,
         'phone_number' => $phoneNumber
       ]);
-      $this->redirect('/admin/edit/user#personalInformation');
+      $this->redirectPost('/admin/edit/user/' . $user_id . '#personalInformation');
     }
 
     $result = $this->model->updateUserDetails($user_id, ['full_name' => $fullName, 'email' => $email, 'user_type' => $userType, 'education_level' => $educationLevel, 'enrolled_course' => $enrolledCourse, 'school_name' => $schoolName, 'phone_number' => $phoneNumber]);
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update_info');
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update personal information');
       Session::flash('success', ['update' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
       
     } else {
       Session::flash('errors', ['update' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
     }
 
-    Session::flash('post', ['user_id' => $user_id]);
-    $this->redirect('/admin/edit/user#personalInformation');
+    $this->redirectPost('/admin/edit/user/' . $user_id . '#personalInformation');
   }
 
   public function updatePassword($user_id)
@@ -208,22 +202,22 @@ class AdminManageUserController extends Controller
       $this->errors['confirmPassword'] = 'Passwords do not match';
     }
 
+    
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
-      Session::flash('post', ['user_id' => $user_id]);
       Session::flash('errors', $this->errors);
-      $this->redirect('/admin/edit/user#password');   
+      $this->redirectPost('/admin/edit/user/' . $user_id . '#password'); 
     }
 
     $result = $this->model->adminUpdatePassword($user_id, $newPassword);
 
     if ($result['status']) {
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update user password');
       Session::flash('success', ['password' => $result['message']]);
     } else {
       Session::flash('errors', ['password' => $result['message']]);
     }
 
-    Session::flash('post', ['user_id' => $user_id]);
-    $this->redirect('/admin/edit/user#password');
+    $this->redirectPost('/admin/edit/user/' . $user_id . '#password');
   }
 }

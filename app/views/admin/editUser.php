@@ -8,7 +8,7 @@ View::renderPartial('Header', [
     'scripts' => [
         'script',
         'toastTimer',
-        'authFormValidation',
+        // 'authFormValidation',
         'confirmModal',
     ]
 ]);

@@ -9,6 +9,7 @@ View::renderPartial('Header', [
 		'script',
 		'toastTimer',
 		'confirmModal',
+		'adminTable',
 	]
 ]);
 
@@ -21,10 +22,7 @@ View::renderPartial('AdminMenuHeader');
 ?>
 
 <section>
-	<!-- component
-	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet"> -->
-
-
+	
 	<!-- welcome banner  -->
 	<div class="welcome-banner">
 		<div class="svg-div">
@@ -185,7 +183,11 @@ View::renderPartial('AdminMenuHeader');
 		</div>
 	<?php
 	View::renderPartial(
-		'AdminUserListTable'
+		'AdminLogTable'
+		,
+		[
+			'logs' => $logs
+		]
 	);
 	?>
 </section>

@@ -1,3 +1,4 @@
+<?php //dd($materials); ?>
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
@@ -44,6 +45,9 @@
           User
         </th>
         <th>
+          Details
+        </th>
+        <th>
           Dates
         </th>
         <th>
@@ -52,42 +56,79 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($projects as $project):
-        $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
-        //explode the repo_info to get the owner and repo name
-        $owner = explode("/", $repo_info)[0];
-        $repo = explode("/", $repo_info)[1];
+      <?php foreach ($materials as $material):
         ?>
         <tr>
           <td class="thumbnail-td">
-            <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail"
-            title="<?= $repo ?>">
-              <img src="https://opengraph.githubassets.com/wizdemy/<?= $repo_info ?>" alt="github repo thumbnail">
+            <a href="#" class="thumbnail"
+            title="Title:&#10;&#10;<?= $material['title'] ?>&#10;&#10;Description:&#10;&#10;<?= $material['description'] ?>">
+            <img src="/<?= $material['thumbnail_path'] ?>" alt="material thumbnail">
             </a>
           </td>
           <td>
-            <p title="Uploaded By : <?= $project['username'] ?> | Click to View">
-              <a href="/admin/view/user/<?= $project['user_id'] ?>">
-                User:&nbsp;<?= $project['username'] ?>
+            <p title="Uploaded By : <?= $material['username'] ?> | Click to View">
+              <a href="/admin/view/user/<?= $material['user_id'] ?>">
+                User:&nbsp;<?= $material['username'] ?>
               </a>
             </p>
-            <span title="Owner : <?= $owner ?>">
-              Owner:&nbsp;<?= $owner ?>
+            <span title="Author | Source | Credits : <?= $material['author'] ?>">
+              A | S | C:&nbsp;<?= $material['author'] ?>
+            </span><br>
+            <a href="/admin/view/request/<?= $material['request_id'] ?>">
+                Responded To:&nbsp;<?= $material['username'] ?? '- - - - -' ?>
+              </a>
+          </td>
+          <td class="post-details">
+            <p title="Title: <?= $material['title'] ?>" class="title">
+              Title:&nbsp;<?= $material['title'] ?>
+            </p>
+            <span title="Subject: <?= $material['subject'] ?>" class="subject">
+            Subject:&nbsp;<?= $material['subject'] ?>
             </span>
+            <div class="multi-span">
+              <span title="Education Level: <?= $material['education_level'] ?>">
+              Edu Level:&nbsp;<?= $material['education_level'] ?>
+              </span>
+              <span title="class/faclty: <?= $material['class_faculty'] ?>">
+              Class/Faculty:&nbsp;<?= $material['class_faculty'] ?>
+              </span>
+              <?php if ($material['semester'] != '') : ?>
+                <span title="Semester: <?= $material['semester'] ?>">
+                Semester:&nbsp;<?= $material['semester'] ?>
+                </span>
+              <?php endif ?>
+            </div>
+            <div class="multi-span">
+              <span title="Dcoument Type: <?= $material['document_type'] ?>">
+              Doc Type:&nbsp;<?= $material['document_type'] ?>
+              </span>
+              <span title="Format: <?= $material['format'] ?>">
+              Format:&nbsp;<?= $material['format'] ?>
+              </span>
+            </div>
+            <div class="multi-span">
+              <span title="Views: <?= $material['views_count'] ?>">
+              V:&nbsp;<?= $material['views_count'] ?>
+              </span> <span title="Likes: <?= $material['likes_count'] ?>">L:&nbsp;
+                <?= $material['likes_count'] ?>
+              </span> <span title="Comments: <?= $material['comments_count'] ?>">C:&nbsp;
+                <?= $material['comments_count'] ?>
+              </span>
+            </div>
           </td>
           <td>
-            <p title="Last Updated: <?= $project['updated_at'] ?>">
-              Updated:&nbsp;<?= date('d M Y', strtotime($project['updated_at'])) ?>
+            <p title="Last Updated: <?= $material['updated_at'] ?>">
+              Updated:&nbsp;<?= date('d M Y', strtotime($material['updated_at'])) ?>
             </p>
-            <span title="Joined At: <?= $project['created_at'] ?>">
-              Created:&nbsp;<?= date('d M Y', strtotime($project['created_at'])) ?>
+            <span title="Joined At: <?= $material['created_at'] ?>">
+              Created:&nbsp;<?= date('d M Y', strtotime($material['created_at'])) ?>
             </span>
           </td>
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
-              <button class="suspend-btn" data-status="<?= $project['status'] == 'suspend' ? 'suspend' : '' ?>"
-                onclick="updateprojectStatus(<?= $project['project_id'] ?>, this)">
+              <button class="suspend-btn" data-status="<?= $material['status'] == 'suspend' ? 'suspend' : '' ?>"
+                onclick="updateMaterialStatus(<?= $material['material_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" d="M16 12H8" />
@@ -96,7 +137,7 @@
                 </svg>
               </button>
               <!-- delete button  -->
-              <button class="delete-btn" onclick="deleteproject(<?= $project['project_id'] ?>,this)">
+              <button class="delete-btn" onclick="deleteMaterial(<?= $material['material_id'] ?>,this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" fill-rule="evenodd"
                     d="M10.31 2.25h3.38c.217 0 .406 0 .584.028a2.25 2.25 0 0 1 1.64 1.183c.084.16.143.339.212.544l.111.335a1.25 1.25 0 0 0 1.263.91h3a.75.75 0 0 1 0 1.5h-17a.75.75 0 0 1 0-1.5h3.09a1.25 1.25 0 0 0 1.173-.91l.112-.335c.068-.205.127-.384.21-.544a2.25 2.25 0 0 1 1.641-1.183c.178-.028.367-.028.583-.028m-1.302 3a2.757 2.757 0 0 0 .175-.428l.1-.3c.091-.273.112-.328.133-.368a.75.75 0 0 1 .547-.395a3.2 3.2 0 0 1 .392-.009h3.29c.288 0 .348.002.392.01a.75.75 0 0 1 .547.394c.021.04.042.095.133.369l.1.3l.039.112c.039.11.085.214.136.315z"

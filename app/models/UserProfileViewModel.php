@@ -25,6 +25,17 @@ class UserProfileViewModel extends Model
     ->orderBy('upv.created_at', 'DESC')
       ->getAll();
   }
+
+  public function getUserById($user_id)
+  {
+    return $this->select([
+      'upv.*'
+    ], 'upv')
+      ->where('upv.user_id = :user_id')
+      ->bind(['user_id' => $user_id])
+      ->get();
+  }
+  
   public function search($search)
   {
     return $this->select([

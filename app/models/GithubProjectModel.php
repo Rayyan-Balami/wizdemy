@@ -82,7 +82,7 @@ class GithubProjectModel extends Model
             ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
                 ->orderBy('p.created_at', 'DESC')
-                ->limit(10)
+                // ->limit(10)
                 ->getAll();
         }
     }

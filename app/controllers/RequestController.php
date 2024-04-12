@@ -95,7 +95,6 @@ class RequestController extends Controller
 
   public function edit($request_id = null)
   {
-    $request_id = $request_id ?? Session::get('post')['request_id'] ?? null;
 
     if (!$request_id) {
       Session::flash('error', ['message' => 'Material ID is required']);
@@ -156,7 +155,6 @@ class RequestController extends Controller
 
     //check if there are any errors
     if (!empty($this->errors)) {
-      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('errors', $this->errors);
       Session::flash('old', [
         'title' => $title,
@@ -167,7 +165,7 @@ class RequestController extends Controller
         'subject' => $subject,
         'class_faculty' => $class_faculty
       ]);
-      $this->redirect('/request/edit');
+      $this->redirectPost('/request/edit/'.$request_id);
     }
 
     //update request
@@ -188,7 +186,6 @@ class RequestController extends Controller
       ]);
       $this->redirect('/request');
     } else {
-      Session::flash('post', ['request_id' => $request_id]);
       Session::flash('error', [
         'message' => $result['message']
       ]);
@@ -201,7 +198,7 @@ class RequestController extends Controller
         'subject' => $subject,
         'class_faculty' => $class_faculty
       ]);
-      $this->redirect('/request/edit');
+      $this->redirectPost('/request/edit/'.$request_id);
     }
   }
 

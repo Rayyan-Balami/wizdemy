@@ -39,12 +39,31 @@ class AdminActionLogModel extends Model
             'a.username as admin_username',
             'a.email as admin_email',
             'a.status as admin_status',
-            'u.username as target_username',
-            'u.email as target_email',
-            'u.status as target_status',
-        ], 'l')
+        ],'l')
             ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
-            ->leftJoin('users as u', 'u.user_id = l.target_id')
+            ->orderBy('l.created_at', 'DESC')
+            ->getAll();
+    }
+
+    /**
+     * Get logs by admin id
+     * 
+     * @param int $admin_id
+     * 
+     * @return mixed
+     */
+
+    public function getLogsByAdminId($admin_id)
+    {
+        return $this->select([
+            'l.*',
+            'a.username as admin_username',
+            'a.email as admin_email',
+            'a.status as admin_status',
+        ],'l')
+            ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
+            ->where('l.admin_id = :admin_id')
+            ->bind(['admin_id' => $admin_id])
             ->orderBy('l.created_at', 'DESC')
             ->getAll();
     }

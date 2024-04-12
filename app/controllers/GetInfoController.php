@@ -12,6 +12,7 @@ class GetInfoController extends Controller
   {
     sleep(2); // to simluate spinner in frontend
     
+    
     if (!in_array($targetType, ['material', 'request', 'project'])) {
       $this->buildJsonResponse('Invalid target type', 400);
     }

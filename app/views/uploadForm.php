@@ -8,7 +8,7 @@
   'toastTimer',
   'timeAgo',
   'upload',
-  'authFormValidation',
+  // 'authFormValidation',
   'confirmModal',
   ]
   ]);

@@ -14,7 +14,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('AdminSideNav', [
-    'currentPage' => 'Edit Admin',
+    'currentPage' => $type == 'edit' ? 'Edit Admin' : 'Account Security',
 ]);
 
 View::renderPartial('AdminMenuHeader');
@@ -26,7 +26,7 @@ $flashOld = Session::get('old');
 <div class="title-label">
 
     <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path fill="currentColor" d="M15 2H5L4 8h12zM0 10s2 1 10 1s10-1 10-1l-4-2H4zm8 4h4v1H8z" />
             <circle cx="6" cy="15" r="3" fill="currentColor" />
             <circle cx="14" cy="15" r="3" fill="currentColor" />
@@ -34,11 +34,11 @@ $flashOld = Session::get('old');
     </div>
 
     <h2 class="title">
-        <?= $type == 'edit' ? 'Edit Admin' : 'Account Security' ?>
+        <?= $type == 'accountSecurity' ? 'Account Security' : 'Edit Admin' ?>
     </h2>
 
     <p class="message">
-        <?= $type == 'edit' ? 'Boss, Edit admin details below.' : 'Manage your account security below.' ?>
+        <?= $type == 'accountSecurity' ? 'Manage your account security below.': 'Boss, Edit admin details below.' ?>
     </p>
     <span id="profile"></span>
 </div>
@@ -49,7 +49,7 @@ $flashOld = Session::get('old');
     <!-- profile content -->
     <div>
         <h2 class="form-heading">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path fill="currentColor" d="M15 2H5L4 8h12zM0 10s2 1 10 1s10-1 10-1l-4-2H4zm8 4h4v1H8z" />
                 <circle cx="6" cy="15" r="3" fill="currentColor" />
                 <circle cx="14" cy="15" r="3" fill="currentColor" />
@@ -59,12 +59,9 @@ $flashOld = Session::get('old');
             <?= $type == 'edit' ? 'Edit admin details below.' : 'Admins Details are shown below.' ?>
         </p>
         <!-- form for user name and about -->
-        <form action="/admin/<?= $type == 'edit' ? 'update/admin/info/' . $adminDetails['admin_id'] : '' ?>" method="POST" id="adminForm" class="form">
-
-            <?php if ($type == 'edit'): ?>
+        <form action="<?= Session::get('admin')['admin_id'] == 1 ? '/admin/update/admin/info/'.$adminDetails['admin_id'] : ''?>" method="POST" id="adminForm" class="form">
                 <!-- PUT method -->
                 <input type="hidden" name="_method" value="PUT">
-            <?php endif; ?>
 
             <!-- username -->
             <div class="username">
@@ -80,10 +77,17 @@ $flashOld = Session::get('old');
                     value="<?= isset($adminDetails) ? $adminDetails['email'] : (isset($flashOld['email']) ? $flashOld['email'] : '') ?>" />
             </div>
 
+            <?php if(Session::get('admin')['admin_id'] == 1): ?>
             <!-- save button -->
             <button type="submit" name="submitBtn">
                 Save
             </button>
+            <?php else: ?>
+            <p class="form-info">
+                Contact Boss Admin to edit your details.
+            </p>
+            <?php endif; ?>
+
         </form>
         <span id="password"></span>
     </div>

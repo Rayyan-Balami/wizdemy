@@ -1,23 +1,23 @@
-<?php 
+<?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+  'pageTitle' => SITE_NAME . ' | Admin Action Logs',
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',
   ],
   'scripts' => [
     'script',
-    'toastTimer',
     'jquery.min',
+    'toastTimer',
+    'adminTable',
     'confirmModal',
-    'adminAdmin',
-    'adminTable', 
+    'adminTable',
   ]
 ]);
 
 View::renderPartial('AdminSideNav', [
-  'currentPage' => 'adminManagement'
+  'currentPage' => 'adminLog'
 ]);
 
 View::renderPartial('AdminMenuHeader');
@@ -25,20 +25,24 @@ View::renderPartial('AdminMenuHeader');
 ?>
 
 <section>
-<?php
-if (!empty($admins)) {
-  View::renderPartial('AdminListTable', [
-    "admins" => $admins,
-  ]);
-} else {
-  View::renderPartial('ZeroResult');
-}
+  <?php
+  if (!empty($logs)){
 
-?>
+    View::renderPartial(
+      'AdminLogTable'
+      ,
+      [
+        'logs' => $logs
+      ]
+    );
+  } else {
+    View::renderPartial('ZeroResult');
+  }
+
+  ?> 
+  </pre>
 </section>
-
 </main>
-
 <?php
 
 View::renderPartial('ToastNotification');

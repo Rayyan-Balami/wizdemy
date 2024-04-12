@@ -10,6 +10,7 @@ View::renderPartial('Header', [
     'script',
     'toastTimer',
     'confirmModal',
+    'adminTable',
   ]
 ]);
 

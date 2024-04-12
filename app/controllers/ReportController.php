@@ -8,14 +8,8 @@ class ReportController extends Controller
     parent::__construct(new ReportModel());
   }
 
-  public function index($targetType = null, $targetId = null)
+  public function index($targetType, $targetId)
   {
-
-    //get any previous post data
-    $targetDetails = Session::get('post') ?? null;
-    
-    $targetId = $targetId ?? $targetDetails['target_id'] ?? null;
-    $targetType = $targetType ?? $targetDetails['target_type'] ?? null;
 
     if (!$targetType || !$targetId || !in_array($targetType, ['user', 'material', 'request', 'project'])) {
       Session::flash('errors', ['message' => 'Invalid Report Request']);
@@ -63,10 +57,9 @@ class ReportController extends Controller
 
     //if errors
     if (!empty($this->errors)) {
-      Session::flash('post', ['target_id' => $targetId, 'target_type' => $targetType]);
       Session::flash('errors', $this->errors);
       Session::flash('old', ['title' => $title, 'description' => $description]);
-      $this->redirect('/report');
+      $this->redirectPost('/report/' . $targetType . '/' . $targetId);
     }
 
     $result = $this->model->store(Session::get('user')['user_id'], $targetType, $targetId, $title, $description);
@@ -75,10 +68,9 @@ class ReportController extends Controller
       Session::flash('success', ['message' => $result['message']]);
       $this->redirect('/profile/' . Session::get('user')['user_id']);
     } else {
-      Session::flash('post', ['target_id' => $targetId, 'target_type' => $targetType]);
       Session::flash('errors', ['message' => $result['message']]);
       Session::flash('old', ['title' => $title, 'description' => $description]);
-      $this->redirect('/report');
+      $this->redirectPost('/report/' . $targetType . '/' . $targetId);
     }
 
   }

@@ -89,4 +89,14 @@ class Controller
         die();
     }
 
+    //redirect post 
+    protected function redirectPost($url, $method = 'post')
+    {
+        echo "<form action='$url' method='post' id='redirectPost'>";
+        echo "<input type='hidden' name='_method' value='$method'>";
+        echo "</form>";
+        echo "<script>document.getElementById('redirectPost').submit();</script>";
+        die();
+    }
+
 }

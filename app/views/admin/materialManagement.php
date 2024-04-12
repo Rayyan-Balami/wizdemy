@@ -1,7 +1,7 @@
 <?php 
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+  'pageTitle' => SITE_NAME . ' | Material Management',
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',
@@ -9,15 +9,13 @@ View::renderPartial('Header', [
   'scripts' => [
     'script',
     'toastTimer',
-    'jquery.min',
     'confirmModal',
-    'adminAdmin',
-    'adminTable', 
+    'adminTable',
   ]
 ]);
 
 View::renderPartial('AdminSideNav', [
-  'currentPage' => 'adminManagement'
+  'currentPage' => 'materialManagement'
 ]);
 
 View::renderPartial('AdminMenuHeader');
@@ -26,9 +24,9 @@ View::renderPartial('AdminMenuHeader');
 
 <section>
 <?php
-if (!empty($admins)) {
-  View::renderPartial('AdminListTable', [
-    "admins" => $admins,
+if (!empty($materials)) {
+  View::renderPartial('AdminMaterialListTable', [
+    'materials' => $materials
   ]);
 } else {
   View::renderPartial('ZeroResult');
@@ -38,7 +36,6 @@ if (!empty($admins)) {
 </section>
 
 </main>
-
 <?php
 
 View::renderPartial('ToastNotification');

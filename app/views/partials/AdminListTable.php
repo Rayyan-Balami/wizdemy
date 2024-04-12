@@ -41,10 +41,10 @@
           Name
         </th>
         <th>
-          Status
+          Actions Performed
         </th>
         <th>
-          Created
+          Dates
         </th>
         <th>
           Action
@@ -55,7 +55,7 @@
       <?php foreach ($admins as $admin) : ?>
         <tr>
           <td>
-            <p title="Name">
+            <p title="username">
               <?= $admin['username'] ?>
             </p>
             <a href="mailto:<?= $admin['email'] ?>">
@@ -63,16 +63,16 @@
             </a>
           </td>
           <td>
-            <div class="status-cell">
-              <span class="status <?= $admin['status'] == 'suspend' ? 'suspend' : '' ?>">
-                <?= $admin['status'] ?>
-              </span>
-            </div>
-          </td>
+            <p title="Actions Performed: <?= $admin['logs_count'] ?>">
+              <?= $admin['logs_count'] ?> actions
+            </p>
           <td>
-            <div class="text-base font-medium" title="Joined Date">
-              <?= date('d M Y', strtotime($admin['created_at'])) ?>
-            </div>
+            <p title="Last Updated: <?= $admin['updated_at'] ?>">
+              Updated:&nbsp;<?= date('d M Y', strtotime($admin['updated_at'])) ?>
+            </p>
+            <span  title="Joined At: <?= $admin['created_at'] ?>">
+              Created:&nbsp;<?= date('d M Y', strtotime($admin['created_at'])) ?>
+            </span>
           </td>
           <td class="actions-cell">
             <div>

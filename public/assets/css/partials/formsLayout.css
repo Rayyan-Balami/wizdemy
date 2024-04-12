@@ -148,7 +148,8 @@ form > .post-details > .post-meta-datas > .suspended-svg{
   .privateAccount,
   .file-upload-section,
   .allow-email,
-  .allow-phone {
+  .allow-phone,
+  .form-info {
     grid-column: 1 / -1;
   }
   .document-type,
@@ -355,7 +356,8 @@ form > button {
 
 .newPassword,
 .confirmPassword,
-.admin-email {
+.admin-email,
+.form-info {
   grid-column-start: 1;
 }
 
