@@ -640,10 +640,6 @@ function ZeroResult(type) {
     myProject: "No Repos Linked",
   };
 
-  // Extract user_id from the URL to see if its other user's profile
-  const urlParams = new URLSearchParams(window.location.search);
-  const user_id = urlParams.get("id");
-
   continueWith = `<div class="continue-with">
         <h3 class="">
           Continue With

@@ -32,7 +32,7 @@ class UserProfileViewModel extends Model
     ], 'upv')
       ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
       ->bind(['search' => '%' . $search . '%'])
-      ->orderBy('upv.created_at', 'DESC')
+      ->orderBy('upv.followers_count', 'DESC')
       ->getAll();
   }
   public function searchSuggestions($search)
