@@ -1,7 +1,7 @@
 <?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Search Results',
+  'pageTitle' => SITE_NAME . ' | Search',
   'stylesheets' => [
     'styles',
     'statusAndZeroResult'

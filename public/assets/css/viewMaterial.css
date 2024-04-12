@@ -591,3 +591,11 @@ background-color: rgb(59 130 246 / 0.1);
   border-color: rgba(31, 41, 55, 0.02);
   padding:0.25rem 0.5rem;
 }
+
+.comment-section > .no-comments{
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  color: rgb(107 114 128);
+  text-align: center;
+  text-transform: uppercase;
+}
