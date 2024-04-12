@@ -102,17 +102,17 @@ View::renderPartial('MenuHeader', [
     <input type="hidden" name="_method" value="PUT">
 
     <?php if (!empty($requestDetails)): ?>
-      <div class="request-details">
-        <p class="request-subject">
+      <div class="post-details">
+        <p class="post-subject">
           <?= $requestDetails['subject'] ?>
         </p>
-        <h3 class="request-title">
+        <h3 class="post-title">
           <?= $requestDetails['title'] ?>
         </h3>
-        <p class="request-description">
+        <p class="post-description">
           <?= $requestDetails['description'] ?>
         </p>
-        <div class="request-meta-datas">
+        <div class="post-meta-datas">
           <a href="/profile" class="username">
             <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" fill="currentColor" style="flex-shrink: 0"
               viewBox="0 0 512 512">
