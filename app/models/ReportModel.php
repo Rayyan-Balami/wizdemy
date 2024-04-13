@@ -32,7 +32,7 @@ class ReportModel extends Model
                 'status' => true,
                 'message' => 'Report submitted successfully'
             ];
-        }else{
+        } else {
             return [
                 'status' => false,
                 'message' => 'Failed to submit report'
@@ -45,11 +45,20 @@ class ReportModel extends Model
     {
         return $this->select([
             'r.*',
-            'u.full_name'
+            'u.username',
+            'u.email',
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->orderBy('r.created_at', 'DESC')
             ->getAll();
     }
 
+    public function getCounts()
+    {
+        return [
+            'total' => $this->count()->get()['total'],
+            'pending' => $this->count()->where('status = "pending"')->get()['total'],
+            'resolved' => $this->count()->where('status = "resolved"')->get()['total'],
+        ];
+    }
 }

@@ -10,14 +10,15 @@ View::renderPartial('Header', [
 		'toastTimer',
 		'confirmModal',
 		'adminTable',
+		'charts',
 	]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
 	'currentPage' => 'overview'
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 ?>
 
@@ -51,10 +52,10 @@ View::renderPartial('AdminMenuHeader');
 		<div class="heading">
 			<h3>Welcome To Dashboard</h3>
 			<h4>
-				<?= Session::get('admin')['username'] ?? "Something went wrong" ?>
+				<?= Session::get('admin')['username']?>
 			</h4>
 			<p>
-				<?= Session::get('admin')['email'] ?? "Something went wrong" ?>
+				<?= Session::get('admin')['email']?>
 			</p>
 		</div>
 	</div>
@@ -76,11 +77,11 @@ View::renderPartial('AdminMenuHeader');
 				<div class="card-info">
 					<p class="type">Users</p>
 					<p class="num-data">
-						<?= $userCount ?>
+						<?= $userCounts['total'] ?>
 					</p>
 				</div>
 			</div>
-			<a href="#" class="view-all-anchor">
+			<a href="/admin/manage/user" class="view-all-anchor">
 				View all
 			</a>
 		</div>
@@ -104,11 +105,11 @@ View::renderPartial('AdminMenuHeader');
 				<div class="card-info">
 					<p class="type">Materials</p>
 					<p class="num-data">
-						<?= $materialCount ?>
+						<?= $materialCounts['total'] ?>
 					</p>
 				</div>
 			</div>
-			<a href="#" class="view-all-anchor">
+			<a href="/admin/manage/material" class="view-all-anchor">
 				View all
 			</a>
 		</div>
@@ -132,11 +133,11 @@ View::renderPartial('AdminMenuHeader');
 				<div class="card-info">
 					<p class="type">Requests</p>
 					<p class="num-data">
-						<?= $requestCount ?>
+						<?= $requestCounts['total'] ?>
 					</p>
 				</div>
 			</div>
-			<a href="#" class="view-all-anchor">
+			<a href="/admin/manage/request" class="view-all-anchor">
 				View all
 			</a>
 		</div>
@@ -168,22 +169,68 @@ View::renderPartial('AdminMenuHeader');
 				<div class="card-info">
 					<p class="type">Projects</p>
 					<p class="num-data">
-						<?= $projectCount ?>
+						<?= $projectCounts['total'] ?>
 					</p>
 				</div>
 			</div>
-			<a href="#" class="view-all-anchor">
+			<a href="/admin/manage/project" class="view-all-anchor">
 				View all
 			</a>
 		</div>
 	</div>
 
-	<div>
-			<canvas id="myChart"></canvas>
+	<div class="chart-section">
+
+		<!-- line chart for total materials and request documnt_type in DB  -->
+	<div class="chart-div category-in-post ">
+			<canvas id="total-category-in-post-line"
+			data-total-material-note = "<?= $materialCounts['note'] ?>"
+			data-total-material-question = "<?= $materialCounts['question'] ?>"
+			data-total-material-labreport = "<?= $materialCounts['labreport'] ?>"
+			data-total-request-note = "<?= $requestCounts['note'] ?>"
+			data-total-request-qustion = "<?= $requestCounts['question'] ?>"
+			data-total-request-labreport = "<?= $requestCounts['labreport'] ?>"
+			></canvas>
 		</div>
+		
+		<!-- suspend and active means no of materials / requests / projects / users in DB with status suspend and active  -->
+		<div class="chart-div suspend-active-div">
+			<canvas id="suspend-active-category-bar"
+			data-total-material-suspend = "<?= $materialCounts['suspend'] ?>"
+			data-total-request-suspend = "<?= $requestCounts['suspend'] ?>"
+			data-total-project-suspend = "<?= $projectCounts['suspend'] ?>"
+			data-total-user-suspend = "<?= $userCounts['suspend'] ?>"
+			data-total-material-active = "<?= $materialCounts['active'] ?>"
+			data-total-request-active = "<?= $requestCounts['active'] ?>"
+			data-total-project-active = "<?= $projectCounts['active'] ?>"
+			data-total-user-active = "<?= $userCounts['active'] ?>"
+			></canvas>
+		</div>
+
+		<!-- posts means no of materials / requests / projects in DB  -->
+		<div class="chart-div post-category-div">
+			<canvas id="total-post-category-doughnut"
+			data-total-material="<?= $materialCounts['total'] ?>"
+			data-total-request="<?= $requestCounts['total'] ?>"
+			data-total-project="<?= $projectCounts['total'] ?>"
+			data-responded-material="<?= $materialCounts['responded'] ?>"
+			></canvas>
+		</div>
+
+		<!-- users and reports means no of users and reports in DB  -->
+		<div class="chart-div user-category-div">
+			<canvas id="total-user-and-report-category-stack" 
+			data-user-student = "<?= $userCounts['student'] ?>"
+			data-user-teacher = "<?= $userCounts['teacher'] ?>"
+			data-user-institution = "<?= $userCounts['institution'] ?>"
+			data-report-pending = "<?= $reportCounts['pending'] ?>"
+			data-report-resolved = "<?= $reportCounts['resolved'] ?>"
+			></canvas>
+		</div>
+	</div>
 	<?php
 	View::renderPartial(
-		'AdminLogTable'
+		'../adminPartials/actionLogTable'
 		,
 		[
 			'logs' => $logs
@@ -194,50 +241,6 @@ View::renderPartial('AdminMenuHeader');
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		const ctx = document.getElementById('myChart').getContext('2d');
-
-		new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-				datasets: [
-					{
-						label: 'Fully Rounded',
-						data: [12, 19, 3, 5, 2, 3],
-						borderColor: 'red',
-						backgroundColor: 'rgba(255, 0, 0, 0.5)',
-						borderWidth: 2,
-						borderRadius: Number.MAX_VALUE,
-						borderSkipped: false,
-					},
-					{
-						label: 'Small Radius',
-						data: [2, 3, 20, 5, 1, 4],
-						borderColor: 'blue',
-						backgroundColor: 'rgba(0, 0, 255, 0.5)',
-						borderWidth: 2,
-						borderRadius: 5,
-						borderSkipped: false,
-					}
-				]
-			},
-			options: {
-				responsive: true,
-				plugins: {
-					legend: {
-						position: 'top',
-					},
-					title: {
-						display: true,
-						text: 'Chart.js Bar Chart'
-					}
-				}
-			},
-		});
-	});
-</script>
 
 <?php
 

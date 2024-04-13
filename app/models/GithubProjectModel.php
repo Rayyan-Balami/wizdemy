@@ -138,12 +138,6 @@ class GithubProjectModel extends Model
             ];
         }
     }
-    
-    public function getTotalProjectsCount()
-    {
-        $result = $this->count()->get();
-        return $result['total'];
-    }
     public function search($search)
     {
         return $this->select([
@@ -180,4 +174,15 @@ class GithubProjectModel extends Model
             ->limit(5)
             ->getAll();
     }
+
+
+    public function getCounts()
+    {
+        return [
+            'total' => $this->count()->get()['total'],
+            'active' => $this->count()->where('status = "active"')->get()['total'],
+            'suspend' => $this->count()->where('status = "suspend"')->get()['total']
+        ];
+    }
+
 }

@@ -2,7 +2,7 @@
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
-      <input type="text" name="email" id="search-input" placeholder="Search" class="search-input">
+      <input type="text" name="email" id="table-search-input" placeholder="Search ' MATERIALS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input">
     </div>
   </form>
   <div class="prev-next-wrapper">
@@ -48,6 +48,12 @@
           Details
         </th>
         <th>
+          Meta Datas
+        </th>
+        <th>
+          interactions
+        </th>
+        <th>
           Dates
         </th>
         <th>
@@ -61,8 +67,8 @@
         <tr>
           <td class="thumbnail-td">
             <a href="#" class="thumbnail"
-            title="Title:&#10;&#10;<?= $material['title'] ?>&#10;&#10;Description:&#10;&#10;<?= $material['description'] ?>">
-            <img src="/<?= $material['thumbnail_path'] ?>" alt="material thumbnail">
+              title="Title:&#10;&#10;<?= $material['title'] ?>&#10;&#10;Description:&#10;&#10;<?= $material['description'] ?>">
+              <img src="/<?= $material['thumbnail_path'] ?>" alt="material thumbnail">
             </a>
           </td>
           <td>
@@ -74,47 +80,82 @@
             <span title="Author | Source | Credits : <?= $material['author'] ?>">
               A | S | C:&nbsp;<?= $material['author'] ?>
             </span><br>
-            <a href="/admin/view/request/<?= $material['request_id'] ?>">
-                Responded To:&nbsp;<?= $material['username'] ?? '- - - - -' ?>
+            <?php if ($material['responded_to'] != ''): ?>
+              <a href="/admin/view/request/<?= $material['request_id'] ?>">
+                Responded To:&nbsp;<?= $material['responded_to'] ?>
               </a>
+            <?php endif ?>
           </td>
           <td class="post-details">
             <p title="Title: <?= $material['title'] ?>" class="title">
               Title:&nbsp;<?= $material['title'] ?>
             </p>
-            <span title="Subject: <?= $material['subject'] ?>" class="subject">
-            Subject:&nbsp;<?= $material['subject'] ?>
+            <span title="Description: <?= $material['description'] ?>" class="description">
+              Description:&nbsp;<?= $material['description'] ?>
             </span>
+          </td>
+          <td class="meta-datas">
+            <p title="Subject: <?= $material['subject'] ?>" class="subject">
+              Subject:&nbsp;<?= $material['subject'] ?>
+            </p>
             <div class="multi-span">
               <span title="Education Level: <?= $material['education_level'] ?>">
-              Edu Level:&nbsp;<?= $material['education_level'] ?>
+                Edu Lvl:&nbsp;<?= $material['education_level'] ?>
               </span>
               <span title="class/faclty: <?= $material['class_faculty'] ?>">
-              Class/Faculty:&nbsp;<?= $material['class_faculty'] ?>
+                Class/Faculty:&nbsp;<?= $material['class_faculty'] ?>
               </span>
-              <?php if ($material['semester'] != '') : ?>
+              <?php if ($material['semester'] != ''): ?>
                 <span title="Semester: <?= $material['semester'] ?>">
-                Semester:&nbsp;<?= $material['semester'] ?>
+                  Sem:&nbsp;<?= $material['semester'] ?>
                 </span>
               <?php endif ?>
             </div>
             <div class="multi-span">
               <span title="Dcoument Type: <?= $material['document_type'] ?>">
-              Doc Type:&nbsp;<?= $material['document_type'] ?>
+                Doc Type:&nbsp;<?= $material['document_type'] ?>
               </span>
               <span title="Format: <?= $material['format'] ?>">
-              Format:&nbsp;<?= $material['format'] ?>
+                Format:&nbsp;<?= $material['format'] ?>
               </span>
             </div>
-            <div class="multi-span">
-              <span title="Views: <?= $material['views_count'] ?>">
-              V:&nbsp;<?= $material['views_count'] ?>
-              </span> <span title="Likes: <?= $material['likes_count'] ?>">L:&nbsp;
-                <?= $material['likes_count'] ?>
-              </span> <span title="Comments: <?= $material['comments_count'] ?>">C:&nbsp;
-                <?= $material['comments_count'] ?>
-              </span>
-            </div>
+          </td>
+          <td class="interactions">
+            <span title="Views: <?= $material['views_count'] ?>">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
+                </path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                </path>
+              </svg>:&nbsp;<?= $material['views_count'] ?>
+            </span>
+            <br> <span title="Likes: <?= $material['likes_count'] ?>"><svg xmlns="http://www.w3.org/2000/svg" width="256"
+                height="256" viewBox="0 0 256 256">
+                <path fill="currentColor"
+                  d="M178 28c-20.09 0-37.92 7.93-50 21.56C115.92 35.93 98.09 28 78 28a66.08 66.08 0 0 0-66 66c0 72.34 105.81 130.14 110.31 132.57a12 12 0 0 0 11.38 0C138.19 224.14 244 166.34 244 94a66.08 66.08 0 0 0-66-66m-5.49 142.36a328.69 328.69 0 0 1-44.51 31.8a328.69 328.69 0 0 1-44.51-31.8C61.82 151.77 36 123.42 36 94a42 42 0 0 1 42-42c17.8 0 32.7 9.4 38.89 24.54a12 12 0 0 0 22.22 0C145.3 61.4 160.2 52 178 52a42 42 0 0 1 42 42c0 29.42-25.82 57.77-47.49 76.36">
+                </path>
+              </svg>:&nbsp;
+              <?= $material['likes_count'] ?>
+            </span>
+            <br> <span title="Comments: <?= $material['comments_count'] ?>"><svg viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path d="M7 7H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  </path>
+                  <path d="M7 11H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                  </path>
+                  <path
+                    d="M19 3H5C3.89543 3 3 3.89543 3 5V15C3 16.1046 3.89543 17 5 17H8L11.6464 20.6464C11.8417 20.8417 12.1583 20.8417 12.3536 20.6464L16 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+              </svg>:&nbsp;
+              <?= $material['comments_count'] ?>
+            </span>
           </td>
           <td>
             <p title="Last Updated: <?= $material['updated_at'] ?>">

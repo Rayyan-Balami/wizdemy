@@ -13,11 +13,11 @@ View::renderPartial('Header', [
     ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
     'currentPage' => $type == 'edit' ? 'Edit Admin' : 'Account Security',
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 $flashOld = Session::get('old');
 

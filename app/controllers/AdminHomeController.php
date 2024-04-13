@@ -10,23 +10,25 @@ class AdminHomeController extends Controller
   public function index()
   {
     $adminId = Session::get('admin')['admin_id'];
-    if (!$adminId) {
-      $this->redirect('/admin/login');
-      return;
-    }
-    $userCount = (new UserModel)->getTotalUsersCount();
-    $materialCount = (new StudyMaterialModel)->getTotalMaterialsCount();
-    $requestCount = (new StudyMaterialRequestModel)->getTotalRequestsCount();
-    $projectCount = (new GithubProjectModel)->getTotalProjectsCount();
+
+    $userCounts = (new UserModel)->getCounts();
+    $materialCounts = (new StudyMaterialModel)->getCounts();
+    $requestCounts = (new StudyMaterialRequestModel)->getCounts();
+    $projectCounts = (new GithubProjectModel)->getCounts();
+    $reportCounts = (new ReportModel)->getCounts();
+
     $myLogs = (new AdminActionLogModel())->getLogsByAdminId($adminId);
-    // dd(Session::get('admin'));
-    View::render('admin/dashboard', [
-      'userCount' => $userCount,
-      'materialCount' => $materialCount,
-      'requestCount' => $requestCount,
-      'projectCount' => $projectCount,
-      'logs' => $myLogs
-    ]);
+
+    View::render('admin/dashboard',
+      [
+        'userCounts' => $userCounts,
+        'materialCounts' => $materialCounts,
+        'requestCounts' => $requestCounts,
+        'projectCounts' => $projectCounts,
+        'reportCounts' => $reportCounts,
+        'logs' => $myLogs
+      ]
+    );
   }
 
 
@@ -47,7 +49,7 @@ class AdminHomeController extends Controller
     ]);
   }
 
-  public function viewLog($targetType, $targetId){
+  public function view($targetType, $targetId){
     switch ($targetType) {
       case 'user':
         $target = (new UserProfileViewModel())->getUserById($targetId);
@@ -58,19 +60,19 @@ class AdminHomeController extends Controller
       case 'material':
         $target = (new MaterialViewModel())->getMaterialDetailById($targetId);
         View::render('admin/materialManagement', [
-          'material' => [$target]
+          'materials' => [$target]
         ]);
         break;
       case 'request':
         $target = (new StudyMaterialRequestModel())->getRequestDetailById($targetId);
         View::render('admin/requestManagement', [
-          'request' => [$target]
+          'requests' => [$target]
         ]);
         break;
       case 'project':
         $target = (new GithubProjectModel())->getProjectDetailById($targetId);
         View::render('admin/projectManagement', [
-          'project' => [$target]
+          'projects' => [$target]
         ]);
         break;
       case 'admin':

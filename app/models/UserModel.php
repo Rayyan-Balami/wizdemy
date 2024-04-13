@@ -276,10 +276,16 @@ class UserModel extends Model
             ];
         }
     }
-    public function getTotalUsersCount()
-    {
-        $result = $this->count()->get();
-        return $result['total'];
+
+    public function getCounts(){
+        return [
+            'total' => $this->count()->get()['total'],
+            'active' => $this->count()->where('status = "active"')->get()['total'],
+            'suspend' => $this->count()->where('status = "suspend"')->get()['total'],
+            'student' => $this->count()->where('user_type = "student"')->get()['total'],
+            'teacher' => $this->count()->where('user_type = "teacher"')->get()['total'],
+            'institution' => $this->count()->where('user_type = "institution"')->get()['total'],
+        ];
     }
 
 }

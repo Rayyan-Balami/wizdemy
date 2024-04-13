@@ -54,7 +54,7 @@ class AuthController extends Controller
         'username' => $result['user']['username'],
         'email' => $result['user']['email'],
       ]);
-      $this->redirect('/');
+      $this->previousUrl();
     }
 
     Session::flash('errors', ['login' => $result['message']]);

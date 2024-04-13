@@ -17,11 +17,11 @@ View::renderPartial('Header', [
   ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
   'currentPage' => 'userManagement'
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 ?>
 
@@ -30,7 +30,7 @@ View::renderPartial('AdminMenuHeader');
   if (!empty($users)){
 
     View::renderPartial(
-      'AdminUserListTable'
+      '../adminPartials/userTable'
       ,
       [
         'users' => $users

@@ -13,18 +13,18 @@ View::renderPartial('Header', [
   ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
   'currentPage' => 'requestManagement'
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 ?>
 
 <section>
 <?php
 if (!empty($requests)) {
-  View::renderPartial('AdminRequestListTable', [
+  View::renderPartial('../adminPartials/requestTable', [
     'requests' => $requests
   ]);
 } else {

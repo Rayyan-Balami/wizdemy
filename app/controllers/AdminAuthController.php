@@ -50,7 +50,7 @@ class AdminAuthController extends Controller
         'username' => $result['admin']['username'],
         'email' => $result['admin']['email'],
       ]);
-      $this->redirect('/admin/dashboard');
+      $this->previousUrl();
     }
 
     Session::flash('errors', ['login' => $result['message']]);

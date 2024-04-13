@@ -202,6 +202,15 @@ class AdminModel extends Model
     }
 
   }
+
+  public function getCounts()
+  {
+    return [
+      'total' => $this->count()->get()['total'],
+      'active' => $this->count()->where('status = "active" AND admin_id <> 1')->get()['total'],
+      'suspend' => $this->count()->where('status = "suspend" AND admin_id <> 1')->get()['total']
+    ];
+  }
 }
 
 

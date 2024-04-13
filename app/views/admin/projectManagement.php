@@ -14,18 +14,18 @@ View::renderPartial('Header', [
   ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
   'currentPage' => 'projectManagement'
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 ?>
 
 <section>
 <?php
 if (!empty($projects)) {
-  View::renderPartial('AdminProjectListTable', [
+  View::renderPartial('../adminPartials/projectTable', [
     'projects' => $projects
   ]);
 } else {

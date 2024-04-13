@@ -60,7 +60,7 @@ class AdminManageUserController extends Controller
     $user = $this->model->userDetails($user_id);
     if (!$user) {
       Session::flash('error', ['message' => 'Invalid user']);
-      $this->redirect('/admin/manage/users');
+      $this->redirect('/admin/manage/user');
       return;
     }
 

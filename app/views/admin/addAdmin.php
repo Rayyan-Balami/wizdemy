@@ -13,11 +13,11 @@ View::renderPartial('Header', [
     ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
     'currentPage' => 'addAdminForm',
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 $flashOld = Session::get('old');
 

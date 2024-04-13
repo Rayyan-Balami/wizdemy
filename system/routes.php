@@ -135,7 +135,7 @@ $router->get('/admin/dashboard', 'AdminHomeController@index')->only('admin');
 
 
 //routes for admin users management
-$router->get('/admin/manage/users', 'AdminManageUserController@index')->only('admin');
+$router->get('/admin/manage/user', 'AdminManageUserController@index')->only('admin');
 $router->post('/api/admin/update/users/status', 'AdminManageUserController@updateUserStatus')->only('apiAdmin');
 $router->delete('/api/admin/delete/user/{user_id}', 'AdminManageUserController@delete')->only('apiAdmin');
 // $router->get('/admin/edit/user', 'AdminManageUserController@edit')->only('admin');
@@ -146,13 +146,13 @@ $router->put('/admin/update/user/password/{user_id}', 'AdminManageUserController
 
 
 //routes for admin project management
-$router->get('/admin/manage/projects', 'AdminManageProjectController@index')->only('admin');
+$router->get('/admin/manage/project', 'AdminManageProjectController@index')->only('admin');
 
 //routes for admin requests management
 $router->get('/admin/manage/material', 'AdminManageMaterialController@index')->only('admin');
 
 //routes for admin materials management
-$router->get('/admin/manage/requests', 'AdminManageRequestController@index')->only('admin');
+$router->get('/admin/manage/request', 'AdminManageRequestController@index')->only('admin');
 
 
 // routes for admin manage admin
@@ -170,7 +170,9 @@ $router->get('/admin/accountSecurity', 'AdminHomeController@accountSecurity')->o
 
 //routes for admin log
 $router->get('/admin/log', 'AdminHomeController@adminLog')->only('admin');
-$router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@viewLog')->only('admin');
+$router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@view')->only('admin');
 
+//routes for admin manage report
+$router->get('/admin/manage/report', 'AdminManageReportController@index')->only('admin');
 //routes for infinite scroll
-$router->get('/api/infinite-scroll', 'InfiniteScrollController@index');
+$router->get('/api/infinite-scroll', 'InfiniteScrollController@index')->only('admin');

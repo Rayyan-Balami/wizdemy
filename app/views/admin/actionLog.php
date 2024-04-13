@@ -16,31 +16,24 @@ View::renderPartial('Header', [
   ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
   'currentPage' => 'adminLog'
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 ?>
 
 <section>
+
   <?php
   if (!empty($logs)){
-
-    View::renderPartial(
-      'AdminLogTable'
-      ,
-      [
-        'logs' => $logs
-      ]
-    );
+    View::renderPartial('../adminPartials/actionLogTable',['logs' => $logs]);
   } else {
     View::renderPartial('ZeroResult');
   }
-
-  ?> 
-  </pre>
+  ?>
+  
 </section>
 </main>
 <?php

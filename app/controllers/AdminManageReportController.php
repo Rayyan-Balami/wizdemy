@@ -4,14 +4,14 @@ class AdminManageReportController extends Controller
 {
   public function __construct()
   {
-    parent::__construct(new UserModel());
+    parent::__construct(new ReportModel());
   }
 
   public function index()
   {
-    $users = $this->model->getUsersForAdmin();
-    View::render('admin/userManagement', [
-      'users' => $users
+    $reports = $this->model->showAdmin();
+    View::render('admin/reportManagement', [
+      'reports' => $reports
     ]);
   }
 }

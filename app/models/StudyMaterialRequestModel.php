@@ -170,11 +170,7 @@ class StudyMaterialRequestModel extends Model
             ];
         }
     }
-    public function getTotalRequestsCount()
-    {
-        $result = $this->count()->get();
-        return $result['total'];
-    }
+
     public function search($search, $document_type = 'note')
     {
         $current_user = Session::get('user')['user_id'] ?? null;
@@ -221,5 +217,17 @@ class StudyMaterialRequestModel extends Model
             ])
             ->limit(5)
             ->getAll();
+    }
+
+    public function getCounts()
+    {
+        return [
+            'total' => $this->count()->get()['total'],
+            'active' => $this->count()->where('status = "active"')->get()['total'],
+            'suspend' => $this->count()->where('status = "suspend"')->get()['total'],
+            'note' => $this->count()->where('document_type = "note"')->get()['total'],
+            'question' => $this->count()->where('document_type = "question"')->get()['total'],
+            'labreport' => $this->count()->where('document_type = "labreport"')->get()['total'],
+        ];
     }
 }

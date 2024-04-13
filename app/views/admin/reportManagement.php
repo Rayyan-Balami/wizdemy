@@ -1,23 +1,23 @@
-<?php 
+<?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+  'pageTitle' => SITE_NAME . ' | Report Management',
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',
   ],
   'scripts' => [
     'script',
-    'toastTimer',
     'jquery.min',
+    'toastTimer',
+    'adminTable',
     'confirmModal',
-    'adminAdmin',
-    'adminTable', 
+    'adminTable',
   ]
 ]);
 
 View::renderPartial('../adminPartials/sideNav', [
-  'currentPage' => 'adminManagement'
+  'currentPage' => 'reportManagement'
 ]);
 
 View::renderPartial('../adminPartials/menuHeader');
@@ -25,18 +25,17 @@ View::renderPartial('../adminPartials/menuHeader');
 ?>
 
 <section>
-<?php
-if (!empty($admins)) {
-  View::renderPartial('../adminPartials/adminTable', [ "admins" => $admins,]);
-} else {
-  View::renderPartial('ZeroResult');
-}
 
-?>
+  <?php
+  if (!empty($reports)){
+    View::renderPartial('../adminPartials/reportTable',['reports' => $reports]);
+  } else {
+    View::renderPartial('ZeroResult');
+  }
+  ?>
+  
 </section>
-
 </main>
-
 <?php
 
 View::renderPartial('ToastNotification');

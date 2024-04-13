@@ -83,7 +83,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/manage/requests"
+                    <a href="/admin/manage/request"
                         class="menu-links <?= $currentPage === 'requestManagement' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -100,7 +100,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/manage/projects"
+                    <a href="/admin/manage/project"
                         class="menu-links <?= $currentPage === 'projectManagement' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor">
@@ -132,7 +132,7 @@
             <h2 class="menu-section-category">Reports Management</h2>
             <ul>
                 <li>
-                    <a href="/profile" class="menu-links <?= $currentPage === 'profile' ? 'is-active' : ''; ?>">
+                    <a href="/admin/manage/report" class="menu-links <?= $currentPage === 'profile' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -155,7 +155,7 @@
             <h2 class="menu-section-category">Users Management</h2>
             <ul>
                 <li>
-                    <a href="/admin/manage/users"
+                    <a href="/admin/manage/user"
                         class="menu-links <?= $currentPage === 'userManagement' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

@@ -120,9 +120,16 @@ class StudyMaterialModel extends Model
             ];
         }
     }
-    public function getTotalMaterialsCount()
-    {
-        $result = $this->count()->get();
-        return $result['total'];
+
+    public function getCounts(){
+        return [
+            'total' => $this->count()->get()['total'],
+            'note' => $this->count()->where('document_type = "note"')->get()['total'],
+            'question' => $this->count()->where('document_type = "question"')->get()['total'],
+            'labreport' => $this->count()->where('document_type = "labreport"')->get()['total'],
+            'active' => $this->count()->where('status = "active"')->get()['total'],
+            'suspend' => $this->count()->where('status = "suspend"')->get()['total'],
+            'responded' => $this->count()->where('request_id IS NOT NULL')->get()['total'],
+        ];
     }
 }

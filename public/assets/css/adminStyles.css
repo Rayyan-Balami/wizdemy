@@ -81,6 +81,7 @@
   margin-top: 0.25rem;
 }
 
+
 .card-section {
   gap: 1.5rem /* 24px */;
   margin-bottom: 1.5rem;
@@ -148,4 +149,43 @@
 
 .admin-card > .view-all-anchor:hover {
   background-color: rgb(55 65 81);
+}
+
+.chart-section {
+  display: grid;
+  padding: 1.5rem 1rem; /* 24px 16px */
+  gap: 1.5rem /* 24px */;
+  margin-bottom: 1.5rem;
+}
+
+@media (width > 640px) {
+  .chart-section{
+    padding: 1.5rem /* 16px 24px */;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width > 768px) {
+.category-in-post {
+  grid-row: span 3;
+}
+}
+
+@media (width > 1280px) {
+  .card-section,
+  .chart-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .suspend-active-div{
+    grid-column: span 2;
+  }
+  .category-in-post {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
 }

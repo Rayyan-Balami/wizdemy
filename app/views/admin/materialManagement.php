@@ -14,18 +14,18 @@ View::renderPartial('Header', [
   ]
 ]);
 
-View::renderPartial('AdminSideNav', [
+View::renderPartial('../adminPartials/sideNav', [
   'currentPage' => 'materialManagement'
 ]);
 
-View::renderPartial('AdminMenuHeader');
+View::renderPartial('../adminPartials/menuHeader');
 
 ?>
 
 <section>
 <?php
 if (!empty($materials)) {
-  View::renderPartial('AdminMaterialListTable', [
+  View::renderPartial('../adminPartials/materialTable', [
     'materials' => $materials
   ]);
 } else {

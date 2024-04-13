@@ -1,7 +1,7 @@
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
-      <input type="text" name="email" id="search-input" placeholder="Search" class="search-input">
+      <input type="text" name="email" id="table-search-input" placeholder="Search ' USERS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input">
     </div>
   </form>
   <div class="prev-next-wrapper">
@@ -67,7 +67,7 @@
           </td>
           <td>
             <p title="User Type">
-              <?= $user['user_type'] ?? ' > . < ' ?>
+              <?= $user['user_type'] ?? '- - - -' ?>
             </p>
             <span title="Education Level">
               <?= $user['education_level'] ?? '- - - -' ?>

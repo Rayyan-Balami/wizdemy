@@ -1,7 +1,8 @@
+<?php //dd($requests); ?>
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
-      <input type="text" name="email" id="search-input" placeholder="Search" class="search-input">
+      <input type="text" name="email" id="table-search-input" placeholder="Search ' REQUESTS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input">
     </div>
   </form>
   <div class="prev-next-wrapper">
@@ -38,10 +39,13 @@
     <thead>
       <tr>
         <th>
-          Thumbnail
+          User
         </th>
         <th>
-          User
+          Details
+        </th>
+        <th>
+          Meta Datas
         </th>
         <th>
           Dates
@@ -52,42 +56,64 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($projects as $project):
-        $repo_info = str_replace("https://github.com/", "", $project['repo_link']);
-        //explode the repo_info to get the owner and repo name
-        $owner = explode("/", $repo_info)[0];
-        $repo = explode("/", $repo_info)[1];
+      <?php foreach ($requests as $request):
         ?>
         <tr>
-          <td class="thumbnail-td">
-            <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail"
-            title="<?= $repo ?>">
-              <img src="https://opengraph.githubassets.com/wizdemy/<?= $repo_info ?>" alt="github repo thumbnail">
-            </a>
-          </td>
           <td>
-            <p title="Uploaded By : <?= $project['username'] ?> | Click to View">
-              <a href="/admin/view/user/<?= $project['user_id'] ?>">
-                User:&nbsp;<?= $project['username'] ?>
+            <p title="Uploaded By : <?= $request['username'] ?> | Click to View">
+              <a href="/admin/view/user/<?= $request['user_id'] ?>">
+                User:&nbsp;<?= $request['username'] ?>
               </a>
             </p>
-            <span title="Owner : <?= $owner ?>">
-              Owner:&nbsp;<?= $owner ?>
+            <span title="No of Responds : <?= $request['no_of_materials'] ?>">
+              Responds Received:&nbsp;<?= $request['no_of_materials'] ?>
+            </span><br>
+          </td>
+          <td class="post-details">
+            <p title="Title: <?= $request['title'] ?>" class="title">
+              Title:&nbsp;<?= $request['title'] ?>
+            </p>
+            <span title="Description: <?= $request['description'] ?>" class="description">
+              Description:&nbsp;<?= $request['description'] ?>
             </span>
           </td>
-          <td>
-            <p title="Last Updated: <?= $project['updated_at'] ?>">
-              Updated:&nbsp;<?= date('d M Y', strtotime($project['updated_at'])) ?>
+          <td class="meta-datas">
+            <p title="Subject: <?= $request['subject'] ?>" class="subject">
+              Subject:&nbsp;<?= $request['subject'] ?>
             </p>
-            <span title="Joined At: <?= $project['created_at'] ?>">
-              Created:&nbsp;<?= date('d M Y', strtotime($project['created_at'])) ?>
+            <div class="multi-span">
+              <span title="Education Level: <?= $request['education_level'] ?>">
+                Edu Lvl:&nbsp;<?= $request['education_level'] ?>
+              </span>
+              <span title="class/faclty: <?= $request['class_faculty'] ?>">
+                Class/Faculty:&nbsp;<?= $request['class_faculty'] ?>
+              </span>
+              <?php if ($request['semester'] != ''): ?>
+                <span title="Semester: <?= $request['semester'] ?>">
+                  Sem:&nbsp;<?= $request['semester'] ?>
+                </span>
+              <?php endif ?>
+            </div>
+            <div class="multi-span">
+              <span title="Dcoument Type: <?= $request['document_type'] ?>">
+                Doc Type:&nbsp;<?= $request['document_type'] ?>
+              </span>
+              
+            </div>
+          </td>
+          <td>
+            <p title="Last Updated: <?= $request['updated_at'] ?>">
+              Updated:&nbsp;<?= date('d M Y', strtotime($request['updated_at'])) ?>
+            </p>
+            <span title="Joined At: <?= $request['created_at'] ?>">
+              Created:&nbsp;<?= date('d M Y', strtotime($request['created_at'])) ?>
             </span>
           </td>
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
-              <button class="suspend-btn" data-status="<?= $project['status'] == 'suspend' ? 'suspend' : '' ?>"
-                onclick="updateprojectStatus(<?= $project['project_id'] ?>, this)">
+              <button class="suspend-btn" data-status="<?= $request['status'] == 'suspend' ? 'suspend' : '' ?>"
+                onclick="updaterequeststatus(<?= $request['request_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" d="M16 12H8" />
@@ -96,7 +122,7 @@
                 </svg>
               </button>
               <!-- delete button  -->
-              <button class="delete-btn" onclick="deleteproject(<?= $project['project_id'] ?>,this)">
+              <button class="delete-btn" onclick="deleterequest(<?= $request['request_id'] ?>,this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" fill-rule="evenodd"
                     d="M10.31 2.25h3.38c.217 0 .406 0 .584.028a2.25 2.25 0 0 1 1.64 1.183c.084.16.143.339.212.544l.111.335a1.25 1.25 0 0 0 1.263.91h3a.75.75 0 0 1 0 1.5h-17a.75.75 0 0 1 0-1.5h3.09a1.25 1.25 0 0 0 1.173-.91l.112-.335c.068-.205.127-.384.21-.544a2.25 2.25 0 0 1 1.641-1.183c.178-.028.367-.028.583-.028m-1.302 3a2.757 2.757 0 0 0 .175-.428l.1-.3c.091-.273.112-.328.133-.368a.75.75 0 0 1 .547-.395a3.2 3.2 0 0 1 .392-.009h3.29c.288 0 .348.002.392.01a.75.75 0 0 1 .547.394c.021.04.042.095.133.369l.1.3l.039.112c.039.11.085.214.136.315z"
