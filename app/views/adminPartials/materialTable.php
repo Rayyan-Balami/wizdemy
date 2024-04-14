@@ -2,13 +2,16 @@
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
-      <input type="text" name="email" id="table-search-input"
+      <input type="text" name="query" id="table-search-input"
         placeholder="Search ' MATERIALS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺"
-        class="search-input">
+        class="search-input"
+        value="<?= $query ?? '' ?>">
+        
     </div>
   </form>
   <div class="prev-next-wrapper">
-    <button class="prev-btn">
+    <a class="prev-btn <?= $page == 1 ? 'disabled' : '' ?>"
+      href="/admin/manage/material?page=<?= $page - 1 ? $page - 1 : 1 ?>&query=<?= $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -18,8 +21,9 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
-    <button class="next-btn">
+    </a>
+    <a class="next-btn <?= ($page - 1) * 10 + count($materials) >= $total ? 'disabled' : '' ?>"
+      href="/admin/manage/material?page=<?= $page + 1 ?>&query=<?= $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -29,9 +33,12 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
+    </a>
     <div class="table-info">
-      1-20 of 100
+
+      <?= ($page - 1) * 10 + 1 ?>
+      - <?= ($page - 1) * 10 + count($materials) ?>
+      of <?= $totalData ?? 0 ?>
     </div>
   </div>
 </div>

@@ -28,7 +28,10 @@ View::renderPartial('../adminPartials/menuHeader');
 <?php
 if (!empty($materials)) {
   View::renderPartial('../adminPartials/materialTable', [
-    'materials' => $materials
+    'materials' => $materials,
+    'page' => $page,
+    'totalData' => $totalData,
+    'query' => $query
   ]);
 } else {
   View::renderPartial('ZeroResult');

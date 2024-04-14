@@ -17,14 +17,6 @@ class UserProfileViewModel extends Model
       ->bind(['user_id' => $user_id])
       ->get();
   }
-  public function getAllUsers()
-  {
-    return $this->select([
-      'upv.*'
-    ], 'upv')
-    ->orderBy('upv.created_at', 'DESC')
-      ->getAll();
-  }
 
   public function getUserById($user_id)
   {
@@ -61,4 +53,27 @@ class UserProfileViewModel extends Model
       ->getAll();
   }
 
+  public function getUserForAdmin($search, $page = 1)
+  {
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
+    return $this->select([
+      'upv.*'
+    ], 'upv')
+      ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
+      ->bind(['search' => '%' . $search . '%'])
+      ->orderBy('upv.created_at', 'DESC')
+      ->limit($limit)
+      ->offset($offset)
+      ->getAll();
+  }
+  public function getUserCountForAdmin($search)
+  {
+    return $this->select([
+      'COUNT(upv.user_id) as total'
+    ], 'upv')
+      ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
+      ->bind(['search' => '%' . $search . '%'])
+      ->get()['total'];
+  }
 }

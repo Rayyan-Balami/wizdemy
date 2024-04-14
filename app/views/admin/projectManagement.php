@@ -28,7 +28,10 @@ View::renderPartial('../adminPartials/menuHeader');
 <?php
 if (!empty($projects)) {
   View::renderPartial('../adminPartials/projectTable', [
-    'projects' => $projects
+    'projects' => $projects,
+    'totalData' => $totalData,
+    'page' => $page,
+    'query' => $query,
   ]);
 } else {
   View::renderPartial('ZeroResult');

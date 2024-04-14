@@ -9,9 +9,21 @@ class AdminManageMaterialController extends Controller
 
   public function index()
   {
-    $materials = (new MaterialViewModel())->showAdmin();
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
+
+    $materials = (new MaterialViewModel())->getMaterialsForAdmin($query, $page);
+    $totalData = (new MaterialViewModel())->getMaterialsCountForAdmin($query);
+
     View::render('admin/materialManagement', [
-      'materials' => $materials
+      'materials' => $materials,
+      'totalData' => $totalData,
+      'page' => $page,
+      'query' => $query
+      
     ]);
   }
 

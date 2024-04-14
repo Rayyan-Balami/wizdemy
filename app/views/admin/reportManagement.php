@@ -27,13 +27,18 @@ View::renderPartial('../adminPartials/menuHeader');
 <section>
 
   <?php
-  if (!empty($reports)){
-    View::renderPartial('../adminPartials/reportTable',['reports' => $reports]);
+  if (!empty($reports)) {
+    View::renderPartial('../adminPartials/reportTable', [
+      'reports' => $reports,
+      'page' => $page,
+      'totalData' => $totalData,
+      'query' => $query
+    ]);
   } else {
     View::renderPartial('ZeroResult');
   }
   ?>
-  
+
 </section>
 </main>
 <?php

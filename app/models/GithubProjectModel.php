@@ -168,7 +168,7 @@ class GithubProjectModel extends Model
             'suspend' => $this->count()->where('status = "suspend"')->get()['total']
         ];
     }
-    public function getProjectsForAdmin($search, $page)
+    public function getProjectsForAdmin($search, $page=1)
     {
         $limit = 10;
         $offset = ($page - 1) * $limit;

@@ -27,7 +27,10 @@ View::renderPartial('../adminPartials/menuHeader');
 <?php
 if (!empty($requests)) {
   View::renderPartial('../adminPartials/requestTable', [
-    'requests' => $requests
+    'requests' => $requests,
+    'page' => $page,
+    'totalData' => $totalData,
+    'query' => $query
   ]);
 } else {
   View::renderPartial('ZeroResult');
