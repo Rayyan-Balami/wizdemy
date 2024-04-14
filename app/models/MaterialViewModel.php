@@ -147,6 +147,7 @@ class MaterialViewModel extends Model
         return $this->select([
             'DISTINCT mv.*',
         ], 'mv')
+        ->leftJoin('users as u', 'u.user_id = mv.user_id')
             ->where('
             mv.title LIKE :query 
         OR mv.description LIKE :query
@@ -157,8 +158,8 @@ class MaterialViewModel extends Model
         OR mv.author LIKE :query
         OR mv.class_faculty LIKE :query
         OR mv.semester LIKE :query
-        OR mv.username LIKE :query
         OR mv.status LIKE :query
+        OR u.username LIKE :query
         ')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('mv.created_at', 'DESC')
@@ -171,8 +172,7 @@ class MaterialViewModel extends Model
         return $this->select([
             'COUNT(DISTINCT mv.material_id) as total'
         ], 'mv')
-            ->leftJoin('users as u', 'u.user_id = mv.user_id')
-
+        ->leftJoin('users as u', 'u.user_id = mv.user_id')
             ->where('
             mv.title LIKE :query 
         OR mv.description LIKE :query
@@ -183,7 +183,7 @@ class MaterialViewModel extends Model
         OR mv.author LIKE :query
         OR mv.class_faculty LIKE :query
         OR mv.semester LIKE :query
-        OR mv.username LIKE :query
+        OR u.username LIKE :query
         OR mv.status LIKE :query')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
