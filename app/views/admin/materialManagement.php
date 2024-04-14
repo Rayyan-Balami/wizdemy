@@ -26,7 +26,7 @@ View::renderPartial('../adminPartials/menuHeader');
 
 <section>
 <?php
-if (!empty($materials)) {
+ if (!empty($materials) || !empty($query)) {
   View::renderPartial('../adminPartials/materialTable', [
     'materials' => $materials,
     'page' => $page,

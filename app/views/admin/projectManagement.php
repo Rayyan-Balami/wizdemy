@@ -26,7 +26,7 @@ View::renderPartial('../adminPartials/menuHeader');
 
 <section>
 <?php
-if (!empty($projects)) {
+ if (!empty($projects) || !empty($query)) {
   View::renderPartial('../adminPartials/projectTable', [
     'projects' => $projects,
     'totalData' => $totalData,
