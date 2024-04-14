@@ -11,6 +11,7 @@ let searchList = [];
 
 function openSearchModal() {
   searchOverlay.classList.add("open");
+  document.body.classList.add("menu-open");
   searchField.focus();
   renderSearchHistory();
 }
@@ -24,6 +25,7 @@ document.addEventListener("keydown", function (e) {
     e.preventDefault(); // prevent the default behavior of the key press
     if (searchOverlay.classList.contains("open")) {
       searchOverlay.classList.remove("open");
+      document.body.classList.remove("menu-open");
     } else {
       openSearchModal();
     }

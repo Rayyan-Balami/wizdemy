@@ -175,4 +175,4 @@ $router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@view')-
 //routes for admin manage report
 $router->get('/admin/manage/report', 'AdminManageReportController@index')->only('admin');
 //routes for infinite scroll
-$router->get('/api/infinite-scroll', 'InfiniteScrollController@index')->only('admin');
+$router->get('/api/infinite-scroll', 'InfiniteScrollController@index')->only('apiAuth');

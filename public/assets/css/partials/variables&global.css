@@ -145,8 +145,7 @@ form > button {
 }
 
 @media (width <= 1280px) {
-  .smallClientAlert,
-  .spinner {
+  .smallClientAlert{
     translate: -50%;
   }
 }

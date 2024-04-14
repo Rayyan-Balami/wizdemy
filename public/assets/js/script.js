@@ -70,9 +70,6 @@ function smallClientAlert(message) {
       Alert.remove();
     }, 500);
   }, 3000);
-
-  // window.scrollTo(0, document.body.scrollHeight);
-
 }
 
 // smallClientAlert("This is a small alert message");
