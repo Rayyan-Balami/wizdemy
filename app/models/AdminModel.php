@@ -57,7 +57,7 @@ class AdminModel extends Model
         OR status LIKE :query
         )')
       ->bind(['query' => "%$query%"])
-      ->get();
+      ->get()['total'];
   }
 
   public function getAdminById($admin_id)

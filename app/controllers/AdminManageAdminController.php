@@ -21,7 +21,7 @@ class AdminManageAdminController extends Controller
     }
 
     $admins = $this->model->getAllAdmins($query, $page);
-    $totalData = $this->model->getAdminCount($query);
+    $totalData = $this->model->getAdminsCount($query);
 
 
     View::render('admin/adminManagement', [
@@ -29,7 +29,6 @@ class AdminManageAdminController extends Controller
       'totalData' => $totalData,
       'page' => $page,
       'query' => $query
-      
     ]);
   }
   public function updateAdminStatus()

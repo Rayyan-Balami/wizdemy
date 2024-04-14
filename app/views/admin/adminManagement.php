@@ -28,7 +28,12 @@ View::renderPartial('../adminPartials/menuHeader');
 <section>
 <?php
 if (!empty($admins)) {
-  View::renderPartial('../adminPartials/adminTable', [ "admins" => $admins,]);
+  View::renderPartial('../adminPartials/adminTable', [ 
+    "admins" => $admins,
+    "page" => $page,
+    "totalData" => $totalData,
+    "query" => $query
+  ]);
 } else {
   View::renderPartial('ZeroResult');
 }
