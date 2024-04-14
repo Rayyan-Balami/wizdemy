@@ -60,7 +60,12 @@ class ReportModel extends Model
             'u.email',
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
-            ->where('r.title LIKE :query OR r.description LIKE :query')
+            ->where('r.title LIKE :query 
+            OR r.description LIKE :query
+            OR u.username LIKE :query
+            OR u.email LIKE :query
+            OR r.target_type LIKE :query
+            OR r.status LIKE :query')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('r.created_at', 'DESC')
             ->limit($limit)
@@ -94,7 +99,7 @@ class ReportModel extends Model
             'COUNT(r.report_id) as total'
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
-            ->where('r.title LIKE :query OR r.description LIKE :query')
+            ->where('r.title LIKE :query OR r.description LIKE :query OR u.username LIKE :query OR u.email LIKE :query OR r.target_type LIKE :query OR r.status LIKE :query')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
     }
