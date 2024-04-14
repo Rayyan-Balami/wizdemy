@@ -1,5 +1,5 @@
 <div class="table-menus">
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+  <form action="#" method="get">
     <div class="search-field">
       <input 
       type="text" 

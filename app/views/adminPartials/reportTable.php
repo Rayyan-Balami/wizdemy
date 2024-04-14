@@ -1,6 +1,6 @@
 <?php //dd($reports) ?>
 <div class="table-menus">
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="search-form">
+  <form action="#" method="get" class="search-form">
     <div class="search-field">
       <input 
       type="text" 
