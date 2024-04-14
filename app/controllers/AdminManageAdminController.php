@@ -13,6 +13,9 @@ class AdminManageAdminController extends Controller
       Session::flash('error', ["unauthorized" => "You are not authorized to access this page"]);
       $this->redirect('/admin/dashboard');
     }
+
+    $query = $_GET['query'] ?? '';
+    
     $admins = $this->model->getAllAdmins();
 
     View::render('admin/adminManagement', ['admins' => $admins]);

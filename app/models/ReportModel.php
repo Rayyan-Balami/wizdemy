@@ -88,7 +88,7 @@ class ReportModel extends Model
         }
     }
 
-    public function getCounts()
+    public function getReportCountForAdmin($query)
     {
         return $this->select([
             'COUNT(r.report_id) as total'
