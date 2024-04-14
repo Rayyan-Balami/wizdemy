@@ -237,7 +237,7 @@ class UserModel extends Model
             ->bind(['user_id' => $user_id])
             ->get();
     }
-    public function updateUserStatus($user_id, $status)
+    public function updateStatus($user_id, $status)
     {
         $result = $this->update([
             'status' => $status

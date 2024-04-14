@@ -69,23 +69,7 @@ class GithubProjectModel extends Model
             ->orderBy('p.created_at', 'DESC')
             ->getAll();
     }
-   
-    public function getProjectsForAdmin()
-    {
-        {
-            //join user table and github_projects table to get username,user_id,project_id,repo_link
-            return $this->select([
-                'u.user_id',
-                'u.username',
-                'u.full_name',
-                'p.*'
-            ], 'p')
-            ->leftJoin('users as u', 'u.user_id = p.user_id')
-                ->orderBy('p.created_at', 'DESC')
-                // ->limit(10)
-                ->getAll();
-        }
-    }
+
 
     public function getProjectDetailById($project_id)
     {
@@ -107,12 +91,12 @@ class GithubProjectModel extends Model
             ->where('project_id = :project_id')
             ->appendBindings(['project_id' => $project_id])
             ->execute();
-        if($result){
+        if ($result) {
             return [
                 'status' => true,
                 'message' => 'Project updated successfully'
             ];
-        }else{
+        } else {
             return [
                 'status' => false,
                 'message' => 'Project update failed'
@@ -126,12 +110,12 @@ class GithubProjectModel extends Model
             ->where('project_id = :project_id')
             ->bind(['project_id' => $project_id])
             ->execute();
-        if($result){
+        if ($result) {
             return [
                 'status' => true,
                 'message' => 'Project deleted successfully'
             ];
-        }else{
+        } else {
             return [
                 'status' => false,
                 'message' => 'Project deletion failed'
@@ -184,5 +168,65 @@ class GithubProjectModel extends Model
             'suspend' => $this->count()->where('status = "suspend"')->get()['total']
         ];
     }
+    public function getProjectsForAdmin($search, $page)
+    {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+        return $this->select([
+            'u.user_id',
+            'u.username',
+            'u.full_name',
+            'p.*',
+        ], 'p')
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+            ->where('
+            p.repo_link LIKE :search 
+        OR u.username LIKE :search 
+        OR u.full_name LIKE :search')
+            ->bind([
+                'search' => "%$search%",
+            ])
+            ->orderBy('p.created_at', 'DESC')
+            ->limit($limit)
+            ->offset($offset)
+            ->getAll();
+    }
+    public function getProjectCountForAdmin($search)
+    {
+        return $this->select([
+            'COUNT(*) as total'
+        ],'p'
+        )
+            ->leftJoin('users as u', 'u.user_id = p.user_id')
+            ->where('
+            p.repo_link LIKE :search 
+        OR u.username LIKE :search 
+        OR u.full_name LIKE :search
+        ')
+            ->bind([
+                'search' => "%$search%"
+            ])
+            ->get()['total'];
+    }
+    public function updateStatus($project_id, $status)
+    {
+        $update = $this->update([
+            'status' => $status
+        ])
+            ->where('project_id = :project_id')
+            ->appendBindings(['project_id' => $project_id])
+            ->execute();
 
+        if ($update) {
+            return [
+                'status' => true,
+                'message' => 'Project status updated successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Project status update failed'
+            ];
+        }
+    }
 }

@@ -13,7 +13,7 @@ View::renderPartial('Header', [
     'adminTable',
     'confirmModal',
     'adminTable', 
-    'adminUser',
+    'statusDelete',
   ]
 ]);
 

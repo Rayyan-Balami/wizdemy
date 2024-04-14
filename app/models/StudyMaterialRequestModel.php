@@ -13,7 +13,8 @@ class StudyMaterialRequestModel extends Model
             'semester',
             'subject',
             'class_faculty',
-            'document_type'
+            'document_type',
+            'status'
         ];
     }
 
@@ -229,5 +230,27 @@ class StudyMaterialRequestModel extends Model
             'question' => $this->count()->where('document_type = "question"')->get()['total'],
             'labreport' => $this->count()->where('document_type = "labreport"')->get()['total'],
         ];
+    }
+
+    public function updateStatus($request_id, $status)
+    {
+        $update = $this->update([
+            'status' => $status
+        ])
+            ->where('request_id = :request_id')
+            ->appendBindings(['request_id' => $request_id])
+            ->execute();
+
+        if ($update) {
+            return [
+                'status' => true,
+                'message' => 'Request status updated successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Failed to update request status'
+            ];
+        }
     }
 }

@@ -19,6 +19,7 @@ class StudyMaterialModel extends Model
             'class_faculty',
             'author',
             'file_path',
+            'status',
             'thumbnail_path'
         ];
     }
@@ -132,4 +133,27 @@ class StudyMaterialModel extends Model
             'responded' => $this->count()->where('request_id IS NOT NULL')->get()['total'],
         ];
     }
+
+    public function updateStatus($material_id, $status)
+    {
+        $result = $this->update([
+            'status' => $status
+        ])
+            ->where('material_id = :material_id')
+            ->appendBindings(['material_id' => $material_id])
+            ->execute();
+
+        if ($result) {
+            return [
+                'status' => true,
+                'message' => 'Status updated successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Status update failed. Please try again later'
+            ];
+        }
+    }
+    
 }

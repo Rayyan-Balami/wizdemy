@@ -19,7 +19,8 @@ class AdminHomeController extends Controller
 
     $myLogs = (new AdminActionLogModel())->getLogsByAdminId($adminId);
 
-    View::render('admin/dashboard',
+    View::render(
+      'admin/dashboard',
       [
         'userCounts' => $userCounts,
         'materialCounts' => $materialCounts,
@@ -42,14 +43,16 @@ class AdminHomeController extends Controller
   }
 
 
-  public function adminLog(){
+  public function adminLog()
+  {
     $logs = (new AdminActionLogModel())->getLogs();
     View::render('admin/actionLog', [
       'logs' => $logs
     ]);
   }
 
-  public function view($targetType, $targetId){
+  public function view($targetType, $targetId)
+  {
     switch ($targetType) {
       case 'user':
         $target = (new UserProfileViewModel())->getUserById($targetId);
@@ -77,10 +80,10 @@ class AdminHomeController extends Controller
         break;
       case 'admin':
         if (Session::get('admin')['admin_id'] == 1) {
-        $target = (new AdminModel())->getAdminById($targetId);
-        View::render('admin/adminManagement', [
-          'admins' => [$target]
-        ]);
+          $target = (new AdminModel())->getAdminById($targetId);
+          View::render('admin/adminManagement', [
+            'admins' => [$target]
+          ]);
         } else {
           $this->previousUrl();
         }
@@ -90,5 +93,42 @@ class AdminHomeController extends Controller
         break;
     }
   }
+  public function updateStatus($targetType, $targetId, $status)
+  {
 
+    // check if user_id and status are set
+    if (!isset($targetId) || !isset($status) || !isset($targetType)) {
+      $this->buildJsonResponse('Invalid request', 400);
+    }
+    switch ($targetType) {
+      case 'user':
+        $model = new UserModel();
+        break;
+      case 'material':
+        $model = new StudyMaterialModel();
+        break;
+      case 'request':
+        $model = new StudyMaterialRequestModel();
+        break;
+      case 'project':
+        $model = new GithubProjectModel();
+        break;
+      case 'admin':
+        $model = new AdminModel();
+        break;
+      default:
+        $this->buildJsonResponse('Invalid request', 400);
+        break;
+    }
+
+    $result = $model->updateStatus($targetId, $status);
+
+    if ($result['status']) {
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $targetId, $targetType, $status);
+      $this->buildJsonResponse($result['message'], 200);
+    } else {
+      $this->buildJsonResponse($result['message'], 400);
+    }
+
+  }
 }

@@ -53,7 +53,7 @@ class AdminModel extends Model
       ->bind(['admin_id' => $admin_id])
       ->get();
   }
-  public function updateAdminStatus($admin_id, $status)
+  public function updateStatus($admin_id, $status)
   {
     $result = $this->update(['status' => $status])
       ->where('admin_id = :admin_id AND admin_id <> 1')

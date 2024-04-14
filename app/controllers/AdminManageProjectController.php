@@ -9,9 +9,22 @@ class AdminManageProjectController extends Controller
 
   public function index()
   {
-    $projects = $this->model->getProjectsForAdmin();
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    
+    $projects = $this->model->getProjectsForAdmin($query, $page);
+    $totalPages = $this->model->getProjectCountForAdmin($query);
+    $data = [ 
+      'projects' => $projects,
+      'totalPages' => $totalPages,
+      'page' => $page,
+    ];
+    dd($data);
+    
     View::render('admin/projectManagement', [
-      'projects' => $projects
+      'projects' => $projects,
+      'totalPages' => $totalPages,
+      'page' => $page,
     ]);
   }
   
