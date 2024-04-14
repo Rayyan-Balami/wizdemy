@@ -27,7 +27,7 @@ View::renderPartial('../adminPartials/menuHeader');
 
 <section>
 <?php
-if (!empty($admins)) {
+ if (!empty($admins) || !empty($query)) {
   View::renderPartial('../adminPartials/adminTable', [ 
     "admins" => $admins,
     "page" => $page,
