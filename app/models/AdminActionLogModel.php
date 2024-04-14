@@ -32,8 +32,10 @@ class AdminActionLogModel extends Model
      * 
      * @return mixed
      */
-    public function getLogs()
+    public function getLogs($query, $page=1)
     {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
         return $this->select([
             'l.*',
             'a.username as admin_username',
@@ -41,8 +43,32 @@ class AdminActionLogModel extends Model
             'a.status as admin_status',
         ],'l')
             ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
+            ->where('
+                l.target_type LIKE :query OR
+                l.action_type LIKE :query OR
+                a.username LIKE :query OR
+                a.email LIKE :query
+            ')
+            ->bind(['query' => "%$query%"])
             ->orderBy('l.created_at', 'DESC')
+            ->limit($limit)
+            ->offset($offset)
             ->getAll();
+    }
+    public function getLogsCount($query)
+    {
+        return $this->select([
+            'COUNT(*) as count'
+        ])
+            ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
+            ->where('
+                l.target_type LIKE :query OR
+                l.action_type LIKE :query OR
+                a.username LIKE :query OR
+                a.email LIKE :query
+            ')
+            ->bind(['query' => "%$query%"])
+            ->get()['count'];
     }
 
     /**

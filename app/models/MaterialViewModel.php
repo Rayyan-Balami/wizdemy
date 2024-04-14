@@ -91,11 +91,14 @@ class MaterialViewModel extends Model
         ], 'mv')
             ->where('(
                 mv.title LIKE :search 
+            OR mv.description LIKE :search
+            OR mv.document_type LIKE :search
+            OR mv.format LIKE :search
+            OR mv.education_level LIKE :search
             OR mv.subject LIKE :search 
             OR mv.author LIKE :search
             OR mv.class_faculty LIKE :search
             OR mv.semester LIKE :search
-            OR mv.education_level LIKE :search
             )
             AND mv.status <> :status')
             ->bind([
@@ -114,12 +117,16 @@ class MaterialViewModel extends Model
         ], 'mv')
             ->leftJoin('follow_relation as fr', 'fr.following_id = mv.user_id')
             ->where('(
+                
                 mv.title LIKE :search 
+            OR mv.description LIKE :search
+            OR mv.document_type LIKE :search
+            OR mv.format LIKE :search
+            OR mv.education_level LIKE :search
             OR mv.subject LIKE :search 
             OR mv.author LIKE :search
             OR mv.class_faculty LIKE :search
             OR mv.semester LIKE :search
-            OR mv.education_level LIKE :search
             )
             AND mv.document_type = :document_type
             AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))
@@ -139,19 +146,20 @@ class MaterialViewModel extends Model
         $offset = ($page - 1) * $limit;
         return $this->select([
             'DISTINCT mv.*',
-            'u.username',
-            'u.email',
         ], 'mv')
-            ->leftJoin('users as u', 'u.user_id = mv.user_id')
-            ->where('mv.title LIKE :query 
-            OR mv.description LIKE :query 
-            OR mv.subject LIKE :query 
-            OR mv.author LIKE :query 
-            OR mv.class_faculty LIKE :query 
-            OR mv.semester LIKE :query 
-            OR mv.education_level LIKE :query
-            OR u.username LIKE :query
-            OR u.email LIKE :query')
+            ->where('
+            mv.title LIKE :search 
+        OR mv.description LIKE :search
+        OR mv.document_type LIKE :search
+        OR mv.format LIKE :search
+        OR mv.education_level LIKE :search
+        OR mv.subject LIKE :search 
+        OR mv.author LIKE :search
+        OR mv.class_faculty LIKE :search
+        OR mv.semester LIKE :search
+        OR mv.username LIKE :search
+        OR mv.status LIKE :search
+        ')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('mv.created_at', 'DESC')
             ->limit($limit)
@@ -164,16 +172,19 @@ class MaterialViewModel extends Model
             'COUNT(DISTINCT mv.material_id) as total'
         ], 'mv')
             ->leftJoin('users as u', 'u.user_id = mv.user_id')
-        
-            ->where('mv.title LIKE :query 
-            OR mv.description LIKE :query 
-            OR mv.subject LIKE :query 
-            OR mv.author LIKE :query 
-            OR mv.class_faculty LIKE :query 
-            OR mv.semester LIKE :query 
-            OR mv.education_level LIKE :query
-            OR u.username LIKE :query
-            OR u.email LIKE :query')
+
+            ->where('
+            mv.title LIKE :search 
+        OR mv.description LIKE :search
+        OR mv.document_type LIKE :search
+        OR mv.format LIKE :search
+        OR mv.education_level LIKE :search
+        OR mv.subject LIKE :search 
+        OR mv.author LIKE :search
+        OR mv.class_faculty LIKE :search
+        OR mv.semester LIKE :search
+        OR mv.username LIKE :search
+        OR mv.status LIKE :search')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
     }

@@ -148,7 +148,7 @@ class GithubProjectModel extends Model
             'DISTINCT p.repo_link as title',
         ], 'p')
             ->where('(
-                p.repo_link LIKE :search 
+                p.repo_link LIKE :search
             )
             AND p.status <> :status')
             ->bind([
@@ -175,14 +175,16 @@ class GithubProjectModel extends Model
         return $this->select([
             'u.user_id',
             'u.username',
-            'u.full_name',
+            'u.email',
             'p.*',
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
             ->where('
             p.repo_link LIKE :search 
         OR u.username LIKE :search 
-        OR u.full_name LIKE :search')
+        OR u.email LIKE :search
+        OR p.status LIKE :search        
+        ')
             ->bind([
                 'search' => "%$search%",
             ])
@@ -202,6 +204,7 @@ class GithubProjectModel extends Model
             p.repo_link LIKE :search 
         OR u.username LIKE :search 
         OR u.full_name LIKE :search
+        OR p.status LIKE :search
         ')
             ->bind([
                 'search' => "%$search%"

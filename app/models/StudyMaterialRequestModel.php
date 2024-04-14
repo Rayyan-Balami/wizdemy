@@ -34,7 +34,7 @@ class StudyMaterialRequestModel extends Model
             ->orderBy('r.created_at', 'DESC')
             ->getAll();
     }
-       public function create($user_id, $title, $description, $document_type, $education_level, $semester, $subject, $class_faculty)
+    public function create($user_id, $title, $description, $document_type, $education_level, $semester, $subject, $class_faculty)
     {
         $request = $this->insert([
             'user_id' => $user_id,
@@ -170,10 +170,11 @@ class StudyMaterialRequestModel extends Model
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
             ->where('(
                 r.title LIKE :search 
+            OR r.description LIKE :search
+            OR r.education_level LIKE :search
             OR r.subject LIKE :search 
             OR r.class_faculty LIKE :search
             OR r.semester LIKE :search
-            OR r.education_level LIKE :search
             )
             AND r.document_type = :document_type AND r.status <> :status')
             ->bind([
@@ -192,10 +193,11 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->where('(
                 r.title LIKE :search 
+            OR r.description LIKE :search
+            OR r.education_level LIKE :search
             OR r.subject LIKE :search 
             OR r.class_faculty LIKE :search
             OR r.semester LIKE :search
-            OR r.education_level LIKE :search
             )
             AND r.status <> :status')
             ->bind([
@@ -239,7 +241,7 @@ class StudyMaterialRequestModel extends Model
             ];
         }
     }
-     public function getRequestsForAdmin($query, $page = 1)
+    public function getRequestsForAdmin($query, $page = 1)
     {
 
         $limit = 10;
@@ -252,7 +254,17 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.title LIKE :query OR r.description LIKE :query OR u.username LIKE :query OR u.email LIKE :query')
+            ->where('
+            r.title LIKE :search 
+            OR r.description LIKE :search
+            OR r.education_level LIKE :search
+            OR r.subject LIKE :search 
+            OR r.class_faculty LIKE :search
+            OR r.semester LIKE :search
+            OR r.status LIKE :search
+            OR u.username LIKE :query 
+            OR u.email LIKE :query
+            ')
             ->bind(['query' => '%' . $query . '%'])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
@@ -260,17 +272,17 @@ class StudyMaterialRequestModel extends Model
             ->offset($offset)
             ->getAll();
     }
-        // return $this->select([
-        //     'r.*',
-        //     'u.full_name',
-        //     'u.username',
-        //     'COUNT(DISTINCT m.material_id) as no_of_materials'
-        // ], 'r')
-        //     ->leftJoin('users as u', 'u.user_id = r.user_id')
-        //     ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-        //     ->groupBy('r.request_id')
-        //     ->orderBy('r.created_at', 'DESC')
-        //     ->getAll();
+    // return $this->select([
+    //     'r.*',
+    //     'u.full_name',
+    //     'u.username',
+    //     'COUNT(DISTINCT m.material_id) as no_of_materials'
+    // ], 'r')
+    //     ->leftJoin('users as u', 'u.user_id = r.user_id')
+    //     ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
+    //     ->groupBy('r.request_id')
+    //     ->orderBy('r.created_at', 'DESC')
+    //     ->getAll();
 
     public function getRequestCountForAdmin($query)
     {
@@ -278,7 +290,17 @@ class StudyMaterialRequestModel extends Model
             'COUNT(r.request_id) as total'
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
-            ->where('r.title LIKE :query OR r.description LIKE :query OR u.username LIKE :query OR u.email LIKE :query')
+            ->where('
+            r.title LIKE :search 
+            OR r.description LIKE :search
+            OR r.education_level LIKE :search
+            OR r.subject LIKE :search 
+            OR r.class_faculty LIKE :search
+            OR r.semester LIKE :search
+            OR r.status LIKE :search
+            OR u.username LIKE :query 
+            OR u.email LIKE :query
+')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
     }

@@ -16,11 +16,21 @@ class AdminManageAdminController extends Controller
 
     $query = $_GET['query'] ?? '';
     $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
 
     $admins = $this->model->getAllAdmins($query, $page);
-    
+    $totalData = $this->model->getAdminCount($query);
 
-    View::render('admin/adminManagement', ['admins' => $admins]);
+
+    View::render('admin/adminManagement', [
+      'admins' => $admins,
+      'totalData' => $totalData,
+      'page' => $page,
+      'query' => $query
+      
+    ]);
   }
   public function updateAdminStatus()
   {
@@ -150,7 +160,7 @@ class AdminManageAdminController extends Controller
     }
     $username = htmlspecialchars($_POST['username']);
     $email = htmlspecialchars($_POST['email']);
-   
+
     //validate username
     if (!Validate::string($username, 3, 20)) {
       $this->errors['username'] = 'Username must be 3 to 20 characters long';
@@ -211,8 +221,8 @@ class AdminManageAdminController extends Controller
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
       Session::flash('errors', $this->errors);
-      if($currentAdminId == 1){
-      $this->previousUrl();
+      if ($currentAdminId == 1) {
+        $this->previousUrl();
       }
     }
 
@@ -225,6 +235,6 @@ class AdminManageAdminController extends Controller
     } else {
       Session::flash('errors', ['updatePassword' => $result['message']]);
       $this->previousUrl();
+    }
   }
-}
 }
