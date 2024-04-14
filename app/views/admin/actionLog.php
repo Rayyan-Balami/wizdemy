@@ -1,7 +1,7 @@
 <?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Action Logs',
+  'pageTitle' => SITE_NAME . ' | ' . ($currentPage == 'adminLog' ? 'Log' : 'My Log'),
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',
@@ -17,7 +17,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('../adminPartials/sideNav', [
-  'currentPage' => 'adminLog'
+  'currentPage' => $currentPage
 ]);
 
 View::renderPartial('../adminPartials/menuHeader');

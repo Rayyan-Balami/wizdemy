@@ -80,7 +80,7 @@
             <!-- respond button, see details  -->
             <div class="button-wrapper">
                 <!-- see details -->
-                <button type="button" onclick="toggleSideInfo()" class="see-details-button">
+                <button type="button" data-info-link="/api/info/request/<?= $request['request_id'] ?>" onclick="toggleSideInfo(this)" class="see-details-button">
                     • <span>See Details</span>
                 </button>
                 <?php 

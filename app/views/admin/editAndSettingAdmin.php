@@ -1,8 +1,8 @@
 <?php
 
 View::renderPartial('Header', [
-    'pageTitle' => SITE_NAME . ' | Admin Dashboard',
-    'stylesheets' => [
+    'pageTitle' => SITE_NAME . ' | ' . ($type == 'accountSecurity' ? 'Account Security' : 'Edit Admin'),
+   'stylesheets' => [
         'adminSettingForm',
     ],
     'scripts' => [
@@ -14,7 +14,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('../adminPartials/sideNav', [
-    'currentPage' => $type == 'edit' ? 'Edit Admin' : 'Account Security',
+    'currentPage' => $type,
 ]);
 
 View::renderPartial('../adminPartials/menuHeader');

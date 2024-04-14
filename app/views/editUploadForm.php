@@ -358,7 +358,7 @@ View::renderPartial('MenuHeader', [
 
     <!-- thumbnail -->
     <div class="file-preview" id="image-file-preview">
-      <img src="<?= SITE_DOMAIN . "/" . $materialDetails['thumbnail_path'] ?? '' ?>" alt="Thumbnail"
+      <img src="<?="/" . $materialDetails['thumbnail_path'] ?? '' ?>" alt="Thumbnail"
         style="display: <?= isset($materialDetails['thumbnail_path']) ? 'block' : 'none' ?>" />
       <input type="file" name="imageFile" id="imageFile" accept="image/jpeg, image/jpg, image/png, image/gif" />
       <label class="file-header"><span class="file-name"></span><span>Thumbnail</span></label>

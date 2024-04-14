@@ -59,7 +59,8 @@ class AdminHomeController extends Controller
       'logs' => $logs,
       'totalData' => $totalData,
       'query' => $query,
-      'page' => $page
+      'page' => $page,
+      'currentPage' => 'adminLog'
 
     ]);
   }
@@ -81,7 +82,8 @@ class AdminHomeController extends Controller
       'logs' => $logs,
       'totalData' => $totalData,
       'query' => $query,
-      'page' => $page
+      'page' => $page,
+      'currentPage' => 'myLog'
     ]);
   }
 
@@ -95,7 +97,8 @@ class AdminHomeController extends Controller
       case 'user':
         $target = (new UserProfileViewModel())->getUserById($targetId);
         View::render('admin/userManagement', [
-          'users' => [$target], //passing as array to use the same view because there is a foreach loop in the view
+          'users' => $target ? [$target] : [],
+          //passing as array to use the same view because there is a foreach loop in the view
           'page' => $page,
           'totalData' => $totalData,
           'query' => $query
@@ -104,7 +107,7 @@ class AdminHomeController extends Controller
       case 'material':
         $target = (new MaterialViewModel())->getMaterialDetailById($targetId);
         View::render('admin/materialManagement', [
-          'materials' => [$target],
+          'materials' => $target ? [$target] : [],
           'page' => $page,
           'totalData' => $totalData,
           'query' => $query
@@ -113,7 +116,7 @@ class AdminHomeController extends Controller
       case 'request':
         $target = (new StudyMaterialRequestModel())->getRequestDetailById($targetId);
         View::render('admin/requestManagement', [
-          'requests' => [$target],
+          'requests' => $target ? [$target] : [],
           'page' => $page,
           'totalData' => $totalData,
           'query' => $query
@@ -122,7 +125,7 @@ class AdminHomeController extends Controller
       case 'project':
         $target = (new GithubProjectModel())->getProjectDetailById($targetId);
         View::render('admin/projectManagement', [
-          'projects' => [$target],
+          'projects' => $target ? [$target] : [],
           'page' => $page,
           'totalData' => $totalData,
           'query' => $query
@@ -132,7 +135,7 @@ class AdminHomeController extends Controller
         if (Session::get('admin')['admin_id'] == 1) {
           $target = (new AdminModel())->getAdminById($targetId);
           View::render('admin/adminManagement', [
-            'admins' => [$target],
+            'admins' => $target ? [$target] : [],
             'page' => $page,
             'totalData' => $totalData,
             'query' => $query

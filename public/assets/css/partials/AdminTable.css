@@ -195,14 +195,13 @@ table .actions-cell a,
   background-color: rgb(16 185 129);
 }
 
-table .thumbnail-td{
+table tr .thumbnail-td{
+  display: block;
   overflow: hidden;
-  border-radius: var(--border-radius);
-  aspect-ratio: 21/9;
   width: 15rem;
 }
 
-table .thumbnail > img {
+table tr .thumbnail > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
