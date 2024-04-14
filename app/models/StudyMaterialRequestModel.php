@@ -241,7 +241,7 @@ class StudyMaterialRequestModel extends Model
             ];
         }
     }
-    public function getRequestsForAdmin($query, $page = 1)
+    public function getRequestsForAdmin($search, $page = 1)
     {
 
         $limit = 10;
@@ -262,29 +262,18 @@ class StudyMaterialRequestModel extends Model
             OR r.class_faculty LIKE :search
             OR r.semester LIKE :search
             OR r.status LIKE :search
-            OR u.username LIKE :query 
-            OR u.email LIKE :query
+            OR u.username LIKE :search 
+            OR u.email LIKE :search
             ')
-            ->bind(['query' => '%' . $query . '%'])
+            ->bind(['search' => '%' . $search . '%'])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
             ->limit($limit)
             ->offset($offset)
             ->getAll();
     }
-    // return $this->select([
-    //     'r.*',
-    //     'u.full_name',
-    //     'u.username',
-    //     'COUNT(DISTINCT m.material_id) as no_of_materials'
-    // ], 'r')
-    //     ->leftJoin('users as u', 'u.user_id = r.user_id')
-    //     ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-    //     ->groupBy('r.request_id')
-    //     ->orderBy('r.created_at', 'DESC')
-    //     ->getAll();
 
-    public function getRequestCountForAdmin($query)
+    public function getRequestCountForAdmin($search)
     {
         return $this->select([
             'COUNT(r.request_id) as total'
@@ -298,10 +287,10 @@ class StudyMaterialRequestModel extends Model
             OR r.class_faculty LIKE :search
             OR r.semester LIKE :search
             OR r.status LIKE :search
-            OR u.username LIKE :query 
-            OR u.email LIKE :query
+            OR u.username LIKE :search 
+            OR u.email LIKE :search
 ')
-            ->bind(['query' => '%' . $query . '%'])
+            ->bind(['search' => '%' . $search . '%'])
             ->get()['total'];
     }
 

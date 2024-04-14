@@ -28,7 +28,13 @@ View::renderPartial('../adminPartials/menuHeader');
 
   <?php
   if (!empty($logs)){
-    View::renderPartial('../adminPartials/actionLogTable',['logs' => $logs]);
+    View::renderPartial('../adminPartials/actionLogTable',[
+      'logs' => $logs,
+      'page' => $page,
+      'totalData' => $totalData,
+      'query' => $query
+      
+    ]);
   } else {
     View::renderPartial('ZeroResult');
   }

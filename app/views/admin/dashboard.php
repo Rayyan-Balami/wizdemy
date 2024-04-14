@@ -232,15 +232,6 @@ View::renderPartial('../adminPartials/menuHeader');
 		
 
 	</div>
-	<?php
-	View::renderPartial(
-		'../adminPartials/actionLogTable'
-		,
-		[
-			'logs' => $logs
-		]
-	);
-	?>
 </section>
 
 </main>
