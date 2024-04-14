@@ -53,13 +53,14 @@ class AdminActionLogModel extends Model
             ->orderBy('l.created_at', 'DESC')
             ->limit($limit)
             ->offset($offset)
-            ->getAll();
+            ->getAll()
+            ;
     }
     public function getLogsCount($query)
     {
         return $this->select([
             'COUNT(*) as count'
-        ])
+        ],'l')
             ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
             ->where('
                 l.target_type LIKE :query OR
@@ -79,8 +80,10 @@ class AdminActionLogModel extends Model
      * @return mixed
      */
 
-    public function getLogsByAdminId($admin_id)
+    public function getLogsByAdminId($admin_id,$query, $page=1)
     {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
         return $this->select([
             'l.*',
             'a.username as admin_username',
@@ -88,9 +91,33 @@ class AdminActionLogModel extends Model
             'a.status as admin_status',
         ],'l')
             ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
-            ->where('l.admin_id = :admin_id')
-            ->bind(['admin_id' => $admin_id])
+            ->where('
+                l.admin_id = :admin_id AND
+                (l.target_type LIKE :query OR
+                l.action_type LIKE :query OR
+                a.username LIKE :query OR
+                a.email LIKE :query)
+            ')
+            ->bind(['admin_id' => $admin_id, 'query' => "%$query%"])
             ->orderBy('l.created_at', 'DESC')
+            ->limit($limit)
+            ->offset($offset)
             ->getAll();
+    }
+    public function getLogsCountByAdminId($admin_id, $query)
+    {
+        return $this->select([
+            'COUNT(*) as count'
+        ],'l')
+            ->leftJoin('admins as a', 'a.admin_id = l.admin_id')
+            ->where('
+                l.admin_id = :admin_id AND
+                (l.target_type LIKE :query OR
+                l.action_type LIKE :query OR
+                a.username LIKE :query OR
+                a.email LIKE :query)
+            ')
+            ->bind(['admin_id' => $admin_id, 'query' => "%$query%"])
+            ->get()['count'];
     }
 }

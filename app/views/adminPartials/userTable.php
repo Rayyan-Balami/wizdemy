@@ -32,7 +32,7 @@
     </a>
     <div class="table-info">
       <?= ($page - 1) * 10 + 1 ?>
-      - <?= ($page - 1) * 10 + count($users) ?>
+      - <?= ($page - 1) * 10 + count($logs) ?>
       of <?= $totalData ?? 0 ?>
     </div>
   </div>

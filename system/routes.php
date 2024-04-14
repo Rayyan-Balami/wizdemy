@@ -167,6 +167,7 @@ $router->get('/admin/accountSecurity', 'AdminHomeController@accountSecurity')->o
 
 //routes for admin log
 $router->get('/admin/log', 'AdminHomeController@adminLog')->only('admin');
+$router->get('/admin/log/{id}', 'AdminHomeController@myLog')->only('admin');
 $router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@view')->only('admin');
 
 // api for update status

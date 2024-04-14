@@ -17,7 +17,6 @@ class AdminHomeController extends Controller
     $projectCounts = (new GithubProjectModel)->getCounts();
     $reportCounts = (new ReportModel)->getCounts();
 
-    $myLogs = (new AdminActionLogModel())->getLogsByAdminId($adminId);
 
     View::render(
       'admin/dashboard',
@@ -27,7 +26,6 @@ class AdminHomeController extends Controller
         'requestCounts' => $requestCounts,
         'projectCounts' => $projectCounts,
         'reportCounts' => $reportCounts,
-        'logs' => $myLogs
       ]
     );
   }
@@ -45,9 +43,48 @@ class AdminHomeController extends Controller
 
   public function adminLog()
   {
-    $logs = (new AdminActionLogModel())->getLogs();
+    if (Session::get('admin')['admin_id'] != 1) {
+      $this->previousUrl();
+    }
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
+
+    $logs = (new AdminActionLogModel())->getLogs($query, $page);
+    $totalData = (new AdminActionLogModel())->getLogsCount($query);
+
     View::render('admin/actionLog', [
-      'logs' => $logs
+      'logs' => $logs,
+      'totalData' => $totalData,
+      'query' => $query,
+      'page' => $page
+
+    ]);
+  }
+
+  public function myLog($id)
+  {
+    $adminId = Session::get('admin')['admin_id'];
+    if ($adminId != $id) {
+      Session::flash('error', ['message' => 'You are not authorized to view this page']);
+      $this->previousUrl();
+    }
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
+
+    $logs = (new AdminActionLogModel())->getLogsByAdminId($adminId, $query, $page);
+    $totalData = (new AdminActionLogModel())->getLogsCountByAdminId($adminId, $query);
+
+    View::render('admin/actionLog', [
+      'logs' => $logs,
+      'totalData' => $totalData,
+      'query' => $query,
+      'page' => $page
     ]);
   }
 
