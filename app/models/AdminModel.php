@@ -30,14 +30,36 @@ class AdminModel extends Model
       ];
     }
   }
-  public function getAllAdmins()
+  public function getAllAdmins($query, $page =1)
   {
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
     return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'COUNT(al.admin_id) as logs_count'], 'a')
       ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
-      ->where('a.admin_id <> 1')
+      ->where('a.admin_id <> 1 AND (
+        a.username LIKE :query 
+        OR a.email LIKE :query
+        OR a.status LIKE :query
+        )')
+      ->bind(['query' => "%$query%"])
       ->groupBy('a.admin_id')
+      ->orderBy('a.created_at', 'DESC')
+      ->limit($limit)
+      ->offset($offset)
       ->getAll();
   }
+  public function getAdminsCount($query)
+  {
+    return $this->select(['COUNT(admin_id) as total'], 'admins')
+      ->where('admin_id <> 1 AND (
+        username LIKE :query 
+        OR email LIKE :query
+        OR status LIKE :query
+        )')
+      ->bind(['query' => "%$query%"])
+      ->get()['total'];
+  }
+
   public function getAdminById($admin_id)
   {
     return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'COUNT(al.admin_id) as logs_count'], 'a')

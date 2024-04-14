@@ -1,11 +1,15 @@
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
-      <input type="text" name="email" id="table-search-input" placeholder="Search ' ADMINS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input">
+      <input type="text" name="query" id="table-search-input"
+        placeholder="Search ' ADMINS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺"
+        class="search-input"
+        value="<?= $query ?? '' ?>">
     </div>
   </form>
   <div class="prev-next-wrapper">
-    <button class="prev-btn">
+    <a class="prev-btn <?= $page == 1 ? 'disabled' : '' ?>" 
+      href="<?= $page == 1 ? '#' : "/admin/manage/admin?page=" . ($page - 1) ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -15,8 +19,9 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
-    <button class="next-btn">
+    </a>
+    <a class="next-btn <?= ($page-1) * 10 + count($admins) == $totalData ? 'disabled' : '' ?>"
+      href="<?= ($page-1) * 10 + count($admins) == $totalData ? '#' : "/admin/manage/admin?page=" . ($page + 1) ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -26,9 +31,12 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
+    </a>
     <div class="table-info">
-      1-20 of 100
+      
+    <?= ($page - 1) * 10 + 1 ?>
+      - <?= ($page - 1) * 10 + count($admins) ?>
+      of <?= $totalData ?? 0 ?>
     </div>
   </div>
 </div>
@@ -52,7 +60,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($admins as $admin) : ?>
+      <?php foreach ($admins as $admin): ?>
         <tr>
           <td>
             <p title="username">
@@ -70,14 +78,16 @@
             <p title="Last Updated: <?= $admin['updated_at'] ?>">
               Updated:&nbsp;<?= date('d M Y', strtotime($admin['updated_at'])) ?>
             </p>
-            <span  title="Joined At: <?= $admin['created_at'] ?>">
+            <span title="Joined At: <?= $admin['created_at'] ?>">
               Created:&nbsp;<?= date('d M Y', strtotime($admin['created_at'])) ?>
             </span>
           </td>
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
-              <button class="suspend-btn  <?= $admin['status'] == 'suspend' ? 'active' : '' ?>" data-status="<?= $admin['status'] == 'suspend' ? 'active' : 'suspend' ?>"onclick="updateStatus('admin',<?= $admin['admin_id'] ?>, this)">
+              <button class="suspend-btn  <?= $admin['status'] == 'suspend' ? 'active' : '' ?>"
+                data-status="<?= $admin['status'] == 'suspend' ? 'active' : 'suspend' ?>"
+                onclick="updateStatus('admin',<?= $admin['admin_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor"
                     d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1M2.5 12a9.5 9.5 0 0 0 9.5 9.5a9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5A9.5 9.5 0 0 0 2.5 12m15.75.75H5.75a.75.75 0 0 1 0-1.5h12.5a.75.75 0 0 1 0 1.5" />

@@ -47,6 +47,10 @@ class UserProfileViewModel extends Model
                 upv.username LIKE :search 
             OR upv.full_name LIKE :search
             OR upv.email LIKE :search
+            OR upv.phone LIKE :search
+            OR upv.user_type LIKE :search
+            OR upv.education_level LIKE :search
+            OR upv.enrolled_course LIKE :search
       ) AND upv.status = :status')
       ->bind(['search' => '%' . $search . '%', 'status' => 'active'])
       ->limit(5)
@@ -60,7 +64,15 @@ class UserProfileViewModel extends Model
     return $this->select([
       'upv.*'
     ], 'upv')
-      ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
+      ->where('upv.username LIKE :search 
+      OR upv.full_name LIKE :search
+      OR upv.email LIKE :search
+      OR upv.phone LIKE :search
+      OR upv.user_type LIKE :search
+      OR upv.education_level LIKE :search
+      OR upv.enrolled_course LIKE :search
+      OR upv.status LIKE :search
+      ')
       ->bind(['search' => '%' . $search . '%'])
       ->orderBy('upv.created_at', 'DESC')
       ->limit($limit)
@@ -72,7 +84,15 @@ class UserProfileViewModel extends Model
     return $this->select([
       'COUNT(upv.user_id) as total'
     ], 'upv')
-      ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
+      ->where('upv.username LIKE :search 
+      OR upv.full_name LIKE :search
+      OR upv.email LIKE :search
+      OR upv.phone LIKE :search
+      OR upv.user_type LIKE :search
+      OR upv.education_level LIKE :search
+      OR upv.enrolled_course LIKE :search
+      OR upv.status LIKE :search
+      ')
       ->bind(['search' => '%' . $search . '%'])
       ->get()['total'];
   }
