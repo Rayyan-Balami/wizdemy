@@ -1,5 +1,5 @@
 <div class="table-menus">
-  <form action="/admin/users" method="get">
+  <form action="#" method="get">
     <div class="search-field">
       <input type="text" name="query" id="table-search-input"
         placeholder="Search ' USERS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input"

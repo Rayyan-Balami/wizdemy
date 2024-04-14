@@ -9,7 +9,7 @@ class MaterialViewModel extends Model
     }
 
     public function show($document_type = 'note', $page = 1)
-    {   
+    {
         $limit = 10;
         $offset = ($page - 1) * $limit;
         $current_user = Session::get('user')['user_id'] ?? null;
@@ -149,7 +149,9 @@ class MaterialViewModel extends Model
             OR mv.author LIKE :query 
             OR mv.class_faculty LIKE :query 
             OR mv.semester LIKE :query 
-            OR mv.education_level LIKE :query')
+            OR mv.education_level LIKE :query
+            OR u.username LIKE :query
+            OR u.email LIKE :query')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('mv.created_at', 'DESC')
             ->limit($limit)
@@ -161,13 +163,17 @@ class MaterialViewModel extends Model
         return $this->select([
             'COUNT(DISTINCT mv.material_id) as total'
         ], 'mv')
+            ->leftJoin('users as u', 'u.user_id = mv.user_id')
+        
             ->where('mv.title LIKE :query 
             OR mv.description LIKE :query 
             OR mv.subject LIKE :query 
             OR mv.author LIKE :query 
             OR mv.class_faculty LIKE :query 
             OR mv.semester LIKE :query 
-            OR mv.education_level LIKE :query')
+            OR mv.education_level LIKE :query
+            OR u.username LIKE :query
+            OR u.email LIKE :query')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
     }

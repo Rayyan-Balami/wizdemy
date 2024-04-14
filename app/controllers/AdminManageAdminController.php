@@ -15,8 +15,10 @@ class AdminManageAdminController extends Controller
     }
 
     $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+
+    $admins = $this->model->getAllAdmins($query, $page);
     
-    $admins = $this->model->getAllAdmins();
 
     View::render('admin/adminManagement', ['admins' => $admins]);
   }
