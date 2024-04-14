@@ -9,7 +9,7 @@
     </div>
   </form>
   <div class="prev-next-wrapper">
-    <a class="prev-btn <?= $page == 1 ? 'disabled' : '' ?>" href="<?= $page == 1 ? '#' : "/admin/manage/action?page=" . ($page - 1) . "&query=" . $query ?>">
+    <a class="prev-btn <?= $page == 1 ? 'disabled' : '' ?>" href="<?= $_SERVER['REQUEST_URI'] . "?page=" . ($page - 1). "&query=" . $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -20,8 +20,10 @@
         </g>
       </svg>
     </a>
+    <!-- /admin/log?page=2 /admin/log?page=3  -->
     <a class="next-btn <?= $page == $totalPages ? 'disabled' : '' ?>" 
-    href="<?= ($page -1) * 10 + count($logs) == $totalData ? '#' : "/admin/manage/action?page=" . ($page + 1) . "&query=" . $query ?>">
+    href="<?= explode('?', $_SERVER['REQUEST_URI'])[0] 
+    . "?page=" . ($page + 1) . "&query=" . ($query ?? '') ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
