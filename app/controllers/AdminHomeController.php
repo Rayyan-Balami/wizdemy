@@ -90,36 +90,55 @@ class AdminHomeController extends Controller
 
   public function view($targetType, $targetId)
   {
+    $page = 1;
+    $totalData = 1;
+    $query = '';
+
     switch ($targetType) {
       case 'user':
         $target = (new UserProfileViewModel())->getUserById($targetId);
         View::render('admin/userManagement', [
-          'users' => [$target] //passing as array to use the same view because there is a foreach loop in the view
+          'users' => [$target], //passing as array to use the same view because there is a foreach loop in the view
+          'page' => $page,
+          'totalData' => $totalData,
+          'query' => $query
         ]);
         break;
       case 'material':
         $target = (new MaterialViewModel())->getMaterialDetailById($targetId);
         View::render('admin/materialManagement', [
-          'materials' => [$target]
+          'materials' => [$target],
+          'page' => $page,
+          'totalData' => $totalData,
+          'query' => $query
         ]);
         break;
       case 'request':
         $target = (new StudyMaterialRequestModel())->getRequestDetailById($targetId);
         View::render('admin/requestManagement', [
-          'requests' => [$target]
+          'requests' => [$target],
+          'page' => $page,
+          'totalData' => $totalData,
+          'query' => $query
         ]);
         break;
       case 'project':
         $target = (new GithubProjectModel())->getProjectDetailById($targetId);
         View::render('admin/projectManagement', [
-          'projects' => [$target]
+          'projects' => [$target],
+          'page' => $page,
+          'totalData' => $totalData,
+          'query' => $query
         ]);
         break;
       case 'admin':
         if (Session::get('admin')['admin_id'] == 1) {
           $target = (new AdminModel())->getAdminById($targetId);
           View::render('admin/adminManagement', [
-            'admins' => [$target]
+            'admins' => [$target],
+            'page' => $page,
+            'totalData' => $totalData,
+            'query' => $query
           ]);
         } else {
           $this->previousUrl();

@@ -47,7 +47,7 @@ class UserProfileViewModel extends Model
                 upv.username LIKE :search 
             OR upv.full_name LIKE :search
             OR upv.email LIKE :search
-            OR upv.phone LIKE :search
+            OR upv.phone_number LIKE :search
             OR upv.user_type LIKE :search
             OR upv.education_level LIKE :search
             OR upv.enrolled_course LIKE :search
@@ -67,7 +67,7 @@ class UserProfileViewModel extends Model
       ->where('upv.username LIKE :search 
       OR upv.full_name LIKE :search
       OR upv.email LIKE :search
-      OR upv.phone LIKE :search
+      OR upv.phone_number LIKE :search
       OR upv.user_type LIKE :search
       OR upv.education_level LIKE :search
       OR upv.enrolled_course LIKE :search
@@ -87,7 +87,7 @@ class UserProfileViewModel extends Model
       ->where('upv.username LIKE :search 
       OR upv.full_name LIKE :search
       OR upv.email LIKE :search
-      OR upv.phone LIKE :search
+      OR upv.phone_number LIKE :search
       OR upv.user_type LIKE :search
       OR upv.education_level LIKE :search
       OR upv.enrolled_course LIKE :search

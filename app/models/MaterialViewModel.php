@@ -148,17 +148,17 @@ class MaterialViewModel extends Model
             'DISTINCT mv.*',
         ], 'mv')
             ->where('
-            mv.title LIKE :search 
-        OR mv.description LIKE :search
-        OR mv.document_type LIKE :search
-        OR mv.format LIKE :search
-        OR mv.education_level LIKE :search
-        OR mv.subject LIKE :search 
-        OR mv.author LIKE :search
-        OR mv.class_faculty LIKE :search
-        OR mv.semester LIKE :search
-        OR mv.username LIKE :search
-        OR mv.status LIKE :search
+            mv.title LIKE :query 
+        OR mv.description LIKE :query
+        OR mv.document_type LIKE :query
+        OR mv.format LIKE :query
+        OR mv.education_level LIKE :query
+        OR mv.subject LIKE :query 
+        OR mv.author LIKE :query
+        OR mv.class_faculty LIKE :query
+        OR mv.semester LIKE :query
+        OR mv.username LIKE :query
+        OR mv.status LIKE :query
         ')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('mv.created_at', 'DESC')
@@ -174,19 +174,18 @@ class MaterialViewModel extends Model
             ->leftJoin('users as u', 'u.user_id = mv.user_id')
 
             ->where('
-            mv.title LIKE :search 
-        OR mv.description LIKE :search
-        OR mv.document_type LIKE :search
-        OR mv.format LIKE :search
-        OR mv.education_level LIKE :search
-        OR mv.subject LIKE :search 
-        OR mv.author LIKE :search
-        OR mv.class_faculty LIKE :search
-        OR mv.semester LIKE :search
-        OR mv.username LIKE :search
-        OR mv.status LIKE :search')
+            mv.title LIKE :query 
+        OR mv.description LIKE :query
+        OR mv.document_type LIKE :query
+        OR mv.format LIKE :query
+        OR mv.education_level LIKE :query
+        OR mv.subject LIKE :query 
+        OR mv.author LIKE :query
+        OR mv.class_faculty LIKE :query
+        OR mv.semester LIKE :query
+        OR mv.username LIKE :query
+        OR mv.status LIKE :query')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
     }
-
 }

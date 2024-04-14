@@ -59,6 +59,13 @@
                         </svg>Overview
                     </a>
                 </li>
+                <li>
+                    <a href="/admin/myLog"
+                        class="menu-links <?= $currentPage === 'overview' ? 'is-active' : ''; ?>">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="6" cy="6" r="3"/><path opacity="0.65"
+                         d="M6 9v12m7-15h3a2 2 0 0 1 2 2v3m0 4v6m3-3h-6"/></g></svg>My Logs
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -121,16 +128,9 @@
                                     </g>
                                 </g>
                             </g>
-                        </svg>Projects Gallery
+                        </svg>Projects
                     </a>
                 </li>
-            </ul>
-        </div>
-
-        <!-- Reports managenent -->
-        <div class="menu-section">
-            <h2 class="menu-section-category">Reports Management</h2>
-            <ul>
                 <li>
                     <a href="/admin/manage/report" class="menu-links <?= $currentPage === 'profile' ? 'is-active' : ''; ?>">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -147,13 +147,6 @@
                         </svg>Reports
                     </a>
                 </li>
-            </ul>
-        </div>
-
-        <!-- users managenent -->
-        <div class="menu-section">
-            <h2 class="menu-section-category">Users Management</h2>
-            <ul>
                 <li>
                     <a href="/admin/manage/user"
                         class="menu-links <?= $currentPage === 'userManagement' ? 'is-active' : ''; ?>">
@@ -217,7 +210,6 @@
                     </li>
                 </ul>
             </div>
-
         <?php endif; ?>
 
         <!-- account security, logout -->

@@ -167,12 +167,13 @@ $router->get('/admin/accountSecurity', 'AdminHomeController@accountSecurity')->o
 
 //routes for admin log
 $router->get('/admin/log', 'AdminHomeController@adminLog')->only('admin');
-$router->get('/admin/log/{id}', 'AdminHomeController@myLog')->only('admin');
+$router->get('/admin/myLog', 'AdminHomeController@myLog')->only('admin');
 $router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@view')->only('admin');
 
 // api for update status
 $router->put('/api/admin/update/status/{targetType}/{targetId}/{status}', 'AdminHomeController@updateStatus')->only('apiAdmin');
 // api for delete
+
 $router->delete('/api/admin/delete/{targetType}/{targetId}', 'AdminHomeController@delete')->only('apiAdmin');
 
 //routes for admin manage report
