@@ -6,7 +6,7 @@ class GithubProjectModel extends Model
     public function __construct(string $table = 'github_projects')
     {
         parent::__construct($table);
-        $this->fillable = ['user_id', 'repo_link'];
+        $this->fillable = ['user_id', 'repo_link', 'status'];
     }
 
     public function show($page = 1)

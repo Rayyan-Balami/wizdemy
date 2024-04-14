@@ -112,7 +112,7 @@
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
-              <button class="suspend-btn" data-status="<?= $request['status'] == 'suspend' ? 'suspend' : '' ?>"
+              <button class="suspend-btn  <?= $request['status'] == 'suspend' ? 'active' : '' ?>" data-status="<?= $request['status'] == 'suspend' ? 'active' : 'suspend' ?>"
                 onclick="updateStatus('request',<?= $request['request_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-width="1.5">

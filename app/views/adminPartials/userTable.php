@@ -108,7 +108,7 @@
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
-              <button class="suspend-btn" data-status="<?= $user['status'] == 'suspend' ? 'suspend' : '' ?>" 
+              <button class="suspend-btn  <?= $user['status'] == 'suspend' ? 'active' : '' ?>" data-status="<?= $user['status'] == 'suspend' ? 'active' : 'suspend' ?>"
                 onclick="updateStatus('user',<?= $user['user_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-width="1.5">

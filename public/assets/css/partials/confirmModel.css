@@ -125,15 +125,18 @@
 
 }
 
-#confirm-modal[data-modal-type = "suspend"] ul > .confirm-header> li > span {
+#confirm-modal[data-modal-type = "suspend"] ul > .confirm-header> li > span,
+#confirm-modal[data-modal-type = "pending"] ul > .confirm-header> li > span{
   color: rgb(237 164 17);
 }
 
-#confirm-modal[data-modal-type = "suspend"] > ul > .button-wrapper > #confirm-button {
+#confirm-modal[data-modal-type = "suspend"] > ul > .button-wrapper > #confirm-button,
+#confirm-modal[data-modal-type = "pending"] > ul > .button-wrapper > #confirm-button{
   background-color: rgb(237 164 17);
 }
 
-#confirm-modal[data-modal-type = "suspend"] > ul > .button-wrapper > #confirm-button:hover {
+#confirm-modal[data-modal-type = "suspend"] > ul > .button-wrapper > #confirm-button:hover,
+#confirm-modal[data-modal-type = "pending"] > ul > .button-wrapper > #confirm-button:hover{
   background-color: rgb(237 164 17 / 0.9);
 }
 
@@ -149,26 +152,17 @@
   background-color: rgb(239 68 68 / 0.9);
 }
 
-#confirm-modal[data-modal-type = "active"] ul > .confirm-header> li > span {
+#confirm-modal[data-modal-type = "active"] ul > .confirm-header> li > span,
+#confirm-modal[data-modal-type = "resolved"] ul > .confirm-header> li > span{
   color: rgb(0 200 83);
 }
 
-#confirm-modal[data-modal-type = "active"] > ul > .button-wrapper > #confirm-button {
+#confirm-modal[data-modal-type = "active"] > ul > .button-wrapper > #confirm-button,
+#confirm-modal[data-modal-type = "resolved"] > ul > .button-wrapper > #confirm-button  {
   background-color: rgb(0 200 83);
 }
 
-#confirm-modal[data-modal-type = "active"] > ul > .button-wrapper > #confirm-button:hover {
+#confirm-modal[data-modal-type = "active"] > ul > .button-wrapper > #confirm-button:hover,
+#confirm-modal[data-modal-type = "resolved"] > ul > .button-wrapper > #confirm-button :hover {
   background-color: rgb(0 200 83 / 0.9);
 }
-
-/* #confirm-modal[data-modal-type = "logout"] ul > .confirm-header> li > span {
-  color: rgb(0 122 255);
-} */
-
-/* #confirm-modal[data-modal-type = "logout"] > ul > .button-wrapper > #confirm-button {
-  background-color: rgb(0 122 255);
-}
-
-#confirm-modal[data-modal-type = "logout"] > ul > .button-wrapper > #confirm-button:hover {
-  background-color: rgb(0 122 255 / 0.9);
-} */

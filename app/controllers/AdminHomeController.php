@@ -116,6 +116,9 @@ class AdminHomeController extends Controller
       case 'admin':
         $model = new AdminModel();
         break;
+      case 'report':
+        $model = new ReportModel();
+        break;
       default:
         $this->buildJsonResponse('Invalid request', 400);
         break;
@@ -130,5 +133,48 @@ class AdminHomeController extends Controller
       $this->buildJsonResponse($result['message'], 400);
     }
 
+  }
+
+
+  public function delete($targetType, $targetId)
+  {
+    // check if user_id and status are set
+    if (!isset($targetId) || !isset($targetType)) {
+      $this->buildJsonResponse('Invalid request', 400);
+    }
+
+    switch ($targetType) {
+      case 'user':
+        $model = new UserModel();
+        break;
+      case 'material':
+        $model = new StudyMaterialModel();
+        break;
+      case 'request':
+        $model = new StudyMaterialRequestModel();
+        break;
+      case 'project':
+        $model = new GithubProjectModel();
+        break;
+      case 'admin':
+        $model = new AdminModel();
+        break;
+      default:
+        $this->buildJsonResponse('Invalid request', 400);
+        break;
+    }
+
+    // making 1st char uppercase of target type because the model method is in camel case
+    //eg: deleteUser, deleteMaterial, deleteRequest, deleteProject, deleteAdmin
+    $method = 'delete' . ucfirst($targetType);
+
+    $result = $model->$method($targetId);
+
+    if ($result['status']) {
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $targetId, $targetType, 'delete');
+      $this->buildJsonResponse($result['message'], 200);
+    } else {
+      $this->buildJsonResponse($result['message'], 400);
+    }
   }
 }

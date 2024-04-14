@@ -1,8 +1,8 @@
 // Function to open confirmation modal
-async function confirmAction(status) {
+async function confirmAction(status, targetType) {
   return await openConfirmModal(
     status,
-    `Approve "${status}" for this User ?`
+    `Approve "${status}" for this ${targetType}?`
   );
 }
 
@@ -17,43 +17,55 @@ function makeAjaxCall(type, url, successCallback) {
 
 // Function to update user status
 async function updateStatus(targetType, targetId, element) {
-  console.log(targetType, targetId, element);
-  var status = element.getAttribute("data-status") == "suspend" ? "active" : "suspend";
-  if ( targetType =='report')
-    status = element.getAttribute("data-status")
-  
+  var status = element.getAttribute("data-status");
+  if (targetType == "report") {
+    if (element.classList.contains("active")) {
+      console.log(element.getAttribute("data-status"));
+      return;
+    }
+  }
 
-  const confirmed = await confirmAction(status);
-
+  const confirmed = await confirmAction(status, targetType);
   if (!confirmed) {
     return false;
   }
 
-
-  makeAjaxCall("PUT", `/api/admin/update/status/${targetType}/${targetId}/${status}`, function (response) {
-    console.log(response);
-    if (response.status == 200 && status == "active") {
-      element.setAttribute("data-status", "active");
+  makeAjaxCall(
+    "PUT",
+    `/api/admin/update/status/${targetType}/${targetId}/${status}`,
+   function (response) {
+ 
+  if(targetType == "report") {
+    if (status == "pending") {
+      element.parentElement.querySelector(".resolved-btn").classList.toggle("active");
     } else {
-      element.setAttribute("data-status", "suspend");
+      element.parentElement.querySelector(".pending-btn").classList.toggle("active");
     }
-  });
+  }else{
+    element.setAttribute("data-status", status == "active" ? "suspend" : "active");
+  }
+
+  element.classList.toggle("active");
+});
 }
 
 // Function to delete
 async function deleteData(targetType, targetId, element) {
   var status = "delete";
 
-  const confirmed = await confirmAction(status);
+  const confirmed = await confirmAction(status, targetType);
 
   if (!confirmed) {
     return false;
   }
 
-  makeAjaxCall("DELETE", `/api/admin/delete/${targetType}/${targetId}`, function (response) {
-
-    if (response.status == 200) {
-      element.closest("tr").remove();
+  makeAjaxCall(
+    "DELETE",
+    `/api/admin/delete/${targetType}/${targetId}`,
+    function (response) {
+      if (response.status == 200) {
+        element.closest("tr").remove();
+      }
     }
-  });
+  );
 }

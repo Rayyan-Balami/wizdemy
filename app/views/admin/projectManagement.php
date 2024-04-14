@@ -8,9 +8,11 @@ View::renderPartial('Header', [
   ],
   'scripts' => [
     'script',
+    'jquery.min',
     'toastTimer',
     'confirmModal',
     'adminTable',
+    'statusDelete',
   ]
 ]);
 

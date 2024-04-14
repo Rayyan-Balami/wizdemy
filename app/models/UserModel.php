@@ -257,7 +257,7 @@ class UserModel extends Model
             ];
         }
     }
-    public function deleteUserById($user_id)
+    public function deleteUser($user_id)
     {
         $result = $this->delete()
             ->where('user_id = :user_id')

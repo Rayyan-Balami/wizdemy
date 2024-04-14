@@ -12,6 +12,7 @@ class ReportModel extends Model
             'target_type',
             'title',
             'description',
+            'status',
         ];
     }
 
@@ -51,6 +52,26 @@ class ReportModel extends Model
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->orderBy('r.created_at', 'DESC')
             ->getAll();
+    }
+
+    public function updateStatus($reportId, $status)
+    {
+        $result = $this->update(['status' => $status])
+            ->where('report_id = :report_id')
+            ->appendBindings(['report_id' => $reportId])
+            ->execute();
+
+        if ($result) {
+            return [
+                'status' => true,
+                'message' => 'Report status updated successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Failed to update report status'
+            ];
+        }
     }
 
     public function getCounts()

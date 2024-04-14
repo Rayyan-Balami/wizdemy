@@ -12,7 +12,7 @@ View::renderPartial('Header', [
     'toastTimer',
     'adminTable',
     'confirmModal',
-    'adminTable',
+    'statusDelete'
   ]
 ]);
 

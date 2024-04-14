@@ -135,7 +135,6 @@ $router->get('/admin/dashboard', 'AdminHomeController@index')->only('admin');
 
 //routes for admin users management
 $router->get('/admin/manage/user', 'AdminManageUserController@index')->only('admin');
-$router->delete('/api/admin/delete/user/{user_id}', 'AdminManageUserController@delete')->only('apiAdmin');
 // $router->get('/admin/edit/user', 'AdminManageUserController@edit')->only('admin');
 $router->post('/admin/edit/user/{user_id}', 'AdminManageUserController@edit')->only('admin');
 $router->put('/admin/update/user/profile/{user_id}', 'AdminManageUserController@updateUserProfile')->only('admin');
@@ -172,6 +171,8 @@ $router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@view')-
 
 // api for update status
 $router->put('/api/admin/update/status/{targetType}/{targetId}/{status}', 'AdminHomeController@updateStatus')->only('apiAdmin');
+// api for delete
+$router->delete('/api/admin/delete/{targetType}/{targetId}', 'AdminHomeController@delete')->only('apiAdmin');
 
 //routes for admin manage report
 $router->get('/admin/manage/report', 'AdminManageReportController@index')->only('admin');

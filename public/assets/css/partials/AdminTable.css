@@ -175,9 +175,9 @@ table .actions-cell a,
 }
 
 .suspend-btn:hover,
-.suspend-btn[data-status=suspend],
+.suspend-btn.active,
 .pending-btn:hover,
-.pending-btn[data-status=pending]{
+.pending-btn.active{
   background-color: rgb(237, 164, 17);
 }
 
@@ -191,7 +191,7 @@ table .actions-cell a,
 }
 
 .resolved-btn:hover,
-.resolved-btn[data-status=resolved]{
+.resolved-btn.active{
   background-color: rgb(16 185 129);
 }
 
