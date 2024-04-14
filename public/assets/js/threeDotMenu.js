@@ -30,7 +30,9 @@ function openThreeDotMenu(element) {
 }
 
 function copyLink(element) {
+  console.log(element);
   const link = element.getAttribute("data-copy-link");
+  console.log(link);
   navigator.clipboard.writeText(link).then(() => {
     smallClientAlert("Copied to clipboard");
   });

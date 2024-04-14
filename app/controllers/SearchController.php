@@ -9,8 +9,10 @@ class SearchController extends Controller
     public function index()
     {
         $query = $_GET['q'];
-        if (!$query)
+        if (!$query){
+            Session::flash('warning', ['query' => 'Search query is required']);
             $this->redirect();
+        }
         $materials = $this->model->search($query);
         View::render('searchResult', [
             'materials' => $materials
