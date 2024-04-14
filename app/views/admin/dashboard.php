@@ -192,7 +192,29 @@ View::renderPartial('../adminPartials/menuHeader');
 			data-total-request-labreport = "<?= $requestCounts['labreport'] ?>"
 			></canvas>
 		</div>
+
 		
+		<!-- posts means no of materials / requests / projects in DB  -->
+		<div class="chart-div post-category-div">
+			<canvas id="total-post-category-doughnut"
+			data-total-material="<?= $materialCounts['total'] ?>"
+			data-total-request="<?= $requestCounts['total'] ?>"
+			data-total-project="<?= $projectCounts['total'] ?>"
+			data-responded-material="<?= $materialCounts['responded'] ?>"
+			></canvas>
+		</div>
+
+		<!-- users and reports means no of users and reports in DB  -->
+<div class="chart-div user-category-div">
+			<canvas id="total-user-and-report-category-stack" 
+			data-user-student = "<?= $userCounts['student'] ?>"
+			data-user-teacher = "<?= $userCounts['teacher'] ?>"
+			data-user-institution = "<?= $userCounts['institution'] ?>"
+			data-report-pending = "<?= $reportCounts['pending'] ?>"
+			data-report-resolved = "<?= $reportCounts['resolved'] ?>"
+			></canvas>
+		</div>
+
 		<!-- suspend and active means no of materials / requests / projects / users in DB with status suspend and active  -->
 		<div class="chart-div suspend-active-div">
 			<canvas id="suspend-active-category-bar"
@@ -207,26 +229,8 @@ View::renderPartial('../adminPartials/menuHeader');
 			></canvas>
 		</div>
 
-		<!-- posts means no of materials / requests / projects in DB  -->
-		<div class="chart-div post-category-div">
-			<canvas id="total-post-category-doughnut"
-			data-total-material="<?= $materialCounts['total'] ?>"
-			data-total-request="<?= $requestCounts['total'] ?>"
-			data-total-project="<?= $projectCounts['total'] ?>"
-			data-responded-material="<?= $materialCounts['responded'] ?>"
-			></canvas>
-		</div>
+		
 
-		<!-- users and reports means no of users and reports in DB  -->
-		<div class="chart-div user-category-div">
-			<canvas id="total-user-and-report-category-stack" 
-			data-user-student = "<?= $userCounts['student'] ?>"
-			data-user-teacher = "<?= $userCounts['teacher'] ?>"
-			data-user-institution = "<?= $userCounts['institution'] ?>"
-			data-report-pending = "<?= $reportCounts['pending'] ?>"
-			data-report-resolved = "<?= $reportCounts['resolved'] ?>"
-			></canvas>
-		</div>
 	</div>
 	<?php
 	View::renderPartial(

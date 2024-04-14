@@ -28,8 +28,12 @@ var postCategoryChart = new Chart(postCategory, {
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
         ],
-        borderWidth: 2,
-        hoverOffset: 4,
+        hoverBackgroundColor: [
+          "rgba(205, 49, 82, 1)",
+          "rgba(4, 112, 185, 1)",
+          "rgba(205, 156, 36, 1)",
+        ],
+        borderWidth: 3,
       },
       {
         label: "Responded Material",

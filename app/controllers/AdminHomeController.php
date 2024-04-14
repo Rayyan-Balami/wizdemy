@@ -76,10 +76,14 @@ class AdminHomeController extends Controller
         ]);
         break;
       case 'admin':
+        if (Session::get('admin')['admin_id'] == 1) {
         $target = (new AdminModel())->getAdminById($targetId);
         View::render('admin/adminManagement', [
           'admins' => [$target]
         ]);
+        } else {
+          $this->previousUrl();
+        }
         break;
       default:
         $this->previousUrl();
