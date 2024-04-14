@@ -64,13 +64,10 @@ class AdminHomeController extends Controller
     ]);
   }
 
-  public function myLog($id)
+  public function myLog()
   {
     $adminId = Session::get('admin')['admin_id'];
-    if ($adminId != $id) {
-      Session::flash('error', ['message' => 'You are not authorized to view this page']);
-      $this->previousUrl();
-    }
+
     $query = $_GET['query'] ?? '';
     $page = $_GET['page'] ?? 1;
     if ($page < 1) {
@@ -223,6 +220,24 @@ class AdminHomeController extends Controller
     // making 1st char uppercase of target type because the model method is in camel case
     //eg: deleteUser, deleteMaterial, deleteRequest, deleteProject, deleteAdmin
     $method = 'delete' . ucfirst($targetType);
+
+
+
+    if ($targetType == 'material') {
+      $material = $model->getMaterialById($targetId);
+      if ($material) {
+        $filePath = $material['file_path'];
+        if (!File::delete($filePath)) {
+          $this->buildJsonResponse('Failed to delete file', 400);
+        }
+        $thumbnailPath = $material['thumbnail_path'];
+        if (!File::delete($thumbnailPath)) {
+          $this->buildJsonResponse('Failed to delete thumbnail', 400);
+        }
+      } else {
+        $this->buildJsonResponse('Material not found', 400);
+      }
+    }
 
     $result = $model->$method($targetId);
 
