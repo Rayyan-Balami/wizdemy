@@ -46,15 +46,6 @@ class MaterialViewModel extends Model
             ->bind(['material_id' => $material_id])
             ->get();
     }
-    public function showAdmin()
-    {
-        return $this->select([
-            'DISTINCT mv.*'
-        ], 'mv')
-            ->orderBy('mv.created_at', 'DESC')
-            ->getAll();
-    }
-
     //shows suspended materials too in owner's profile
     public function showUploadsByCurrentUser($document_type = 'note')
     {
@@ -141,4 +132,44 @@ class MaterialViewModel extends Model
             ])
             ->getAll();
     }
+
+    public function getMaterialsForAdmin($query, $page = 1)
+    {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+        return $this->select([
+            'DISTINCT mv.*',
+            'u.username',
+            'u.email',
+        ], 'mv')
+            ->leftJoin('users as u', 'u.user_id = mv.user_id')
+            ->where('mv.title LIKE :query 
+            OR mv.description LIKE :query 
+            OR mv.subject LIKE :query 
+            OR mv.author LIKE :query 
+            OR mv.class_faculty LIKE :query 
+            OR mv.semester LIKE :query 
+            OR mv.education_level LIKE :query')
+            ->bind(['query' => '%' . $query . '%'])
+            ->orderBy('mv.created_at', 'DESC')
+            ->limit($limit)
+            ->offset($offset)
+            ->getAll();
+    }
+    public function getMaterialsCountForAdmin($query)
+    {
+        return $this->select([
+            'COUNT(DISTINCT mv.material_id) as total'
+        ], 'mv')
+            ->where('mv.title LIKE :query 
+            OR mv.description LIKE :query 
+            OR mv.subject LIKE :query 
+            OR mv.author LIKE :query 
+            OR mv.class_faculty LIKE :query 
+            OR mv.semester LIKE :query 
+            OR mv.education_level LIKE :query')
+            ->bind(['query' => '%' . $query . '%'])
+            ->get()['total'];
+    }
+
 }

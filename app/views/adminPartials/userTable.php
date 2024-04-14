@@ -1,11 +1,13 @@
 <div class="table-menus">
-  <form action="#" method="GET">
+  <form action="/admin/users" method="get">
     <div class="search-field">
-      <input type="text" name="email" id="table-search-input" placeholder="Search ' USERS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input">
+      <input type="text" name="query" id="table-search-input"
+        placeholder="Search ' USERS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input"
+        value="<?= $query ?? '' ?>">
     </div>
   </form>
   <div class="prev-next-wrapper">
-    <button class="prev-btn">
+    <a class="prev-btn <?= $page == 1 ? 'disabled' : '' ?>" href="/admin/manage/user?page=<?= $page - 1 ? $page - 1 : 1 ?>&query=<?= $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -15,8 +17,9 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
-    <button class="next-btn">
+    </a>
+    <a class="next-btn <?= ($page - 1) * 10 + count($users) >= $totalData ? 'disabled' : '' ?>"
+      href="/admin/manage/user?page=<?= ($page - 1) * 10 + count($users) < $totalData ? $page + 1 : $page ?>&query=<?= $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -26,9 +29,11 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
+    </a>
     <div class="table-info">
-      1-20 of 100
+      <?= ($page - 1) * 10 + 1 ?>
+      - <?= ($page - 1) * 10 + count($users) ?>
+      of <?= $totalData ?? 0 ?>
     </div>
   </div>
 </div>
@@ -95,7 +100,8 @@
               Updated : <?= date('d M Y', strtotime($user['updated_at'])) ?>
             </p>
             <div class="multi-span">
-            <span title="Joined At: <?= $user['created_at'] ?>">Created:&nbsp;<?= date('d M Y', strtotime($user['created_at'])) ?>
+              <span
+                title="Joined At: <?= $user['created_at'] ?>">Created:&nbsp;<?= date('d M Y', strtotime($user['created_at'])) ?>
               </span>
               <span title="Followers: <?= $user['followers_count'] ?>">Flr:&nbsp;
                 <?= $user['followers_count'] ?>
@@ -108,7 +114,7 @@
           <td class="actions-cell">
             <div>
               <!-- suspend button  -->
-              <button class="suspend-btn" data-status="<?= $user['status'] == 'suspend' ? 'suspend' : '' ?>" 
+              <button class="suspend-btn" data-status="<?= $user['status'] == 'suspend' ? 'suspend' : '' ?>"
                 onclick="updateStatus('user',<?= $user['user_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-width="1.5">

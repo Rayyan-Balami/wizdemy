@@ -11,20 +11,19 @@ class AdminManageProjectController extends Controller
   {
     $query = $_GET['query'] ?? '';
     $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
     
     $projects = $this->model->getProjectsForAdmin($query, $page);
-    $totalPages = $this->model->getProjectCountForAdmin($query);
-    $data = [ 
-      'projects' => $projects,
-      'totalPages' => $totalPages,
-      'page' => $page,
-    ];
-    dd($data);
+    $totalData = $this->model->getProjectCountForAdmin($query);
     
     View::render('admin/projectManagement', [
       'projects' => $projects,
-      'totalPages' => $totalPages,
+      'totalData' => $totalData,
       'page' => $page,
+      'query' => $query
+      
     ]);
   }
   

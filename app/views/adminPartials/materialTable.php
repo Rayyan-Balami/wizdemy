@@ -2,11 +2,16 @@
 <div class="table-menus">
   <form action="#" method="GET">
     <div class="search-field">
-      <input type="text" name="email" id="table-search-input" placeholder="Search ' MATERIALS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺" class="search-input">
+      <input type="text" name="query" id="table-search-input"
+        placeholder="Search ' MATERIALS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺"
+        class="search-input"
+        value="<?= $query ?? '' ?>">
+        
     </div>
   </form>
   <div class="prev-next-wrapper">
-    <button class="prev-btn">
+    <a class="prev-btn <?= $page == 1 ? 'disabled' : '' ?>"
+      href="/admin/manage/material?page=<?= $page - 1 ? $page - 1 : 1 ?>&query=<?= $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -16,8 +21,9 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
-    <button class="next-btn">
+    </a>
+    <a class="next-btn <?= ($page - 1) * 10 + count($materials) >= $total ? 'disabled' : '' ?>"
+      href="/admin/manage/material?page=<?= $page + 1 ?>&query=<?= $query ?>">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -27,9 +33,12 @@
             fill="currentColor"></path>
         </g>
       </svg>
-    </button>
+    </a>
     <div class="table-info">
-      1-20 of 100
+
+      <?= ($page - 1) * 10 + 1 ?>
+      - <?= ($page - 1) * 10 + count($materials) ?>
+      of <?= $totalData ?? 0 ?>
     </div>
   </div>
 </div>
@@ -178,8 +187,7 @@
                 </svg>
               </button>
               <!-- delete button  -->
-              <button class="delete-btn" 
-               onclick="deleteData('material',<?= $material['material_id'] ?>,this)">
+              <button class="delete-btn" onclick="deleteData('material',<?= $material['material_id'] ?>,this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" fill-rule="evenodd"
                     d="M10.31 2.25h3.38c.217 0 .406 0 .584.028a2.25 2.25 0 0 1 1.64 1.183c.084.16.143.339.212.544l.111.335a1.25 1.25 0 0 0 1.263.91h3a.75.75 0 0 1 0 1.5h-17a.75.75 0 0 1 0-1.5h3.09a1.25 1.25 0 0 0 1.173-.91l.112-.335c.068-.205.127-.384.21-.544a2.25 2.25 0 0 1 1.641-1.183c.178-.028.367-.028.583-.028m-1.302 3a2.757 2.757 0 0 0 .175-.428l.1-.3c.091-.273.112-.328.133-.368a.75.75 0 0 1 .547-.395a3.2 3.2 0 0 1 .392-.009h3.29c.288 0 .348.002.392.01a.75.75 0 0 1 .547.394c.021.04.042.095.133.369l.1.3l.039.112c.039.11.085.214.136.315z"

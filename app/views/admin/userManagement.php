@@ -33,7 +33,10 @@ View::renderPartial('../adminPartials/menuHeader');
       '../adminPartials/userTable'
       ,
       [
-        'users' => $users
+        'users' => $users,
+        'page' => $page,
+        'totalData' => $totalData,
+        'query' => $query
       ]
     );
   } else {

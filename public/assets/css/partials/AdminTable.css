@@ -156,7 +156,7 @@ table .actions-cell > div {
 
 table .actions-cell button,
 table .actions-cell a,
-.table-menus > .prev-next-wrapper button{
+.table-menus > .prev-next-wrapper a{
   margin: 0;
   background-color: inherit;
   color: inherit;

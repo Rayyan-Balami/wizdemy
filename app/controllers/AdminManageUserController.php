@@ -9,9 +9,19 @@ class AdminManageUserController extends Controller
 
   public function index()
   {
-    $users = (new UserProfileViewModel())->getAllUsers();
+
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
+    $users = (new UserProfileViewModel())->getUserForAdmin($query, $page);
+    $totalData = (new UserProfileViewModel())->getUserCountForAdmin($query);
     View::render('admin/userManagement', [
-      'users' => $users
+      'users' => $users,
+      'totalData' => $totalData,
+      'page' => $page,
+      'query' => $query
     ]);
   }
 

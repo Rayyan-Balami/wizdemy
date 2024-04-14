@@ -40,19 +40,6 @@ class ReportModel extends Model
         }
     }
 
-    //show to admin
-    public function showAdmin()
-    {
-        return $this->select([
-            'r.*',
-            'u.username',
-            'u.email',
-        ], 'r')
-            ->leftJoin('users as u', 'u.user_id = r.user_id')
-            ->orderBy('r.created_at', 'DESC')
-            ->getAll();
-    }
-
     public function getCounts()
     {
         return [
@@ -60,5 +47,33 @@ class ReportModel extends Model
             'pending' => $this->count()->where('status = "pending"')->get()['total'],
             'resolved' => $this->count()->where('status = "resolved"')->get()['total'],
         ];
+    }
+    //show to admin
+    public function getReportsForAdmin($query, $page = 1)
+    {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+        return $this->select([
+            'r.*',
+            'u.username',
+            'u.email',
+        ], 'r')
+            ->leftJoin('users as u', 'u.user_id = r.user_id')
+            ->where('r.title LIKE :query OR r.description LIKE :query')
+            ->bind(['query' => '%' . $query . '%'])
+            ->orderBy('r.created_at', 'DESC')
+            ->limit($limit)
+            ->offset($offset)
+            ->getAll();
+    }
+    public function getReportCountForAdmin($query)
+    {
+        return $this->select([
+            'COUNT(r.report_id) as total'
+        ], 'r')
+            ->leftJoin('users as u', 'u.user_id = r.user_id')
+            ->where('r.title LIKE :query OR r.description LIKE :query')
+            ->bind(['query' => '%' . $query . '%'])
+            ->get()['total'];
     }
 }

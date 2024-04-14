@@ -222,3 +222,8 @@ form > button {
   0% {background:#777777;}
   50%{background:#000000}
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

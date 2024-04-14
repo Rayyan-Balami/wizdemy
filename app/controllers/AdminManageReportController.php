@@ -9,9 +9,19 @@ class AdminManageReportController extends Controller
 
   public function index()
   {
-    $reports = $this->model->showAdmin();
+
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
+    $reports = $this->model->getReportsForAdmin($query, $page);
+    $totalData = $this->model->getReportCountForAdmin($query);
     View::render('admin/reportManagement', [
-      'reports' => $reports
+      'reports' => $reports,
+      'totalData' => $totalData,
+      'page' => $page,
+      'query' => $query
     ]);
   }
 }
