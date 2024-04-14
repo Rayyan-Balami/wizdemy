@@ -85,6 +85,10 @@
   line-height: 1.25rem/* 20px */;
 }
 
+#three-dot-menu > ul li > div > h3:not(.danger){
+  font-weight: 500;
+}
+
 @media (width < 640px) {
   #three-dot-menu > ul{
     align-self: flex-end;

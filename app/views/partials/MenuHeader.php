@@ -20,7 +20,7 @@
         <!-- upload, request, add project link -->
         <div class="h-links-wrapper">
           <!-- upload link -->
-          <a href="/material/create" class="h-link <?= $currentPage === 'uploadForm' ? 'active-header-menu' : ''; ?>">
+          <a href="/material/create" class="h-link <?= isset($currentPage) && $currentPage === 'uploadForm' ? 'active-header-menu' : ''; ?>">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -36,7 +36,7 @@
             <span>Upload</span>
           </a>
           <!-- request link -->
-          <a href="/request/create" class="h-link <?= $currentPage === 'requestForm' ? 'active-header-menu' : ''; ?>">
+          <a href="/request/create" class="h-link <?= isset($currentPage) && $currentPage === 'requestForm' ? 'active-header-menu' : ''; ?>">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -52,7 +52,7 @@
             <span>request</span>
           </a>
           <!-- add project link -->
-          <a href="/project/create" class="h-link <?= $currentPage === 'projectForm' ? 'active-header-menu' : ''; ?>">
+          <a href="/project/create" class="h-link <?= isset($currentPage) && $currentPage === 'projectForm' ? 'active-header-menu' : ''; ?>">
             <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

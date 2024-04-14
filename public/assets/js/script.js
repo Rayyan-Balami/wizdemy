@@ -70,6 +70,9 @@ function smallClientAlert(message) {
       Alert.remove();
     }, 500);
   }, 3000);
+
+  // window.scrollTo(0, document.body.scrollHeight);
+
 }
 
 // smallClientAlert("This is a small alert message");
@@ -81,7 +84,7 @@ function smallClientAlert(message) {
 
 //website config
 const SITE_NAME = "WizDemy";
-const SITE_DOMAIN = "http://localhost:8000";
+const SITE_DOMAIN = window.location.origin;
 
 function RequestCard(
   page,

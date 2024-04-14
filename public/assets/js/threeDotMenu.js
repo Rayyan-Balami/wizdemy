@@ -33,10 +33,35 @@ function copyLink(element) {
   console.log(element);
   const link = element.getAttribute("data-copy-link");
   console.log(link);
-  navigator.clipboard.writeText(link).then(() => {
+  
+  if (navigator.clipboard) {
+    // Use Clipboard API if available
+    navigator.clipboard.writeText(link).then(() => {
+      smallClientAlert("Copied to clipboard");
+    });
+  } else if (window.clipboardData) {
+    // Use IE specific clipboardData if available
+    window.clipboardData.setData('Text', link);
     smallClientAlert("Copied to clipboard");
-  });
+  } else {
+    // Fallback for browsers that do not support Clipboard API or clipboardData
+    var textArea = document.createElement("textarea");
+    textArea.value = link;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Fallback: Copying text command was ' + msg);
+      smallClientAlert("Copied to clipboard");
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+    document.body.removeChild(textArea);
+  }
 }
+
 async function deleteMaterial(element) {
   const link = element.getAttribute("data-delete-link");
   console.log(link);

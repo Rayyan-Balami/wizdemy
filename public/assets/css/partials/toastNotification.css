@@ -14,6 +14,18 @@
   transition-duration: 500ms;
 }
 
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.toast-notification::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.toast-notification {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .toast-notification > li {
   display: none;
   align-items: center;

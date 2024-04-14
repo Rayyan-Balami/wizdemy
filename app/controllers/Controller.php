@@ -50,12 +50,15 @@ class Controller
      */
     protected function previousUrl(string $url = '/')
     {
-        if (isset ($_SERVER['HTTP_REFERER'])) {
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            die();
-        } else {
-            $this->redirect($url);
+        if (isset ($_SERVER['HTTP_REFERER']) || Session::exists('previous_url')) {
+            // header('Location: ' . $_SERVER['HTTP_REFERER']);
+            $url = Session::get('previous_url') ?? $_SERVER['HTTP_REFERER'];
         }
+        $this->redirect($url);
+        //     die();
+        // } else {
+        //     $this->redirect($url);
+        // }
     }
 
     /**
