@@ -11,7 +11,7 @@ let searchList = [];
 
 function openSearchModal() {
   searchOverlay.classList.add("open");
-  document.body.classList.add("menu-open");
+  document.body.classList.toggle("menu-open");
   searchField.focus();
   renderSearchHistory();
 }
@@ -25,7 +25,7 @@ document.addEventListener("keydown", function (e) {
     e.preventDefault(); // prevent the default behavior of the key press
     if (searchOverlay.classList.contains("open")) {
       searchOverlay.classList.remove("open");
-      document.body.classList.remove("menu-open");
+      document.body.classList.toggle("menu-open");
     } else {
       openSearchModal();
     }
@@ -36,6 +36,7 @@ searchOverlay.addEventListener("click", function (event) {
   if (event.target.id === "searchOverlay") {
     // Close the modal only if the overlay is clicked, not its children
     searchOverlay.classList.remove("open");
+    document.body.classList.toggle("menu-open");
   }
 });
 
@@ -44,6 +45,7 @@ backBtnSearch.addEventListener("click", function (event) {
   console.log("clicked");
   event.stopPropagation(); // Prevent the click event from bubbling up
   searchOverlay.classList.remove("open");
+  document.body.classList.toggle("menu-open");
 });
 
 // Prevent closing when clicking the search input

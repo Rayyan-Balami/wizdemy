@@ -39,3 +39,45 @@ document.addEventListener("keydown", function (e) {
     document.getElementById("table-search-input").focus();
   }
 });
+
+
+// Function to handle click event on the download button
+document.querySelectorAll('.view-pdf-btn')?.forEach(item => {
+  item.addEventListener('click', event => {
+      const filePath = item.getAttribute('data-document-path');
+      openPopup(filePath);
+  });
+});
+
+
+
+// Function to open the popup and load the PDF
+function openPopup(filePath) {
+  const pdfOverlay = document.getElementById('pdf-overlay');
+  const pdfIframe = document.getElementById('pdf-iframe');
+  
+  // Set the source of the PDF
+  pdfIframe.setAttribute('src', filePath);
+  
+  // Show the popup and overlay
+  pdfOverlay.style.display = 'block';
+
+document.body.classList.toggle("menu-open");
+
+}
+
+// Function to close the popup
+function closePopup() {
+  const pdfOverlay = document.getElementById('pdf-overlay');
+  
+  // Hide the popup and overlay
+  pdfOverlay.style.display = 'none';
+
+document.body.classList.toggle("menu-open");
+
+}
+
+// Event listener for clicking on the overlay to close the popup
+document.getElementById('pdf-overlay')?.addEventListener('click', () => {
+  closePopup();
+});
