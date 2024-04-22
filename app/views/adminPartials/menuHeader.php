@@ -15,8 +15,6 @@
         <!-- username of admin -->
         <div class="h-links-wrapper">
           <span class="h-link">
-            <!-- crown and heaart  -->
-            <?= Session::get('admin')['admin_id'] == 1 ? '&#128081; • ' : '&#128153; • ' ?>
             <?= Session::get('admin')['username'] ?>
           </span>
         </div>
