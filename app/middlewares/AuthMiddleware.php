@@ -8,7 +8,7 @@ class AuthMiddleware
 
     if (!isset($_SESSION['user'])) {
       // Check if '/api' is not in the URL and '/admin' is not in the URL
-      if (strpos($_SERVER['REQUEST_URI'], '/api') === false && strpos($_SERVER['REQUEST_URI'], '/admin') === false) {
+      if (strpos($_SERVER['REQUEST_URI'], '/api') === false) {
         // Store the current URL in the session
         Session::flash('previous_url', $_SERVER['REQUEST_URI']);
       }

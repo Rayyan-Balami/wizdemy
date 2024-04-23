@@ -235,7 +235,7 @@ endif;
 
 View::renderPartial('ThreeDotMenu', [
   'myProfile' => $myProfile,
-  'user_id' => $user['user_id'],
+  'user_id' => $user['user_id'] ?? ''
 ]);
 
 View::renderPartial('SideInfo');

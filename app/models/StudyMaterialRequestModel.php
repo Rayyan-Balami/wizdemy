@@ -28,7 +28,9 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.document_type = :document_type AND r.status <> :status')
+            ->where('r.document_type = :document_type AND r.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind(['document_type' => $category, 'status' => 'suspend'])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
@@ -71,7 +73,10 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.document_type = :document_type AND r.user_id = :current_user')
+            ->where('r.document_type = :document_type AND r.user_id = :current_user
+            AND r.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind(['document_type' => $document_type, 'current_user' => $current_user])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
@@ -89,7 +94,9 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.document_type = :document_type AND r.user_id = :user_id AND r.status <> :status')
+            ->where('r.document_type = :document_type AND r.user_id = :user_id AND r.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind(['document_type' => $document_type, 'user_id' => $user_id, 'status' => 'suspend'])
             ->groupBy('r.request_id')
             ->orderBy('r.created_at', 'DESC')
@@ -104,7 +111,10 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.request_id = :request_id')
+            ->where('r.request_id = :request_id AND r.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
+
             ->bind(['request_id' => $request_id])
             ->groupBy('r.request_id')
             ->get();
@@ -176,7 +186,10 @@ class StudyMaterialRequestModel extends Model
             OR r.class_faculty LIKE :search
             OR r.semester LIKE :search
             )
-            AND r.document_type = :document_type AND r.status <> :status')
+            AND r.document_type = :document_type 
+            AND r.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
                 'document_type' => $document_type,
@@ -199,7 +212,10 @@ class StudyMaterialRequestModel extends Model
             OR r.class_faculty LIKE :search
             OR r.semester LIKE :search
             )
-            AND r.status <> :status')
+            AND r.document_type = :document_type 
+            AND r.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
                 'status' => 'suspend'
@@ -254,7 +270,7 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('
+            ->where('(
             r.title LIKE :search 
             OR r.description LIKE :search
             OR r.education_level LIKE :search
@@ -263,7 +279,8 @@ class StudyMaterialRequestModel extends Model
             OR r.semester LIKE :search
             OR r.status LIKE :search
             OR u.username LIKE :search 
-            OR u.email LIKE :search
+            OR u.email LIKE :search)
+            AND u.deleted_at IS NULL
             ')
             ->bind(['search' => '%' . $search . '%'])
             ->groupBy('r.request_id')
@@ -279,7 +296,7 @@ class StudyMaterialRequestModel extends Model
             'COUNT(r.request_id) as total'
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
-            ->where('
+            ->where('(
             r.title LIKE :search 
             OR r.description LIKE :search
             OR r.education_level LIKE :search
@@ -288,7 +305,7 @@ class StudyMaterialRequestModel extends Model
             OR r.semester LIKE :search
             OR r.status LIKE :search
             OR u.username LIKE :search 
-            OR u.email LIKE :search
+            OR u.email LIKE :search)
 ')
             ->bind(['search' => '%' . $search . '%'])
             ->get()['total'];

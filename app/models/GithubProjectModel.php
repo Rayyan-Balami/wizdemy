@@ -18,7 +18,9 @@ class GithubProjectModel extends Model
             'u.username'
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
-            ->where('p.status <> :status')
+            ->where('p.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind(['status' => 'suspend'])
             ->orderBy('p.created_at', 'DESC')
             ->limit($limit)
@@ -51,8 +53,10 @@ class GithubProjectModel extends Model
             'u.username'
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
-            ->where('p.user_id = :user_id')
-            ->bind(['user_id' => $user_id])
+            ->where('p.user_id = :user_id
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
+            ->bind(['user_id' => $user_id, 'status' => 'suspend'])
             ->orderBy('p.created_at', 'DESC')
             ->getAll();
     }
@@ -64,7 +68,9 @@ class GithubProjectModel extends Model
             'u.username'
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
-            ->where('p.user_id = :user_id AND p.status <> :status')
+            ->where('p.user_id = :user_id AND p.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind(['user_id' => $user_id, 'status' => 'suspend'])
             ->orderBy('p.created_at', 'DESC')
             ->getAll();
@@ -78,8 +84,11 @@ class GithubProjectModel extends Model
             'u.username'
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
-            ->where('p.project_id = :project_id')
-            ->bind(['project_id' => $project_id])
+            ->where('p.project_id = :project_id
+            AND p.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
+            ->bind(['project_id' => $project_id, 'status' => 'suspend'])
             ->get();
     }
 
@@ -88,8 +97,9 @@ class GithubProjectModel extends Model
         $result = $this->update([
             'repo_link' => $repo_link
         ])
-            ->where('project_id = :project_id')
-            ->appendBindings(['project_id' => $project_id])
+            ->where('project_id = :project_id 
+            AND status <> :status')
+            ->appendBindings(['project_id' => $project_id, 'status' => 'suspend'])
             ->execute();
         if ($result) {
             return [
@@ -134,7 +144,9 @@ class GithubProjectModel extends Model
             OR u.username LIKE :search 
             OR u.full_name LIKE :search
             )
-            AND p.status <> :status')
+            AND p.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
                 'status' => 'suspend'
@@ -147,10 +159,14 @@ class GithubProjectModel extends Model
         return $this->select([
             'DISTINCT p.repo_link as title',
         ], 'p')
+        ->leftJoin('users as u', 'u.user_id = p.user_id')
             ->where('(
                 p.repo_link LIKE :search
             )
-            AND p.status <> :status')
+            AND p.status <> :status
+            AND u.status <> :status
+            AND u.deleted_at IS NULL')
+
             ->bind([
                 'search' => "%$search%",
                 'status' => 'suspend'
@@ -179,11 +195,12 @@ class GithubProjectModel extends Model
             'p.*',
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
-            ->where('
+            ->where('(
             p.repo_link LIKE :search 
         OR u.username LIKE :search 
         OR u.email LIKE :search
-        OR p.status LIKE :search        
+        OR p.status LIKE :search)
+        AND u.deleted_at IS NULL        
         ')
             ->bind([
                 'search' => "%$search%",
@@ -200,11 +217,12 @@ class GithubProjectModel extends Model
         ],'p'
         )
             ->leftJoin('users as u', 'u.user_id = p.user_id')
-            ->where('
+            ->where('(
             p.repo_link LIKE :search 
         OR u.username LIKE :search 
         OR u.full_name LIKE :search
-        OR p.status LIKE :search
+        OR p.status LIKE :search)
+        AND u.deleted_at IS NULL
         ')
             ->bind([
                 'search' => "%$search%"

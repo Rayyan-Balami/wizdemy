@@ -20,7 +20,8 @@ class StudyMaterialModel extends Model
             'author',
             'file_path',
             'status',
-            'thumbnail_path'
+            'thumbnail_path',
+            'deleted_at'
         ];
     }
 
@@ -58,9 +59,10 @@ class StudyMaterialModel extends Model
     public function getMaterialById($material_id)
     {
         $material = $this->select([
-            'DISTINCT mv.*'
-        ], 'mv')
-            ->where('mv.material_id = :material_id')
+            'DISTINCT m.*'
+        ], 'm')
+        ->leftJoin('users as u', 'u.user_id = m.user_id')
+            ->where('m.material_id = :material_id AND u.deleted_at IS NULL')
             ->bind(['material_id' => $material_id])
             ->get();
 
@@ -102,12 +104,14 @@ class StudyMaterialModel extends Model
             ];
         }
     }
+
     function deleteMaterial($material_id)
     {
         $delete = $this->delete()
             ->where('material_id = :material_id')
             ->bind(['material_id' => $material_id])
             ->execute();
+
 
         if ($delete) {
             return [

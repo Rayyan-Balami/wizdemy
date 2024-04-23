@@ -228,6 +228,7 @@ class AdminHomeController extends Controller
         break;
       case 'material':
         $model = new StudyMaterialModel();
+        // dd($model);
         break;
       case 'request':
         $model = new StudyMaterialRequestModel();

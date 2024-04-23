@@ -21,15 +21,18 @@ class UserModel extends Model
             'phone_number',
             'allow_email',
             'allow_phone',
-            'status'
+            'status',
+            'deleted_at'
         ];
 
     }
 
     public function login($email_username, $password)
     {
-        $user = $this->select(['user_id', 'username', 'email', 'password','status'])
-            ->where('username = :username OR email = :email')
+        $user = $this->select(['user_id', 'username', 'email', 'password', 'status'])
+            ->where('(username = :username OR 
+                    email = :email) AND 
+                    deleted_at IS NULL')
             ->bind(['username' => $email_username, 'email' => $email_username])
             ->get();
 
@@ -101,7 +104,8 @@ class UserModel extends Model
             'created_at',
             'status'
         ])
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->bind(['user_id' => $user_id])
             ->get();
     }
@@ -117,7 +121,8 @@ class UserModel extends Model
     public function updateUserDetails($user_id, $data)
     {
         $result = $this->update($data)
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->appendBindings(['user_id' => $user_id])
             ->execute();
 
@@ -137,7 +142,8 @@ class UserModel extends Model
     public function userPreferences($user_id)
     {
         return $this->select(['private', 'allow_email', 'allow_phone', 'phone_number'])
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->bind(['user_id' => $user_id])
             ->get();
     }
@@ -145,7 +151,8 @@ class UserModel extends Model
     public function updatePassword($user_id, $currentPassword, $newPassword)
     {
         $password = $this->select(['password'])
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->bind(['user_id' => $user_id])
             ->get();
 
@@ -157,7 +164,8 @@ class UserModel extends Model
         }
 
         $result = $this->update(['password' => password_hash($newPassword, PASSWORD_BCRYPT)])
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->appendBindings(['user_id' => $user_id])
             ->execute();
 
@@ -178,7 +186,8 @@ class UserModel extends Model
     public function adminUpdatePassword($user_id, $newPassword)
     {
         $result = $this->update(['password' => password_hash($newPassword, PASSWORD_BCRYPT)])
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->appendBindings(['user_id' => $user_id])
             ->execute();
 
@@ -200,7 +209,8 @@ class UserModel extends Model
         //if aloow phone is set 1, then check if phone number is set in db
         if ($data['allow_phone'] == 1) {
             $phone = $this->select(['phone_number'])
-                ->where('user_id = :user_id')
+                ->where('user_id = :user_id
+                        AND deleted_at IS NULL')
                 ->bind(['user_id' => $user_id])
                 ->get();
             if ($phone['phone_number'] == null) {
@@ -212,7 +222,8 @@ class UserModel extends Model
         }
 
         $result = $this->update($data)
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->appendBindings(['user_id' => $user_id])
             ->execute();
 
@@ -230,19 +241,13 @@ class UserModel extends Model
     }
 
 
-    public function getUserStatus($user_id)
-    {
-        return $this->select(['status'])
-            ->where('user_id = :user_id')
-            ->bind(['user_id' => $user_id])
-            ->get();
-    }
     public function updateStatus($user_id, $status)
     {
         $result = $this->update([
             'status' => $status
         ])
-            ->where('user_id = :user_id')
+            ->where('user_id = :user_id
+                    AND deleted_at IS NULL')
             ->appendBindings(['user_id' => $user_id])
             ->execute();
         if ($result) {
@@ -259,7 +264,13 @@ class UserModel extends Model
     }
     public function deleteUser($user_id)
     {
-        $result = $this->delete()
+        // $result = $this->delete()
+        //     ->where('user_id = :user_id')
+        //     ->appendBindings(['user_id' => $user_id])
+        //     ->execute();
+        $result = $this->update([
+            'deleted_at' => date('Y-m-d H:i:s'),
+        ])
             ->where('user_id = :user_id')
             ->appendBindings(['user_id' => $user_id])
             ->execute();
@@ -277,7 +288,31 @@ class UserModel extends Model
         }
     }
 
-    public function getCounts(){
+    public function restoreUser($user_id)
+    {
+        $result = $this->update([
+            'deleted_at' => null
+        ])
+            ->where('user_id = :user_id')
+            ->appendBindings(['user_id' => $user_id])
+            ->execute();
+
+        if ($result) {
+            return [
+                'status' => true,
+                'message' => 'User restored successfully'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'User restore failed'
+            ];
+        }
+    }
+    
+
+    public function getCounts()
+    {
         return [
             'total' => $this->count()->get()['total'],
             'active' => $this->count()->where('status = "active"')->get()['total'],
@@ -285,6 +320,7 @@ class UserModel extends Model
             'student' => $this->count()->where('user_type = "student"')->get()['total'],
             'teacher' => $this->count()->where('user_type = "teacher"')->get()['total'],
             'institution' => $this->count()->where('user_type = "institution"')->get()['total'],
+            'deleted' => $this->count()->where('deleted_at IS NOT NULL')->get()['total']
         ];
     }
 

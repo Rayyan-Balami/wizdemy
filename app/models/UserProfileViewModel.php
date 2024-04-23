@@ -13,7 +13,7 @@ class UserProfileViewModel extends Model
     return $this->select([
       'upv.*'
     ], 'upv')
-      ->where('upv.user_id = :user_id')
+      ->where('upv.user_id = :user_id AND upv.deleted_at IS NULL')
       ->bind(['user_id' => $user_id])
       ->get();
   }
@@ -23,7 +23,7 @@ class UserProfileViewModel extends Model
     return $this->select([
       'upv.*'
     ], 'upv')
-      ->where('upv.user_id = :user_id')
+      ->where('upv.user_id = :user_id AND upv.deleted_at IS NULL')
       ->bind(['user_id' => $user_id])
       ->get();
   }
@@ -33,8 +33,13 @@ class UserProfileViewModel extends Model
     return $this->select([
       'upv.*'
     ], 'upv')
-      ->where('upv.username LIKE :search OR upv.full_name LIKE :search')
-      ->bind(['search' => '%' . $search . '%'])
+      ->where('(upv.username LIKE :search 
+              OR upv.full_name LIKE :search
+              ) AND upv.deleted_at IS NULL
+              And upv.status = :status
+
+              ')
+      ->bind(['search' => '%' . $search . '%', 'status' => 'active'])
       ->orderBy('upv.followers_count', 'DESC')
       ->getAll();
   }
@@ -51,7 +56,9 @@ class UserProfileViewModel extends Model
             OR upv.user_type LIKE :search
             OR upv.education_level LIKE :search
             OR upv.enrolled_course LIKE :search
-      ) AND upv.status = :status')
+      ) AND upv.status = :status
+        AND upv.deleted_at IS NULL
+      ')
       ->bind(['search' => '%' . $search . '%', 'status' => 'active'])
       ->limit(5)
       ->getAll();
@@ -64,14 +71,15 @@ class UserProfileViewModel extends Model
     return $this->select([
       'upv.*'
     ], 'upv')
-      ->where('upv.username LIKE :search 
+      ->where('(upv.username LIKE :search 
       OR upv.full_name LIKE :search
       OR upv.email LIKE :search
       OR upv.phone_number LIKE :search
       OR upv.user_type LIKE :search
       OR upv.education_level LIKE :search
       OR upv.enrolled_course LIKE :search
-      OR upv.status LIKE :search
+      OR upv.status LIKE :search)
+      AND upv.deleted_at IS NULL
       ')
       ->bind(['search' => '%' . $search . '%'])
       ->orderBy('upv.created_at', 'DESC')
@@ -84,14 +92,15 @@ class UserProfileViewModel extends Model
     return $this->select([
       'COUNT(upv.user_id) as total'
     ], 'upv')
-      ->where('upv.username LIKE :search 
+      ->where('(upv.username LIKE :search 
       OR upv.full_name LIKE :search
       OR upv.email LIKE :search
       OR upv.phone_number LIKE :search
       OR upv.user_type LIKE :search
       OR upv.education_level LIKE :search
       OR upv.enrolled_course LIKE :search
-      OR upv.status LIKE :search
+      OR upv.status LIKE :search)
+      AND upv.deleted_at IS NULL
       ')
       ->bind(['search' => '%' . $search . '%'])
       ->get()['total'];

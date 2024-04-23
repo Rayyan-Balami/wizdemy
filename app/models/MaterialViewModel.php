@@ -24,7 +24,14 @@ class MaterialViewModel extends Model
             'DISTINCT mv.*'
         ], 'mv')
             ->leftJoin('follow_relation as fr', 'fr.following_id = mv.user_id')
-            ->where('mv.document_type = :document_type AND mv.status <> :status AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))')
+            ->where('mv.document_type = :document_type AND 
+                mv.status <> :status AND
+                 (mv.user_id = :current_user OR 
+                 mv.private = 0 OR 
+                (mv.private = 1 AND
+                fr.follower_id = :current_user))
+                AND mv.status <> :status
+                AND mv.deleted_at IS NULL')
             ->bind([
                 'document_type' => $document_type,
                 'current_user' => $current_user,
@@ -42,8 +49,10 @@ class MaterialViewModel extends Model
         return $this->select([
             'mv.*'
         ], 'mv')
-            ->where('mv.material_id = :material_id')
-            ->bind(['material_id' => $material_id])
+            ->where('mv.material_id = :material_id 
+            AND mv.status <> :status
+            AND mv.deleted_at IS NULL')
+            ->bind(['material_id' => $material_id, 'status' => 'suspend'])
             ->get();
     }
     //shows suspended materials too in owner's profile
@@ -53,7 +62,8 @@ class MaterialViewModel extends Model
         return $this->select([
             'mv.*'
         ], 'mv')
-            ->where('mv.user_id = :current_user AND mv.document_type = :document_type')
+            ->where('mv.user_id = :current_user AND mv.document_type = :document_type
+            AND mv.deleted_at IS NULL')
             ->bind(['current_user' => $current_user, 'document_type' => $document_type])
             ->groupBy('mv.material_id')
             ->orderBy('mv.created_at', 'DESC')
@@ -66,7 +76,8 @@ class MaterialViewModel extends Model
         return $this->select([
             'mv.*'
         ], 'mv')
-            ->where('mv.user_id = :user_id AND mv.document_type = :document_type AND mv.status <> :status')
+            ->where('mv.user_id = :user_id AND mv.document_type = :document_type AND mv.status <> :status
+            AND mv.deleted_at IS NULL')
             ->bind(['user_id' => $user_id, 'document_type' => $document_type, 'status' => 'suspend'])
             ->groupBy('mv.material_id')
             ->orderBy('mv.created_at', 'DESC')
@@ -78,7 +89,8 @@ class MaterialViewModel extends Model
         return $this->select([
             'mv.*',
         ], 'mv')
-            ->where('mv.material_id = :material_id')
+            ->where('mv.material_id = :material_id
+            AND mv.deleted_at IS NULL')
             ->bind(['material_id' => $material_id])
             ->get();
     }
@@ -91,7 +103,9 @@ class MaterialViewModel extends Model
         return $this->select([
             'mv.*',
         ], 'mv')
-            ->where('mv.request_id = :request_id')
+            ->where('mv.request_id = :request_id
+            AND mv.deleted_at IS NULL')
+
             ->bind(['request_id' => $request_id])
             ->limit($limit)
             ->offset($offset)
@@ -103,7 +117,8 @@ class MaterialViewModel extends Model
         return $this->select([
             'COUNT(DISTINCT mv.material_id) as total'
         ], 'mv')
-            ->where('mv.request_id = :request_id')
+            ->where('mv.request_id = :request_id
+            AND mv.deleted_at IS NULL')
             ->bind(['request_id' => $request_id])
             ->get()['total'];
     }
@@ -125,7 +140,8 @@ class MaterialViewModel extends Model
             OR mv.class_faculty LIKE :search
             OR mv.semester LIKE :search
             )
-            AND mv.status <> :status')
+            AND mv.status <> :status
+            AND mv.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
                 'status' => 'suspend'
@@ -155,7 +171,8 @@ class MaterialViewModel extends Model
             )
             AND mv.document_type = :document_type
             AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))
-            AND mv.status <> :status')
+            AND mv.status <> :status
+            AND mv.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
                 'document_type' => $document_type,
@@ -173,7 +190,7 @@ class MaterialViewModel extends Model
             'DISTINCT mv.*',
         ], 'mv')
         ->leftJoin('users as u', 'u.user_id = mv.user_id')
-            ->where('
+            ->where('(
             mv.title LIKE :query 
         OR mv.description LIKE :query
         OR mv.document_type LIKE :query
@@ -184,7 +201,8 @@ class MaterialViewModel extends Model
         OR mv.class_faculty LIKE :query
         OR mv.semester LIKE :query
         OR mv.status LIKE :query
-        OR u.username LIKE :query
+        OR u.username LIKE :query)
+        AND mv.deleted_at IS NULL
         ')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('mv.created_at', 'DESC')
@@ -198,7 +216,7 @@ class MaterialViewModel extends Model
             'COUNT(DISTINCT mv.material_id) as total'
         ], 'mv')
         ->leftJoin('users as u', 'u.user_id = mv.user_id')
-            ->where('
+            ->where('(
             mv.title LIKE :query 
         OR mv.description LIKE :query
         OR mv.document_type LIKE :query
@@ -209,7 +227,8 @@ class MaterialViewModel extends Model
         OR mv.class_faculty LIKE :query
         OR mv.semester LIKE :query
         OR u.username LIKE :query
-        OR mv.status LIKE :query')
+        OR mv.status LIKE :query)
+        AND mv.deleted_at IS NULL')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
     }
