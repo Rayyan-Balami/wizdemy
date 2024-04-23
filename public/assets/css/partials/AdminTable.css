@@ -184,8 +184,8 @@ table .view-pdf-btn{
 
 .edit-btn:hover,
 .view-btn:hover,
-table .view-pdf-btn:hover,
-table .view-responded-materials-btn:hover{
+.view-pdf-btn:hover,
+.view-responded-materials-btn:hover{
   background-color: rgb(59 130 246);
 }
 
@@ -194,8 +194,9 @@ table .view-responded-materials-btn:hover{
 }
 
 .resolved-btn:hover,
-.resolved-btn.active{
-  background-color: rgb(16 185 129);
+.resolved-btn.active,
+.restore-btn:hover{
+  background-color: rgb(16 185 100);
 }
 
 table tr .thumbnail-td{

@@ -1,7 +1,7 @@
 <?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+  'pageTitle' => SITE_NAME . ' | ' . ($currentPage == 'userManagement' ? 'User Management' : 'Restore User'),
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',
@@ -18,7 +18,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('../adminPartials/sideNav', [
-  'currentPage' => 'userManagement'
+  'currentPage' => ($currentPage == 'userManagement' ? 'userManagement' : $currentPage),
 ]);
 
 View::renderPartial('../adminPartials/menuHeader');
@@ -36,7 +36,8 @@ View::renderPartial('../adminPartials/menuHeader');
         'users' => $users,
         'page' => $page,
         'totalData' => $totalData,
-        'query' => $query
+        'query' => $query,
+        'currentPage' => $currentPage
       ]
     );
   } else {

@@ -1,7 +1,7 @@
 <?php 
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+  'pageTitle' => SITE_NAME . ' | ' . ($currentPage == 'adminManagement' ? 'Admin Management' : 'Restore Admin'),
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',
@@ -18,7 +18,7 @@ View::renderPartial('Header', [
 ]);
 
 View::renderPartial('../adminPartials/sideNav', [
-  'currentPage' => 'adminManagement'
+  'currentPage' => ($currentPage == 'adminManagement' ? 'adminManagement' : $currentPage),
 ]);
 
 View::renderPartial('../adminPartials/menuHeader');
@@ -32,7 +32,8 @@ View::renderPartial('../adminPartials/menuHeader');
     "admins" => $admins,
     "page" => $page,
     "totalData" => $totalData,
-    "query" => $query
+    "query" => $query,
+    'currentPage' => $currentPage
   ]);
 } else {
   View::renderPartial('ZeroResult');

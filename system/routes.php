@@ -175,6 +175,10 @@ $router->put('/api/admin/update/status/{targetType}/{targetId}/{status}', 'Admin
 // api for delete
 $router->delete('/api/admin/delete/{targetType}/{targetId}', 'AdminHomeController@delete')->only('apiAdmin');
 
+//restore deleted user / admins 
+$router->get('/admin/restore/{targetType}', 'AdminHomeController@restore')->only('admin');
+$router->put('/api/admin/restore/{targetType}/{targetId}', 'AdminHomeController@restoreProcess')->only('apiAdmin');
+
 //routes for admin manage report
 $router->get('/admin/manage/report', 'AdminManageReportController@index')->only('admin');
 //routes for infinite scroll

@@ -20,7 +20,8 @@ class AdminManageUserController extends Controller
       'users' => $users,
       'totalData' => $totalData,
       'page' => $page,
-      'query' => $query
+      'query' => $query,
+      'currentPage' => 'userManagement'
     ]);
   }
 

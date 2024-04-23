@@ -105,4 +105,25 @@ class UserProfileViewModel extends Model
       ->bind(['search' => '%' . $search . '%'])
       ->get()['total'];
   }
+
+
+public function getDeletedUser()
+{
+    return $this->select([
+      'upv.*'
+    ], 'upv')
+      ->where('upv.deleted_at IS NOT NULL')
+      ->getAll();
+}
+
+public function getDeletedUserCount()
+{
+    return $this->select([
+      'COUNT(upv.user_id) as total'
+    ], 'upv')
+      ->where('upv.deleted_at IS NOT NULL')
+      ->get()['total'];
+
+}
+
 }

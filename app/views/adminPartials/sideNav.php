@@ -231,11 +231,11 @@
 
         <!-- recyle bin for admin and users since ther are soft deleted  -->
         <div class="menu-section">
-            <h2 class="menu-section-category">Recycle Bin</h2>
+            <h2 class="menu-section-category">Restore Data</h2>
             <ul>
                 <li>
-                    <a href="/admin/recycle/user"
-                        class="menu-links <?= $currentPage === 'recycleUser' ? 'is-active' : ''; ?>">
+                    <a href="/admin/restore/user"
+                        class="menu-links <?= $currentPage === 'restoreUser' ? 'is-active' : ''; ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
                             <g fill="currentColor">
                                 <path d="M168 100a60 60 0 1 1-60-60a60 60 0 0 1 60 60" opacity="0.4"/>
@@ -246,8 +246,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/recycle/admin"
-                        class="menu-links <?= $currentPage === 'myLog' ? 'recycleAdmin' : ''; ?>">
+                    <a href="/admin/restore/admin"
+                        class="menu-links <?= $currentPage === 'restoreAdmin' ? 'is-active' : ''; ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="m25 13l-1.593 3l-3.407.414l2.5 2.253L22 22l3-1.875L28 22l-.5-3.333l2.5-2.253L26.5 16z"/><path opacity="0.5" fill="currentColor" d="M21.414 13.414L25 9.834l3.587 3.582L30 12l-5-5l-5 5z"/><path opacity="0.9" stroke-width="2" fill="currentColor" d="M21.414 8.414L25 4.834l3.587 3.582L30 7l-5-5l-5 5zM16 30h-2v-5a3.003 3.003 0 0 0-3-3H7a3.003 3.003 0 0 0-3 3v5H2v-5a5.006 5.006 0 0 1 5-5h4a5.006 5.006 0 0 1 5 5zM9 10a3 3 0 1 1-3 3a3 3 0 0 1 3-3m0-2a5 5 0 1 0 5 5a5 5 0 0 0-5-5"/></svg>Admins
                     </a>
                 </li>

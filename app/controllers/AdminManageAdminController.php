@@ -28,7 +28,8 @@ class AdminManageAdminController extends Controller
       'admins' => $admins,
       'totalData' => $totalData,
       'page' => $page,
-      'query' => $query
+      'query' => $query,
+      'currentPage' => 'adminManagement'
     ]);
   }
 

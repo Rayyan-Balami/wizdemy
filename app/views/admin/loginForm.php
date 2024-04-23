@@ -1,7 +1,7 @@
 <?php
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Log In',
+  'pageTitle' => SITE_NAME . ' | Admin Log In',
   'stylesheets' => [
     'authForm',
     'adminAuthForm'

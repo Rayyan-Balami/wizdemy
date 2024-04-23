@@ -1,7 +1,7 @@
 <?php 
 
 View::renderPartial('Header', [
-  'pageTitle' => SITE_NAME . ' | Admin Dashboard',
+  'pageTitle' => SITE_NAME . ' | Request Management',
   'stylesheets' => [
     'statusAndZeroResult',
     'adminStyles',

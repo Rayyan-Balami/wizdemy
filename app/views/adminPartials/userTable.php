@@ -64,9 +64,15 @@
             </div>
           </td>
           <td>
+            <?php if($currentPage == 'userManagement'): ?>
             <p title="Last Updated: <?= $user['updated_at'] ?>">
               Updated : <?= date('d M Y', strtotime($user['updated_at'])) ?>
             </p>
+            <?php elseif($currentPage == 'restoreUser'): ?>
+            <p title="Deleted At: <?= $user['deleted_at'] ?>">
+              Deleted : <?= date('d M Y', strtotime($user['deleted_at'])) ?>
+            </p>
+            <?php endif ?>
             <div class="multi-span">
               <span
                 title="Joined At: <?= $user['created_at'] ?>">Created:&nbsp;<?= date('d M Y', strtotime($user['created_at'])) ?>
@@ -81,6 +87,7 @@
           </td>
           <td class="actions-cell">
             <div>
+              <?php if($currentPage == 'userManagement'): ?>
               <!-- suspend button  -->
               <button title="Suspend"
                class="suspend-btn  <?= $user['status'] == 'suspend' ? 'active' : '' ?>" data-status="<?= $user['status'] == 'suspend' ? 'active' : 'suspend' ?>"
@@ -120,6 +127,13 @@
                     d="M9.425 10.254a.75.75 0 0 1 .821.671l.5 5a.75.75 0 0 1-1.492.15l-.5-5a.75.75 0 0 1 .671-.821m5.15 0a.75.75 0 0 1 .671.82l-.5 5a.75.75 0 0 1-1.492-.149l.5-5a.75.75 0 0 1 .82-.671" />
                 </svg>
               </button>
+              <?php elseif($currentPage == 'restoreUser'): ?>
+              <!-- restore button  -->
+              <button title="Restore"
+               class="restore-btn" onclick="restoreData('user',<?= $user['user_id'] ?>,this)">
+               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M4.5 2a.5.5 0 0 1 0 1A1.5 1.5 0 0 0 3 4.5a.5.5 0 0 1-1 0A2.5 2.5 0 0 1 4.5 2m5 .5A.5.5 0 0 0 9 2H7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5m1.5 0a.5.5 0 0 0 .5.5A1.5 1.5 0 0 1 13 4.5a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2a.5.5 0 0 0-.5.5M4.5 13a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0A1.5 1.5 0 0 0 4.5 13m-2-3.5A.5.5 0 0 0 3 9V7a.5.5 0 0 0-1 0v2a.5.5 0 0 0 .5.5m8 5.5a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9M8.896 7.896a.5.5 0 1 1 .708.708l-.897.896h1.543A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25a1.75 1.75 0 0 0-1.75-1.75H8.707l.897.896a.5.5 0 0 1-.708.708L7.144 10.35a.5.5 0 0 1 .002-.705z"/></svg>
+              </button>
+              <?php endif ?>
             </div>
           </td>
         </tr>

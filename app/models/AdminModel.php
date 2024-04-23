@@ -35,7 +35,7 @@ class AdminModel extends Model
   {
     $limit = 10;
     $offset = ($page - 1) * $limit;
-    return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'COUNT(al.admin_id) as logs_count'], 'a')
+    return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'a.deleted_at', 'COUNT(al.admin_id) as logs_count'], 'a')
       ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
       ->where('a.admin_id <> 1 AND (
         a.username LIKE :query 
@@ -66,12 +66,13 @@ class AdminModel extends Model
 
   public function getAdminById($admin_id)
   {
-    $result = $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'COUNT(al.admin_id) as logs_count'], 'a')
+    $result = $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'a.deleted_at', 'COUNT(al.admin_id) as logs_count'], 'a')
       ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
       ->where('a.admin_id = :admin_id
         AND a.deleted_at IS NULL
         ')
       ->bind(['admin_id' => $admin_id])
+      ->groupBy('a.admin_id')
       ->get();
 
     //if admin not found
@@ -178,10 +179,6 @@ class AdminModel extends Model
 
   public function deleteAdmin($admin_id)
   {
-    // $result = $this->delete()
-    //   ->where('admin_id = :admin_id AND admin_id <> 1')
-    //   ->bind(['admin_id' => $admin_id])
-    //   ->execute();
     $result = $this->update([
       'deleted_at' => date('Y-m-d H:i:s')
     ])
@@ -222,6 +219,23 @@ class AdminModel extends Model
         'message' => 'Failed to restore admin'
       ];
     }
+  }
+
+  public function getDeletedAdmin()
+  {
+    return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'a.deleted_at', 'COUNT(al.admin_id) as logs_count'], 'a')
+    ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
+      ->where('deleted_at IS NOT NULL AND a.admin_id <> 1')
+      ->groupBy('a.admin_id')
+      ->getAll();
+  }
+
+
+  public function getDeletedAdminCount()
+  {
+    return $this->select(['COUNT(admin_id) as total'])
+      ->where('deleted_at IS NOT NULL AND admin_id <> 1')
+      ->get()['total'];
   }
 
   public function addAdmin($username, $email, $password)

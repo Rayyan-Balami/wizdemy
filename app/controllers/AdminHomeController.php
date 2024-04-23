@@ -103,7 +103,8 @@ class AdminHomeController extends Controller
           //passing as array to use the same view because there is a foreach loop in the view
           'page' => $page,
           'totalData' => $totalData,
-          'query' => $query
+          'query' => $query,
+          'currentPage' => 'userManagement'
         ]);
         break;
       case 'material':
@@ -159,7 +160,8 @@ class AdminHomeController extends Controller
             'admins' => $target ? [$target] : [],
             'page' => $page,
             'totalData' => $totalData,
-            'query' => $query
+            'query' => $query,
+            'currentPage' => 'adminManagement'
           ]);
         } else {
           // dd($_SERVER['HTTP_REFERER']);
@@ -212,7 +214,6 @@ class AdminHomeController extends Controller
     }
 
   }
-
 
   public function delete($targetType, $targetId)
   {
@@ -274,5 +275,46 @@ class AdminHomeController extends Controller
     } else {
       $this->buildJsonResponse($result['message'], 400);
     }
+  }
+
+  public function restore($targetType){
+
+    switch ($targetType) {
+      case 'user':
+        $model = new UserProfileViewModel();
+        break;
+      case 'admin':
+        $model = new AdminModel();
+        break;
+      default:
+        $this->previousUrl();
+        break;
+    }
+
+    // $method = 'getDeleted' . ucfirst($targetType);
+    $getDeletedMethod = 'getDeleted' . ucfirst($targetType);
+    $getDeletedCountMethod = 'getDeleted' . ucfirst($targetType) . 'Count';
+
+    $result = $model->$getDeletedMethod();
+    $totalData = $model->$getDeletedCountMethod();
+
+    // dd($result);
+    $view = $targetType .'Management';
+
+    $query = $_GET['query'] ?? '';
+    $page = $_GET['page'] ?? 1;
+    if ($page < 1) {
+      $page = 1;
+    }
+
+    View::render('admin/'.$view, [
+      $targetType.'s' => $result,
+      'page' => $page,
+      'totalData' => $totalData,
+      'query' => $query,
+      'currentPage' => 'restore' . ucfirst($targetType)
+    ]);
+
+
   }
 }

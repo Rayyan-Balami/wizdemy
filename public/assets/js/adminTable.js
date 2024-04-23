@@ -7,15 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const resolvedButtons = document.querySelectorAll(".resolved-btn");
   const viewPdfButtons = document.querySelectorAll(".view-pdf-btn");
   const viewRespondedMaterialsButtons = document.querySelectorAll(".view-responded-materials-btn");
+  const restoreButtons = document.querySelectorAll(".restore-btn");
 
   addHoverEffect(suspendButtons, "rgb(237, 164, 17)"); // Red
   addHoverEffect(editButtons, "rgb(59 130 246)"); // Blue
   addHoverEffect(viewButtons, "rgb(59 130 246)"); // Blue
   addHoverEffect(deleteButtons, "rgb(239 68 68)"); // Red
-  addHoverEffect(resolvedButtons, "rgb(16 185 129)"); // Green
+  addHoverEffect(resolvedButtons, "rgb(16 185 100)"); // Green
   addHoverEffect(pendingButtons, "rgb(237, 164, 17)"); // Red
   addHoverEffect(viewPdfButtons, "rgb(59 130 246)"); // Blue
   addHoverEffect(viewRespondedMaterialsButtons, "rgb(59 130 246)"); // Blue
+  addHoverEffect(restoreButtons, "rgb(16 185 100)"); // Green
 });
 
 function addHoverEffect(buttons, color) {
