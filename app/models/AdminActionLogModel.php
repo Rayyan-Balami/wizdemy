@@ -47,8 +47,7 @@ class AdminActionLogModel extends Model
                 ( l.target_type LIKE :query OR
                 l.action_type LIKE :query OR
                 a.username LIKE :query OR
-                a.email LIKE :query ) AND
-                a.admin_id <> 1 
+                a.email LIKE :query )  
             ')
             ->bind(['query' => "%$query%"])
             ->orderBy('l.created_at', 'DESC')
@@ -67,8 +66,7 @@ class AdminActionLogModel extends Model
                 (l.target_type LIKE :query OR
                 l.action_type LIKE :query OR
                 a.username LIKE :query OR
-                a.email LIKE :query ) AND
-                a.admin_id <> 1
+                a.email LIKE :query ) 
             ')
             ->bind(['query' => "%$query%"])
             ->get()['count'];

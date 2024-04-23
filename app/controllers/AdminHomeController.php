@@ -55,6 +55,7 @@ class AdminHomeController extends Controller
     $logs = (new AdminActionLogModel())->getLogs($query, $page);
     $totalData = (new AdminActionLogModel())->getLogsCount($query);
 
+    // dd($logs);
     View::render('admin/actionLog', [
       'logs' => $logs,
       'totalData' => $totalData,
