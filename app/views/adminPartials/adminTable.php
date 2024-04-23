@@ -2,7 +2,8 @@
   'currentData' => count($admins),
   'page' => $page,
   'totalData' => $totalData,
-  'query' => $query
+  'query' => $query,
+  'table_type' => 'admins'
 ]); ?>
 
 
@@ -91,4 +92,3 @@
     </tbody>
   </table>
 </div>
-<?php

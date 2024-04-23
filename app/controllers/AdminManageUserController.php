@@ -9,7 +9,6 @@ class AdminManageUserController extends Controller
 
   public function index()
   {
-
     $query = $_GET['query'] ?? '';
     $page = $_GET['page'] ?? 1;
     if ($page < 1) {

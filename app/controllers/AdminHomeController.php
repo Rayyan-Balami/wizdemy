@@ -125,13 +125,23 @@ class AdminHomeController extends Controller
         ]);
         break;
       case 'responded':
-        $target = (new MaterialViewModel())->getMaterialDetailByRequestId($targetId);
+
+        $page = $_GET['page'] ?? 1;
+        if ($page < 1) {
+          $page = 1;
+        }
+
+        $target = (new MaterialViewModel())->getMaterialDetailByRequestId($targetId, $page);
+        $totalData = (new MaterialViewModel())->getTotalRespondedMaterials($targetId);
+
         View::render('admin/materialManagement', [
           'materials' => $target, //because model method uses getAll() which returns array
           'page' => $page,
           'totalData' => $totalData,
           'query' => $query
         ]);
+
+        
         break;
       case 'project':
         $target = (new GithubProjectModel())->getProjectDetailById($targetId);

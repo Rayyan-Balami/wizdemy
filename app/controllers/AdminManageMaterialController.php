@@ -23,7 +23,7 @@ class AdminManageMaterialController extends Controller
       'totalData' => $totalData,
       'page' => $page,
       'query' => $query
-      
+
     ]);
   }
 

@@ -2,7 +2,8 @@
   'currentData' => count($materials),
   'page' => $page,
   'totalData' => $totalData,
-  'query' => $query
+  'query' => $query,
+  'table_type' => 'materials',
 ]); ?>
 
 <div class="table-section">

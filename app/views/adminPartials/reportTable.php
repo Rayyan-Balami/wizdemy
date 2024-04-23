@@ -2,7 +2,8 @@
   'currentData' => count($reports),
   'page' => $page,
   'totalData' => $totalData,
-  'query' => $query
+  'query' => $query,
+  'table_type' => 'reports',
 ]); ?>
 
 
@@ -110,4 +111,3 @@
     </tbody>
   </table>
 </div>
-<?php

@@ -2,7 +2,8 @@
   'currentData' => count($projects),
   'page' => $page,
   'totalData' => $totalData,
-  'query' => $query
+  'query' => $query,
+  'table_type' => 'projects',
 ]); ?>
 
 <div class="table-section">
@@ -95,4 +96,3 @@
     </tbody>
   </table>
 </div>
-<?php

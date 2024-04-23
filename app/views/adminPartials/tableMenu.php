@@ -2,7 +2,7 @@
   <form action="#" method="GET">
     <div class="search-field">
       <input type="text" name="query" id="table-search-input"
-        placeholder="Search ' ADMIN ACTIONS '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺"
+        placeholder="Search ' <?= strtoupper($table_type) ?> '&nbsp;&nbsp;&#x2044;&nbsp;&nbsp;or&nbsp;&nbsp;🄲🅃🅁🄻 +  🄺"
         class="search-input"
         value="<?= $query ?? '' ?>">
     </div>

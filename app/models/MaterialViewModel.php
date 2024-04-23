@@ -83,14 +83,29 @@ class MaterialViewModel extends Model
             ->get();
     }
 
-    public function getMaterialDetailByRequestId($request_id)
+    public function getMaterialDetailByRequestId($request_id,$page = 1)
     {
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+
         return $this->select([
             'mv.*',
         ], 'mv')
             ->where('mv.request_id = :request_id')
             ->bind(['request_id' => $request_id])
-            ->get();
+            ->limit($limit)
+            ->offset($offset)
+            ->getAll();
+    }
+
+    public function getTotalRespondedMaterials($request_id)
+    {
+        return $this->select([
+            'COUNT(DISTINCT mv.material_id) as total'
+        ], 'mv')
+            ->where('mv.request_id = :request_id')
+            ->bind(['request_id' => $request_id])
+            ->get()['total'];
     }
 
 

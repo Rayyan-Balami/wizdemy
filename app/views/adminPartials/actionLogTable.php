@@ -2,7 +2,8 @@
   'currentData' => count($logs),
   'page' => $page,
   'totalData' => $totalData,
-  'query' => $query
+  'query' => $query,
+  'table_type' => $currentPage == 'adminLog' ? 'admins action log' : 'my actions',
 ]); ?>
 
 
@@ -86,4 +87,3 @@
     </tbody>
   </table>
 </div>
-<?php
