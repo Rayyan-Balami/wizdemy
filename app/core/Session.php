@@ -76,9 +76,14 @@ class Session
    * 
    * @return void
    */
+
   public static function remove(string $key)
   {
-    unset($_SESSION[$key]);
+    if (isset ($_SESSION['_flash'][$key])) {
+      unset($_SESSION['_flash'][$key]);
+    } else {
+      unset($_SESSION[$key]);
+    }
   }
 
   /**

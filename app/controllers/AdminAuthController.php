@@ -9,9 +9,12 @@ class AdminAuthController extends Controller
 
   public function loginPage()
   {
+    // Clear the previous_url from the session if exists
+    Session::exists('previous_url') && Session::remove('previous_url');
+
     View::render('admin/loginForm');
   }
-  
+
   public function loginProcess()
   {
     $email_username = trim($_POST['email_username']);

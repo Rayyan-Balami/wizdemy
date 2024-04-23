@@ -25,45 +25,6 @@ class AdminManageUserController extends Controller
     ]);
   }
 
-  // api
-  public function updateUserStatus()
-  {
-    $user_id = $_POST['user_id'];
-    $status = $_POST['status'];
-
-    // check if user_id and status are set
-    if (!isset($user_id) || !isset($status)) {
-      $this->buildJsonResponse('Invalid request', 400);
-    }
-
-    $userStatus = $this->model->getUserStatus($user_id);
-    if ($userStatus['status'] == $status) {
-      $this->buildJsonResponse('User status is already ' . $status, 400);
-    }
-
-    $result = $this->model->updateUserStatus($user_id, $status);
-    if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', $status);
-      $this->buildJsonResponse($result['message'], 200);
-    } else {
-      $this->buildJsonResponse($result['message'], 400);
-    }
-  }
-
-  public function delete($user_id)
-  {
-    if (!isset($user_id)) {
-      $this->buildJsonResponse('Invalid request', 400);
-    }
-    $result = $this->model->deleteUserById($user_id);
-    if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'delete');
-      $this->buildJsonResponse($result['message'], 200);
-    } else {
-      $this->buildJsonResponse($result['message'], 400);
-    }
-  }
-
   public function edit($user_id)
   {
 
@@ -108,15 +69,15 @@ class AdminManageUserController extends Controller
 
     if ($result['status']) {
       (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update profile information');
-      Session::flash('success', ['profile' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
-      
+      Session::flash('success', ['profile' => 'Admin ' . Session::get('admin')['username'] . ', Users ' . $result['message']]);
+
     } else {
-      Session::flash('errors', ['profile' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
+      Session::flash('errors', ['profile' => 'Admin ' . Session::get('admin')['username'] . ', Users ' . $result['message']]);
       Session::flash('old', [
         'username' => $userName,
         'bio' => $bio
       ]);
-      
+
     }
 
     $this->redirectPost('/admin/edit/user/' . $user_id . '#profile');
@@ -188,10 +149,10 @@ class AdminManageUserController extends Controller
     $result = $this->model->updateUserDetails($user_id, ['full_name' => $fullName, 'email' => $email, 'user_type' => $userType, 'education_level' => $educationLevel, 'enrolled_course' => $enrolledCourse, 'school_name' => $schoolName, 'phone_number' => $phoneNumber]);
     if ($result['status']) {
       (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $user_id, 'user', 'update personal information');
-      Session::flash('success', ['update' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
-      
+      Session::flash('success', ['update' => 'Admin ' . Session::get('admin')['username'] . ', Users ' . $result['message']]);
+
     } else {
-      Session::flash('errors', ['update' => 'Admin '. Session::get('admin')['username'] . ', Users ' . $result['message']]);
+      Session::flash('errors', ['update' => 'Admin ' . Session::get('admin')['username'] . ', Users ' . $result['message']]);
     }
 
     $this->redirectPost('/admin/edit/user/' . $user_id . '#personalInformation');
@@ -212,11 +173,11 @@ class AdminManageUserController extends Controller
       $this->errors['confirmPassword'] = 'Passwords do not match';
     }
 
-    
+
     //check if there are any errors in the flash
     if (!empty($this->errors)) {
       Session::flash('errors', $this->errors);
-      $this->redirectPost('/admin/edit/user/' . $user_id . '#password'); 
+      $this->redirectPost('/admin/edit/user/' . $user_id . '#password');
     }
 
     $result = $this->model->adminUpdatePassword($user_id, $newPassword);

@@ -32,7 +32,8 @@ View::renderPartial('../adminPartials/menuHeader');
       'logs' => $logs,
       'page' => $page,
       'totalData' => $totalData,
-      'query' => $query
+      'query' => $query,
+      'currentPage' => $currentPage,
       
     ]);
   } else {

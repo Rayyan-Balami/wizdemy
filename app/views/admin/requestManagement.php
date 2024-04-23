@@ -11,6 +11,7 @@ View::renderPartial('Header', [
     'jquery.min',
     'toastTimer',
     'confirmModal',
+    'adminTable',
     'statusDelete'
   ]
 ]);

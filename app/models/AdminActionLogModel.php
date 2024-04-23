@@ -28,7 +28,7 @@ class AdminActionLogModel extends Model
         ])->execute();
     }
     /**
-     * Get all logs
+     * Get all logs expect boss admin
      * 
      * @return mixed
      */
@@ -47,7 +47,8 @@ class AdminActionLogModel extends Model
                 ( l.target_type LIKE :query OR
                 l.action_type LIKE :query OR
                 a.username LIKE :query OR
-                a.email LIKE :query )  
+                a.email LIKE :query ) AND
+                a.admin_id <> 1
             ')
             ->bind(['query' => "%$query%"])
             ->orderBy('l.created_at', 'DESC')
@@ -56,6 +57,11 @@ class AdminActionLogModel extends Model
             ->getAll()
             ;
     }
+        /**
+     * Get count of all logs expect boss admin
+     * 
+     * @return mixed
+     */
     public function getLogsCount($query)
     {
         return $this->select([
@@ -66,7 +72,8 @@ class AdminActionLogModel extends Model
                 (l.target_type LIKE :query OR
                 l.action_type LIKE :query OR
                 a.username LIKE :query OR
-                a.email LIKE :query ) 
+                a.email LIKE :query ) AND
+                a.admin_id <> 1
             ')
             ->bind(['query' => "%$query%"])
             ->get()['count'];

@@ -65,6 +65,8 @@ async function deleteData(targetType, targetId, element) {
     function (response) {
       if (response.status == 200) {
         element.closest("tr").remove();
+      }else{
+        console.log(response);
       }
     }
   );

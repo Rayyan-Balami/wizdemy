@@ -52,13 +52,10 @@ class Controller
     {
         if (isset ($_SERVER['HTTP_REFERER']) || Session::exists('previous_url')) {
             // header('Location: ' . $_SERVER['HTTP_REFERER']);
+            // dd(Session::get('previous_url'));
             $url = Session::get('previous_url') ?? $_SERVER['HTTP_REFERER'];
         }
         $this->redirect($url);
-        //     die();
-        // } else {
-        //     $this->redirect($url);
-        // }
     }
 
     /**

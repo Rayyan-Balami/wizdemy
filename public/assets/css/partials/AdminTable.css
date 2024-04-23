@@ -183,7 +183,9 @@ table .view-pdf-btn{
 }
 
 .edit-btn:hover,
-.view-btn:hover{
+.view-btn:hover,
+table .view-pdf-btn:hover,
+table .view-responded-materials-btn:hover{
   background-color: rgb(59 130 246);
 }
 
@@ -241,11 +243,6 @@ table .post-details > .description{
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-
-table .view-pdf-btn:hover{
-  background-color: rgb(59 130 246);
-}
-
 
 .pdf-popup {
   width: 100%;

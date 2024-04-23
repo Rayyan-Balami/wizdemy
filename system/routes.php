@@ -155,7 +155,6 @@ $router->get('/admin/manage/request', 'AdminManageRequestController@index')->onl
 // routes for admin manage admin
 $router->get('/admin/manage/admin', 'AdminManageAdminController@index')->only('admin');
 $router->post('/api/admin/update/admin/status', 'AdminManageAdminController@updateAdminStatus')->only('apiAdmin');
-$router->delete('/api/admin/delete/admin/{admin_id}', 'AdminManageAdminController@delete')->only('apiAdmin');
 $router->get('/admin/add/admin', 'AdminManageAdminController@add')->only('admin');
 $router->post('/admin/add/admin', 'AdminManageAdminController@addProcess')->only('admin');
 $router->get('/admin/edit/admin/{admin_id}', 'AdminManageAdminController@edit')->only('admin');
@@ -172,8 +171,8 @@ $router->get('/admin/view/{targetType}/{targetId}', 'AdminHomeController@view')-
 
 // api for update status
 $router->put('/api/admin/update/status/{targetType}/{targetId}/{status}', 'AdminHomeController@updateStatus')->only('apiAdmin');
-// api for delete
 
+// api for delete
 $router->delete('/api/admin/delete/{targetType}/{targetId}', 'AdminHomeController@delete')->only('apiAdmin');
 
 //routes for admin manage report

@@ -11,6 +11,9 @@ class AuthController extends Controller
   //index (login form)
   public function login()
   {
+    // Clear the previous_url from the session if exists
+    Session::exists('previous_url') && Session::remove('previous_url');
+
     View::render('loginForm');
   }
 

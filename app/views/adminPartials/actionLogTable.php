@@ -33,7 +33,7 @@
         <tr>
           <td>
             <p title="Admin Username | Click to View">
-              <a href="/admin/view/admin/<?= $log['admin_id'] ?>">
+              <a href="<?= $currentPage == 'adminLog' ? '/admin/view/admin/' . $log['admin_id'] : '#' ?>">
                 <?= $log['admin_username'] ?>
               </a>
             </p>
@@ -67,7 +67,8 @@
             <?php if ($log['action_type'] != 'delete'): ?>
               <div>
                 <!-- view button  to view the target -->
-                <a href="/admin/view/<?= $log['target_type'] ?>/<?= $log['target_id'] ?>" class="view-btn">
+                <a title="View Target"
+                 href="/admin/view/<?= $log['target_type'] ?>/<?= $log['target_id'] ?>" class="view-btn">
                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                     <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
                       <path

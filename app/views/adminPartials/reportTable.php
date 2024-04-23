@@ -73,7 +73,8 @@
           <td class="actions-cell">
             <div>
               <!-- view button  to view the target -->
-              <a href="/admin/view/<?= $report['target_type'] ?>/<?= $report['target_id'] ?>" class="view-btn">
+              <a title="View Target"
+              href="/admin/view/<?= $report['target_type'] ?>/<?= $report['target_id'] ?>" class="view-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
                     <path
@@ -84,7 +85,8 @@
                 </svg>
               </a>
               <!-- pending button / indicator -->
-              <button class="pending-btn <?= $report['status'] == 'pending' ? 'active' : '' ?>
+              <button title="Pending"
+               class="pending-btn <?= $report['status'] == 'pending' ? 'active' : '' ?>
                " data-status="pending" onclick="updateStatus('report',<?= $report['report_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -93,7 +95,8 @@
                 </svg>
               </button>
               <!-- resolved / completed / acted / action taken button  -->
-              <button class="resolved-btn <?= $report['status'] == 'resolved' ? 'active' : '' ?>" data-status="resolved"
+              <button title="Resolved"
+               class="resolved-btn <?= $report['status'] == 'resolved' ? 'active' : '' ?>" data-status="resolved"
                 onclick="updateStatus('report',<?= $report['report_id'] ?>, this)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"

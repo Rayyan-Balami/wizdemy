@@ -44,6 +44,7 @@ class AdminHomeController extends Controller
   public function adminLog()
   {
     if (Session::get('admin')['admin_id'] != 1) {
+      dd($_SERVER['HTTP_REFERER']);
       $this->previousUrl();
     }
     $query = $_GET['query'] ?? '';
@@ -123,6 +124,15 @@ class AdminHomeController extends Controller
           'query' => $query
         ]);
         break;
+      case 'responded':
+        $target = (new MaterialViewModel())->getMaterialDetailByRequestId($targetId);
+        View::render('admin/materialManagement', [
+          'materials' => $target, //because model method uses getAll() which returns array
+          'page' => $page,
+          'totalData' => $totalData,
+          'query' => $query
+        ]);
+        break;
       case 'project':
         $target = (new GithubProjectModel())->getProjectDetailById($targetId);
         View::render('admin/projectManagement', [
@@ -142,6 +152,7 @@ class AdminHomeController extends Controller
             'query' => $query
           ]);
         } else {
+          // dd($_SERVER['HTTP_REFERER']);
           $this->previousUrl();
         }
         break;
@@ -195,6 +206,7 @@ class AdminHomeController extends Controller
 
   public function delete($targetType, $targetId)
   {
+    // dd($targetType);
     // check if user_id and status are set
     if (!isset($targetId) || !isset($targetType)) {
       $this->buildJsonResponse('Invalid request', 400);

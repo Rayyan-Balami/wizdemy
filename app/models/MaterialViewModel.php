@@ -83,6 +83,16 @@ class MaterialViewModel extends Model
             ->get();
     }
 
+    public function getMaterialDetailByRequestId($request_id)
+    {
+        return $this->select([
+            'mv.*',
+        ], 'mv')
+            ->where('mv.request_id = :request_id')
+            ->bind(['request_id' => $request_id])
+            ->get();
+    }
+
 
     public function searchSuggestions($search)
     {
