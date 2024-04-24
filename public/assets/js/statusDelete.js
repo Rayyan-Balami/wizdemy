@@ -71,3 +71,26 @@ async function deleteData(targetType, targetId, element) {
     }
   );
 }
+
+
+//function to restore 
+async function restoreData(targetType, targetId, element) {
+ 
+  const confirmed = await confirmAction("restore", targetType);
+
+  if (!confirmed) {
+    return false;
+  }
+
+  makeAjaxCall(
+    "PUT",
+    `/api/admin/restore/${targetType}/${targetId}`,
+    function (response) {
+      if (response.status == 200) {
+        element.closest("tr").remove();
+      }else{
+        console.log(response);
+      }
+    }
+  );
+}

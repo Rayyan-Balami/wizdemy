@@ -3,7 +3,7 @@
   'page' => $page,
   'totalData' => $totalData,
   'query' => $query,
-  'table_type' => 'users',
+  'table_type' => ($currentPage == 'userManagement' ? 'users' : 'deleted users')
 ]); ?>
 
 <div class="table-section">

@@ -221,20 +221,36 @@ class AdminModel extends Model
     }
   }
 
-  public function getDeletedAdmin()
+  public function getDeletedAdmin($search, $page = 1)
   {
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
     return $this->select(['a.admin_id', 'a.username', 'a.email', 'a.status', 'a.created_at', 'a.updated_at', 'a.deleted_at', 'COUNT(al.admin_id) as logs_count'], 'a')
-    ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
-      ->where('deleted_at IS NOT NULL AND a.admin_id <> 1')
+      ->leftJoin('admin_action_log al', 'a.admin_id = al.admin_id')
+      ->where('a.deleted_at IS NOT NULL AND a.admin_id <> 1 AND (
+        a.username LIKE :search 
+        OR a.email LIKE :search
+        OR a.status LIKE :search
+        )
+        ')
+      ->bind(['search' => "%$search%"])
       ->groupBy('a.admin_id')
+      ->orderBy('a.created_at', 'DESC')
+      ->limit($limit)
+      ->offset($offset)
       ->getAll();
   }
 
-
-  public function getDeletedAdminCount()
+  public function getDeletedAdminCount($search)
   {
-    return $this->select(['COUNT(admin_id) as total'])
-      ->where('deleted_at IS NOT NULL AND admin_id <> 1')
+    return $this->select(['COUNT(admin_id) as total'], 'admins')
+      ->where('deleted_at IS NOT NULL AND admin_id <> 1 AND (
+        username LIKE :search 
+        OR email LIKE :search
+        OR status LIKE :search
+        )
+        ')
+      ->bind(['search' => "%$search%"])
       ->get()['total'];
   }
 

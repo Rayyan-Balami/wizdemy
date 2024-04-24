@@ -277,13 +277,23 @@ class AdminHomeController extends Controller
     }
   }
 
-  public function restore($targetType){
+  public function restore($targetType) //view
+  {
+
+    //if target type is not set or not valid, redirect to previous page
+    if (!isset($targetType) || !in_array($targetType, ['user', 'admin'])) {
+      $this->previousUrl();
+    }
+
 
     switch ($targetType) {
       case 'user':
         $model = new UserProfileViewModel();
         break;
       case 'admin':
+        if (Session::get('admin')['admin_id'] != 1) {
+          $this->previousUrl();
+        }
         $model = new AdminModel();
         break;
       default:
@@ -291,21 +301,23 @@ class AdminHomeController extends Controller
         break;
     }
 
-    // $method = 'getDeleted' . ucfirst($targetType);
-    $getDeletedMethod = 'getDeleted' . ucfirst($targetType);
-    $getDeletedCountMethod = 'getDeleted' . ucfirst($targetType) . 'Count';
-
-    $result = $model->$getDeletedMethod();
-    $totalData = $model->$getDeletedCountMethod();
-
-    // dd($result);
-    $view = $targetType .'Management';
 
     $query = $_GET['query'] ?? '';
     $page = $_GET['page'] ?? 1;
     if ($page < 1) {
       $page = 1;
     }
+
+    // $method = 'getDeleted' . ucfirst($targetType);
+    $getDeletedMethod = 'getDeleted' . ucfirst($targetType);
+    $getDeletedCountMethod = 'getDeleted' . ucfirst($targetType) . 'Count';
+
+    $result = $model->$getDeletedMethod($query, $page);
+    $totalData = $model->$getDeletedCountMethod($query);
+
+    // dd($result);
+    $view = $targetType .'Management';
+
 
     View::render('admin/'.$view, [
       $targetType.'s' => $result,
@@ -316,5 +328,37 @@ class AdminHomeController extends Controller
     ]);
 
 
+  }
+
+  public function restoreProcess($targetType, $targetId) //api
+  {
+
+    //if target type is not set or not valid, redirect to previous page
+    if (!isset($targetType) || !in_array($targetType, ['user', 'admin'])) {
+      $this->buildJsonResponse('Invalid request', 400);
+    }
+
+    switch ($targetType) {
+      case 'user':
+        $model = new UserModel();
+        break;
+      case 'admin':
+        $model = new AdminModel();
+        break;
+      default:
+        $this->previousUrl();
+        break;
+    }
+
+    $method = 'restore' . ucfirst($targetType);
+
+    $result = $model->$method($targetId);
+
+    if ($result['status']) {
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $targetId, $targetType, 'restore');
+      $this->buildJsonResponse($result['message'], 200);
+    } else {
+      $this->buildJsonResponse($result['message'], 400);
+    }
   }
 }

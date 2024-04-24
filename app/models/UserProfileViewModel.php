@@ -27,7 +27,7 @@ class UserProfileViewModel extends Model
       ->bind(['user_id' => $user_id])
       ->get();
   }
-  
+
   public function search($search)
   {
     return $this->select([
@@ -106,24 +106,48 @@ class UserProfileViewModel extends Model
       ->get()['total'];
   }
 
-
-public function getDeletedUser()
-{
+  public function getDeletedUser($search, $page = 1)
+  {
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
     return $this->select([
       'upv.*'
     ], 'upv')
-      ->where('upv.deleted_at IS NOT NULL')
+      ->where('(upv.username LIKE :search 
+      OR upv.full_name LIKE :search
+      OR upv.email LIKE :search
+      OR upv.phone_number LIKE :search
+      OR upv.user_type LIKE :search
+      OR upv.education_level LIKE :search
+      OR upv.enrolled_course LIKE :search
+      OR upv.status LIKE :search)
+      AND upv.deleted_at IS NOT NULL
+      ')
+      ->bind(['search' => '%' . $search . '%'])
+      ->orderBy('upv.created_at', 'DESC')
+      ->limit($limit)
+      ->offset($offset)
       ->getAll();
-}
+  }
 
-public function getDeletedUserCount()
-{
+  public function getDeletedUserCount($search)
+  {
     return $this->select([
       'COUNT(upv.user_id) as total'
     ], 'upv')
-      ->where('upv.deleted_at IS NOT NULL')
+      ->where('(upv.username LIKE :search 
+      OR upv.full_name LIKE :search
+      OR upv.email LIKE :search
+      OR upv.phone_number LIKE :search
+      OR upv.user_type LIKE :search
+      OR upv.education_level LIKE :search
+      OR upv.enrolled_course LIKE :search
+      OR upv.status LIKE :search)
+      AND upv.deleted_at IS NOT NULL
+      ')
+      ->bind(['search' => '%' . $search . '%'])
       ->get()['total'];
 
-}
+  }
 
 }

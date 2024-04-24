@@ -3,7 +3,7 @@
   'page' => $page,
   'totalData' => $totalData,
   'query' => $query,
-  'table_type' => 'admins'
+  'table_type' => ($currentPage == 'adminManagement' ? 'admins' : 'deleted admins')
 ]); ?>
 
 

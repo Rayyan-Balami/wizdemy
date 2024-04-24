@@ -84,7 +84,6 @@
 
 .card-section {
   gap: 1.5rem /* 24px */;
-  margin-bottom: 1.5rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -156,7 +155,6 @@
   display: grid;
   padding: 1.5rem 1rem; /* 24px 16px */
   gap: 1.5rem /* 24px */;
-  margin-bottom: 1.5rem;
 }
 
 @media (width > 640px) {
