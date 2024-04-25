@@ -45,8 +45,11 @@ class LikeModel extends Model
             'mv.*',
         ], 'l')
             ->leftJoin('material_view as mv', 'mv.material_id = l.material_id')
-            ->where('l.user_id = :user_id')
-            ->bind(['user_id' => $user_id])
+            ->where('l.user_id = :user_id
+            AND mv.status <> :status
+            AND mv.user_status <> :status
+            AND mv.deleted_at IS NULL')
+            ->bind(['user_id' => $user_id, 'status' => 'suspend'])
             ->getAll();
     }
 }

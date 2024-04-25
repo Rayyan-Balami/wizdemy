@@ -74,8 +74,6 @@ class StudyMaterialRequestModel extends Model
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
             ->where('r.document_type = :document_type AND r.user_id = :current_user
-            AND r.status <> :status
-            AND u.status <> :status
             AND u.deleted_at IS NULL')
             ->bind(['document_type' => $document_type, 'current_user' => $current_user])
             ->groupBy('r.request_id')
@@ -111,11 +109,10 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->leftJoin('study_materials as m', 'm.request_id = r.request_id')
-            ->where('r.request_id = :request_id AND r.status <> :status
+            ->where('r.request_id = :request_id
             AND u.status <> :status
             AND u.deleted_at IS NULL')
-
-            ->bind(['request_id' => $request_id])
+            ->bind(['request_id' => $request_id, 'status' => 'suspend'])
             ->groupBy('r.request_id')
             ->get();
     }
@@ -205,17 +202,17 @@ class StudyMaterialRequestModel extends Model
             'DISTINCT r.title as title',
         ], 'r')
             ->where('(
-                r.title LIKE :search 
-            OR r.description LIKE :search
-            OR r.education_level LIKE :search
-            OR r.subject LIKE :search 
-            OR r.class_faculty LIKE :search
-            OR r.semester LIKE :search
-            )
-            AND r.document_type = :document_type 
-            AND r.status <> :status
-            AND u.status <> :status
-            AND u.deleted_at IS NULL')
+            r.title LIKE :search 
+        OR r.description LIKE :search
+        OR r.education_level LIKE :search
+        OR r.subject LIKE :search 
+        OR r.class_faculty LIKE :search
+        OR r.semester LIKE :search
+        )
+        AND r.document_type = :document_type 
+        AND r.status <> :status
+        AND u.status <> :status
+        AND u.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
                 'status' => 'suspend'
@@ -297,16 +294,17 @@ class StudyMaterialRequestModel extends Model
         ], 'r')
             ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->where('(
-            r.title LIKE :search 
-            OR r.description LIKE :search
-            OR r.education_level LIKE :search
-            OR r.subject LIKE :search 
-            OR r.class_faculty LIKE :search
-            OR r.semester LIKE :search
-            OR r.status LIKE :search
-            OR u.username LIKE :search 
-            OR u.email LIKE :search)
-')
+                r.title LIKE :search 
+                OR r.description LIKE :search
+                OR r.education_level LIKE :search
+                OR r.subject LIKE :search 
+                OR r.class_faculty LIKE :search
+                OR r.semester LIKE :search
+                OR r.status LIKE :search
+                OR u.username LIKE :search 
+                OR u.email LIKE :search)
+                AND u.deleted_at IS NULL
+                ')
             ->bind(['search' => '%' . $search . '%'])
             ->get()['total'];
     }

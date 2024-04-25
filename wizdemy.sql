@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 24, 2024 at 09:29 AM
+-- Generation Time: Apr 25, 2024 at 04:51 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.3.4
 
@@ -151,6 +151,7 @@ CREATE TABLE `material_view` (
 ,`title` varchar(255)
 ,`updated_at` timestamp
 ,`user_id` int
+,`user_status` varchar(50)
 ,`username` varchar(30)
 ,`views_count` bigint
 );
@@ -300,7 +301,7 @@ CREATE TABLE `views` (
 --
 DROP TABLE IF EXISTS `material_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `material_view`  AS SELECT `m`.`material_id` AS `material_id`, `m`.`status` AS `status`, `m`.`user_id` AS `user_id`, `m`.`request_id` AS `request_id`, `m`.`title` AS `title`, `m`.`description` AS `description`, `m`.`document_type` AS `document_type`, `m`.`format` AS `format`, `m`.`education_level` AS `education_level`, `m`.`semester` AS `semester`, `m`.`subject` AS `subject`, `m`.`author` AS `author`, `m`.`file_path` AS `file_path`, `m`.`thumbnail_path` AS `thumbnail_path`, `m`.`class_faculty` AS `class_faculty`, `m`.`created_at` AS `created_at`, `m`.`updated_at` AS `updated_at`, `u1`.`private` AS `private`, `u1`.`username` AS `username`, `u1`.`deleted_at` AS `deleted_at`, `u2`.`username` AS `responded_to`, count(distinct `l`.`like_id`) AS `likes_count`, count(distinct `c`.`comment_id`) AS `comments_count`, count(distinct `v`.`view_id`) AS `views_count` FROM ((((((`study_materials` `m` left join `users` `u1` on((`u1`.`user_id` = `m`.`user_id`))) left join `study_material_requests` `r` on((`r`.`request_id` = `m`.`request_id`))) left join `users` `u2` on((`u2`.`user_id` = `r`.`user_id`))) left join `likes` `l` on((`l`.`material_id` = `m`.`material_id`))) left join `comments` `c` on((`c`.`material_id` = `m`.`material_id`))) left join `views` `v` on((`v`.`material_id` = `m`.`material_id`))) GROUP BY `m`.`material_id`, `m`.`status`, `u1`.`private`, `u1`.`username`, `u2`.`username` ORDER BY `m`.`created_at` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `material_view`  AS SELECT `m`.`material_id` AS `material_id`, `m`.`status` AS `status`, `m`.`user_id` AS `user_id`, `m`.`request_id` AS `request_id`, `m`.`title` AS `title`, `m`.`description` AS `description`, `m`.`document_type` AS `document_type`, `m`.`format` AS `format`, `m`.`education_level` AS `education_level`, `m`.`semester` AS `semester`, `m`.`subject` AS `subject`, `m`.`author` AS `author`, `m`.`file_path` AS `file_path`, `m`.`thumbnail_path` AS `thumbnail_path`, `m`.`class_faculty` AS `class_faculty`, `m`.`created_at` AS `created_at`, `m`.`updated_at` AS `updated_at`, `u1`.`private` AS `private`, `u1`.`username` AS `username`, `u1`.`deleted_at` AS `deleted_at`, `u1`.`status` AS `user_status`, `u2`.`username` AS `responded_to`, count(distinct `l`.`like_id`) AS `likes_count`, count(distinct `c`.`comment_id`) AS `comments_count`, count(distinct `v`.`view_id`) AS `views_count` FROM ((((((`study_materials` `m` left join `users` `u1` on((`u1`.`user_id` = `m`.`user_id`))) left join `study_material_requests` `r` on((`r`.`request_id` = `m`.`request_id`))) left join `users` `u2` on((`u2`.`user_id` = `r`.`user_id`))) left join `likes` `l` on((`l`.`material_id` = `m`.`material_id`))) left join `comments` `c` on((`c`.`material_id` = `m`.`material_id`))) left join `views` `v` on((`v`.`material_id` = `m`.`material_id`))) GROUP BY `m`.`material_id`, `m`.`status`, `u1`.`private`, `u1`.`username`, `u2`.`username` ORDER BY `m`.`created_at` DESC ;
 
 -- --------------------------------------------------------
 
@@ -555,3 +556,11 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- bossAdmin details for login --
+INSERT INTO `admins`(`username`, `password`, `email`)
+VALUES(
+    'bossAdmin',
+    '$2y$10$xg4cEpISn.H7pvQX8ae8Cu/D0r7nUtfG6sdyr5lBVPWIDxwzObjfe',
+    'bossAdmin@wizdemy.com'
+);

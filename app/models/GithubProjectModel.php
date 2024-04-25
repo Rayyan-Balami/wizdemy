@@ -85,7 +85,6 @@ class GithubProjectModel extends Model
         ], 'p')
             ->leftJoin('users as u', 'u.user_id = p.user_id')
             ->where('p.project_id = :project_id
-            AND p.status <> :status
             AND u.status <> :status
             AND u.deleted_at IS NULL')
             ->bind(['project_id' => $project_id, 'status' => 'suspend'])

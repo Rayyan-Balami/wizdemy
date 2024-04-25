@@ -37,13 +37,17 @@ class BookmarkModel extends Model
         return $bookmark ? true : false;
     }
 
-    public function getBookmarks($user_id){
+    public function getBookmarks($user_id)
+    {
         return $this->select([
             'mv.*',
         ], 'b')
             ->leftJoin('material_view as mv', 'mv.material_id = b.material_id')
-            ->where('b.user_id = :user_id')
-            ->bind(['user_id' => $user_id])
+            ->where('b.user_id = :user_id
+            AND mv.status <> :status
+            AND mv.user_status <> :status
+            AND mv.deleted_at IS NULL')
+            ->bind(['user_id' => $user_id, 'status' => 'suspend'])
             ->getAll();
     }
 

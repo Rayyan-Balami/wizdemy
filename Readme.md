@@ -27,6 +27,13 @@ WIZDEMY is built using the following technologies:
 - **Database**: MySQL
 - **Web Server**: Apache
 
+![HTML](https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/-CSS3-1572B6?style=flat&logo=css3)
+![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript)
+![PHP](https://img.shields.io/badge/-PHP-777BB4?style=flat&logo=php)
+![MySQL](https://img.shields.io/badge/-MySQL-black?style=flat&logo=mysql)
+![Apache](https://img.shields.io/badge/-Apache-D22128?style=flat&logo=Apache&logoColor=White)
+
 WIZDEMY is a web-based platform that is accessible from any device with an internet connection. Users can access WIZDEMY from their desktop computers, laptops, tablets, and smartphones.
 
 ## How to Contribute
@@ -91,14 +98,32 @@ To contribute to WIZDEMY, follow these steps:
 
 11. Celebrate your contribution to WIZDEMY!
 
+## Admin Access
 
+To access the admin panel:
+
+1. Navigate to the `/admin/login` endpoint.
+2. Use the following credentials to log in:
+   - Username: `bossAdmin`
+   - Email: `bossAdmin@wizdemy.com`
+   - Password: `12341234`
+
+## Contact Developers for Job Offers
+
+Feel free to reach out to us for any job opportunities. We appreciate your interest in our work!
+
+| Developer                                                                        | Email                  |
+| -------------------------------------------------------------------------------- | ---------------------- |
+| ![Rayyan Balami](https://github.com/rayyan-balami.png?size=100) Rayyan Balami    | visionrayyan@gmail.com |
+| ![Satish Chaudhary](https://github.com/satishcg12.png?size=100) Satish Chaudhary | sc2903175@gmail.com    |
 
 ## License
+
 WIZDEMY is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You can find more information about the license [here](https://creativecommons.org/licenses/by-nc/4.0/).
 
 In summary, you are free to:
+
 - Share — copy and redistribute the material in any medium or format
 - Adapt — remix, transform, and build upon the material
 - NonCommercial — You may not use the material for commercial purposes
 - The licensor cannot revoke these freedoms as long as you follow the license terms.
-

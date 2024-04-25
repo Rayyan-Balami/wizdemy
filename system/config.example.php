@@ -4,7 +4,7 @@
 
 //website config
 define('SITE_NAME', 'WizDemy');
-define('SITE_DOMAIN', 'http://localhost:8000');
+define('SITE_DOMAIN', $_SERVER['HTTP_HOST']);
 
 //db config
 define('DATABASE', 'mysql');// your database type

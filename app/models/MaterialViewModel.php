@@ -24,13 +24,14 @@ class MaterialViewModel extends Model
             'DISTINCT mv.*'
         ], 'mv')
             ->leftJoin('follow_relation as fr', 'fr.following_id = mv.user_id')
-            ->where('mv.document_type = :document_type AND 
-                mv.status <> :status AND
-                 (mv.user_id = :current_user OR 
-                 mv.private = 0 OR 
-                (mv.private = 1 AND
-                fr.follower_id = :current_user))
+            ->where('
+                 (
+                mv.user_id = :current_user OR mv.private = 0 OR 
+                (mv.private = 1 AND fr.follower_id = :current_user)
+                )
+                AND mv.document_type = :document_type
                 AND mv.status <> :status
+                AND mv.user_status <> :status
                 AND mv.deleted_at IS NULL')
             ->bind([
                 'document_type' => $document_type,
@@ -95,7 +96,7 @@ class MaterialViewModel extends Model
             ->get();
     }
 
-    public function getMaterialDetailByRequestId($request_id,$page = 1)
+    public function getMaterialDetailByRequestId($request_id, $page = 1)
     {
         $limit = 10;
         $offset = ($page - 1) * $limit;
@@ -105,7 +106,6 @@ class MaterialViewModel extends Model
         ], 'mv')
             ->where('mv.request_id = :request_id
             AND mv.deleted_at IS NULL')
-
             ->bind(['request_id' => $request_id])
             ->limit($limit)
             ->offset($offset)
@@ -189,7 +189,7 @@ class MaterialViewModel extends Model
         return $this->select([
             'DISTINCT mv.*',
         ], 'mv')
-        ->leftJoin('users as u', 'u.user_id = mv.user_id')
+            ->leftJoin('users as u', 'u.user_id = mv.user_id')
             ->where('(
             mv.title LIKE :query 
         OR mv.description LIKE :query
@@ -215,7 +215,7 @@ class MaterialViewModel extends Model
         return $this->select([
             'COUNT(DISTINCT mv.material_id) as total'
         ], 'mv')
-        ->leftJoin('users as u', 'u.user_id = mv.user_id')
+            ->leftJoin('users as u', 'u.user_id = mv.user_id')
             ->where('(
             mv.title LIKE :query 
         OR mv.description LIKE :query

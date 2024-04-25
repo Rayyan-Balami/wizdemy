@@ -8,7 +8,7 @@
   'toastTimer',
   'timeAgo',
   'upload',
-  // 'authFormValidation',
+  'authFormValidation',
   'confirmModal',
   ]
   ]);
@@ -277,8 +277,7 @@
 
       <!-- semester (optional) -->
       <div class="semester">
-        <label for="semester">Semester (if
-          applicable)</label>
+        <label for="semester">Semester</label>
         <select name="semester" id="semester">
           <option value="" <?= isset($flashOld['semester']) ? '' : 'selected' ?>>Select an option...
           </option>
