@@ -16,8 +16,6 @@ function openThreeDotMenu(element) {
   threeDotMenuCopyLink.setAttribute("data-copy-link", copyLink);
   threeDotMenuEditForm?.setAttribute("action", editLink);
   threeDotReportForm?.setAttribute("action", reportLink);
-  console.log(reportLink);
-  console.log(threeDotReportForm);
   threeDotMenuDeleteButton?.setAttribute("data-delete-link", deleteLink);
   threeDotMenuDeleteButton?.setAttribute(
     "data-card-id",
@@ -30,9 +28,7 @@ function openThreeDotMenu(element) {
 }
 
 function copyLink(element) {
-  console.log(element);
   const link = element.getAttribute("data-copy-link");
-  console.log(link);
   
   if (navigator.clipboard) {
     // Use Clipboard API if available
@@ -53,7 +49,6 @@ function copyLink(element) {
     try {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
-      console.log('Fallback: Copying text command was ' + msg);
       smallClientAlert("Copied to clipboard");
     } catch (err) {
       console.error('Fallback: Oops, unable to copy', err);
@@ -64,9 +59,7 @@ function copyLink(element) {
 
 async function deleteMaterial(element) {
   const link = element.getAttribute("data-delete-link");
-  console.log(link);
   const cardId = element.getAttribute("data-card-id");
-  console.log(cardId);
   const confirmed = await openConfirmModal(
     "delete",
     `Are you sure you want to "Delete" ?`
@@ -78,7 +71,6 @@ async function deleteMaterial(element) {
   type: "DELETE",
   url: link,
   success: function (response) {
-    console.log(response);
     if (response.status == 200) {
       if (response.data.status) {
         const cardSection = document.querySelector(".card-section");

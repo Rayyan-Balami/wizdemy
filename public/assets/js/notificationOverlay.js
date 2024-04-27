@@ -3,7 +3,6 @@ const notificationModal = document.querySelector('#notificationModal');
 const backBtnNotification = document.querySelector('#back-button-notification');
 
 function toggleNotificationOverlay() {
-  console.log('togglenotificationOverlay');
 
   if (!notificationModal.contains(event.target)) {
     notificationOverlay.classList.toggle('open');

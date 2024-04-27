@@ -24,7 +24,6 @@ async function updateAdminStatus(adminId, element) {
     url: "/api/admin/update/admin/status",
     data: data,
     success: function (response) {
-      console.log(response);
       if (response.status == 200 && status == "active") {
         element.setAttribute("data-status", "active");
       } else {
@@ -51,7 +50,6 @@ async function deleteUser(adminId, element) {
     type: "DELETE",
     url: "/api/admin/delete/admin/" + adminId,
     success: function (response) {
-      console.log(response);
       if (response.status == 200) {
         // element closest tr
         element.closest("tr").remove();

@@ -42,7 +42,6 @@ searchOverlay.addEventListener("click", function (event) {
 
 // Prevent closing when clicking the remove button
 backBtnSearch.addEventListener("click", function (event) {
-  console.log("clicked");
   event.stopPropagation(); // Prevent the click event from bubbling up
   searchOverlay.classList.remove("open");
   document.body.classList.toggle("menu-open");
@@ -71,7 +70,6 @@ function renderSearchList() {
   document.querySelector("#search-list").innerHTML = searchList.join("");
   // Select all search suggestion links
   var searchLinks = document.querySelectorAll(".search-suggestion-link");
-  console.log(searchLinks);
   // Add click event listener to each link
   searchLinks.forEach(function (link) {
     link.addEventListener("click", function (event) {
@@ -103,9 +101,7 @@ searchField.addEventListener("keyup", async function (e) {
       ?.filter((search) => search.includes(inputValue))
       .slice(0, 4) || [];
   const result = await fetch(`/api/search?q=${inputValue}`);
-  // console.log(result.data);
   const { data } = await result.json();
-  console.log(data);
 
   if (top4History.length > 0) {
     searchList.push(

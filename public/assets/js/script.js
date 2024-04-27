@@ -61,7 +61,6 @@ function smallClientAlert(message) {
   Alert.classList.add("smallClientAlert");
   Alert.innerHTML = message;
   document.body.appendChild(Alert);
-  console.log(Alert);
   Alert.classList.add("show");
   setTimeout(() => {
     Alert.classList.remove("show");

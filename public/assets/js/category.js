@@ -23,7 +23,6 @@ function changeCategory(page) {
   //enable the requestCheck
   $("#requestCheck").prop("disabled", false);
   category = $("input[name='category']:checked").val(); // Get the currently selected category
-  console.log(page, category);
   if (page === "request") {
     requestCategoryChange(page, category);
   } else if (page === "profile") {
@@ -62,11 +61,9 @@ function ajaxRequest(url, type, data = {}, cardType, zeroResultType, page) {
     type: type,
     data: data,
     success: function (response) {
-      console.log(response);
       renderData(response.data, cardType, zeroResultType, page);
     },
     error: function (error) {
-      console.log(error);
       cardSection.html("Failed to load data");
     },
   });
@@ -151,9 +148,7 @@ function renderData(data, cardType, zeroResultType, page) {
         item.following_count
       );
     }
-    console.log(item);
     cardSection.append(card);
-    console.log("card rendered");
     updateTimeAgo();
   });
 }
@@ -254,7 +249,6 @@ function searchProjects(page) {
 }
 
 function searchUsers(page) {
-  console.log("searchUsers fun");
   $("#requestCheck").prop("disabled", true);
   const searchQuery = getSearchQueryFromUrl();
   ajaxRequest(

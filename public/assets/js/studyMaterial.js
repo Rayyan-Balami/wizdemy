@@ -12,7 +12,6 @@ function likeMaterial(studyMaterialId, element) {
       type: "DELETE",
       url: "/api/material/unlike/" + studyMaterialId,
       success: function (response) {
-        console.log(response);
         if (response.data.status === "success") {
           element.classList.remove("active");
           element.querySelector("span").innerText =
@@ -25,7 +24,6 @@ function likeMaterial(studyMaterialId, element) {
       type: "POST",
       url: "/api/material/like/" + studyMaterialId,
       success: function (response) {
-        console.log(response);
         if (response.data.status === "success") {
           element.classList.add("active");
           element.querySelector("span").innerText =
@@ -50,7 +48,6 @@ function bookmarkMaterial(studyMaterialId, element) {
       type: "DELETE",
       url: "/api/material/unbookmark/" + studyMaterialId,
       success: function (response) {
-        console.log(response);
         if (response.data.status === "success") {
           element.classList.remove("active");
           smallClientAlert("Removed from bookmarks");
@@ -62,7 +59,6 @@ function bookmarkMaterial(studyMaterialId, element) {
       type: "POST",
       url: "/api/material/bookmark/" + studyMaterialId,
       success: function (response) {
-        console.log(response);
         if (response.data.status === "success") {
           element.classList.add("active");
           smallClientAlert("Added to bookmarks");
@@ -152,7 +148,6 @@ function submitComment(element) {
     url: "/api/material/comment/" + studyMaterialId,
     data: { comment },
     success: function (response) {
-      console.log(response);
       if (response.data.status === "success") {
         form.querySelector("textarea").value = "";
         let noCommentsElement = document.querySelector(".no-comments");
@@ -160,7 +155,6 @@ function submitComment(element) {
           noCommentsElement.style.display = "none";
         }
         document.querySelector("#comment-button").classList.add("active");
-        console.table(user_id, username, new Date(), comment);
         commentSection.innerHTML =
           commentLi(user_id, username, new Date(), comment) +
           commentSection.innerHTML;

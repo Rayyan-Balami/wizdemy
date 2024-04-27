@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Database class
- * 
- * This class contains methods for connecting to a database
- * 
- * methods: __construct, buildDsn
- */
 class Database
 {
   protected $conn;
@@ -14,17 +7,20 @@ class Database
   
 
   protected function __construct(){
-    $dsn = $this->buildDsn();
-    $this->conn = new PDO($dsn, DB_USER, DB_PASS, [
-      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
+    try {
+      $dsn = $this->buildDsn();
+      $this->conn = new PDO($dsn, DB_USER, DB_PASS, [
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+      ]);
+    } catch (PDOException $e) {
+      // Log error message
+      error_log($e->getMessage());
+      // Display a user-friendly message
+      die('A database error occurred. Please try again later.');
+    }
   }
 
-  /**
-   * Build a DSN string
-   * 
-   * @return string The DSN string
-   */
   protected function buildDsn() : string
   {
     $db_details = [

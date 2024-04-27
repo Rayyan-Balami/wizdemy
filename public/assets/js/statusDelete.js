@@ -20,7 +20,6 @@ async function updateStatus(targetType, targetId, element) {
   var status = element.getAttribute("data-status");
   if (targetType == "report") {
     if (element.classList.contains("active")) {
-      console.log(element.getAttribute("data-status"));
       return;
     }
   }
@@ -66,7 +65,7 @@ async function deleteData(targetType, targetId, element) {
       if (response.status == 200) {
         element.closest("tr").remove();
       }else{
-        console.log(response);
+        console.error(response);
       }
     }
   );
@@ -89,7 +88,7 @@ async function restoreData(targetType, targetId, element) {
       if (response.status == 200) {
         element.closest("tr").remove();
       }else{
-        console.log(response);
+        console.error(response);
       }
     }
   );

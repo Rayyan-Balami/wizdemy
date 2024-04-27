@@ -1,6 +1,5 @@
 let pageNumber = 1;
 let currentPage = window.location.pathname.split("/")[1] ?? "";
-console.log(currentPage);
 
 let loading = false;
 let finished = false;
@@ -132,7 +131,6 @@ async function infiniteScroll(
     spinner.style.display = "block";
 
     const { data, status } = await fetchData(currentPage, pageNumber);
-    console.log(data);
     if (status === 200) {
       data?.forEach((project) => {
         if (currentPage === "project") {
@@ -155,12 +153,10 @@ async function infiniteScroll(
       });
 
       if (data.length < 10) {
-        console.log("No more posts to load");
         sentinel.remove();
         finished = true;
       }
     } else if (status === 404) {
-      console.log("No more posts to load");
       sentinel.remove();
       finished = true;
     }
