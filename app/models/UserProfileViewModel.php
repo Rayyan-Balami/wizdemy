@@ -36,10 +36,10 @@ class UserProfileViewModel extends Model
       ->where('(upv.username LIKE :search 
               OR upv.full_name LIKE :search
               ) AND upv.deleted_at IS NULL
-              And upv.status = :status
+              And upv.status <> :status
 
               ')
-      ->bind(['search' => '%' . $search . '%', 'status' => 'active'])
+      ->bind(['search' => '%' . $search . '%', 'status' => 'suspend'])
       ->orderBy('upv.followers_count', 'DESC')
       ->getAll();
   }
@@ -56,10 +56,10 @@ class UserProfileViewModel extends Model
             OR upv.user_type LIKE :search
             OR upv.education_level LIKE :search
             OR upv.enrolled_course LIKE :search
-      ) AND upv.status = :status
+      ) AND upv.status <> :status
         AND upv.deleted_at IS NULL
       ')
-      ->bind(['search' => '%' . $search . '%', 'status' => 'active'])
+      ->bind(['search' => '%' . $search . '%', 'status' => 'suspend'])
       ->limit(5)
       ->getAll();
   }

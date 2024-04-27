@@ -141,6 +141,7 @@ class MaterialViewModel extends Model
             OR mv.semester LIKE :search
             )
             AND mv.status <> :status
+            AND mv.user_status <> :status
             AND mv.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",
@@ -172,6 +173,7 @@ class MaterialViewModel extends Model
             AND mv.document_type = :document_type
             AND (mv.user_id = :current_user OR mv.private = 0 OR (mv.private = 1 AND fr.follower_id = :current_user))
             AND mv.status <> :status
+            AND mv.user_status <> :status
             AND mv.deleted_at IS NULL')
             ->bind([
                 'search' => "%$search%",

@@ -1,20 +1,20 @@
 const confirmModal = document.getElementById("confirm-modal");
 
-const msgBox = confirmModal.querySelector("#msg-box");
+const msgBox = confirmModal?.querySelector("#msg-box");
 
-const svgBox = confirmModal.querySelector("#svg-box");
+const svgBox = confirmModal?.querySelector("#svg-box");
 
-const confirmButton = confirmModal.querySelector("#confirm-button");
+const confirmButton = confirmModal?.querySelector("#confirm-button");
 
-const cancelButton = confirmModal.querySelector("#cancel-button");
+const cancelButton = confirmModal?.querySelector("#cancel-button");
 
 function openConfirmModal(status, msg) {
   return new Promise((resolve, reject) => {
-    confirmModal.setAttribute("data-modal-type", status);
+    confirmModal?.setAttribute("data-modal-type", status);
     msgBox.innerHTML = msg;
     svgBox.innerHTML = svgCollection[status];
     confirmButton.querySelector("h3").innerHTML = status;
-    confirmModal.classList.add("open");
+    confirmModal?.classList.add("open");
     document.body.classList.add("menu-open");
 
     // Resolve or reject the Promise based on user action
@@ -24,8 +24,8 @@ function openConfirmModal(status, msg) {
   });
 }
 function closeConfirmModal() {
-  confirmModal.setAttribute("data-modal-type", "default");
-  confirmModal.classList.remove("open");
+  confirmModal?.setAttribute("data-modal-type", "default");
+  confirmModal?.classList.remove("open");
   document.body.classList.remove("menu-open");
 }
 

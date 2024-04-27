@@ -201,6 +201,7 @@ class StudyMaterialRequestModel extends Model
         return $this->select([
             'DISTINCT r.title as title',
         ], 'r')
+        ->leftJoin('users as u', 'u.user_id = r.user_id')
             ->where('(
             r.title LIKE :search 
         OR r.description LIKE :search
@@ -209,7 +210,6 @@ class StudyMaterialRequestModel extends Model
         OR r.class_faculty LIKE :search
         OR r.semester LIKE :search
         )
-        AND r.document_type = :document_type 
         AND r.status <> :status
         AND u.status <> :status
         AND u.deleted_at IS NULL')

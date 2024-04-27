@@ -122,14 +122,14 @@ background-color: white;
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;
 }
-#searchModal > ul > li >a {
+#searchModal > ul > li a {
   display: flex;
   gap:1rem;
   width: 100%;
   padding: 0.75rem 0.5rem/* 16px */;
 }
 
-#searchModal > ul > li > p{
+#searchModal > ul > li p{
   flex-grow: 1;
   font-size: 0.875rem/* 14px */;
   line-height: 1.25rem/* 20px */;

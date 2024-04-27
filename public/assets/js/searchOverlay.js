@@ -103,7 +103,9 @@ searchField.addEventListener("keyup", async function (e) {
       ?.filter((search) => search.includes(inputValue))
       .slice(0, 4) || [];
   const result = await fetch(`/api/search?q=${inputValue}`);
+  // console.log(result.data);
   const { data } = await result.json();
+  console.log(data);
 
   if (top4History.length > 0) {
     searchList.push(
