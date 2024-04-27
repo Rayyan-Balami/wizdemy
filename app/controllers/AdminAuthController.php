@@ -13,12 +13,12 @@ class AdminAuthController extends Controller
     $previous_url = Session::get('previous_url') ?? null;
     // Clear the previous_url from the session if exists
     if ($previous_url) {
-      if (!strpos($previous_url, '/admin')) {
-      Session::remove('previous_url');
+      if (strpos($previous_url, '/admin') === false) {
+        Session::remove('previous_url');
+      }else{
+        Session::flash('previous_url', $previous_url);
+      }
     }
-  }
-
-  Session::flash('previous_url', $previous_url);
 
     View::render('admin/loginForm');
   }
@@ -44,7 +44,7 @@ class AdminAuthController extends Controller
       Session::flash('old', [
         'email_username' => $email_username
       ]);
-      $this->redirect('/login');
+      $this->redirect('/admin/login');
     }
 
     //check if user exists
@@ -61,7 +61,7 @@ class AdminAuthController extends Controller
         'username' => $result['admin']['username'],
         'email' => $result['admin']['email'],
       ]);
-      $this->previousUrl();
+      $this->previousUrl('/admin/dashboard');
     }
 
     Session::flash('errors', ['login' => $result['message']]);

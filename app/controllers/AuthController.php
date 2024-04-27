@@ -14,13 +14,12 @@ class AuthController extends Controller
     $previous_url = Session::get('previous_url') ?? null;
     // Clear the previous_url from the session if exists
     if ($previous_url) {
-      if (strpos($previous_url, '/admin')) {
+      if (strpos($previous_url, '/admin') !== false) {
       Session::remove('previous_url');
+    }else{
+      Session::flash('previous_url', $previous_url);
     }
   }
-
-  Session::flash('previous_url', $previous_url);
-
     View::render('loginForm');
   }
 
