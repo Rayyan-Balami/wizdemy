@@ -51,8 +51,7 @@ class Controller
     protected function previousUrl(string $url = '/')
     {
         if (isset ($_SERVER['HTTP_REFERER']) || Session::exists('previous_url')) {
-            // header('Location: ' . $_SERVER['HTTP_REFERER']);
-            // dd($_SESSION['_flash']['previous_url']);
+            
             $url = Session::get('previous_url') ?? $_SERVER['HTTP_REFERER'];
         }
         $this->redirect($url);

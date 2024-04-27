@@ -69,7 +69,6 @@ class HomeController extends Controller
     $material['has_commented'] = $hasCommented;
 
     $comments = (new CommentModel)->getComments($material_id);
-    // dd($comments);
     //if its own material
     if ($isOwnMaterial) {
       View::render('viewMaterial', [

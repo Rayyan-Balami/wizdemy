@@ -44,7 +44,6 @@ class AdminHomeController extends Controller
   public function adminLog()
   {
     if (Session::get('admin')['admin_id'] != 1) {
-      dd($_SERVER['HTTP_REFERER']);
       $this->previousUrl();
     }
     $query = $_GET['query'] ?? '';
@@ -56,7 +55,6 @@ class AdminHomeController extends Controller
     $logs = (new AdminActionLogModel())->getLogs($query, $page);
     $totalData = (new AdminActionLogModel())->getLogsCount($query);
 
-    // dd($logs);
     View::render('admin/actionLog', [
       'logs' => $logs,
       'totalData' => $totalData,
@@ -164,7 +162,6 @@ class AdminHomeController extends Controller
             'currentPage' => 'adminManagement'
           ]);
         } else {
-          // dd($_SERVER['HTTP_REFERER']);
           $this->previousUrl();
         }
         break;
@@ -217,7 +214,6 @@ class AdminHomeController extends Controller
 
   public function delete($targetType, $targetId)
   {
-    // dd($targetType);
     // check if user_id and status are set
     if (!isset($targetId) || !isset($targetType)) {
       $this->buildJsonResponse('Invalid request', 400);
@@ -229,7 +225,6 @@ class AdminHomeController extends Controller
         break;
       case 'material':
         $model = new StudyMaterialModel();
-        // dd($model);
         break;
       case 'request':
         $model = new StudyMaterialRequestModel();
@@ -315,7 +310,6 @@ class AdminHomeController extends Controller
     $result = $model->$getDeletedMethod($query, $page);
     $totalData = $model->$getDeletedCountMethod($query);
 
-    // dd($result);
     $view = $targetType .'Management';
 
 

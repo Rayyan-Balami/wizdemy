@@ -21,7 +21,6 @@ class GetInfoController extends Controller
 
     if ($targetType == 'material') {
       $infoDetails = $this->model->getMaterialDetailById($targetId);
-      // dd($infoDetails);
       //sending only necessary data ( username, request_id, description, created_at, updated_at,author_id)
       $infoDetails = [
         'username' => $infoDetails['username'],

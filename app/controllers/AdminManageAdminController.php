@@ -87,7 +87,6 @@ class AdminManageAdminController extends Controller
 
     $result = $this->model->addAdmin($username, $email, $password);
 
-    // dd($result);
 
     if ($result['status']) {
       (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'Insert new admin');
@@ -159,7 +158,6 @@ class AdminManageAdminController extends Controller
       $this->previousUrl();
     }
 
-    // dd($result);
 
   }
 

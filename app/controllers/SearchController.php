@@ -33,7 +33,6 @@ class SearchController extends Controller
         $search = str_replace(' ', '_', $search);
         $projectsSuggestions = (new GithubProjectModel())->searchSuggestions($search);
 
-        // dd('here');
 
         // merge
         $suggestions = array_merge(

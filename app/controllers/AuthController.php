@@ -52,7 +52,6 @@ class AuthController extends Controller
     $result = $this->model->login($email_username, $password);
 
     if ($result['status']) {
-      // dd($result);
       if ($result['user']['status'] == 'suspend') {
         Session::flash('errors', ['account' => 'Your account has been suspended']);
         $this->redirect('/login');
