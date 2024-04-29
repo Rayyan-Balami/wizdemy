@@ -4,7 +4,7 @@ class SearchController extends Controller
 {
     public function __construct()
     {
-        parent::__construct(new MaterialViewModel());
+        parent::__construct(new StudyMaterialModel());
     }
     public function index()
     {
@@ -29,7 +29,7 @@ class SearchController extends Controller
         }
         $materialsSuggestions = $this->model->searchSuggestions($search);
         $requestsSuggestions = (new StudyMaterialRequestModel())->searchSuggestions($search);
-        $usersSuggestions = (new UserProfileViewModel())->searchSuggestions($search);
+        $usersSuggestions = (new UserModel())->searchSuggestions($search);
         $search = str_replace(' ', '_', $search);
         $projectsSuggestions = (new GithubProjectModel())->searchSuggestions($search);
 
@@ -83,7 +83,7 @@ class SearchController extends Controller
             $projects = (new GithubProjectModel())->search($search);
             $this->buildJsonResponse($projects);
         } else if ($searchType == 'user') {
-            $users = (new UserProfileViewModel())->search($search);
+            $users = (new UserModel())->search($search);
             $this->buildJsonResponse($users);
         } else {
             $this->buildJsonResponse([

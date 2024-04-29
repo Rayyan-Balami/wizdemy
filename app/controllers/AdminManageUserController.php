@@ -14,8 +14,8 @@ class AdminManageUserController extends Controller
     if ($page < 1) {
       $page = 1;
     }
-    $users = (new UserProfileViewModel())->getUserForAdmin($query, $page);
-    $totalData = (new UserProfileViewModel())->getUserCountForAdmin($query);
+    $users = $this->model->getUserForAdmin($query, $page);
+    $totalData = $this->model->getUserCountForAdmin($query);
     View::render('admin/userManagement', [
       'users' => $users,
       'totalData' => $totalData,

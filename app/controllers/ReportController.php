@@ -16,9 +16,9 @@ class ReportController extends Controller
       $this->redirect('/profile/' . Session::get('user')['user_id']);
     }
     if ($targetType == 'user') {
-      $reportDetails = (new UserProfileViewModel())->profileData($targetId);
+      $reportDetails = (new UserModel())->profileData($targetId);
     } else if ($targetType == 'material') {
-      $reportDetails = (new MaterialViewModel())->getMaterialDetailById($targetId);
+      $reportDetails = (new StudyMaterialModel())->getMaterialDetailById($targetId);
     } else if ($targetType == 'request') {
       $reportDetails = (new StudyMaterialRequestModel())->getRequestDetailById($targetId);
     } else if ($targetType == 'project') {

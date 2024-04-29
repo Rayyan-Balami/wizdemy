@@ -4,18 +4,20 @@ class InfiniteScrollController extends Controller
 {
     public function __construct()
     {
-        parent::__construct(new MaterialViewModel());
+        parent::__construct(new StudyMaterialModel());
     }
 
     public function index()
     {
         $pageNumber = $_GET['page'] ?? 1;
-        $pageName = $_GET['currentPage']??'';
+        $pageName = !empty($_GET['currentPage']) ? $_GET['currentPage'] : 'note';
+        
+        $data = [];
 
         if ($pageName == 'project') {
             $data = (new GithubProjectModel)->show($pageNumber);
-        }else if($pageName == '' || $pageName == 'question' || $pageName == 'labreport'){
-            $data = $this->model->show( $pageName, $pageNumber,);
+        }else if($pageName == 'note' || $pageName == 'question' || $pageName == 'labreport'){
+            $data = $this->model->show( $pageName, $pageNumber);
         }
         sleep(1);
         if($data){

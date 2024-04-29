@@ -4,7 +4,7 @@ class ProfileController extends Controller
 {
   public function __construct()
   {
-    parent::__construct(new UserProfileViewModel());
+    parent::__construct(new UserModel());
   }
 
   public function index($user_id = null)
@@ -13,7 +13,7 @@ class ProfileController extends Controller
       $this->redirect("/profile/" . Session::get('user')['user_id']);
       return;
     }
-    $MaterialViewModel = new MaterialViewModel();
+    $StudyMaterialModel = new StudyMaterialModel();
     $FollowRelationModel = new FollowRelationModel();
 
     $current_user = Session::get('user')['user_id'] ?? null;
@@ -32,7 +32,7 @@ class ProfileController extends Controller
     //if its own pofile
     if ($myProfile) {
       // $uploads = $this->model->showUploads($user_id);
-      $uploads = $MaterialViewModel->showUploadsByCurrentUser();
+      $uploads = $StudyMaterialModel->showUploadsByCurrentUser();
       $this->renderProfileView($myProfile, $user, $uploads, $isPrivate, $isCurrentUserFollower);
       return;
     }
@@ -43,7 +43,7 @@ class ProfileController extends Controller
       return;
     }
 
-    $uploads = $MaterialViewModel->showUploadsByUserId($user_id);
+    $uploads = $StudyMaterialModel->showUploadsByUserId($user_id);
     $this->renderProfileView($myProfile, $user, $uploads, $isPrivate, $isCurrentUserFollower);
   }
 
@@ -65,12 +65,12 @@ class ProfileController extends Controller
     $user_id = $_POST['user_id'] ?? $current_user;
     $category = $_POST['category'];
 
-    $materialViewModel = new MaterialViewModel();
+    $StudyMaterialModel = new StudyMaterialModel();
 
     if ($user_id == $current_user) {
-      $uploads = $materialViewModel->showUploadsByCurrentUser($category);
+      $uploads = $StudyMaterialModel->showUploadsByCurrentUser($category);
     } else {
-      $uploads = $materialViewModel->showUploadsByUserId($user_id, $category);
+      $uploads = $StudyMaterialModel->showUploadsByUserId($user_id, $category);
     }
 
     $this->buildJsonResponse($uploads);

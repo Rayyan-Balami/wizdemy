@@ -95,7 +95,7 @@ class AdminHomeController extends Controller
 
     switch ($targetType) {
       case 'user':
-        $target = (new UserProfileViewModel())->getUserById($targetId);
+        $target = (new UserModel())->getUserById($targetId);
         View::render('admin/userManagement', [
           'users' => $target ? [$target] : [],
           //passing as array to use the same view because there is a foreach loop in the view
@@ -106,7 +106,7 @@ class AdminHomeController extends Controller
         ]);
         break;
       case 'material':
-        $target = (new MaterialViewModel())->getMaterialDetailById($targetId);
+        $target = (new StudyMaterialModel())->getMaterialDetailById($targetId);
         View::render('admin/materialManagement', [
           'materials' => $target ? [$target] : [],
           'page' => $page,
@@ -130,8 +130,8 @@ class AdminHomeController extends Controller
           $page = 1;
         }
 
-        $target = (new MaterialViewModel())->getMaterialDetailByRequestId($targetId, $page);
-        $totalData = (new MaterialViewModel())->getTotalRespondedMaterials($targetId);
+        $target = (new StudyMaterialModel())->getMaterialDetailByRequestId($targetId, $page);
+        $totalData = (new StudyMaterialModel())->getTotalRespondedMaterials($targetId);
 
         View::render('admin/materialManagement', [
           'materials' => $target, //because model method uses getAll() which returns array
@@ -283,7 +283,7 @@ class AdminHomeController extends Controller
 
     switch ($targetType) {
       case 'user':
-        $model = new UserProfileViewModel();
+        $model = new UserModel();
         break;
       case 'admin':
         if (Session::get('admin')['admin_id'] != 1) {

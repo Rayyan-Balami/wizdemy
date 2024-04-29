@@ -1,5 +1,5 @@
 let pageNumber = 1;
-let currentPage = window.location.pathname.split("/")[1] ?? "";
+let currentPage = window.location.pathname.split("/")[1] ?? "note";
 
 let loading = false;
 let finished = false;

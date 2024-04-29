@@ -69,6 +69,27 @@ else:
           Follow the user to view their uploads
         </p>
       </div>
+    <?php elseif ($user['status'] == 'suspend'): ?>
+      <div class="title-label">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 10a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
+            <path fill="currentColor" fill-rule="evenodd"
+              d="M16.5 15.75a2.75 2.75 0 0 0-2.383 4.123l3.756-3.756a2.735 2.735 0 0 0-1.373-.367m2.42 1.442l-3.728 3.728a2.75 2.75 0 0 0 3.728-3.728M12.25 18.5a4.25 4.25 0 1 1 8.5 0a4.25 4.25 0 0 1-8.5 0"
+              clip-rule="evenodd" />
+            <path fill="currentColor"
+              d="M17.996 14.521a4.25 4.25 0 0 0-3.979 7.429c-.608.033-1.278.05-2.017.05c-8 0-8-2.015-8-4.5S7.582 13 12 13c2.387 0 4.53.588 5.996 1.521"
+              opacity="0.4" />
+          </svg>
+        </div>
+        <h2 class="title">
+          Account Suspended
+        </h2>
+
+        <p class="message">
+          Admin has suspended this account
+        </p>
+      </div>
       <!-- private header end  -->
     <?php else: ?>
 
@@ -126,6 +147,8 @@ else:
           <?= $user['bio'] ?>
         </p>
 
+        <?php if($user['status'] != 'suspend'): ?>
+
         <!-- buttons  -->
         <div class="user-buttons">
           <?php if (!$myProfile && !$isCurrentUserFollower): ?>
@@ -144,7 +167,14 @@ else:
             <form action="/unfollow/<?= $user['user_id'] ?>" method="post" id="unfollow-form">
               <input type="hidden" name="_method" value="DELETE">
               <button class="follow-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"><path stroke-linecap="round" d="M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8"/><path d="M22 17.28a2.28 2.28 0 0 1-.662 1.606c-.976.984-1.923 2.01-2.936 2.958a.597.597 0 0 1-.823-.017l-2.918-2.94a2.28 2.28 0 0 1 0-3.214a2.277 2.277 0 0 1 3.233 0l.106.107l.106-.107A2.277 2.277 0 0 1 22 17.28Z"/><path stroke-linecap="round" d="M5 20v-1a7 7 0 0 1 10-6.326"/></g></svg>Following
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                  <g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5">
+                    <path stroke-linecap="round" d="M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
+                    <path
+                      d="M22 17.28a2.28 2.28 0 0 1-.662 1.606c-.976.984-1.923 2.01-2.936 2.958a.597.597 0 0 1-.823-.017l-2.918-2.94a2.28 2.28 0 0 1 0-3.214a2.277 2.277 0 0 1 3.233 0l.106.107l.106-.107A2.277 2.277 0 0 1 22 17.28Z" />
+                    <path stroke-linecap="round" d="M5 20v-1a7 7 0 0 1 10-6.326" />
+                  </g>
+                </svg>Following
               </button>
             </form>
           <?php else: ?>
@@ -223,6 +253,8 @@ else:
             </form>
           <?php endif; ?>
         </div>
+
+        <?php endif; ?>
       </div>
     </aside>
 

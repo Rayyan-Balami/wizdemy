@@ -125,40 +125,6 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `material_view`
--- (See below for the actual view)
---
-CREATE TABLE `material_view` (
-`author` varchar(255)
-,`class_faculty` varchar(255)
-,`comments_count` bigint
-,`created_at` timestamp
-,`deleted_at` timestamp
-,`description` text
-,`document_type` varchar(255)
-,`education_level` varchar(255)
-,`file_path` varchar(255)
-,`format` varchar(255)
-,`likes_count` bigint
-,`material_id` int
-,`private` tinyint(1)
-,`request_id` int
-,`responded_to` varchar(30)
-,`semester` varchar(255)
-,`status` varchar(50)
-,`subject` varchar(255)
-,`thumbnail_path` varchar(255)
-,`title` varchar(255)
-,`updated_at` timestamp
-,`user_id` int
-,`user_status` varchar(50)
-,`username` varchar(30)
-,`views_count` bigint
-);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `reports`
 --
 
@@ -251,37 +217,6 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_profile_view`
--- (See below for the actual view)
---
-CREATE TABLE `user_profile_view` (
-`allow_email` tinyint(1)
-,`allow_phone` tinyint(1)
-,`bio` varchar(150)
-,`created_at` timestamp
-,`deleted_at` timestamp
-,`education_level` varchar(100)
-,`email` varchar(100)
-,`enrolled_course` varchar(100)
-,`followers_count` bigint
-,`following_count` bigint
-,`full_name` varchar(100)
-,`materials_count` bigint
-,`phone_number` varchar(20)
-,`private` tinyint(1)
-,`project_count` bigint
-,`requests_count` bigint
-,`responded_requests_count` bigint
-,`status` varchar(50)
-,`updated_at` timestamp
-,`user_id` int
-,`user_type` varchar(50)
-,`username` varchar(30)
-);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `views`
 --
 
@@ -293,28 +228,6 @@ CREATE TABLE `views` (
   `user_agent` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 );
-
--- --------------------------------------------------------
-
---
--- Structure for view `material_view`
---
-DROP TABLE IF EXISTS `material_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `material_view`  AS SELECT `m`.`material_id` AS `material_id`, `m`.`status` AS `status`, `m`.`user_id` AS `user_id`, `m`.`request_id` AS `request_id`, `m`.`title` AS `title`, `m`.`description` AS `description`, `m`.`document_type` AS `document_type`, `m`.`format` AS `format`, `m`.`education_level` AS `education_level`, `m`.`semester` AS `semester`, `m`.`subject` AS `subject`, `m`.`author` AS `author`, `m`.`file_path` AS `file_path`, `m`.`thumbnail_path` AS `thumbnail_path`, `m`.`class_faculty` AS `class_faculty`, `m`.`created_at` AS `created_at`, `m`.`updated_at` AS `updated_at`, `u1`.`private` AS `private`, `u1`.`username` AS `username`, `u1`.`deleted_at` AS `deleted_at`, `u1`.`status` AS `user_status`, `u2`.`username` AS `responded_to`, count(distinct `l`.`like_id`) AS `likes_count`, count(distinct `c`.`comment_id`) AS `comments_count`, count(distinct `v`.`view_id`) AS `views_count` FROM ((((((`study_materials` `m` left join `users` `u1` on((`u1`.`user_id` = `m`.`user_id`))) left join `study_material_requests` `r` on((`r`.`request_id` = `m`.`request_id`))) left join `users` `u2` on((`u2`.`user_id` = `r`.`user_id`))) left join `likes` `l` on((`l`.`material_id` = `m`.`material_id`))) left join `comments` `c` on((`c`.`material_id` = `m`.`material_id`))) left join `views` `v` on((`v`.`material_id` = `m`.`material_id`))) GROUP BY `m`.`material_id`, `m`.`status`, `u1`.`private`, `u1`.`username`, `u2`.`username` ORDER BY `m`.`created_at` DESC ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `user_profile_view`
---
-DROP TABLE IF EXISTS `user_profile_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_profile_view`  AS SELECT `u`.`user_id` AS `user_id`, `u`.`status` AS `status`, `u`.`private` AS `private`, `u`.`allow_email` AS `allow_email`, `u`.`allow_phone` AS `allow_phone`, `u`.`username` AS `username`, `u`.`full_name` AS `full_name`, `u`.`email` AS `email`, `u`.`phone_number` AS `phone_number`, `u`.`education_level` AS `education_level`, `u`.`enrolled_course` AS `enrolled_course`, `u`.`bio` AS `bio`, `u`.`created_at` AS `created_at`, `u`.`updated_at` AS `updated_at`, `u`.`deleted_at` AS `deleted_at`, `u`.`user_type` AS `user_type`, count(distinct `f1`.`follower_id`) AS `followers_count`, count(distinct `f2`.`following_id`) AS `following_count`, count(distinct `r`.`request_id`) AS `requests_count`, count(distinct `m`.`material_id`) AS `materials_count`, count(distinct `p`.`project_id`) AS `project_count`, count(distinct (case when (`s`.`request_id` is not null) then `s`.`user_id` end)) AS `responded_requests_count` FROM (((((((`users` `u` left join `follow_relation` `fr` on((`u`.`user_id` = `fr`.`following_id`))) left join `follow_relation` `f1` on((`f1`.`following_id` = `u`.`user_id`))) left join `follow_relation` `f2` on((`f2`.`follower_id` = `u`.`user_id`))) left join `study_material_requests` `r` on((`r`.`user_id` = `u`.`user_id`))) left join `study_materials` `m` on((`m`.`user_id` = `u`.`user_id`))) left join `github_projects` `p` on((`p`.`user_id` = `u`.`user_id`))) left join `study_materials` `s` on(((`s`.`user_id` = `u`.`user_id`) and (`s`.`request_id` is not null)))) GROUP BY `u`.`user_id`, `u`.`status`, `u`.`private`, `u`.`allow_email`, `u`.`allow_phone`, `u`.`username`, `u`.`full_name`, `u`.`email`, `u`.`phone_number`, `u`.`education_level`, `u`.`enrolled_course`, `u`.`bio`, `u`.`created_at`, `u`.`updated_at`, `u`.`user_type`, `u`.`deleted_at` ;
-
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `admins`

@@ -15,8 +15,8 @@ class AdminManageMaterialController extends Controller
       $page = 1;
     }
 
-    $materials = (new MaterialViewModel())->getMaterialsForAdmin($query, $page);
-    $totalData = (new MaterialViewModel())->getMaterialsCountForAdmin($query);
+    $materials = $this->model->getMaterialsForAdmin($query, $page);
+    $totalData = $this->model->getMaterialsCountForAdmin($query);
 
     View::render('admin/materialManagement', [
       'materials' => $materials,

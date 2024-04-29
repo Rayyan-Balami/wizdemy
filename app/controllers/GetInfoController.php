@@ -5,7 +5,7 @@ class GetInfoController extends Controller
 
   public function __construct()
   {
-    parent::__construct(new MaterialViewModel());
+    parent::__construct(new StudyMaterialModel());
   }
 
   public function getInfo($targetType, $targetId)
