@@ -176,9 +176,10 @@ class StudyMaterialModel extends Model
         return $this->select([
             'COUNT(DISTINCT m.material_id) as total'
         ], 'm')
+        ->leftJoin('users as u', 'u.user_id = m.user_id')
             ->where('m.request_id = :request_id
             AND m.status <> :status
-            AND m.deleted_at IS NULL')
+            AND u.deleted_at IS NULL')
             ->bind(['request_id' => $request_id, 'status' => 'suspend'])
             ->get()['total'];
     }
@@ -267,7 +268,7 @@ class StudyMaterialModel extends Model
         OR m.semester LIKE :query
         OR u.username LIKE :query
         OR m.status LIKE :query)
-        AND m.deleted_at IS NULL')
+        AND u.deleted_at IS NULL')
             ->bind(['query' => '%' . $query . '%'])
             ->orderBy('m.created_at', 'DESC')
             ->limit($limit)
@@ -294,7 +295,7 @@ class StudyMaterialModel extends Model
         OR m.semester LIKE :query
         OR u.username LIKE :query
         OR m.status LIKE :query)
-        AND m.deleted_at IS NULL')
+        AND u.deleted_at IS NULL')
             ->bind(['query' => '%' . $query . '%'])
             ->get()['total'];
 
