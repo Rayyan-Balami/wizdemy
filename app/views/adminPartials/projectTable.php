@@ -38,7 +38,7 @@
           <td class="thumbnail-td">
             <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail"
             title="<?= $repo ?>">
-              <img src="https://opengraph.githubassets.com/wizdemy/<?= $repo_info ?>" alt="github repo thumbnail">
+              <img src="https://opengraph.githubassets.com/<?= SITE_NAME ?>/<?= $repo_info ?>" alt="github repo thumbnail">
             </a>
           </td>
           <td>

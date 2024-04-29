@@ -166,7 +166,7 @@ else:
 
           <?php if ($myProfile || $isCurrentUserFollower): ?>
             <?php if ($user['allow_email']): ?>
-              <a href="mailto:<?= $user['email'] ?>?subject=Love%20The%20Way%20You%20Wizdemy&body=Your%20Awsome%20Follower"
+              <a href="mailto:<?= $user['email'] ?>?subject=Love%20The%20Way%20You%20<?= SITE_NAME ?>&body=Your%20Awsome%20Follower%20<?= Session::get('user')['username'] ?>"
                 target="_blank" class="social-link-button gmail">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 193">
                   <path fill="#4285f4"

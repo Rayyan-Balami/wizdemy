@@ -444,7 +444,7 @@ function ProjectCard(
     }>
     <!-- image -->
     <a href="${repo_link}" target="_blank" class="thumbnail">
-      <img src="https://opengraph.githubassets.com/wizdemy/${repo_info}" alt="github repo thumbnail">
+      <img src="https://opengraph.githubassets.com/${SITE_NAME}/${repo_info}" alt="github repo thumbnail">
       ${suspendHTML}
     </a>
     <!-- subject | here in project card subject is rplaced with the owner of repo , but still using the subject class so that styles are not broken -->

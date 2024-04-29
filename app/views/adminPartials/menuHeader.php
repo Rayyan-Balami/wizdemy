@@ -1,6 +1,6 @@
 <main>
   <header>
-    <h1 class="logo"><a href="/">WizDemy</a></h1>
+    <h1 class="logo"><a href="/"><?= SITE_NAME ?></a></h1>
 
     <!-- search button , hamburger button  -->
     <div class="header-menu">

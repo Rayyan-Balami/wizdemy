@@ -10,7 +10,7 @@
     <div class="card project-card">
       <!-- image -->
       <a href="<?= $project['repo_link'] ?>" target="_blank" class="thumbnail">
-        <img src="https://opengraph.githubassets.com/wizdemy/<?= $repo_info ?>" alt="github repo thumbnail">
+        <img src="https://opengraph.githubassets.com/<?= SITE_NAME ?>/<?= $repo_info ?>" alt="github repo thumbnail">
 
         <?php if ($project['status'] === 'suspend'): ?>
           <div>

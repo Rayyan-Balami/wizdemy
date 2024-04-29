@@ -1,7 +1,7 @@
 <div id="side-nav">
     <!-- website name / logo -->
     <h1 class="sticky-logo"><a href="/">
-           WizDemy
+           <?= SITE_NAME ?>
         </a></h1>
 
     <!-- navigation -->

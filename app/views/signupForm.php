@@ -28,8 +28,8 @@ $flashOld = Session::get('old');
           </g>
         </svg>
       </div>
-      <h3>Progress for All: WizDemy !</h3>
-      <p>Hey Gen Z! Tired of outdated learning methods holding you back? It's time to break free with WizDemy! </p>
+      <h3>Progress for All: <?= SITE_NAME ?> !</h3>
+      <p>Hey Gen Z! Tired of outdated learning methods holding you back? It's time to break free with <?= SITE_NAME ?>! </p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -52,7 +52,7 @@ $flashOld = Session::get('old');
         <!-- email -->
         <div class="email">
           <label for="email">Email Address</label>
-          <input type="email" placeholder="WizDemy@gmail.com" required name="email" id="email"
+          <input type="email" placeholder="<?= SITE_NAME ?>@gmail.com" required name="email" id="email"
             value="<?= $flashOld['email'] ?? '' ?>" />
         </div>
         <!-- password -->
@@ -79,7 +79,7 @@ $flashOld = Session::get('old');
       <!-- share message -->
       <div class="share-message ">
         <p>
-          Share WizDemy with your friends & classmates
+          Share <?= SITE_NAME ?> with your friends & classmates
         </p>
         <div class="social-icons">
           <!-- instagram -->

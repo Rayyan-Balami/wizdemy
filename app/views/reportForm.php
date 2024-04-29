@@ -77,7 +77,7 @@ View::renderPartial('MenuHeader');
           //explode the repo_info to get the owner and repo name
           $owner = explode("/", $repo_info)[0];
           $repo = explode("/", $repo_info)[1];
-          $src = "https://opengraph.githubassets.com/wizdemy/" . $repo_info;
+          $src = "https://opengraph.githubassets.com/".SITE_NAME."/" . $repo_info;
         }
         ?>
 

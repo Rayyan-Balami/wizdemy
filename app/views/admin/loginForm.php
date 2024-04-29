@@ -26,7 +26,7 @@ $flashOld = Session::get('old');
         <!-- email -->
         <div class="email">
           <label for="$email_username">Email or Username</label>
-          <input type="text" placeholder="WizDemy@gmail.com" required name="email_username" id="email_username"
+          <input type="text" placeholder="<?= SITE_NAME ?>@gmail.com" required name="email_username" id="email_username"
             value="<?= $flashOld['email_username'] ?? ''; ?>" />
         </div>
         <!-- password -->
@@ -55,8 +55,8 @@ $flashOld = Session::get('old');
           </g>
         </svg>
       </div>
-      <h3>Rock the Future: WizDemy</h3>
-      <p> the classroom is wherever you are, and the possibilities are limitless. Join the movement, join WizDemy !</p>
+      <h3>Rock the Future: <?= SITE_NAME ?></h3>
+      <p> the classroom is wherever you are, and the possibilities are limitless. Join the movement, join <?= SITE_NAME ?> !</p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
