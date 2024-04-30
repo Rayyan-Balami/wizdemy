@@ -43,12 +43,28 @@ function getUpdateInterval(time) {
   return 86400000; // update every day (default)
 }
 
-//after ajax success call this function to update timeAgo
+// Function to convert date string to local time
+function convertToLocalTime(dateString) {
+  // Create a Date object from the provided date string
+  const date = new Date(dateString);
+
+  // Get the local timezone offset in minutes
+  const offset = date.getTimezoneOffset();
+
+  // Adjust the date by the offset to get the local time
+  date.setTime(date.getTime() - (offset * 60 * 1000));
+
+  // Return the local time as a string
+  return date.toLocaleString();
+}
+
 function updateTimeAgo() {
   const timeAgoElements = document.querySelectorAll('.time-ago');
   timeAgoElements.forEach((span) => {
-    const time = new Date(span.getAttribute('data-datetime'));
-    const timeAgo = getTimeAgo(time);
+    const time = convertToLocalTime(span.getAttribute('data-datetime'));
+    const timeAgo = getTimeAgo(new Date(time));
     span.innerHTML = timeAgo;
-  });
+  }
+  );
 }
+

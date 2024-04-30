@@ -136,7 +136,6 @@ class StudyMaterialModel extends Model
         return $this->baseQuery()
             ->where('(
                 m.material_id = :material_id
-            AND m.status <> :status
             AND u1.status <> :status
             AND u1.deleted_at IS NULL)
             ')
@@ -156,7 +155,6 @@ class StudyMaterialModel extends Model
         return $this->baseQuery()
             ->where('(
                 m.request_id = :request_id
-            AND m.status <> :status
             AND u1.status <> :status
             AND u1.deleted_at IS NULL)
             ')
@@ -251,11 +249,8 @@ class StudyMaterialModel extends Model
     {
         $limit = 10;
         $offset = ($page - 1) * $limit;
-        return $this->select([
-            'DISTINCT m.*',
-            'u.username',
-        ], 'm')
-            ->leftJoin('users as u', 'u.user_id = m.user_id')
+        
+        return $this->baseQuery()
             ->where('(
             m.title LIKE :query
         OR m.description LIKE :query
@@ -266,10 +261,11 @@ class StudyMaterialModel extends Model
         OR m.author LIKE :query
         OR m.class_faculty LIKE :query
         OR m.semester LIKE :query
-        OR u.username LIKE :query
+        OR u1.username LIKE :query
         OR m.status LIKE :query)
-        AND u.deleted_at IS NULL')
+        AND u1.deleted_at IS NULL')
             ->bind(['query' => '%' . $query . '%'])
+            ->groupBy('m.material_id')
             ->orderBy('m.created_at', 'DESC')
             ->limit($limit)
             ->offset($offset)

@@ -15,6 +15,18 @@ class BookmarkController extends Controller
     public function bookmark($material_id)
     {
         $user_id = Session::get('user')['user_id'];
+
+        // Check if the user has already bookmarkd the material
+        $isBookmarked = $this->model->isBookmarked($user_id, $material_id);
+
+        if ($isBookmarked) {
+            $this->buildJsonResponse([
+                'status' => 'error',
+                'message' => 'Material already bookmarkd'
+            ], 400);
+        }
+
+
         $bookmark = $this->model->bookmark($user_id, $material_id);
     
         if ($bookmark) {
@@ -34,6 +46,17 @@ class BookmarkController extends Controller
     public function unbookmark($material_id)
     {
         $user_id = Session::get('user')['user_id'];
+
+        // Check if the user has already bookmarkd the material
+        $isBookmarked = $this->model->isBookmarked($user_id, $material_id);
+
+        if (!$isBookmarked) {
+            $this->buildJsonResponse([
+                'status' => 'error',
+                'message' => 'Material has not been bookmarkd'
+            ], 400);
+        }
+
         $unbookmark = $this->model->unbookmark($user_id, $material_id);
         if ($unbookmark) {
             $this->buildJsonResponse([

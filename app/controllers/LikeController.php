@@ -16,6 +16,17 @@ class LikeController extends Controller
     public function like($material_id)
     {
         $user_id = Session::get('user')['user_id'];
+
+        // Check if the user has already liked the material
+        $isLiked = $this->model->isLiked($user_id, $material_id);
+
+        if ($isLiked) {
+            $this->buildJsonResponse([
+                'status' => 'error',
+                'message' => 'Material already liked'
+            ], 400);
+        }
+
         $like = $this->model->like($user_id, $material_id);
 
         if ($like) {
@@ -35,6 +46,17 @@ class LikeController extends Controller
     public function unlike($material_id)
     {
         $user_id = Session::get('user')['user_id'];
+
+        // Check if the user has already liked the material
+        $isLiked = $this->model->isLiked($user_id, $material_id);
+
+        if (!$isLiked) {
+            $this->buildJsonResponse([
+                'status' => 'error',
+                'message' => 'Material has not been liked'
+            ], 400);
+        }
+
         $unlike = $this->model->unlike($user_id, $material_id);
         if ($unlike) {
             $this->buildJsonResponse([
