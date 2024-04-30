@@ -1,21 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const timeAgoElements = document.querySelectorAll('.time-ago');
-
-  timeAgoElements.forEach((span) => {
-    const time = new Date(span.getAttribute('data-datetime'));
-    const updateInterval = getUpdateInterval(time);
-
-    const updateText = () => {
-      const timeAgo = getTimeAgo(time);
-      span.innerHTML = timeAgo;
-    };
-
-    updateText(); // Initial update
-
-    setInterval(updateText, updateInterval);
-  });
-});
-
+// Function to calculate time ago
 function getTimeAgo(time) {
   const now = new Date();
   const secondsAgo = Math.floor((now - time) / 1000);
@@ -34,6 +17,7 @@ function getTimeAgo(time) {
   return `${yearsAgo} year${yearsAgo === 1 ? '' : 's'} ago`;
 }
 
+// Function to determine update interval
 function getUpdateInterval(time) {
   const now = new Date();
   const secondsAgo = Math.floor((now - time) / 1000);
@@ -43,28 +27,19 @@ function getUpdateInterval(time) {
   return 86400000; // update every day (default)
 }
 
-// Function to convert date string to local time
-function convertToLocalTime(dateString) {
-  // Create a Date object from the provided date string
-  const date = new Date(dateString);
-
-  // Get the local timezone offset in minutes
-  const offset = date.getTimezoneOffset();
-
-  // Adjust the date by the offset to get the local time
-  date.setTime(date.getTime() - (offset * 60 * 1000));
-
-  // Return the local time as a string
-  return date.toLocaleString();
-}
-
+// Function to update time ago for elements with class 'time-ago'
 function updateTimeAgo() {
   const timeAgoElements = document.querySelectorAll('.time-ago');
   timeAgoElements.forEach((span) => {
-    const time = convertToLocalTime(span.getAttribute('data-datetime'));
-    const timeAgo = getTimeAgo(new Date(time));
-    span.innerHTML = timeAgo;
-  }
-  );
+      const time = new Date(span.getAttribute('data-datetime'));
+      const timeAgo = getTimeAgo(time);
+      span.innerHTML = timeAgo;
+  });
 }
 
+// Event listener to update time ago on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  updateTimeAgo(); // Initial update
+
+  setInterval(updateTimeAgo, 60000); // Update every minute
+});
