@@ -1,7 +1,6 @@
 // Function to calculate time ago
-function getTimeAgo(time) {
-  const now = new Date();
-  const secondsAgo = Math.floor((now - time) / 1000);
+function getTimeAgo(time, serverTime) {
+  const secondsAgo = Math.floor((serverTime - time) / 1000);
   if (secondsAgo < 60) return `Just now`;
   const minutesAgo = Math.floor(secondsAgo / 60);
   if (minutesAgo < 60) return `${minutesAgo} minute${minutesAgo === 1 ? '' : 's'} ago`;
@@ -17,29 +16,31 @@ function getTimeAgo(time) {
   return `${yearsAgo} year${yearsAgo === 1 ? '' : 's'} ago`;
 }
 
-// Function to determine update interval
-function getUpdateInterval(time) {
-  const now = new Date();
-  const secondsAgo = Math.floor((now - time) / 1000);
-  if (secondsAgo < 60) return 1000; // update every second
-  if (secondsAgo < 3600) return 60000; // update every minute
-  if (secondsAgo < 86400) return 3600000; // update every hour
-  return 86400000; // update every day (default)
-}
-
 // Function to update time ago for elements with class 'time-ago'
-function updateTimeAgo() {
+async function updateTimeAgo() {
   const timeAgoElements = document.querySelectorAll('.time-ago');
+
+  // Get server time if hosted on server then use this
+  // add echo in body attribute in layout file
+  // data-datetime = "<?= echo date('Y-m-d H:i:s'); ?>"
+  // const serverTime = new Date(document.body.getAttribute('data-datetime'));
+
+  // Get server time if hosted on Localhost then use this
+  const serverTime = new Date();
+
+  // Update time ago for each element
   timeAgoElements.forEach((span) => {
-      const time = new Date(span.getAttribute('data-datetime'));
-      const timeAgo = getTimeAgo(time);
-      span.innerHTML = timeAgo;
+    const time = new Date(span.getAttribute('data-datetime'));
+    const timeAgo = getTimeAgo(time, serverTime);
+    span.innerHTML = timeAgo;
   });
 }
+
 
 // Event listener to update time ago on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   updateTimeAgo(); // Initial update
 
-  setInterval(updateTimeAgo, 60000); // Update every minute
+  // Update time every minute
+  setInterval(updateTimeAgo, 60000);
 });
