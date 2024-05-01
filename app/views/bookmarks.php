@@ -24,9 +24,7 @@ View::renderPartial('SideNav', [
 View::renderPartial('MenuHeader');
 
 ?>
-<div class="smallClientAlert">
-For better experience, please use a larger screen.
-</div>
+
 <section>
 <?php
  if (!empty($bookmarks)):
