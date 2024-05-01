@@ -5,6 +5,9 @@
 //website config
 define('SITE_NAME', 'WizDemy');
 define('SITE_DOMAIN', $_SERVER['HTTP_HOST']);
+define('SITE_DESCRIPTION', 'WizDemy is a platform for students to share study materials, ask questions and get answers');
+define('SITE_AUTHOR', 'Rayyan Balami and Satish Chaudhary');
+define('SITE_KEYWORDS', 'study materials, questions, answers, students, education, learning, sharing');
 
 //db config
 define('DATABASE', 'mysql');// your database type
