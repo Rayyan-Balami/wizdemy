@@ -8,6 +8,7 @@
   "name": "WizDemy",
   "short_name": "WizDemy",
   "description": "WizDemy is a platform for students to share study materials, ask questions and get answers",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icons/maskable-icon.png",
