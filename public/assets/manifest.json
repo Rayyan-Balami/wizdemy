@@ -11,9 +11,9 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "icons/maskable.svg",
+      "src": "icons/maskable.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "maskable"
     },
       {

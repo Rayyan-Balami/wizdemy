@@ -45,7 +45,7 @@ $flashOld = Session::get('old');
         </h2>
         <!-- email -->
         <div class="email">
-          <label for="$email_username">Email or Username</label>
+          <label for="email_username">Email or Username</label>
           <input type="text" placeholder="<?= SITE_NAME ?>@gmail.com" required name="email_username" id="email_username"
             value="<?= $flashOld['email_username'] ?? ''; ?>" />
         </div>
