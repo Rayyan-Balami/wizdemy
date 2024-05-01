@@ -60,7 +60,7 @@
         <p><a href="<?= isset($page) && $page === 'profile' ? '#' : '/profile?id=' . $project['user_id'] ?>"
             class="time-ago" data-datetime="<?= $project['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" data-copy-link="<?= $project['repo_link'] ?>"
+                <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu" data-copy-link="<?= $project['repo_link'] ?>"
           data-info-link="/api/info/project/<?= $project['project_id'] ?>"
           data-report-link="/report/project/<?= $project['project_id'] ?>">
 

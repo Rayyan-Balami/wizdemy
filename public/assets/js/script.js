@@ -170,7 +170,7 @@ function RequestCard(
     }" class="time-ago" data-datetime="${created_at}"></a>
     </a></p>
       <!-- three dot icon -->
-      <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+              <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu"
       ${page == "profile"
       ? `
       data-card-id="${request_id}"
@@ -351,7 +351,7 @@ function MaterialCard(
     <p><a href="${page == "profile" ? "#" : `/profile/${user_id}`
     }" class="time-ago" data-datetime="${created_at}"></a></p>
     <!-- three dot icon -->
-    <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+            <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu"
     ${page == "profile"
       ? `
     data-card-id="${material_id}"
@@ -480,7 +480,7 @@ function ProjectCard(
     }" class="time-ago"
           data-datetime="${created_at}"></a></p>
       <!-- three dot icon -->
-      <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+              <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu"
       ${page == "profile"
       ? `
       data-card-id="${project_id}"
@@ -620,7 +620,7 @@ function UserCard(
             </div>
           </div>
          
-          <button class="copy-link" 
+          <button class="copy-link" title="copy profile button" aria-label="copy profile link button"
             data-copy-link="${SITE_DOMAIN}/profile/${user_id}"
             onclick="event.preventDefault();copyLink(this)">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9.25 3.5A1.75 1.75 0 0 0 7.5 5.25v1a.75.75 0 0 1-1.5 0v-1A3.25 3.25 0 0 1 9.25 2h1a.75.75 0 0 1 0 1.5zM12 2.75a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75m.75 13.75a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5zm-6-8.5a.75.75 0 0 1 .75.75v2.5a.75.75 0 0 1-1.5 0v-2.5A.75.75 0 0 1 6.75 8M22 8.75a.75.75 0 0 0-1.5 0v2.5a.75.75 0 0 0 1.5 0zm-3.25 7.75a1.75 1.75 0 0 0 1.75-1.75v-1a.75.75 0 0 1 1.5 0v1A3.25 3.25 0 0 1 18.75 18h-1a.75.75 0 0 1 0-1.5zM20.5 5.25a1.75 1.75 0 0 0-1.75-1.75h-1a.75.75 0 0 1 0-1.5h1A3.25 3.25 0 0 1 22 5.25v1a.75.75 0 0 1-1.5 0zM9.25 16.5a1.75 1.75 0 0 1-1.75-1.75v-1a.75.75 0 0 0-1.5 0v1A3.25 3.25 0 0 0 9.25 18h1a.75.75 0 0 0 0-1.5zM2 9.25a3.25 3.25 0 0 1 3-3.24v1.508A1.75 1.75 0 0 0 3.5 9.25v7a4.25 4.25 0 0 0 4.25 4.25h7a1.75 1.75 0 0 0 1.732-1.5h1.509a3.25 3.25 0 0 1-3.241 3h-7A5.75 5.75 0 0 1 2 16.25z"/></svg>

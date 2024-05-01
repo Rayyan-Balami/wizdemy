@@ -16,7 +16,7 @@
     <!-- search button , hamburger button  -->
     <div class="header-menu">
       <!-- search button -->
-      <button id="search" onclick="openSearchModal()" class="search-button">
+      <button id="search" onclick="openSearchModal()" class="search-button" title="search button">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -31,7 +31,7 @@
         <!-- upload, request, add project link -->
         <div class="h-links-wrapper">
           <!-- upload link -->
-          <a href="/material/create" class="h-link <?= isset($currentPage) && $currentPage === 'uploadForm' ? 'active-header-menu' : ''; ?>">
+          <a href="/material/create" aria-label="upload study material link" class="h-link  <?= isset($currentPage) && $currentPage === 'uploadForm' ? 'active-header-menu' : ''; ?>">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -47,7 +47,7 @@
             <span>Upload</span>
           </a>
           <!-- request link -->
-          <a href="/request/create" class="h-link <?= isset($currentPage) && $currentPage === 'requestForm' ? 'active-header-menu' : ''; ?>">
+          <a href="/request/create" aria-label="request study material link" class="h-link  <?= isset($currentPage) && $currentPage === 'requestForm' ? 'active-header-menu' : ''; ?>">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -63,7 +63,7 @@
             <span>request</span>
           </a>
           <!-- add project link -->
-          <a href="/project/create" class="h-link <?= isset($currentPage) && $currentPage === 'projectForm' ? 'active-header-menu' : ''; ?>">
+          <a href="/project/create" aria-label="upload github project link" class="h-link <?= isset($currentPage) && $currentPage === 'projectForm' ? 'active-header-menu' : ''; ?>">
             <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -88,7 +88,7 @@
         </div>
 
       <!-- hamburger button for mobile -->
-      <button id="hamburger" onclick="toggleSideNav()" class="hamburger-button">
+      <button id="hamburger" onclick="toggleSideNav()" class="hamburger-button" title="three dot menu">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
             d="M4 5h16M4 12h16m-7 7h7" />

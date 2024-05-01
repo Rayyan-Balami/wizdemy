@@ -68,7 +68,7 @@ View::renderPartial('MenuHeader', [
 
         <!-- title (required)-->
         <div class="title">
-            <label for="repoLink">Repository Link</label>
+            <label for="url">Repository Link</label>
             <input type="url" id="url" name="repo-link" required
                 value="<?= $flashOld['repo-link'] ?? '' ?>" />
         </div>

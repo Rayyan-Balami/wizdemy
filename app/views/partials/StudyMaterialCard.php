@@ -122,7 +122,7 @@
         <p><a href="<?= isset($page) && $page === 'profile' ? '#' : '/profile/' . $material['user_id'] ?>"
             class="time-ago" data-datetime="<?= $material['created_at'] ?>"></a></p>
         <!-- three dot icon -->
-        <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+                <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu" title="three dot menu"
         <?php if (isset($myProfile) && $myProfile === true): ?>
           data-card-id="<?= $material['material_id'] ?>"
           data-edit-link="<?= '/material/edit/' . $material['material_id'] ?>"

@@ -55,8 +55,8 @@ $flashOld = Session::get('old');
           </g>
         </svg>
       </div>
-      <h3>Rock the Future: <?= SITE_NAME ?></h3>
-      <p> the classroom is wherever you are, and the possibilities are limitless. Join the movement, join <?= SITE_NAME ?> !</p>
+      <h3>Admin Portal : <?= SITE_NAME ?></h3>
+      <p>Powerful People Make Places Powerful . <?= SITE_NAME ?> Admins!</p>
       <a href="#">Read more about our app
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

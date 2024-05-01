@@ -1,7 +1,10 @@
 <?php
 
 View::renderPartial('Header', [
-    'pageTitle' => SITE_NAME . ' | Material',
+    'pageTitle' =>  $material['title'] . ' | ' . SITE_NAME,
+    'pageDescription' => $material['title'] . ' | From : ' . SITE_NAME,
+    'pageKeywords' => 'study, materials, ' . $material['subject'] . ', ' . $material['title'],
+    'ogImage' => '/'. $material['thumbnail_path'],
     'stylesheets' => [
         'viewMaterial',
         'statusAndZeroResult'
@@ -69,7 +72,7 @@ else: ?>
                         <p><a href="<?= '/profile/' . $material['user_id'] ?>" class="time-ago"
                                 data-datetime="<?= $material['created_at'] ?>"></a></p>
                         <!-- three dot icon -->
-                        <button class="three-dot-icon" onclick="openThreeDotMenu(this)"
+                                <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu"
                         data-report-link="/report/material/<?= $material['material_id'] ?>"
                             data-info-link="/api/info/material/<?= $material['material_id'] ?>"
                             data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
@@ -351,13 +354,13 @@ else: ?>
 
         <!-- pdf section  -->
         <div class="pdf-section">
-            <iframe src="/<?= $material['file_path'] ?>#view=FitH" loading="lazy"></iframe>
+            <iframe src="/<?= $material['file_path'] ?>#view=FitH" loading="lazy" title="study material pdf"></iframe>
         </div>
 
 
         <!--write comments form  -->
         <form id="comment-form" action="#" onsubmit="return false">
-            <label for="comment"><span>Write a comment : </span>
+            <label><span>Write a comment : </span>
                 <div>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

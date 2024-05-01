@@ -73,7 +73,7 @@ $flashOld = Session::get('old');
         </p>
         <div class="social-icons">
           <!-- instagram -->
-          <a href="#">
+          <a href="https://www.instagram.com/direct" target="_blank">
             <svg viewBox="0 0 3364.7 3364.7" xmlns="http://www.w3.org/2000/svg" fill="#000000">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -101,7 +101,7 @@ $flashOld = Session::get('old');
             </svg>
           </a>
           <!-- messenger -->
-          <a href="#">
+          <a href="https://www.messenger.com/t/" target="_blank">
             <svg viewBox="48.61 50.201 402.77399999999994 402.77399999999994" xmlns="http://www.w3.org/2000/svg"
               fill="#000000">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -123,14 +123,14 @@ $flashOld = Session::get('old');
             </svg>
           </a>
           <!-- twitter -->
-          <a href="#">
+          <a href="https://twitter.com/messages/compose?recipient_id=" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path fill="currentColor"
                 d="M9.294 6.928L14.357 1h-1.2L8.762 6.147L5.25 1H1.2l5.31 7.784L1.2 15h1.2l4.642-5.436L10.751 15h4.05zM7.651 8.852l-.538-.775L2.832 1.91h1.843l3.454 4.977l.538.775l4.491 6.47h-1.843z" />
             </svg>
           </a>
           <!-- discord -->
-          <a href="#">
+          <a href="https://discord.com/channels/@me" target="_blank">
             <svg viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

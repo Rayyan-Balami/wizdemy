@@ -32,7 +32,7 @@
       </div>
 
       <!-- hamburger button for mobile -->
-      <button id="hamburger" onclick="toggleSideNav()" class="hamburger-button">
+      <button id="hamburger" onclick="toggleSideNav()" class="hamburger-button" title="three dot menu">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
             d="M4 5h16M4 12h16m-7 7h7" />
