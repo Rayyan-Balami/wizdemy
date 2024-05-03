@@ -161,7 +161,7 @@ async function infiniteScroll(
       finished = true;
     }
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   } finally {
     loading = false;
     spinner.style.display = "none";
