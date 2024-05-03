@@ -157,7 +157,7 @@ const educationLevelSelect = document.getElementById('educationLevel');
 const semesterSelect = document.getElementById('semester');
 const parentDiv = semesterSelect?.parentElement;
 
-educationLevelSelect?.addEventListener('change', () => {
+function handleEducationLevelChange() {
   if (educationLevelSelect.value === 'school' || educationLevelSelect.value === '+2') {
     //select the 1st option ( 1st option is 'Select Semester')
     semesterSelect.selectedIndex = 0;
@@ -169,4 +169,10 @@ educationLevelSelect?.addEventListener('change', () => {
     semesterSelect.disabled = false;
     parentDiv.style.opacity = 'initial';
   }
-});
+}
+
+// Listen for change events
+educationLevelSelect?.addEventListener('change', handleEducationLevelChange);
+
+// Call the function immediately to handle the case where a value is already selected
+handleEducationLevelChange();
