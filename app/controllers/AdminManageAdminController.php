@@ -89,7 +89,7 @@ class AdminManageAdminController extends Controller
 
 
     if ($result['status']) {
-      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $admin_id, 'admin', 'Insert new admin');
+      (new AdminActionLogModel())->log(Session::get('admin')['admin_id'], $result['admin_id'], 'admin', 'Insert new admin');
       Session::flash('success', ['addAdmin' => $result['message']]);
       $this->redirect('/admin/manage/admin');
     } else {

@@ -289,10 +289,17 @@ class AdminModel extends Model
       'password' => password_hash($password, PASSWORD_DEFAULT)
     ])->execute();
 
+    //select the newly added admin to get the admin_id
+    $admin = $this->select(['admin_id'])
+      ->where('username = :username AND email = :email')
+      ->bind(['username' => $username, 'email' => $email])
+      ->get();
+
     if ($result) {
       return [
         'status' => true,
-        'message' => 'Admin added successfully'
+        'message' => 'Admin added successfully',
+        'admin_id' => $admin['admin_id']
       ];
     } else {
       return [
