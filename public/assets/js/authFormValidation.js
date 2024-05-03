@@ -165,7 +165,9 @@ function handleEducationLevelChange() {
     semesterSelect.disabled = true;
     // Make opacity 0.5
     parentDiv.style.opacity = '0.5';
+    semesterSelect.required = false;
   } else {
+    semesterSelect.required = true;
     semesterSelect.disabled = false;
     parentDiv.style.opacity = 'initial';
   }
