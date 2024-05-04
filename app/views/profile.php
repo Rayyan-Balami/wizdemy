@@ -2,8 +2,8 @@
 
 View::renderPartial('Header', [
   'pageTitle' => SITE_NAME . ($myProfile ? ' | MyProfile' : ' | Profile'),
-  'pageDescription' => 'View ' . $user['username'] . ' profile and uploads',
-  'pageKeywords' => 'profile, uploads, ' . $user['username'],
+  'pageDescription' => 'View ' . ($user ? $user['username'] : 'User') . ' profile and uploads',
+  'pageKeywords' => 'profile, uploads, ' . ($user ? $user['username'] : 'User'),
   'stylesheets' => [
     'profile',
     'statusAndZeroResult'

@@ -1,10 +1,10 @@
 <?php
 
 View::renderPartial('Header', [
-    'pageTitle' =>  $material['title'] . ' | ' . SITE_NAME,
-    'pageDescription' => $material['title'] . ' | From : ' . SITE_NAME,
-    'pageKeywords' => 'study, materials, ' . $material['subject'] . ', ' . $material['title'],
-    'ogImage' => '/'. $material['thumbnail_path'],
+    'pageTitle' => ($material['title'] ?? 'Material') . ' | ' . SITE_NAME,
+    'pageDescription' => ($material['title'] ?? 'Material') . ' | From : ' . SITE_NAME,
+    'pageKeywords' => 'study, materials, ' . ($material['subject'] ?? 'Material') . ', ' . ($material['title'] ?? 'Material'),
+    'ogImage' => '/' . ($material['thumbnail_path'] ?? 'Material'),
     'stylesheets' => [
         'viewMaterial',
         'statusAndZeroResult'
@@ -72,8 +72,8 @@ else: ?>
                         <p><a href="<?= '/profile/' . $material['user_id'] ?>" class="time-ago"
                                 data-datetime="<?= $material['created_at'] ?>"></a></p>
                         <!-- three dot icon -->
-                                <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu"
-                        data-report-link="/report/material/<?= $material['material_id'] ?>"
+                        <button class="three-dot-icon" onclick="openThreeDotMenu(this)" title="three dot menu"
+                            data-report-link="/report/material/<?= $material['material_id'] ?>"
                             data-info-link="/api/info/material/<?= $material['material_id'] ?>"
                             data-copy-link="<?= SITE_DOMAIN . '/material/view/' . $material['material_id'] ?>">
 
@@ -264,9 +264,8 @@ else: ?>
                 </div>
             </div>
             <!-- info/ description -->
-            <div
-            data-info-link="/api/info/material/<?= $material['material_id'] ?>"
-            class="meta-data meta-data-clickable" onclick="toggleSideInfo(this)">
+            <div data-info-link="/api/info/material/<?= $material['material_id'] ?>" class="meta-data meta-data-clickable"
+                onclick="toggleSideInfo(this)">
                 <span>
                     <svg fill="currentColor" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
