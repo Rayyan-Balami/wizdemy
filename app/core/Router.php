@@ -122,13 +122,7 @@ class Router
                 return;
             }
         }
-        $this->abort(); // this will be called if no route is found
+        abort(); // this will be called if no route is found
     }
 
-    public function abort($status = '404')
-    {
-        http_response_code($status);
-        require_once base_path('app/views/status.php');
-        die();
-    }
 }

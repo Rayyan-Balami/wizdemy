@@ -1,6 +1,5 @@
 <?php
 
-
 function dd( $value ) {
   echo '<pre>';
   var_dump($value);
@@ -18,16 +17,9 @@ function urlContains( $url ) {
 
 function abort( $status = '404') {
   http_response_code($status);
-  require_once base_path('views/status.php');
+  require_once base_path('app/views/status.php');
   die();
 }
-
-
-// function authorize( $condition, $status = 403) {
-//   if(!$condition){
-//     abort($status);
-//   }
-// }
 
 function base_path( $path ) {
   return BASE_PATH . $path;

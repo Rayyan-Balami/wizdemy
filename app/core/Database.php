@@ -6,6 +6,7 @@ class Database
   protected $statement;
   
 
+  // We have used PDO (PHP Data Objects) to connect to the database.
   protected function __construct(){
     try {
       $dsn = $this->buildDsn();

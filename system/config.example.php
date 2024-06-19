@@ -9,6 +9,9 @@ define('SITE_DESCRIPTION', 'WizDemy is a platform for students to share study ma
 define('SITE_AUTHOR', 'Rayyan Balami and Satish Chaudhary');
 define('SITE_KEYWORDS', 'study materials, questions, answers, students, education, learning, sharing');
 
+//current status
+define('STATUS', 'development');// development or production or maintenance
+
 //db config
 define('DATABASE', 'mysql');// your database type
 define('DB_HOST', 'localhost');// your database host
