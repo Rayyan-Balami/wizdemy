@@ -42,12 +42,19 @@ To contribute to WIZDEMY, follow these steps:
 
 1. Fork the repository
 2. Clone the repository to your local machine
-
+   with docker:
+   ```bash
+   docker-compose up
+   ```
+   without docker:
    ```bash
    git clone <your-fork-url>
    ```
 
 3. Configure the project
+
+
+   without docker:
 
    ```bash
    cd wizdemy
@@ -66,6 +73,21 @@ To contribute to WIZDEMY, follow these steps:
 
    Update the database configuration in `system/config.php` with your database credentials.
 
+   with docker:
+
+   ```bash
+   cd wizdemy/system && cp config.example.php config.php
+   ```
+   Update the database configuration in `system/config.php` with the following credentials:
+   
+   also update the database configuration in `docker-compose.yml` with the following credentials:
+   ```bash
+   # everything else is the same
+   ---
+   MYSQL_ROOT_PASSWORD: <your-password>
+   --
+   # everything else is the same
+   ```
 4. Create a new branch for your changes
 
    ```bash
