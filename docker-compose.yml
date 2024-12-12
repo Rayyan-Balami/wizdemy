@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: php_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: satish
+      MYSQL_DATABASE: wizdemy
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./wizdemy.sql:/docker-entrypoint-initdb.d/database.sql
+
+volumes:
+  db_data:
