@@ -1,17 +1,15 @@
 RewriteEngine On
 
-# Serve files from the 'public' directory
-RewriteCond %{REQUEST_URI} !^/public/
-RewriteRule ^(.*)$ /public/$1 [L]
+# Exclude public/ and uploads/ from redirection
+RewriteCond %{REQUEST_URI} !^/public/ [NC]
+RewriteCond %{REQUEST_URI} !^/uploads/ [NC]
 
-# Allow uploads to the 'uploads' folder
-<IfModule mod_rewrite.c>
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^uploads/(.*)$ /uploads/$1 [L]
-</IfModule>
-
-
+# Check if the requested file or directory exists
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php [QSA,L]
+
+# Redirect everything to public/index.php
+RewriteRule ^(.*)$ /public/index.php [QSA,L]
+
+# Ensure root URL redirects to public/index.php
+DirectoryIndex public/index.php
